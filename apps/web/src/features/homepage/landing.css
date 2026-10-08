@@ -126,10 +126,14 @@
 	--graphite: oklch(0.38 0.01 95 / 0.3);
 	/* Horizontal motion that points somewhere (slides, flights) is multiplied by this so it mirrors in RTL. */
 	--dir: 1;
+	/* How dark Share's sky is while it's on screen; the engine writes it. */
+	--nt: 0;
 }
 
 .dark .landing {
-	--paper-shadow: 0 1px 2px oklch(0 0 0 / 0.5), 0 40px 80px -30px oklch(0 0 0 / 0.8);
+	/* Paper under a dark room's light: a warm grey, not a glaring white. */
+	--paper: oklch(0.93 0.008 90);
+	--paper-shadow: 0 1px 2px oklch(0 0 0 / 0.45), 0 30px 60px -28px oklch(0 0 0 / 0.65);
 	--graphite: oklch(0.9 0.01 95 / 0.18);
 }
 
@@ -224,11 +228,36 @@
 	}
 }
 
-/* A character of Write's suggested line: highlighted and underlined until the suggestion is accepted (--cl). */
+/* A typed character that carries the caret while it's the last one typed (--typed-step is one character's share). */
+@utility typed-caret {
+	position: relative;
+
+	&::after {
+		content: "";
+		position: absolute;
+		inset-inline-end: -0.07em;
+		top: 0.16em;
+		bottom: 0.1em;
+		width: 0.07em;
+		background: var(--caret, currentColor);
+		opacity: calc(
+			clamp(0, (var(--typed) - var(--f)) * var(--typed-rate, 90), 1) *
+				(1 - clamp(0, (var(--typed) - var(--f) - var(--typed-step)) * var(--typed-rate, 90), 1))
+		);
+	}
+}
+
+/*
+ * A character of Write's suggested line: highlighted and underlined until the suggestion is accepted (--cl). The
+ * underline is painted as a background line, because a text underline skips the spaces typed between words.
+ */
 @utility typed-suggestion {
-	background: color-mix(in oklch, oklch(0.93 0.05 150) calc((1 - var(--cl)) * 100%), transparent);
-	text-decoration: underline 2px color-mix(in oklch, oklch(0.5 0.1 150) calc((1 - var(--cl)) * 100%), transparent);
-	text-underline-offset: 0.22em;
+	--underline: color-mix(in oklch, oklch(0.5 0.1 150) calc((1 - var(--cl)) * 100%), transparent);
+	background-color: color-mix(in oklch, oklch(0.93 0.05 150) calc((1 - var(--cl)) * 100%), transparent);
+	background-image: linear-gradient(var(--underline), var(--underline));
+	background-size: 100% 2px;
+	background-position: 0 100%;
+	background-repeat: no-repeat;
 }
 
 /* A keyword on the demo resume that lights up when the Tailor scene matches it (--k from 0 to 1). */
@@ -254,7 +283,12 @@
 	background-image:
 		repeating-linear-gradient(0deg, oklch(0.6 0.1 150 / 0.1) 0 1px, transparent 1px 4cqw),
 		repeating-linear-gradient(90deg, oklch(0.6 0.1 150 / 0.1) 0 1px, transparent 1px 4cqw);
-	clip-path: circle(16cqw at var(--lx, 50%) var(--ly, 16%));
+	clip-path: circle(11cqw at var(--lx, 50%) var(--ly, 16%));
+}
+
+/* Ink that turns light as Share's night falls (--nt) and back as it lifts, whatever the theme. */
+@utility night-ink {
+	color: color-mix(in oklch, oklch(0.95 0.01 95) calc(var(--nt, 0) * 100%), var(--ink));
 }
 
 /* The header's tapered backdrop: solid under the bar, fading out below it. */
@@ -399,5 +433,44 @@
 		& [data-note]::after {
 			transition: none;
 		}
+	}
+}
+
+/* Paper is white in both themes, so controls drawn on it take the light theme's ink, lines and accent. */
+@utility on-paper {
+	--bg: oklch(0.975 0.005 95);
+	--surface: oklch(0.995 0.002 95);
+	--raised: oklch(1 0 0);
+	--sunken: oklch(0.952 0.006 95);
+	--line: oklch(0.9 0.006 95);
+	--line-2: oklch(0.82 0.008 95);
+	--ink: oklch(0.22 0.01 95);
+	--ink-2: oklch(0.42 0.01 95);
+	--ink-3: oklch(0.53 0.01 95);
+	--accent: oklch(0.5 0.1 150);
+	--on-accent: oklch(0.99 0.01 150);
+	--accent-soft: oklch(0.94 0.035 150);
+	--accent-text: oklch(0.42 0.1 150);
+	--warn-soft: oklch(0.95 0.045 85);
+	--warn-text: oklch(0.48 0.1 70);
+	--hover: oklch(0.22 0.01 95 / 0.05);
+	--shadow-2: 0 1px 2px oklch(0.2 0.01 95 / 0.06), 0 10px 28px -8px oklch(0.2 0.01 95 / 0.18);
+	color: oklch(0.28 0.01 95);
+}
+
+/* 07 Remember: a sentence of a redrafted answer settling in, one after another (--i). */
+@utility remember-settle {
+	animation: landing-settle 0.5s var(--ease) calc(var(--i, 0) * 90ms) backwards;
+
+	@media (prefers-reduced-motion: reduce) {
+		animation: none;
+	}
+}
+
+@keyframes landing-settle {
+	from {
+		opacity: 0;
+		filter: blur(4px);
+		translate: 0 0.25em;
 	}
 }

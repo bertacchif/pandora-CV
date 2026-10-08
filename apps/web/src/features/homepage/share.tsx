@@ -13,10 +13,10 @@ const ADDRESS = "rxresu.me/alex-morgan";
 const SLUG_START = ADDRESS.indexOf("/") + 1;
 
 /**
- * Colours that go from the day palette to the night sky's as --nt rises, so the text keeps its contrast however far
- * the night has faded in (and, under reduced motion, the scene rests at night).
+ * Colours that switch from the day palette to the night sky's once the sky is half dark (--nts), rather than passing
+ * through greys that make the controls look disabled. Under reduced motion the scene rests at night.
  */
-const byNight = (day: string, night: string) => `color-mix(in oklch, ${day}, ${night} calc(var(--nt) * 100%))`;
+const byNight = (day: string, night: string) => `color-mix(in oklch, ${day}, ${night} calc(var(--nts) * 100%))`;
 const nightPalette = {
 	"--night-ink": byNight("var(--ink)", "oklch(0.95 0.01 95)"),
 	"--night-ink-2": byNight("var(--ink-2)", "oklch(0.9 0.01 95)"),
@@ -40,7 +40,7 @@ const stars = (() => {
 		left: `${(random() * 100).toFixed(2)}%`,
 		top: `${(random() * 100).toFixed(2)}%`,
 		size: `${(1 + random() * 1.8).toFixed(1)}px`,
-		opacity: Number((0.25 + random() * 0.6).toFixed(2)),
+		opacity: Number((0.45 + random() * 0.55).toFixed(2)),
 	}));
 })();
 
@@ -79,15 +79,21 @@ export function Share() {
 			data-scene={SCENE.share}
 			data-pin
 			aria-labelledby="share-title"
-			className="relative h-[240vh] motion-reduce:h-svh min-[900px]:h-[300vh]"
+			className="relative h-[240vh] motion-reduce:h-svh motion-reduce:[--nt:1] min-[900px]:h-[300vh]"
 		>
+			{/* --nt, the night, comes from the scroll engine (shareNight), which also hands it to the header. */}
 			<div
-				className="sticky top-0 h-svh overflow-hidden [--f1:clamp(0,(var(--p)-.62)*14,1)] [--f2:clamp(0,(var(--p)-.68)*14,1)] [--f3:clamp(0,(var(--p)-.74)*14,1)] [--fl:clamp(0,(var(--p)-.1)/.34,1)] [--nt:calc(clamp(0,var(--p)*7,1)*(1-clamp(0,(var(--p)-.9)*12,1)))] [--pw:min(40vw,26vh)] [--tu:clamp(0,(var(--p)-.34)/.22,1)] [--ui:clamp(0,(var(--p)-.58)*8,1)] motion-reduce:[--nt:1] min-[900px]:[--pw:min(22vw,42vh)]"
+				className="sticky top-0 h-svh overflow-hidden [--f1:clamp(0,(var(--p)-.62)*14,1)] [--f2:clamp(0,(var(--p)-.68)*14,1)] [--f3:clamp(0,(var(--p)-.74)*14,1)] [--fl:clamp(0,(var(--p)-.1)/.34,1)] [--nts:clamp(0,(var(--nt)-.5)*1000,1)] [--pw:min(40vw,26vh)] [--tu:clamp(0,(var(--p)-.34)/.22,1)] [--ui:clamp(0,(var(--p)-.58)*8,1)] min-[900px]:[--pw:min(22vw,42vh)]"
 				style={nightPalette}
 			>
+				{/* Twilight, strongest halfway through the night's fade: dusk as it falls, dawn as it lifts into Prepare. */}
 				<div
 					aria-hidden="true"
-					className="absolute inset-0 bg-[radial-gradient(120%_90%_at_70%_0%,oklch(0.24_0.03_265),oklch(0.15_0.02_265)_60%)] opacity-(--nt)"
+					className="absolute inset-0 bg-[linear-gradient(to_bottom,oklch(0.78_0.05_255),oklch(0.93_0.05_65))] opacity-[calc(var(--nt)*(1-var(--nt))*4)] dark:bg-[linear-gradient(to_bottom,oklch(0.28_0.04_260),oklch(0.36_0.05_45))]"
+				/>
+				<div
+					aria-hidden="true"
+					className="absolute inset-0 bg-[radial-gradient(120%_90%_at_70%_0%,oklch(0.21_0.05_266),oklch(0.1_0.035_268)_62%)] opacity-(--nt)"
 				/>
 				<div aria-hidden="true" className="absolute inset-0 [transform:translateY(calc(var(--p)*-8vh))] opacity-(--nt)">
 					{stars.map((star) => (
@@ -109,7 +115,7 @@ export function Share() {
 					aria-hidden="true"
 					viewBox="0 0 100 100"
 					preserveAspectRatio="none"
-					className="absolute inset-0 size-full opacity-[calc(var(--nt)*.7)] rtl:-scale-x-100"
+					className="absolute inset-0 size-full opacity-[calc(var(--nt)*.7*(1-clamp(0,(var(--p)-.36)*6,1)))] rtl:-scale-x-100"
 				>
 					<path
 						d="M50 50 Q73 50 96 -20"
@@ -123,7 +129,7 @@ export function Share() {
 					/>
 				</svg>
 
-				<div className="absolute top-1/2 left-1/2 aspect-[612/792] w-(--pw) [transform:translate(-50%,-50%)_translate(calc(var(--dir)*var(--fl)*46vw),calc(var(--fl)*var(--fl)*-70vh))_rotate(calc(var(--dir)*var(--fl)*26deg))_scale(calc(1-var(--fl)*.78))] rounded-[2px] opacity-[calc(1-clamp(0,(var(--fl)-.82)*6,1))] shadow-paper [transition:transform_.35s_var(--ease)]">
+				<div className="absolute top-1/2 left-1/2 aspect-[612/792] w-(--pw) [transform:translate(-50%,-50%)_translate(calc(var(--dir)*var(--fl)*46vw),calc(var(--fl)*var(--fl)*-70vh))_rotate(calc(var(--dir)*var(--fl)*26deg))_scale(calc(1-var(--fl)*.78))] rounded-[2px] opacity-[calc(clamp(0,var(--p)*20,1)*(1-clamp(0,(var(--fl)-.6)*4,1)))] shadow-paper [transition:transform_.35s_var(--ease)]">
 					<Sheet />
 				</div>
 
@@ -149,16 +155,14 @@ export function Share() {
 							className="me-[.2em] text-(--night-accent) opacity-[clamp(0,var(--tu)*20,1)]"
 							style={{ fontSize: ".6em" }}
 						/>
+						{/* The caret rides on the last character typed. */}
 						<TypedText
 							text={ADDRESS}
 							progress="--tu"
 							rate={60}
-							className={cn("[overflow-wrap:anywhere]", isPrivate && "line-through")}
+							className={cn("[overflow-wrap:anywhere] [--caret:var(--night-accent)]", isPrivate && "line-through")}
+							charClassName="typed-caret"
 							charStyle={(index) => (index >= SLUG_START ? { color: "var(--night-accent)" } : undefined)}
-						/>
-						<span
-							aria-hidden="true"
-							className="ms-[.05em] h-[.82em] w-[.07em] bg-(--night-accent) opacity-[clamp(0,var(--tu)*20,1)]"
 						/>
 					</h2>
 
@@ -179,7 +183,7 @@ export function Share() {
 								<label key={label} className="contents">
 									<SegmentedControlItem
 										value={index}
-										className="h-[34px] flex-none rounded-full px-3.5 font-ui text-(--night-ink-2) duration-300 hover:text-(--night-ink) data-checked:bg-(--night-ink) data-checked:text-(--night-on-ink) data-checked:shadow-none"
+										className="h-[34px] flex-none rounded-full px-3.5 font-ui text-(--night-ink-2) duration-300 not-data-checked:hover:text-(--night-ink) data-checked:bg-(--night-ink) data-checked:text-(--night-on-ink) data-checked:shadow-none"
 									>
 										<Icon name={visibilityIcons[index] ?? "globe-hemisphere-west"} size={17} />
 										{label}
@@ -214,7 +218,7 @@ export function Share() {
 					</ul>
 				</div>
 
-				<div className="absolute start-(--gutter) bottom-[clamp(20px,5vh,44px)] flex max-w-[90vw] flex-col gap-2.5 opacity-[clamp(0,(var(--p)-.2)*6,1)] min-[900px]:max-w-[min(28em,34vw)]">
+				<div className="absolute start-(--gutter) bottom-[clamp(20px,5vh,44px)] flex max-w-[90vw] flex-col gap-2.5 min-[900px]:max-w-[min(28em,34vw)]">
 					<span className={cn(labelClass, "text-(--night-label)")}>05 / {share}</span>
 					<p className="min-[900px]:short:hidden font-display text-base leading-[1.45] text-pretty text-(--night-ink) min-[900px]:text-[clamp(17px,1.35vw,20px)]">
 						{t`Share a public link, add a password or keep it private. Choose from 3 visibility options. Export to PDF or Word, or take all your data with you as JSON.`}

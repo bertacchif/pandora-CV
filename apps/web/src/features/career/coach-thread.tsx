@@ -671,7 +671,17 @@ function UsedChips({ used, applications, knowledge }: UsedChipsProps) {
 		);
 	if (used.preferences)
 		chips.push(
-			<UsedChip key="preferences" label={t`Preferences`} title={t`Preferences`}>
+			<UsedChip
+				key="preferences"
+				label={t({
+					message: "Preferences",
+					context: "Career preferences: the roles, places, pay and ways of working you want",
+				})}
+				title={t({
+					message: "Preferences",
+					context: "Career preferences: the roles, places, pay and ways of working you want",
+				})}
+			>
 				<PreferencesList />
 			</UsedChip>,
 		);

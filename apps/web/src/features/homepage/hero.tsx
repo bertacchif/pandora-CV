@@ -145,10 +145,10 @@ export function Hero() {
 			data-scene={SCENE.hero}
 			data-pin
 			aria-labelledby="hero-title"
-			className="relative h-[190vh] motion-reduce:h-svh min-[900px]:h-[260vh]"
+			className="relative h-[170vh] motion-reduce:h-svh min-[900px]:h-[220vh]"
 		>
 			{/* --pt is the page's centre. Below 900px it sits under the stacked headline (128px + three 10vw lines). */}
-			<div className="min-[900px]:short:[--pw:min(24vw,40vh)] sticky top-0 h-svh overflow-hidden [--e2:clamp(0,(var(--p)-.14)/.36,1)] [--e:clamp(0,(var(--p)-.03)/.36,1)] [--pt:calc(144px+30vw+var(--pw)*.647)] [--pw:min(46vw,30vh)] motion-reduce:[--ld:1] min-[900px]:[--pt:50%] min-[900px]:[--pw:min(24vw,46vh)]">
+			<div className="min-[900px]:short:[--pw:min(24vw,40vh)] sticky top-0 h-svh overflow-hidden [--e2:clamp(0,(var(--p)-.16)/.6,1)] [--e:clamp(0,(var(--p)-.03)/.5,1)] [--pt:calc(144px+30vw+var(--pw)*.647)] [--pw:min(46vw,30vh)] motion-reduce:[--ld:1] min-[900px]:[--pt:50%] min-[900px]:[--pw:min(24vw,46vh)]">
 				<svg aria-hidden="true" width="0" height="0" className="absolute">
 					<filter id="landing-pencil" x="-5%" y="-5%" width="110%" height="110%">
 						<feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves={2} seed={4} />
@@ -248,7 +248,7 @@ export function Hero() {
 
 				<div className="absolute inset-x-(--gutter) bottom-[clamp(20px,4vh,40px)] z-2 flex flex-wrap items-end justify-between gap-x-8 gap-y-4">
 					<p className="max-w-full font-display text-base leading-[1.45] text-pretty text-ink-2 min-[900px]:max-w-[min(25em,calc(50vw-var(--pw)/2-5vw))] min-[900px]:text-[clamp(17px,1.3vw,20px)]">
-						{t`Reactive Resume is a free, open-source resume builder. Write it, design it, check it and tailor it for every job. Start with 1 resume.`}
+						{t`Reactive Resume is a free, open-source resume builder. Write it, design it, check it, tailor it for every job and walk into the interview prepared.`}
 					</p>
 					<CtaLink size="hero" />
 				</div>

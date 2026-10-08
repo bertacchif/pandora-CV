@@ -11,8 +11,11 @@ import { Doodle, labelClass, SceneCaption } from "./ui";
 
 const field = "text-[oklch(0.62_0.08_150)]";
 
-/** What the Check lens reveals: the page as a parser sees it, fields and sections, flagging the mixed dates. */
-function ParsedText() {
+/**
+ * What the Check lens reveals: the page as a parser sees it, fields and sections, flagging the mixed dates until the
+ * fix lands. The date line is where the lens comes to rest (`data-park`).
+ */
+function ParsedText({ fixed }: { fixed: boolean }) {
 	const { i18n } = useLingui();
 	const section = (name: string, count?: number) => (
 		<span className={field}>
@@ -47,8 +50,8 @@ function ParsedText() {
 				<span className={field}>role</span> {t`Product Designer`} <span className={field}>org</span> {t`Parcel & Co.`}
 				<br />
 				<span className={field}>dates</span>{" "}
-				<span className="text-[oklch(0.85_0.13_85)]">
-					{t`06/2017 – 2021`} ⚠ {t`mixed format`}
+				<span data-park className={fixed ? "text-[oklch(0.86_0.12_150)]" : "text-[oklch(0.85_0.13_85)]"}>
+					{fixed ? `${t`2017 – 2021`} ✓ ${t`one format`}` : `${t`06/2017 – 2021`} ⚠ ${t`mixed format`}`}
 				</span>
 			</div>
 			<div>
@@ -115,15 +118,9 @@ export function Check() {
 			data-scene={SCENE.check}
 			data-pin
 			aria-labelledby="check-title"
-			className="relative h-[260vh] motion-reduce:h-svh min-[900px]:h-[320vh]"
+			className="relative h-[245vh] motion-reduce:h-svh min-[900px]:h-[295vh]"
 		>
-			<div className="sticky top-0 h-svh overflow-hidden [--chk:var(--sp)] [--dw:calc(clamp(0,(var(--sp)-.42)*20,1)*(1-clamp(0,(var(--sp)-.7)*20,1)))] [--lo:clamp(0,(var(--p)-.04)*10,1)] [--pw:48vw] [--sp:clamp(0,(var(--p)-.06)/.8,1)] [--sv:clamp(0,var(--p)/.24,1)] min-[900px]:[--pw:min(28vw,58vh)]">
-				<Doodle
-					name="magnifier"
-					wipe="clamp(0, (var(--p) - .04) / .2, 1)"
-					className="start-[46vw] top-[62vh] w-[10vw] translate-y-[calc(var(--p)*-50px)] rotate-[-16deg] max-[900px]:hidden"
-				/>
-
+			<div className="sticky top-0 h-svh overflow-hidden [--chk:var(--sp)] [--dw:calc(clamp(0,(var(--sp)-.42)*20,1)*(1-clamp(0,(var(--sp)-.7)*20,1)))] [--lo:clamp(0,(var(--p)-.04)*10,1)] [--pw:min(62vw,40vh)] [--sp:clamp(0,(var(--p)-.06)/.8,1)] [--sv:clamp(0,var(--p)/.24,1)] min-[900px]:[--pw:min(28vw,58vh)]">
 				<h2
 					id="check-title"
 					className="absolute start-(--gutter) top-[10vh] text-[16vw] leading-[.82] font-normal whitespace-nowrap text-ink min-[900px]:top-[11vh] min-[900px]:text-[clamp(72px,9vw,160px)]"
@@ -143,7 +140,7 @@ export function Check() {
 					/>
 				</h2>
 
-				<div className="absolute start-(--gutter) top-[calc(10vh+18vw)] bottom-[clamp(20px,5vh,44px)] flex w-[40vw] flex-col justify-between gap-6 min-[900px]:top-[calc(11vh+clamp(72px,9vw,160px)*.95+4vh)] min-[900px]:w-[min(34em,36vw)]">
+				<div className="absolute inset-x-(--gutter) top-[calc(10vh+16vw)] flex flex-col justify-between gap-6 min-[900px]:end-auto min-[900px]:top-[calc(11vh+clamp(72px,9vw,160px)*.95+4vh)] min-[900px]:bottom-[clamp(20px,5vh,44px)] min-[900px]:w-[min(34em,36vw)]">
 					<div className="flex flex-col gap-3.5">
 						<span className={cn(labelClass, "text-ink-3")}>{t`ATS readability`}</span>
 						<p className="flex items-baseline gap-2.5">
@@ -197,23 +194,33 @@ export function Check() {
 				<div
 					onPointerMove={moveLens}
 					onPointerLeave={releaseLens}
-					className="@container absolute end-[5vw] top-[60%] aspect-[612/792] w-(--pw) [transform:translateY(-50%)_rotate(1deg)] cursor-crosshair rounded-[2px] shadow-paper min-[900px]:end-[10vw] min-[900px]:top-[52%]"
+					data-lens-page
+					className="@container absolute end-[calc(50%-var(--pw)/2)] bottom-[3vh] aspect-[612/792] w-(--pw) [transform:rotate(1deg)] cursor-crosshair rounded-[2px] opacity-[clamp(0,var(--p)*20,1)] shadow-paper min-[900px]:end-[10vw] min-[900px]:top-[52%] min-[900px]:bottom-auto min-[900px]:[transform:translateY(-50%)_rotate(1deg)]"
 				>
 					<Sheet />
 					<div
 						aria-hidden="true"
-						className="check-lens font-martian absolute inset-0 flex flex-col gap-[2.4cqw] overflow-hidden rounded-[2px] p-[8cqw] text-[1.55cqw] leading-[1.75] text-[oklch(0.88_0.09_150)] opacity-(--lo)"
+						className="check-lens font-martian absolute inset-0 flex flex-col gap-[2.2cqw] overflow-hidden rounded-[2px] p-[7cqw] text-[2.15cqw] leading-[1.7] text-[oklch(0.9_0.09_150)] opacity-(--lo)"
 					>
-						<ParsedText />
+						<ParsedText fixed={progress > 0.72} />
 					</div>
-					<div
+					{/* The magnifier is the lens: its glass sits over the clipped circle and the glass itself is masked out. */}
+					<Doodle
+						name="magnifier"
+						wipe="1"
+						className="top-[calc(var(--ly,16%)-13cqw)] left-[calc(var(--lx,50%)-19.3cqw)] w-[49.3cqw] max-w-none opacity-(--lo)! drop-shadow-[0_14px_18px_oklch(0_0_0/.25)]"
+						style={{
+							maskImage: "radial-gradient(circle 11cqw at 39.2% 27.2%, transparent 97%, #000 100%)",
+							maskSize: "100% 100%",
+							maskPosition: "0 0",
+						}}
+					/>
+					<span
 						aria-hidden="true"
-						className="pointer-events-none absolute top-[var(--ly,16%)] left-[var(--lx,50%)] aspect-square w-[32cqw] -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-[oklch(0.62_0.13_150)] opacity-(--lo) shadow-[inset_0_0_0_1px_oklch(1_0_0/.35),0_20px_50px_-12px_oklch(0_0_0/.5)]"
+						className="font-martian pointer-events-none absolute top-[calc(var(--ly,16%)-14.5cqw)] left-(--lx,50%) -translate-x-1/2 -translate-y-full rounded-full bg-[oklch(0.2_0.03_160)] px-[9px] py-[5px] text-[10px] leading-none font-medium tracking-[.08em] whitespace-nowrap text-[oklch(0.88_0.09_150)] uppercase opacity-(--lo)"
 					>
-						<span className="font-martian absolute -top-2.5 left-1/2 -translate-x-1/2 -translate-y-full rounded-full bg-[oklch(0.2_0.03_160)] px-[9px] py-[5px] text-[10px] leading-none font-medium tracking-[.08em] whitespace-nowrap text-[oklch(0.88_0.09_150)] uppercase">
-							{t`What software reads`}
-						</span>
-					</div>
+						{t`What software reads`}
+					</span>
 				</div>
 			</div>
 		</section>

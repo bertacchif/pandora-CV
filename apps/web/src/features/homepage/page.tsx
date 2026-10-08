@@ -7,6 +7,8 @@ import { Faq } from "./faq";
 import { LandingFooter } from "./footer";
 import { LandingHeader, ThemeCord } from "./header";
 import { Hero } from "./hero";
+import { Prepare } from "./prepare";
+import { Remember } from "./remember";
 import { useScrollScenes } from "./scroll";
 import { Closing, Languages, Numbers, Support } from "./sections";
 import { Share } from "./share";
@@ -15,8 +17,9 @@ import { Write } from "./write";
 
 /**
  * The public landing page: one scroll-driven story, "Everything you've done, on one page." A single resume page is
- * assembled, written, restyled, checked, tailored and sent as the visitor scrolls, followed by community proof,
- * languages, support, common questions, a closing call to action and the footer. The server prerenders it
+ * assembled, written, restyled, checked, tailored and sent as the visitor scrolls. The reply that comes back turns
+ * into interview day in the application's folder, and the story behind it is told once and reused. Then community
+ * proof, languages, support, common questions, a closing call to action and the footer. The server prerenders it
  * (prerender.tsx), so every word is in the first response.
  */
 export function Homepage() {
@@ -41,6 +44,8 @@ export function Homepage() {
 				<Check />
 				<Tailor />
 				<Share />
+				<Prepare />
+				<Remember />
 				<Numbers />
 				<Languages />
 				<Support />

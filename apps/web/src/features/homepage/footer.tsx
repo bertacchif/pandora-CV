@@ -72,7 +72,7 @@ function FooterLinkItem({ link }: { link: FooterLink }): ReactNode {
 	);
 }
 
-/** 11 Footer, ending on the wordmark rising into view, cropped by the page's edge. */
+/** 13 Footer, ending on the wordmark rising into view, cropped by the page's edge. */
 export function LandingFooter() {
 	return (
 		<footer data-scene={SCENE.footer} className="relative overflow-hidden border-t border-line">

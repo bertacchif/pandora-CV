@@ -362,13 +362,13 @@ function TabBody({ tab, ...props }: WorkspaceTabProps & { tab: WorkspaceTab }) {
 
 export const tabLabel = (tab: WorkspaceTab) =>
 	({
-		fit: t`Fit`,
+		fit: t({ message: "Fit", context: "Application workspace tab: how well a job fits your experience" }),
 		apply: t`Apply`,
 		prepare: t`Prepare`,
 		practise: t`Practise`,
 		debrief: t`Debrief`,
 		messages: t`Messages`,
-		saved: t`Saved`,
+		saved: t({ message: "Saved", context: "Application workspace tab: earlier results kept for this job" }),
 	})[tab];
 
 function TabBadge({ tone, children }: { tone: "accent" | "warn" | "info" | "plain"; children: ReactNode }) {

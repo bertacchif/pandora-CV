@@ -48,7 +48,10 @@ function KnowledgeLayout() {
 			to: "/dashboard/career/knowledge/preferences",
 			match: "/dashboard/career/knowledge/preferences",
 			icon: "sliders-horizontal",
-			label: t`Preferences`,
+			label: t({
+				message: "Preferences",
+				context: "Career preferences: the roles, places, pay and ways of working you want",
+			}),
 		},
 	];
 

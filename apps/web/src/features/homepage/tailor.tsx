@@ -5,7 +5,7 @@ import { Trans } from "@lingui/react/macro";
 import { cn } from "@reactive-resume/utils/style";
 import { SCENE, useLanding } from "./scroll";
 import { Sheet } from "./sheet";
-import { Doodle, labelClass, SceneCaption } from "./ui";
+import { Doodle, labelClass, SceneCaption, Stamp } from "./ui";
 
 /** Job match as each of the posting's four keywords is matched. */
 const MATCH = [62, 70, 78, 85, 91];
@@ -44,9 +44,9 @@ export function Tailor() {
 			data-scene={SCENE.tailor}
 			data-pin
 			aria-labelledby="tailor-title"
-			className="relative h-[280vh] motion-reduce:h-svh min-[900px]:h-[330vh]"
+			className="relative h-[260vh] motion-reduce:h-svh min-[900px]:h-[300vh]"
 		>
-			<div className="sticky top-0 h-svh overflow-hidden [--ap:clamp(0,(var(--p)-.8)/.1,1)] [--cv:clamp(0,(var(--p)-.64)/.12,1)] [--cvx:-60%] [--kwa:var(--t1)] [--kwb:var(--t2)] [--kwc:var(--t3)] [--kwd:var(--t4)] [--pw:38vw] [--sw:clamp(0,var(--p)/.14,1)] [--t1:clamp(0,(var(--p)-.14)/.1,1)] [--t2:clamp(0,(var(--p)-.26)/.1,1)] [--t3:clamp(0,(var(--p)-.38)/.1,1)] [--t4:clamp(0,(var(--p)-.5)/.1,1)] min-[900px]:[--cvx:-40%] min-[900px]:[--pw:min(23vw,46vh)]">
+			<div className="sticky top-0 h-svh overflow-hidden [--ap:clamp(0,(var(--p)-.74)/.1,1)] [--cv:clamp(0,(var(--p)-.64)/.12,1)] [--cvx:-60%] [--kwa:var(--t1)] [--kwb:var(--t2)] [--kwc:var(--t3)] [--kwd:var(--t4)] [--pw:min(56vw,36vh)] [--sw:clamp(0,var(--p)/.14,1)] [--t1:clamp(0,(var(--p)-.14)/.1,1)] [--t2:clamp(0,(var(--p)-.26)/.1,1)] [--t3:clamp(0,(var(--p)-.38)/.1,1)] [--t4:clamp(0,(var(--p)-.5)/.1,1)] min-[900px]:[--cvx:-40%] min-[900px]:[--pw:min(23vw,46vh)]">
 				<Doodle
 					name="scissors"
 					wipe="clamp(0, (var(--p) - .08) / .2, 1)"
@@ -57,14 +57,14 @@ export function Tailor() {
 					id="tailor-title"
 					className="absolute start-(--gutter) top-[10vh] text-[14vw] leading-[.86] font-normal whitespace-nowrap text-ink min-[900px]:top-[11vh] min-[900px]:text-[clamp(64px,8vw,150px)]"
 				>
-					<span className="font-anybody block [transform:translateX(calc(var(--dir)*(1-var(--sw))*-3vw))] font-light tracking-[-.03em] [clip-path:inset(0_-5%_50%_-5%)]">
+					<span className="font-anybody block [transform:translateX(calc(var(--dir)*(1-var(--sw))*-3vw))] font-light tracking-[-.03em] [clip-path:inset(-25%_-5%_50%_-5%)]">
 						{tailor}
 						<span className="text-accent">.</span>
 					</span>
 					<span
 						aria-hidden="true"
 						data-text={tailor}
-						className="font-anybody absolute start-0 top-0 block [transform:translateX(calc(var(--dir)*(1-var(--sw))*3vw))] font-light tracking-[-.03em] [clip-path:inset(50%_-5%_-10%_-5%)] before:content-[attr(data-text)] after:text-accent after:content-['.']"
+						className="font-anybody absolute start-0 top-0 block [transform:translateX(calc(var(--dir)*(1-var(--sw))*3vw))] font-light tracking-[-.03em] [clip-path:inset(50%_-5%_-25%_-5%)] before:content-[attr(data-text)] after:text-accent after:content-['.']"
 					/>
 					<span
 						aria-hidden="true"
@@ -77,13 +77,13 @@ export function Tailor() {
 					title={tailor}
 					className="min-[900px]:short:hidden absolute end-(--gutter) top-[13vh] hidden w-[min(24em,30vw)] min-[900px]:flex"
 				>
-					{t`Paste 1 job posting once. It feeds a tailored copy of your resume, a match score, a cover letter draft and a place to track the role.`}
+					{t`Paste a job posting once. It feeds a tailored copy of your resume, a match score, a cover letter draft and a place to track the role.`}
 				</SceneCaption>
 
 				<svg
 					data-threads
 					aria-hidden="true"
-					className="pointer-events-none absolute inset-0 z-3 size-full overflow-visible"
+					className="pointer-events-none absolute inset-0 z-3 size-full overflow-visible max-[900px]:hidden"
 				>
 					{KEYWORDS.map((key, index) => (
 						<path
@@ -102,7 +102,14 @@ export function Tailor() {
 				</svg>
 
 				<div className="absolute start-(--gutter) top-[calc(10vh+17vw)] z-2 flex w-[calc(100vw-2*var(--gutter))] flex-col gap-4 min-[900px]:top-[40vh] min-[900px]:w-[min(390px,30vw)]">
-					<div className="flex rotate-[-1deg] flex-col gap-3 rounded-[14px] border border-line bg-raised p-[18px] font-ui text-sm leading-[1.55] text-ink shadow-e3">
+					<div
+						data-thread-from
+						className="relative flex rotate-[-1deg] flex-col gap-3 rounded-[14px] border border-line bg-raised p-[18px] font-ui text-sm leading-[1.55] text-ink shadow-e3"
+					>
+						{/* The story's hinge: the role moves to Applied, and the posting is stamped to say so. */}
+						<Stamp tone="applied" stamp="--ap" className="absolute -end-3 -top-4 z-1 text-[14px]">
+							{t`Applied`}
+						</Stamp>
 						<div className="flex items-center gap-[11px]">
 							<span
 								aria-hidden="true"
@@ -150,7 +157,7 @@ export function Tailor() {
 					</div>
 				</div>
 
-				<div className="absolute end-[8vw] top-[78%] aspect-[612/792] w-(--pw) -translate-y-1/2 min-[900px]:top-[58%]">
+				<div className="absolute end-[14vw] top-[73%] aspect-[612/792] w-(--pw) -translate-y-1/2 opacity-[clamp(0,var(--p)*20,1)] min-[900px]:end-[8vw] min-[900px]:top-[58%]">
 					<div
 						aria-hidden="true"
 						className="@container absolute inset-0 [transform:translate(calc(var(--dir)*var(--cv)*var(--cvx)),calc(var(--cv)*8%))_rotate(calc(var(--dir)*var(--cv)*-8deg))] overflow-hidden rounded-[2px] bg-[#fbfaf6] shadow-paper [transition:transform_.5s_var(--ease)]"
@@ -165,7 +172,7 @@ export function Tailor() {
 							))}
 						</div>
 					</div>
-					<div className="absolute inset-0 rounded-[2px] shadow-paper">
+					<div data-thread-to className="absolute inset-0 rounded-[2px] shadow-paper">
 						<Sheet />
 					</div>
 				</div>

@@ -289,7 +289,11 @@ function ProposalCard({ reply, application, now, readOnly }: ProposalCardProps) 
 					<Trans>Proposed changes</Trans>
 				</h2>
 				<span className="text-xs text-ink-3">
-					{applied ? t`Applied` : readOnly ? t`Not applied` : t`Waiting for you`}
+					{applied
+						? t({ message: "Applied", context: "A proposed change has been applied" })
+						: readOnly
+							? t`Not applied`
+							: t`Waiting for you`}
 				</span>
 			</div>
 

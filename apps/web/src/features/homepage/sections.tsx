@@ -17,6 +17,8 @@ const crowdinUrl = "https://crowdin.com/project/reactive-resume";
 const githubUrl = "https://github.com/reactive-resume/reactive-resume";
 // The statistics service caches the totals for six hours.
 const statisticsStaleTime = 6 * 60 * 60 * 1000;
+// A fresh self-hosted install has a handful of users; a total that small reads as a joke, so it isn't shown.
+const smallestTotalShown = 100;
 
 type RollingNumberProps = { value: number; roll: boolean; delay: number };
 
@@ -61,7 +63,7 @@ function RollingNumber({ value, roll, delay }: RollingNumberProps) {
 	);
 }
 
-/** 06 Numbers: the live community totals. */
+/** 08 Numbers: the live community totals, side by side, each figure over what it counts. */
 export function Numbers() {
 	const inView = useLanding((state) => state.numbersInView);
 	const { data } = useQuery(orpc.statistics.getTotals.queryOptions({ staleTime: statisticsStaleTime }));
@@ -72,7 +74,8 @@ export function Numbers() {
 		{ label: t`People using it`, detail: t`writing, tailoring and sending`, value: data?.users },
 		{ label: t`Resumes created`, detail: t`and counting`, value: data?.resumes },
 		{ label: t`Stars on GitHub`, detail: t`from developers who back it`, value: stars },
-	];
+	].filter((row) => row.value == null || row.value >= smallestTotalShown);
+	if (rows.length === 0) return null;
 
 	return (
 		<section
@@ -83,19 +86,22 @@ export function Numbers() {
 			<h2 id="numbers-title" className={cn(labelClass, "text-ink-3")}>
 				{t`In good company`}
 			</h2>
-			<dl className="mt-[22px]">
+			<dl
+				className="mt-[22px] grid border-t border-line min-[900px]:grid-cols-(--columns)"
+				style={{ "--columns": `repeat(${rows.length}, minmax(0, 1fr))` } as CSSProperties}
+			>
 				{rows.map((row, index) => (
 					<div
 						key={row.label}
-						className="flex flex-wrap items-end justify-between gap-x-10 gap-y-3 border-t border-line py-[3.2vh]"
+						className="flex flex-col-reverse justify-end gap-4 border-b border-line py-[4vh] min-[900px]:border-e min-[900px]:border-b-0 min-[900px]:pe-8 min-[900px]:not-first:ps-8 min-[900px]:last:border-e-0"
 					>
-						<dt className="flex flex-col gap-1.5 pb-[1.2vh]">
+						<dt className="flex flex-col gap-1.5">
 							<span className={cn(labelClass, "text-ink-3")}>{row.label}</span>
 							<span className="font-display text-[clamp(18px,1.6vw,24px)] leading-[1.3] text-ink-2 italic">
 								{row.detail}
 							</span>
 						</dt>
-						<dd className="font-anybody text-[clamp(56px,7.5vw,136px)] leading-none font-light tracking-[-.03em] text-ink tabular-nums">
+						<dd className="font-anybody text-[clamp(52px,5.4vw,104px)] leading-none font-light tracking-[-.03em] text-ink tabular-nums">
 							{row.value == null ? (
 								<span className="text-ink-3">
 									<span aria-hidden="true">—</span>
@@ -108,7 +114,7 @@ export function Numbers() {
 					</div>
 				))}
 			</dl>
-			<p className="border-t border-line pt-3.5 font-ui text-[13px] text-ink-3">{t`Live totals, refreshed every 6 hours.`}</p>
+			<p className="border-t border-line pt-3.5 font-ui text-[13px] text-ink-3 max-[900px]:border-t-0">{t`Live totals, refreshed every 6 hours.`}</p>
 		</section>
 	);
 }
@@ -133,7 +139,7 @@ const words = [
 	{ word: "Curriculum", language: "Italiano", lang: "it" },
 ];
 
-/** 07 Languages. The word turns over every 1.9s while the section is near; it can be paused. */
+/** 09 Languages. The word turns over every 1.9s while the section is near; it can be paused. */
 export function Languages() {
 	const { i18n } = useLingui();
 	const languageCount = i18n.number(localeSchema.options.length - 1);
@@ -215,7 +221,7 @@ const pillLinkClass =
 const receiptButtonClass =
 	"flex h-[42px] items-center justify-between rounded-md px-3.5 font-semibold text-sm transition-colors";
 
-/** 08 Support: the case for donations, printed as a receipt that totals nothing. */
+/** 10 Support: the case for donations, printed as a receipt that totals nothing. */
 export function Support() {
 	const { i18n } = useLingui();
 	// oxlint-disable-next-line react/purity -- The receipt shows the current calendar date on each render, including after midnight.
@@ -230,6 +236,8 @@ export function Support() {
 		[t`Resume builder`, nothing],
 		[t`Templates × ${templates}`, nothing],
 		[t`Assistant (your key)`, nothing],
+		[t`Career coach (your key)`, nothing],
+		[t`Interview prep`, nothing],
 		[t`ATS checker`, nothing],
 		[t`Job tracker`, nothing],
 		[t`Cover letters`, nothing],
@@ -266,7 +274,7 @@ export function Support() {
 					</Trans>
 				</h2>
 				<p className="max-w-[28em] font-display text-[clamp(17px,1.4vw,21px)] leading-normal text-pretty text-ink-2">
-					{t`Reactive Resume is open source under the MIT License. Amruth Pillai and a community of contributors keep it running, and donations pay for hosting and development. There are 0 paid tiers.`}
+					{t`Reactive Resume is open source under the MIT License. Amruth Pillai and a community of contributors keep it running, and donations pay for hosting and development. There’s no paid tier.`}
 				</p>
 				<ul className="flex flex-wrap gap-2">
 					{pills.map((pill) => (
@@ -300,7 +308,7 @@ export function Support() {
 							<dl className="grid grid-cols-[1fr_auto] gap-x-3.5 border-t-[1.5px] border-dashed border-[oklch(0.7_0.01_95)] pt-2.5">
 								{lineItems.map(([item, amount]) => (
 									<div key={item} className="contents">
-										<dt className="capitalize">{item}</dt>
+										<dt>{item}</dt>
 										<dd>{amount}</dd>
 									</div>
 								))}
@@ -344,13 +352,45 @@ export function Support() {
 	);
 }
 
-/** 10 Closing call to action. */
+/**
+ * 12 Closing call to action. The story hands over: Alex's Fieldnote card rests at Interview on the board Tailor
+ * started, and an empty card waits under Saved for the reader's own.
+ */
 export function Closing() {
+	const stages = [
+		{ label: t`Saved`, dot: "bg-stage-saved" },
+		{ label: t`Applied`, dot: "bg-stage-applied" },
+		{ label: t`Interview`, dot: "bg-stage-interview" },
+		{ label: t`Offer`, dot: "bg-stage-offer" },
+	];
+
 	return (
 		<section
 			aria-labelledby="closing-title"
 			className="relative mx-auto flex max-w-[1440px] flex-col items-center gap-7 border-t border-line px-(--gutter) pt-[16vh] pb-[18vh] text-center"
 		>
+			<div
+				aria-hidden="true"
+				className="mb-4 w-[min(100%,560px)] rounded-[14px] border border-dashed border-line-2 px-3.5 py-3"
+			>
+				<div className="font-martian grid grid-cols-4 gap-2 text-[10px] leading-none font-medium tracking-[.06em] text-ink-3 uppercase">
+					{stages.map((stage) => (
+						<span key={stage.label} className="flex min-w-0 items-center gap-[5px]">
+							<span className={cn("size-[7px] shrink-0 rounded-full", stage.dot)} />
+							{stage.label}
+						</span>
+					))}
+				</div>
+				<div className="mt-2.5 grid grid-cols-4 gap-2 text-start">
+					<span className="flex h-11 items-center justify-center rounded-[9px] border-[1.5px] border-dashed border-accent font-display text-[15px] text-accent-text italic">
+						{t`Yours`}
+					</span>
+					<span className="col-start-3 flex h-11 min-w-0 flex-col justify-center rounded-[9px] border border-line bg-raised px-2 font-ui text-[11.5px] leading-[1.2] font-semibold text-ink shadow-e2">
+						{t`Fieldnote`}
+						<span className="truncate text-[10.5px] font-normal text-ink-3">{t`Interview done`}</span>
+					</span>
+				</div>
+			</div>
 			<span className={cn(labelClass, "text-ink-3")}>{t`Your turn`}</span>
 			<h2
 				id="closing-title"
@@ -361,7 +401,7 @@ export function Closing() {
 				</Trans>
 			</h2>
 			<p className="max-w-[28em] font-display text-[clamp(17px,1.4vw,21px)] leading-normal text-pretty text-ink-2">
-				{t`Start from scratch or import what you have. It takes a few minutes, and you can come back to it anytime. Start with 1 resume.`}
+				{t`Start from scratch or import what you have. It takes a few minutes, and you can come back to it anytime.`}
 			</p>
 			<CtaLink size="closing" />
 		</section>

@@ -208,7 +208,7 @@ function ProposalItem(props: ProposalItemProps) {
 					{state === "accepted" && (
 						<>
 							<Icon name="check" size={16} className={POP_CLASS} />
-							<Trans>Applied</Trans>
+							<Trans context="A proposed change has been applied">Applied</Trans>
 						</>
 					)}
 					{state === "rejected" && <Trans>Rejected</Trans>}

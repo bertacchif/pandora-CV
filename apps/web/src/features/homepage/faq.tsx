@@ -54,7 +54,12 @@ function useQuestions(): Question[] {
 		{
 			id: "ai",
 			question: t`Does it use AI?`,
-			answer: t`Only if you want it to. Add your own key from OpenAI, Anthropic, Google Gemini, OpenRouter, Ollama or another provider for sharper lines, tailoring to a job posting and reading Word files. Without a key, nothing is sent to an AI service.`,
+			answer: t`Only if you want it to. Add your own key from OpenAI, Anthropic, Google Gemini, OpenRouter, Ollama or another provider for sharper lines, tailoring to a job posting, coaching for applications and interviews, and reading Word files. Without a key, nothing is sent to an AI service.`,
+		},
+		{
+			id: "interviews",
+			question: t`Can it help me prepare for interviews?`,
+			answer: t`Yes. Every job you track gets its own workspace: check your fit against the posting, draft answers from stories you wrote once, get a short plan before the interview, practise out loud with feedback and debrief afterwards. When offers arrive, compare them side by side. The coaching uses your own AI key; the comparison doesn’t need one.`,
 		},
 		{
 			id: "self-host",
@@ -140,7 +145,7 @@ function FaqItem({ item, index }: FaqItemProps) {
 }
 
 /**
- * 09 Questions: the answers people look for before they start, as folded notes. Opening a question circles its number
+ * 11 Questions: the answers people look for before they start, as folded notes. Opening a question circles its number
  * in pencil, underlines it and unfolds the answer; only one stays open. The same answers go out as FAQPage structured
  * data, so search engines and assistants can quote them.
  */
@@ -181,7 +186,7 @@ export function Faq() {
 				</h2>
 				<p className="max-w-[24em] font-display text-[clamp(17px,1.4vw,21px)] leading-normal text-pretty text-ink-2">
 					<Trans>
-						8 short answers to what people ask before they start. Anything else, ask on{" "}
+						9 short answers to what people ask before they start. Anything else, ask on{" "}
 						<a
 							href="https://discord.gg/aSyA5ZSxpb"
 							className="text-accent-text italic underline underline-offset-[3px] transition-colors hover:text-accent-hover"

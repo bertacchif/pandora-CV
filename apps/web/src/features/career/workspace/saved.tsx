@@ -32,7 +32,7 @@ const KINDS: { kind: SavedItemKind; icon: IconName; tab: WorkspaceTab | null }[]
 
 const kindLabel = (kind: SavedItemKind) =>
 	({
-		fit: t`Fit`,
+		fit: t({ message: "Fit", context: "Application workspace tab: how well a job fits your experience" }),
 		briefing: t`Briefing`,
 		practice: t`Practice`,
 		debrief: t`Debrief`,

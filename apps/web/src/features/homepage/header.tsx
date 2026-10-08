@@ -11,15 +11,14 @@ import { orpc } from "@/libs/orpc/client";
 
 const githubUrl = "https://github.com/reactive-resume/reactive-resume";
 
-/** Header ink during Share's night scene, whatever the theme. */
-const nightInk = "text-[oklch(0.95_0.01_95)]";
-
 const getStoryScenes = () => [
 	{ scene: SCENE.write, label: t`Write` },
 	{ scene: SCENE.design, label: t`Design` },
 	{ scene: SCENE.check, label: t`Check` },
 	{ scene: SCENE.tailor, label: t`Tailor` },
 	{ scene: SCENE.share, label: t`Share` },
+	{ scene: SCENE.prepare, label: t`Prepare` },
+	{ scene: SCENE.remember, label: t`Remember` },
 ];
 
 export function LandingHeader() {
@@ -30,15 +29,15 @@ export function LandingHeader() {
 	return (
 		<header
 			className={cn(
-				"fixed inset-x-0 top-0 z-70 flex h-16 items-center gap-7 ps-(--gutter) pe-[calc(var(--gutter)+30px)] whitespace-nowrap transition-colors duration-[.4s]",
-				night ? nightInk : "text-ink",
+				// The ink fades to light with Share's sky (--nt), so it never jumps against a half-dark background.
+				"night-ink fixed inset-x-0 top-0 z-70 flex h-16 items-center gap-7 ps-(--gutter) pe-[calc(var(--gutter)+30px)] whitespace-nowrap",
 			)}
 		>
 			<div
 				aria-hidden="true"
 				className={cn(
 					"header-taper pointer-events-none absolute inset-x-0 top-0 -z-1 h-28 transition-opacity duration-[.4s]",
-					scrolled && !night ? "opacity-100" : "opacity-0",
+					scrolled ? "opacity-[calc(1-var(--nt,0))]" : "opacity-0",
 				)}
 			/>
 
@@ -71,14 +70,8 @@ export function LandingHeader() {
 							aria-current={active ? "step" : undefined}
 							onClick={() => goToScene(scene, 0.04)}
 							className={cn(
-								"font-martian flex h-[34px] items-center gap-[7px] rounded-full px-[11px] text-[11px] leading-none font-medium tracking-[.08em] uppercase font-stretch-[87.5%] transition-colors duration-300",
-								night
-									? active
-										? nightInk
-										: "text-[oklch(0.95_0.01_95/.72)] hover:text-[oklch(0.95_0.01_95)]"
-									: active
-										? "text-ink"
-										: "text-ink-3 hover:text-ink",
+								"font-martian flex h-[34px] items-center gap-[7px] rounded-full px-[11px] text-[11px] leading-none font-medium tracking-[.08em] uppercase font-stretch-[87.5%] transition-opacity duration-300",
+								!active && "opacity-65 hover:opacity-100",
 							)}
 						>
 							<span
@@ -152,7 +145,6 @@ function GithubLink() {
  */
 export function ThemeCord() {
 	const { resolvedTheme, toggleTheme } = useTheme();
-	const night = useLanding((state) => state.night);
 	const [pulling, setPulling] = useState(false);
 	const [pulledOnce, setPulledOnce] = useState(false);
 	const timeout = useRef(0);
@@ -179,10 +171,9 @@ export function ThemeCord() {
 			aria-label={label}
 			title={label}
 			className={cn(
-				"fixed end-[clamp(8px,1.2vw,18px)] top-0 z-72 flex w-[30px] origin-top flex-col items-center [transition:height_.45s_cubic-bezier(.3,1.7,.5,1),color_.4s]",
+				"night-ink fixed end-[clamp(8px,1.2vw,18px)] top-0 z-72 flex w-[30px] origin-top flex-col items-center [transition:height_.45s_cubic-bezier(.3,1.7,.5,1)]",
 				pulling ? "h-[124px]" : "h-[92px] hover:h-[112px]",
 				!pulledOnce && "motion-safe:animate-swing",
-				night ? nightInk : "text-ink",
 			)}
 		>
 			<span aria-hidden="true" className="w-[1.5px] flex-1 bg-current opacity-50" />
