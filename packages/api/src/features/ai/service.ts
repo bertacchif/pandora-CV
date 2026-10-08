@@ -248,7 +248,6 @@ export async function testConnection(input: TestConnectionInput): Promise<TestCo
 		result = await generateText({
 			model,
 			maxOutputTokens: TEST_CONNECTION_MAX_OUTPUT_TOKENS,
-			temperature: 0,
 			// A connection test must not silently multiply its own wait by retrying behind the user.
 			maxRetries: 0,
 			abortSignal: AbortSignal.timeout(TEST_CONNECTION_TIMEOUT_MS),

@@ -88,7 +88,19 @@ describe("AI chat service", () => {
 
 		expect(openAiCompatible.fetchMock).toHaveBeenCalledTimes(1);
 		expect(openAiCompatible.getRequestBody()).not.toHaveProperty("response_format");
-		expect(openAiCompatible.getRequestBody()).toMatchObject({ max_tokens: 128, temperature: 0 });
+		expect(openAiCompatible.getRequestBody()).toMatchObject({ max_tokens: 128 });
+	});
+	it("tests OpenAI reasoning models without unsupported setting warnings", async () => {
+		const { fetchMock } = stubOpenAIResponse();
+		const warnings = vi.fn();
+		vi.stubGlobal("AI_SDK_LOG_WARNINGS", warnings);
+
+		await expect(
+			testConnection({ provider: "openai", model: "gpt-6.1-sol", apiKey: "test-key", baseURL: "" }),
+		).resolves.toEqual({ ok: true });
+
+		expect(fetchMock).toHaveBeenCalledTimes(1);
+		expect(warnings).not.toHaveBeenCalled();
 	});
 	it.each([
 		{ model: "gpt-6-luna", baseURL: "", path: "https://api.openai.com/v1/responses" },
