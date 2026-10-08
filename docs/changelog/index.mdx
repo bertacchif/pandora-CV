@@ -87,11 +87,10 @@ rss: true
 - **Align regression coverage with the new behavior.** Career unit, database, scheduler, Worker and browser fixtures cover the new workspace and data flows. PDF tests exercise cover-letter sender headers end to end and normalize font paths on Windows; server cold-import and donation-close timing checks are made less fragile, and the wall-clock MCP benchmark is removed. [#3572](https://github.com/reactive-resume/reactive-resume/pull/3572), [#3587](https://github.com/reactive-resume/reactive-resume/pull/3587), [660603c3c](https://github.com/reactive-resume/reactive-resume/commit/660603c3c), [e8b6eeccd](https://github.com/reactive-resume/reactive-resume/commit/e8b6eeccd)
 - **Refresh tooling and translation catalogs.** The workspace moves to pnpm 12.10.1 and updates AI SDK, Wrangler and development tools, adds speech/loading dependencies, refreshes package exports and generated API documentation, extracts new interface strings into locale catalogs, and removes obsolete native-search tests and smoke tooling.
 
-## Known issues & release status
+## Known issues
 
 - **Known issues — notification language and delivery.** Career notifications are currently written in English. Schedule timing depends on runner availability and provider connections; retries can repeat paid provider calls, and SMTP acceptance does not guarantee inbox delivery. See [delivery and retry limits](/contributing/career-platform#understand-delivery-and-retry-limits).
 - **Known issues — browser voice support.** Browser dictation depends on platform support and microphone permission and is unavailable in Firefox. Provider-backed transcription or typing remain available alternatives.
-- **Release status — unreleased changes.** These notes include local changes that have not been tagged or published. They record implemented behavior and added regression coverage, not a claim that every deployment or live provider has been verified.
 
 </Update>
 
