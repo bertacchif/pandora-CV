@@ -112,7 +112,7 @@ export function RegisterPage({ disableEmailAuth }: Props) {
 							render={
 								<Link to="/auth/login" search={{ callbackURL, reauthenticate }}>
 									<Trans comment="Call-to-action link from registration page to login page">Sign in now</Trans>{" "}
-									<Icon name="arrow_forward" size={16} />
+									<Icon name="arrow-right" size={16} />
 								</Link>
 							}
 						/>
@@ -274,7 +274,7 @@ function PostSignupScreen() {
 				render={
 					<a href={callbackURL ?? "/dashboard"}>
 						<Trans comment="Button label to continue to dashboard after successful registration">Continue</Trans>{" "}
-						<Icon name="arrow_forward" size={16} />
+						<Icon name="arrow-right" size={16} />
 					</a>
 				}
 			/>

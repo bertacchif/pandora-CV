@@ -228,6 +228,44 @@ describe.skipIf(!process.env.COVER_LETTER_TEST_DATABASE_URL)("cover-letter owned
 		expect((await service.list({ userId: "alice", limit: 20, offset: 0 })).items).toHaveLength(1);
 	});
 
+	it("serializes relinking before the letter lock so an application submission can finish", async () => {
+		const letter = await service.create({ userId: "alice", name: "For application", applicationId: "alice-app" });
+		await getPool().query("INSERT INTO application (id, user_id) VALUES ('alice-next','alice')");
+		const editor = await getPool().connect();
+		let completion: Promise<{ error: unknown }> | undefined;
+		try {
+			await editor.query("BEGIN");
+			await editor.query("SET LOCAL lock_timeout = '750ms'");
+			await editor.query('SELECT id FROM "user" WHERE id = $1 FOR NO KEY UPDATE', ["alice"]);
+			await editor.query("SELECT id FROM application WHERE id = 'alice-app' FOR UPDATE");
+			const pid = (await editor.query<{ pid: number }>("SELECT pg_backend_pid() AS pid")).rows[0]?.pid;
+			completion = service
+				.update({ userId: "alice", id: letter.id, expectedRevision: 1, applicationId: "alice-next" })
+				.then(
+					() => ({ error: null }),
+					(error: unknown) => ({ error }),
+				);
+			await vi.waitFor(
+				async () => {
+					const blocked = await admin.query("SELECT pid FROM pg_stat_activity WHERE $1 = ANY(pg_blocking_pids(pid))", [
+						pid,
+					]);
+					expect(blocked.rows).not.toHaveLength(0);
+				},
+				{ timeout: 2500, interval: 10 },
+			);
+			// Submission already owns application and owner; it must be able to snapshot this letter.
+			await editor.query("SELECT id FROM cover_letter WHERE id = $1 FOR UPDATE", [letter.id]);
+			await editor.query("COMMIT");
+			expect(await completion).toEqual({ error: null });
+			expect((await service.getById({ userId: "alice", id: letter.id })).sourceApplicationId).toBe("alice-next");
+		} finally {
+			await editor.query("ROLLBACK");
+			editor.release();
+			await completion;
+		}
+	});
+
 	it("isolates every read, mutation, export and context selection by account", async () => {
 		const created = await service.create({ userId: "alice", name: "Private" });
 		const foreign = { userId: "bob", id: created.id, expectedRevision: 1 };

@@ -4,23 +4,7 @@ import { escapeHtml } from "@reactive-resume/utils/string";
  * Summary becomes a <p> tag, highlights become a <ul> list.
  */
 export function toHtmlDescription(summary?: string, highlights?: string[]): string {
-	const parts: string[] = [];
-
-	if (summary) {
-		parts.push(`<p>${escapeHtml(summary)}</p>`);
-	}
-
-	if (highlights && highlights.length > 0) {
-		parts.push("<ul>");
-
-		for (const highlight of highlights) {
-			parts.push(`<li>${escapeHtml(highlight)}</li>`);
-		}
-
-		parts.push("</ul>");
-	}
-
-	return parts.join("");
+	return (summary ? `<p>${escapeHtml(summary)}</p>` : "") + arrayToHtmlList(highlights ?? []);
 }
 
 /**
@@ -42,8 +26,7 @@ export function toHtml(lines: string[]): string {
 
 	const bulleted = cleaned.filter((line) => BULLET_PATTERN.test(line));
 	if (bulleted.length >= 2 && bulleted.length * 2 >= cleaned.length) {
-		const items = cleaned.map((line) => `<li>${escapeHtml(line.replace(BULLET_PATTERN, ""))}</li>`).join(""); // nosemgrep
-		return `<ul>${items}</ul>`; // nosemgrep
+		return arrayToHtmlList(cleaned.map((line) => line.replace(BULLET_PATTERN, "")));
 	}
 
 	return cleaned.map((line) => `<p>${escapeHtml(line.replace(BULLET_PATTERN, ""))}</p>`).join(""); // nosemgrep

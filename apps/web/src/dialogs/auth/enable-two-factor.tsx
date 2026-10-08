@@ -237,7 +237,7 @@ export function EnableTwoFactorDialog(_: DialogProps<"auth.two-factor.enable">) 
 													message: "Copy secret",
 												})}
 											</span>
-											<Icon name="content_copy" size={16} />
+											<Icon name="copy" size={16} />
 										</Button>
 									</div>
 
@@ -306,11 +306,11 @@ export function EnableTwoFactorDialog(_: DialogProps<"auth.two-factor.enable">) 
 
 								<div className="flex items-center gap-x-2">
 									<Button type="button" variant="secondary" onClick={handleDownloadBackupCodes} className="flex-1">
-										<Icon name="arrow_downward" size={16} className="me-2" />
+										<Icon name="arrow-down" size={16} className="me-2" />
 										<Trans comment="Action button to download two-factor backup codes as a text file">Download</Trans>
 									</Button>
 									<Button type="button" variant="ghost" onClick={handleCopyBackupCodes} className="flex-1">
-										<Icon name="content_copy" size={16} className="me-2" />
+										<Icon name="copy" size={16} className="me-2" />
 										<Trans comment="Action button to copy two-factor backup codes to clipboard">Copy</Trans>
 									</Button>
 								</div>

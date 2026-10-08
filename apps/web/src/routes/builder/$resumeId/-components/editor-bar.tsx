@@ -57,7 +57,7 @@ export function EditorBar({ layout, pinnable }: EditorBarProps) {
 	);
 }
 
-const MODE_ICONS = { write: "edit", design: "palette", check: "fact_check" } as const;
+const MODE_ICONS = { write: "pencil-simple", design: "palette", check: "list-checks" } as const;
 
 function ModeTabs() {
 	const issueCount = useOpenIssueCount();
@@ -102,7 +102,14 @@ function CheckBadge({ count }: { count: number }) {
 function HistoryButton() {
 	const setShareTab = useEditorStore((state) => state.setShareTab);
 
-	return <IconButton icon="history" label={t`History`} className="text-ink-2" onClick={() => setShareTab("history")} />;
+	return (
+		<IconButton
+			icon="clock-counter-clockwise"
+			label={t`History`}
+			className="text-ink-2"
+			onClick={() => setShareTab("history")}
+		/>
+	);
 }
 
 type ToolbarActionProps = {
@@ -116,7 +123,7 @@ function ShareButton({ compact, disabled }: ToolbarActionProps) {
 	if (compact && !isPublic) {
 		return (
 			<IconButton
-				icon="ios_share"
+				icon="export"
 				label={t`Share`}
 				shortcut="⌘⇧S"
 				className="me-2"
@@ -136,13 +143,13 @@ function ShareButton({ compact, disabled }: ToolbarActionProps) {
 		>
 			{!compact && (
 				<>
-					<Icon name="ios_share" />
+					<Icon name="export" />
 					<Trans>Share</Trans>
 				</>
 			)}
 			{isPublic && (
 				<Badge variant="accent">
-					<Icon name="public" />
+					<Icon name="globe-hemisphere-west" />
 					<Trans>Public</Trans>
 				</Badge>
 			)}
@@ -159,7 +166,7 @@ function DownloadButtons({ compact, iconOnly, disabled }: ToolbarActionProps & {
 	if (compact) {
 		return (
 			<IconButton
-				icon="download"
+				icon="download-simple"
 				label={t`Download PDF`}
 				shortcut="⌘P"
 				disabled={disabled || isExporting}
@@ -179,7 +186,7 @@ function DownloadButtons({ compact, iconOnly, disabled }: ToolbarActionProps & {
 				className="gap-1.5"
 				onClick={() => void onDownloadPDF()}
 			>
-				{!isExporting && <Icon name="download" />}
+				{!isExporting && <Icon name="download-simple" />}
 				{iconOnly ? null : isExporting ? <Trans>Preparing…</Trans> : <Trans>Download PDF</Trans>}
 			</Button>
 			<Button
@@ -189,7 +196,7 @@ function DownloadButtons({ compact, iconOnly, disabled }: ToolbarActionProps & {
 				className="w-8 border-s border-s-[oklch(1_0_0/0.25)]"
 				onClick={() => setShareTab("download")}
 			>
-				<Icon name="expand_more" />
+				<Icon name="caret-down" />
 			</Button>
 		</ButtonGroup>
 	);

@@ -27,7 +27,7 @@ export const threadsRouter = {
 			path: "/agent/threads",
 			tags: ["Agent"],
 			operationId: "startAgentThread",
-			summary: "Start a conversation about a document",
+			summary: "Start a document, application or career conversation",
 			description:
 				"Starts an assistant conversation about one resume or cover letter, using the given tested provider or the default one. The assistant reads the document and proposes edits; it never changes the document itself.",
 		})
@@ -37,10 +37,20 @@ export const threadsRouter = {
 					resumeId: z.string().min(1).optional(),
 					coverLetterId: z.string().min(1).optional(),
 					aiProviderId: z.string().optional(),
+					scope: z.enum(["document", "application", "career"]).default("document"),
+					applicationId: z.string().min(1).optional(),
 				})
-				.refine((input) => Boolean(input.resumeId) !== Boolean(input.coverLetterId), {
-					message: "Give a resume or a cover letter.",
-				}),
+				.refine(
+					(input) =>
+						input.scope === "document"
+							? Boolean(input.resumeId) !== Boolean(input.coverLetterId) && !input.applicationId
+							: !input.resumeId &&
+								!input.coverLetterId &&
+								(input.scope === "application") === Boolean(input.applicationId),
+					{
+						message: "Choose one document, one application, or general career context.",
+					},
+				),
 		)
 		.use(mapAgentEnvironmentError)
 		.output(agentThreadSchema)
@@ -65,14 +75,20 @@ export const threadsRouter = {
 			path: "/agent/threads/{id}",
 			tags: ["Agent"],
 			operationId: "updateAgentThread",
-			summary: "Switch a conversation's model",
+			summary: "Switch a conversation's model or rename it",
 		})
-		.input(z.object({ id: z.string(), aiProviderId: z.string().min(1) }))
+		.input(
+			z
+				.object({
+					id: z.string(),
+					aiProviderId: z.string().min(1).optional(),
+					title: z.string().trim().min(1).max(200).optional(),
+				})
+				.refine((input) => input.aiProviderId || input.title, { message: "Give a model or a title." }),
+		)
 		.use(mapAgentEnvironmentError)
 		.output(agentThreadSchema)
-		.handler(({ context, input }) =>
-			agentService.threads.update({ id: input.id, userId: context.user.id, aiProviderId: input.aiProviderId }),
-		),
+		.handler(({ context, input }) => agentService.threads.update({ ...input, userId: context.user.id })),
 
 	delete: protectedProcedure
 		.route({

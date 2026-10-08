@@ -78,7 +78,7 @@ export function DisableTwoFactorDialog(_: DialogProps<"auth.two-factor.disable">
 		<DialogContent>
 			<DialogHeader>
 				<DialogTitle className="flex items-center gap-x-2">
-					<Icon name="lock_open" size={16} />
+					<Icon name="lock-open" size={16} />
 					<Trans>Disable Two-Factor Authentication</Trans>
 				</DialogTitle>
 				<DialogDescription>

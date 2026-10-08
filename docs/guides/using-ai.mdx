@@ -102,15 +102,18 @@ Select **Edit** on a provider's row.
 - **Delete it** with **Delete provider**, then confirm. The provider and its stored key are removed.
 
 <Warning>
-  Deleting a provider can't be undone. Assistant conversations that used it become read-only until you pick another
-  model in the conversation. Documents and edits you already accepted aren't affected.
+  Deleting a provider can't be undone. Conversations that used it continue on your default provider. Documents and edits
+  you already accepted aren't affected.
 </Warning>
 
 ## Which provider is used
 
 You can save several providers, for example one per account or one per model.
 
-- AI features default to the enabled provider you used most recently. If you haven't used one yet, they choose the oldest enabled provider you added.
+- One provider is your **default**, marked **Default** in **Settings → AI & developer**. To change it, choose **Make default** on another provider that's on and tested. Every AI feature where you don't pick a provider uses the default, and the line under each AI action names it.
+- If you haven't chosen a default, or it's turned off, features use the enabled provider you used most recently, and if you haven't used one yet, the oldest enabled provider you added.
+- Conversations keep the provider they started with. When that provider is turned off or deleted, they continue on the default. A scheduled interview briefing does the same.
+- Voice practice uses the default when its provider offers speech models, otherwise another provider that does, otherwise your browser.
 - The **assistant** lets you switch models from the model menu in its header at any time. See [Using the assistant](/guides/using-the-assistant).
 - **Check → Writing** lets you pick the provider for each review.
 
@@ -133,7 +136,7 @@ Self-hosted instances encrypt keys with the `ENCRYPTION_SECRET` environment vari
 
 ## What is sent to your provider
 
-Requests go from the Reactive Resume server to the provider you chose, using your key. Nothing is sent until you use an AI feature, and each feature sends only what it needs:
+Requests go from the Reactive Resume server to the provider you chose, using your key. Requests run when you use an AI action or when an AI schedule you enabled becomes due. Each action explains its inputs and connection:
 
 | Feature                      | What is sent                                                                                                                                                                                                                                  |
 | ---------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -143,6 +146,18 @@ Requests go from the Reactive Resume server to the provider you chose, using you
 | Importing a PDF or Word file | The file you import.                                                                                                                                                                                                                          |
 | Drafting a letter            | The linked resume and the application's job posting.                                                                                                                                                                                          |
 | Adding an application        | Job posting text you paste or import from a URL.                                                                                                                                                                                              |
+
+Career adds these uses:
+
+| Action                            | What is sent                                                                                                                                                                           |
+| --------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Workspace drafting and review     | The application's posting and details, relevant interview, notes, selected sent or current documents, usable facts and stories, preferences, and the answer or message being reviewed. |
+| Career coach                      | Your message, earlier messages and attachments in the conversation, plus the application and Knowledge context you leave switched on. Web research is a separate opt-in.               |
+| Scheduled interview briefing      | The interview and application context used by Prepare, through the schedule's chosen AI connection.                                                                                    |
+| Voice transcription               | Your recording or chosen audio file, to the speech connection named beside the action.                                                                                                 |
+| Reading a practice question aloud | The question text, to the selected speech connection; browser speech can be used instead.                                                                                              |
+
+Workspace text actions use your default connection. **Voice settings** can use another speech-capable connection or browser speech. Speech usage can be billed separately from text coaching. Automatic role discovery uses your web search connection; it does not need an AI model. See [Career controls and data](/guides/career-workspace-reference#coach-context-and-ai-actions).
 
 Your provider handles that data under its own terms and privacy policy. Reactive Resume keeps assistant conversations and their attachments in your account until you delete the conversation.
 

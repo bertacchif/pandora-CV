@@ -19,6 +19,7 @@ export type AiProviderResponse = {
 	model: string;
 	baseURL: string | null;
 	enabled: boolean;
+	isDefault: boolean;
 	testStatus: string;
 	testError: string | null;
 	apiKeyPreview: string;
@@ -60,6 +61,7 @@ function toResponse(row: AiProviderRecord): AiProviderResponse {
 		model: row.model,
 		baseURL: row.baseUrl,
 		enabled: row.enabled,
+		isDefault: row.isDefault,
 		testStatus: row.testStatus,
 		testError: row.testError,
 		apiKeyPreview: row.apiKeyPreview,
@@ -94,6 +96,16 @@ async function getOwnedProvider(input: { id: string; userId: string }) {
 
 const serverProviderId = (userId: string) => `server-ai:${userId}`;
 
+/**
+ * How a connection is picked when nobody chose one: the default, then the most recently used, then the oldest. Lists
+ * use the same order, so the first usable connection on screen is the one the server uses.
+ */
+const automaticOrder = [
+	desc(schema.aiProvider.isDefault),
+	desc(sql<Date>`coalesce(${schema.aiProvider.lastUsedAt}, '1970-01-01T00:00:00.000Z'::timestamptz)`),
+	asc(schema.aiProvider.createdAt),
+];
+
 function assertPersonalProvidersAllowed() {
 	if (env.AI_PROVIDER) throw new ORPCError("FORBIDDEN", { message: "AI is managed by the server." });
 }
@@ -108,6 +120,7 @@ async function serverProvider(userId: string) {
 		model: env.AI_MODEL,
 		baseUrl: env.AI_BASE_URL ?? null,
 		enabled: true,
+		isDefault: true,
 		testStatus: "success",
 		encryptedApiKey: "",
 		apiKeySalt: "",
@@ -136,10 +149,7 @@ export const aiProvidersService = {
 			.select()
 			.from(schema.aiProvider)
 			.where(and(eq(schema.aiProvider.userId, input.userId), ne(schema.aiProvider.id, serverProviderId(input.userId))))
-			.orderBy(
-				desc(sql<Date>`coalesce(${schema.aiProvider.lastUsedAt}, '1970-01-01T00:00:00.000Z'::timestamptz)`),
-				asc(schema.aiProvider.createdAt),
-			);
+			.orderBy(...automaticOrder);
 
 		return providers.map(toResponse);
 	},
@@ -177,10 +187,7 @@ export const aiProvidersService = {
 					ne(schema.aiProvider.id, serverProviderId(input.userId)),
 				),
 			)
-			.orderBy(
-				desc(sql<Date>`coalesce(${schema.aiProvider.lastUsedAt}, '1970-01-01T00:00:00.000Z'::timestamptz)`),
-				asc(schema.aiProvider.createdAt),
-			)
+			.orderBy(...automaticOrder)
 			.limit(1);
 
 		return provider
@@ -306,6 +313,29 @@ export const aiProvidersService = {
 
 			throw error;
 		}
+	},
+
+	/** Makes one tested, switched-on connection the default; the previous default stops being one. */
+	setDefault: async (input: { id: string; userId: string }) => {
+		assertPersonalProvidersAllowed();
+		const provider = await getOwnedProvider(input);
+		if (!provider.enabled || provider.testStatus !== "success")
+			throw new ORPCError("BAD_REQUEST", {
+				message: "Test and switch on this connection before making it the default.",
+			});
+		const [updated] = await db.transaction(async (tx) => {
+			await tx
+				.update(schema.aiProvider)
+				.set({ isDefault: false })
+				.where(and(eq(schema.aiProvider.userId, input.userId), eq(schema.aiProvider.isDefault, true)));
+			return tx
+				.update(schema.aiProvider)
+				.set({ isDefault: true })
+				.where(and(eq(schema.aiProvider.id, input.id), eq(schema.aiProvider.userId, input.userId)))
+				.returning();
+		});
+		if (!updated) throw new ORPCError("NOT_FOUND");
+		return toResponse(updated);
 	},
 
 	markUsed: async (input: { id: string; userId: string }) => {

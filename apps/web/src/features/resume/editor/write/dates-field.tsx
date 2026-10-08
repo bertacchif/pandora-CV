@@ -51,7 +51,7 @@ function MonthYearInput({
 	return (
 		<div className="relative min-w-0 flex-1">
 			<Icon
-				name="calendar_month"
+				name="calendar-dots"
 				size={18}
 				className="pointer-events-none absolute start-2.5 top-1/2 -translate-y-1/2 text-ink-3"
 			/>
@@ -155,7 +155,7 @@ export function DatesField({ dates, single = false, locale, format, onChange, cl
 			<div id={`${id}-note`}>
 				{hasError ? (
 					<p className="flex items-start gap-1 text-xs leading-4 text-danger-text">
-						<Icon name="error" size={16} className="shrink-0" />
+						<Icon name="warning-circle" size={16} className="shrink-0" />
 						<Trans>
 							This date hasn't been saved. Use a month and year, like Mar 2022, or just a year. The resume keeps the
 							last valid date.

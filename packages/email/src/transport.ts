@@ -1,5 +1,6 @@
 import type { SendMailOptions, Transporter } from "nodemailer";
 import type { ReactElement } from "react";
+import { createHash } from "node:crypto";
 import nodemailer from "nodemailer";
 import { render } from "react-email";
 import { env } from "@reactive-resume/env/server";
@@ -17,6 +18,9 @@ const getTransport = () => {
 		port: env.SMTP_PORT,
 		secure: env.SMTP_SECURE,
 		auth: { user, pass },
+		connectionTimeout: 10_000,
+		greetingTimeout: 10_000,
+		socketTimeout: 10_000,
 	});
 
 	return cachedTransport;
@@ -48,3 +52,33 @@ export const sendEmail = async ({ to, subject, react }: SendEmailOptions) => {
 		console.error("There was an error sending mail.", error);
 	}
 };
+
+type SendCareerNotificationOptions = { to: string; subject: string; text: string; url: string; key: string };
+
+/** Owner-only notifications: missing SMTP never logs personal career content. */
+export async function sendCareerNotification({
+	to,
+	subject,
+	text,
+	url,
+	key,
+}: SendCareerNotificationOptions): Promise<boolean> {
+	const transport = getTransport();
+	if (!transport) return false;
+	const link = new URL(url, env.APP_URL);
+	if (link.origin !== new URL(env.APP_URL).origin)
+		throw new Error("Career notification links must point to this application.");
+	try {
+		await transport.sendMail({
+			to,
+			from: env.SMTP_FROM,
+			subject,
+			text: `${text}\n\n${link.toString()}`,
+			messageId: `<career-${createHash("sha256").update(key).digest("hex")}@reactive-resume.local>`,
+		});
+		return true;
+	} catch {
+		// SMTP errors can contain recipient addresses, credentials or message fragments.
+		throw new Error("Career notification email could not be delivered.");
+	}
+}

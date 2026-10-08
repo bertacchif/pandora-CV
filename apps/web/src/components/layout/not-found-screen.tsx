@@ -22,12 +22,12 @@ export function NotFoundScreen() {
 
 			<div className="flex items-center gap-x-2">
 				<Link to="/dashboard" className={buttonVariants()}>
-					<Icon name="search" size={16} />
+					<Icon name="magnifying-glass" size={16} />
 					<Trans>Go to dashboard</Trans>
 				</Link>
 
 				<Link to="/" className={buttonVariants({ variant: "secondary" })}>
-					<Icon name="home" size={16} />
+					<Icon name="house" size={16} />
 					<Trans>Go home</Trans>
 				</Link>
 			</div>

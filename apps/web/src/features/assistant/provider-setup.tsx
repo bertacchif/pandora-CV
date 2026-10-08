@@ -53,7 +53,7 @@ export function ProviderSetup() {
 							>
 								{choice.provider === "openai-compatible" ? <Trans>Other · OpenAI-compatible</Trans> : choice.label}
 								<Icon
-									name="chevron_right"
+									name="caret-right"
 									size={18}
 									className={cn(
 										"text-ink-3 transition-transform duration-standard ease-enter",

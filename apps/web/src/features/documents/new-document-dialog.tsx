@@ -18,6 +18,7 @@ import { useNewDocumentsStore } from "./new-documents";
 import { useDialogStore } from "@/dialogs/store";
 import { applicationsListQueryOptions } from "@/features/applications/queries";
 import { detectImportKind, ImportError, readResumeFile, summarizeImport } from "@/features/resume/import/read-file";
+import { AiProviderLoadState } from "@/features/settings/integrations/ai-provider-load-state";
 import { useHasUsableAiProvider } from "@/features/settings/integrations/hooks/use-has-usable-ai-provider";
 import { getOrpcErrorMessage } from "@/libs/error-message";
 import { formatRelativeTime } from "@/libs/locale";
@@ -66,7 +67,8 @@ function useResumeImport(
 ) {
 	const queryClient = useQueryClient();
 	const markNew = useNewDocumentsStore((state) => state.markNew);
-	const { hasUsableProvider } = useHasUsableAiProvider();
+	const providerState = useHasUsableAiProvider();
+	const { hasUsableProvider } = providerState;
 	const run = useRef(0);
 	const refreshDocuments = () => queryClient.invalidateQueries({ queryKey: orpc.documents.key() });
 
@@ -96,8 +98,21 @@ function useResumeImport(
 				return;
 			}
 
+			let aiAvailable = hasUsableProvider;
+			if ((kind === "docx" || kind === "pdf") && providerState.isUnavailable) {
+				try {
+					const providers = await queryClient.fetchQuery({ ...orpc.aiProviders.list.queryOptions(), staleTime: 0 });
+					aiAvailable = providers.some((provider) => provider.enabled && provider.testStatus === "success");
+				} catch {
+					// PDFs have a browser-only reader; a connection outage must not block that local path.
+					if (kind !== "pdf")
+						throw new ImportError(t`Couldn't load AI connections. Try again before importing this file.`);
+					aiAvailable = false;
+				}
+			}
+			if (!current()) return;
 			const resume = await readResumeFile(file, kind, {
-				aiAvailable: hasUsableProvider,
+				aiAvailable,
 				onRead: (note) => advance(1, note),
 			});
 			if (!current()) return;
@@ -142,7 +157,8 @@ function useResumeImport(
  */
 export function NewDocumentDialog({ data }: { data?: NewDocumentDialogData | undefined }) {
 	const navigate = useNavigate();
-	const { hasUsableProvider } = useHasUsableAiProvider();
+	const providerState = useHasUsableAiProvider();
+	const { hasUsableProvider } = providerState;
 	const closeDialog = useDialogStore((state) => state.closeDialog);
 	const markNew = useNewDocumentsStore((state) => state.markNew);
 	const [step, setStep] = useState<Step>({ name: data?.step ?? "choose" } as Step);
@@ -182,6 +198,7 @@ export function NewDocumentDialog({ data }: { data?: NewDocumentDialogData | und
 
 	return (
 		<DialogContent className="sm:max-w-[640px]">
+			<AiProviderLoadState state={providerState} />
 			<input
 				ref={inputRef}
 				type="file"
@@ -242,7 +259,7 @@ export function NewDocumentDialog({ data }: { data?: NewDocumentDialogData | und
 						className="flex items-start gap-4 rounded-xl border-[1.5px] border-dashed border-line-2 p-5 text-start transition-[background-color,border-color,scale] duration-quick ease-enter hover:border-accent hover:bg-accent-soft active:scale-[0.98]"
 					>
 						<span className="grid size-11 shrink-0 place-items-center rounded-[10px] bg-sunken text-ink-2">
-							<Icon name="upload_file" size={24} />
+							<Icon name="file-arrow-up" size={24} />
 						</span>
 						<span className="grid gap-1">
 							<span className="text-[15px] font-semibold">
@@ -259,13 +276,13 @@ export function NewDocumentDialog({ data }: { data?: NewDocumentDialogData | und
 
 					<div className="grid gap-3 sm:grid-cols-2">
 						<ChoiceTile
-							icon="content_copy"
+							icon="copy"
 							title={t`Copy a resume for a job`}
 							description={t`Start from one you have and link the application.`}
 							onClick={() => setStep({ name: "copy" })}
 						/>
 						<ChoiceTile
-							icon="note_add"
+							icon="file-plus"
 							title={t`Start blank`}
 							description={t`Opens the editor on your name. Nothing else to fill in first.`}
 							disabled={creating}
@@ -279,7 +296,7 @@ export function NewDocumentDialog({ data }: { data?: NewDocumentDialogData | und
 							className="flex items-center gap-1.5 text-ink-2 hover:text-ink"
 							onClick={() => void newLetter()}
 						>
-							<Icon name="mail" size={18} />
+							<Icon name="envelope-simple" size={18} />
 							<Trans>New cover letter instead</Trans>
 						</button>
 						<button
@@ -323,10 +340,7 @@ function ImportStep({ step, creating, onCancel, onStartBlank, onChooseFile, onCl
 				</DialogTitle>
 			</DialogHeader>
 			<div className="flex items-center gap-3 rounded-[10px] border border-line p-3">
-				<Icon
-					name={step.file.name.toLowerCase().endsWith(".pdf") ? "picture_as_pdf" : "description"}
-					className="text-ink-2"
-				/>
+				<Icon name={step.file.name.toLowerCase().endsWith(".pdf") ? "file-pdf" : "file-text"} className="text-ink-2" />
 				<span className="grid min-w-0 flex-1">
 					<span className="truncate text-sm font-medium">{step.file.name}</span>
 					<span className="text-xs text-ink-3">{formatSize(step.file.size)}</span>
@@ -359,7 +373,7 @@ function ImportStep({ step, creating, onCancel, onStartBlank, onChooseFile, onCl
 							"flex gap-2.5 rounded-[10px] bg-danger-soft p-3 text-[13px] leading-[19px] text-danger-text",
 						)}
 					>
-						<Icon name="error" size={20} />
+						<Icon name="warning-circle" size={20} />
 						<span>{step.message}</span>
 					</div>
 					<div className={cn(ENTER_CLASS, "flex flex-wrap justify-end gap-2")}>
@@ -377,7 +391,7 @@ function ImportStep({ step, creating, onCancel, onStartBlank, onChooseFile, onCl
 				<>
 					<p role="status" className={cn(ENTER_CLASS, "flex gap-2 text-[13px] leading-[19px]")}>
 						<Icon
-							name="check_circle"
+							name="check-circle"
 							size={20}
 							className="text-accent-text transition-[opacity,scale] duration-standard ease-enter starting:scale-80 starting:opacity-0"
 						/>
@@ -474,7 +488,7 @@ export function useStartDocument(applicationId?: string) {
 }
 
 type ChoiceTileProps = {
-	icon: "content_copy" | "note_add";
+	icon: "copy" | "file-plus";
 	title: string;
 	description: string;
 	onClick: () => void;
@@ -514,7 +528,7 @@ function ImportProgress({ stage, notes }: { stage: number; notes: string[] }) {
 							className={cn("flex items-center gap-2.5 text-sm", done || current ? "text-ink" : "text-ink-3")}
 						>
 							{done ? (
-								<Icon name="check_circle" size={18} className={cn(POP_CLASS, "text-accent-text")} />
+								<Icon name="check-circle" size={18} className={cn(POP_CLASS, "text-accent-text")} />
 							) : current ? (
 								<Spinner decorative className={cn(POP_CLASS, "size-[18px]")} />
 							) : (
@@ -625,7 +639,7 @@ function CopyForJob({ initialSourceId, initialJobId, onBack, onCreated }: CopyFo
 									setName(null);
 								}}
 							/>
-							<Icon name="description" className="text-ink-2" />
+							<Icon name="file-text" className="text-ink-2" />
 							<span className="grid min-w-0 flex-1">
 								<span className="truncate text-sm font-medium">{resume.name}</span>
 								<span className="text-xs text-ink-3">{formatRelativeTime(resume.updatedAt, i18n.locale)}</span>
@@ -659,7 +673,7 @@ function CopyForJob({ initialSourceId, initialJobId, onBack, onCreated }: CopyFo
 									: "border-line-2 text-ink-2 hover:bg-hover",
 							)}
 						>
-							{option.id && <Icon name="work" size={16} />}
+							{option.id && <Icon name="briefcase" size={16} />}
 							{option.label}
 						</button>
 					))}

@@ -107,7 +107,7 @@ export function SectionRow({ section, locked, onMove, children }: SectionRowProp
 					{...attributes}
 					{...listeners}
 				>
-					<Icon name="drag_indicator" size={18} />
+					<Icon name="dots-six-vertical" size={18} />
 				</button>
 
 				<button
@@ -141,7 +141,7 @@ export function SectionRow({ section, locked, onMove, children }: SectionRowProp
 				)}
 
 				<IconButton
-					icon={hidden ? "visibility_off" : "visibility"}
+					icon={hidden ? "eye-slash" : "eye"}
 					label={hidden ? t`Show ${title} on the page` : t`Hide ${title} from the page`}
 					aria-pressed={hidden}
 					size="icon-sm"
@@ -150,7 +150,7 @@ export function SectionRow({ section, locked, onMove, children }: SectionRowProp
 					onClick={toggleHidden}
 				/>
 				<IconButton
-					icon="expand_more"
+					icon="caret-down"
 					label={open ? t`Close ${title}` : t`Open ${title}`}
 					size="icon-sm"
 					className={cn("text-ink-2 transition-transform duration-standard ease-enter", open && "rotate-180")}
@@ -261,36 +261,36 @@ function SectionMenu({ section, title, onMove }: SectionMenuProps) {
 			<DropdownMenu>
 				<DropdownMenuTrigger
 					render={
-						<IconButton icon="more_horiz" label={t`Options for ${title}`} size="icon-sm" className="text-ink-2" />
+						<IconButton icon="dots-three" label={t`Options for ${title}`} size="icon-sm" className="text-ink-2" />
 					}
 				/>
 				<DropdownMenuContent align="end" className="w-60">
 					{section.kind !== "summary" && (
 						<DropdownMenuItem onClick={() => addEntryTo(section)}>
-							<Icon name="add" />
+							<Icon name="plus" />
 							<Trans>Add entry</Trans>
 						</DropdownMenuItem>
 					)}
 					{canSort && (
 						<DropdownMenuItem onClick={sortByDate}>
-							<Icon name="arrow_downward" />
+							<Icon name="arrow-down" />
 							<Trans>Sort by date</Trans>
 						</DropdownMenuItem>
 					)}
 					<DropdownMenuItem onClick={() => onMove("up")}>
-						<Icon name="arrow_upward" />
+						<Icon name="arrow-up" />
 						<Trans>Move up</Trans>
 					</DropdownMenuItem>
 					<DropdownMenuItem onClick={() => onMove("down")}>
-						<Icon name="arrow_downward" />
+						<Icon name="arrow-down" />
 						<Trans>Move down</Trans>
 					</DropdownMenuItem>
 					<DropdownMenuItem onClick={rename}>
-						<Icon name="edit" />
+						<Icon name="pencil-simple" />
 						<Trans>Rename…</Trans>
 					</DropdownMenuItem>
 					<DropdownMenuItem onClick={() => setIconPickerOpen(true)}>
-						<Icon name="bookmark" />
+						<Icon name="bookmark-simple" />
 						<Trans>Icon…</Trans>
 					</DropdownMenuItem>
 					<DropdownMenuCheckboxItem
@@ -306,7 +306,7 @@ function SectionMenu({ section, title, onMove }: SectionMenuProps) {
 					<DropdownMenuSeparator />
 					<DropdownMenuSub>
 						<DropdownMenuSubTrigger>
-							<Icon name="grid_view" />
+							<Icon name="squares-four" />
 							<Trans>Columns</Trans>
 						</DropdownMenuSubTrigger>
 						<DropdownMenuSubContent>
@@ -336,7 +336,7 @@ function SectionMenu({ section, title, onMove }: SectionMenuProps) {
 					{isSkills && (
 						<DropdownMenuSub>
 							<DropdownMenuSubTrigger>
-								<Icon name="format_list_bulleted" />
+								<Icon name="list-bullets" />
 								<Trans>Keyword layout</Trans>
 							</DropdownMenuSubTrigger>
 							<DropdownMenuSubContent>
@@ -380,7 +380,7 @@ function SectionMenu({ section, title, onMove }: SectionMenuProps) {
 					</DropdownMenuCheckboxItem>
 					<DropdownMenuSeparator />
 					<DropdownMenuItem variant="destructive" onClick={section.kind === "custom" ? remove : reset}>
-						<Icon name="delete" />
+						<Icon name="trash" />
 						{section.kind === "custom" ? <Trans>Delete section</Trans> : <Trans>Clear section</Trans>}
 					</DropdownMenuItem>
 				</DropdownMenuContent>

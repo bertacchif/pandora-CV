@@ -48,7 +48,7 @@ vi.mock("@/libs/orpc/client", () => ({
 	},
 }));
 vi.mock("@reactive-resume/ui/components/toast", () => ({ toast: { add: vi.fn() } }));
-vi.mock("./chat", () => ({ fileToBase64: async () => "Zm9v" }));
+vi.mock("./chat", () => ({ fileToBase64: async () => "Zm9v", useConversationConnection: () => undefined }));
 
 import { AssistantPanel } from "./assistant-panel";
 

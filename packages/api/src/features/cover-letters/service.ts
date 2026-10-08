@@ -19,6 +19,7 @@ import {
 } from "@reactive-resume/schema/cover-letter/data";
 import { resumeDataSchema } from "@reactive-resume/schema/resume/data";
 import { defaultResumeData } from "@reactive-resume/schema/resume/default";
+import { lockDocumentOwner } from "../documents/ownership";
 import { resumeService } from "../resume/service";
 import { sanitizeCoverLetterHtml } from "./html";
 import { getLetterVersion, saveLetterSessionVersion, writeLetterVersion } from "./versions";
@@ -170,6 +171,11 @@ async function insert(
 	},
 	client: DbOrTx = db,
 ): Promise<CoverLetter> {
+	if (client === db)
+		return db.transaction(async (tx) => {
+			await lockDocumentOwner(tx, input.userId);
+			return insert(input, tx);
+		});
 	const content = coverLetterContentSchema.parse(input);
 	const [row] = await client
 		.insert(schema.coverLetter)
@@ -195,6 +201,11 @@ async function updateRevision(
 	changes: Partial<typeof schema.coverLetter.$inferInsert>,
 	client: DbOrTx = db,
 ): Promise<CoverLetter> {
+	if (client === db)
+		return db.transaction(async (tx) => {
+			await lockDocumentOwner(tx, input.userId);
+			return updateRevision(input, changes, tx);
+		});
 	const [row] = await client
 		.update(schema.coverLetter)
 		.set({ ...changes, revision: sql`${schema.coverLetter.revision} + 1` })
@@ -208,13 +219,13 @@ async function updateRevision(
 		)
 		.returning();
 	if (row) return toLetter(row);
-	await assertUnlocked(input);
+	await assertUnlocked(input, client);
 	throw new ORPCError("CONFLICT", { message: "This cover letter changed elsewhere. Reload it before saving again." });
 }
 
 /** Locked letters, like locked resumes, can't be edited or moved to Trash. */
-async function assertUnlocked(input: OwnedId) {
-	const [row] = await db
+async function assertUnlocked(input: OwnedId, client: DbOrTx = db) {
+	const [row] = await client
 		.select({ isLocked: schema.coverLetter.isLocked })
 		.from(schema.coverLetter)
 		.where(and(eq(schema.coverLetter.id, input.id), eq(schema.coverLetter.userId, input.userId)));
@@ -253,6 +264,7 @@ export const coverLetterService = {
 		if (input.template) style.metadata.template = input.template;
 		const linked = Boolean(input.resumeId) && !input.template;
 		const letter = await db.transaction(async (tx) => {
+			await lockDocumentOwner(tx, input.userId);
 			const letter = await insert(
 				{
 					userId: input.userId,
@@ -343,7 +355,12 @@ export const coverLetterService = {
 			return updated;
 		};
 		const updated = await resolveLinks(
-			await (input.applicationId === undefined ? persist(db) : db.transaction(persist)),
+			await (input.applicationId === undefined
+				? persist(db)
+				: db.transaction(async (tx) => {
+						await lockDocumentOwner(tx, input.userId);
+						return persist(tx);
+					})),
 			input.userId,
 		);
 		await saveLetterSessionVersion({

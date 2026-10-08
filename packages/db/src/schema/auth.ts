@@ -23,6 +23,8 @@ export const user = pg.pgTable(
 		username: pg.text("username").notNull().unique(),
 		displayUsername: pg.text("display_username").notNull().unique(),
 		twoFactorEnabled: pg.boolean("two_factor_enabled").notNull().default(false),
+		/** Where the user's times are shown (Settings → Preferences); an IANA name. */
+		timezone: pg.text("timezone").notNull().default("UTC"),
 		lastActiveAt: pg.timestamp("last_active_at", { withTimezone: true }),
 		role: pg.text("role").default("user"),
 		banned: pg.boolean("banned").default(false),

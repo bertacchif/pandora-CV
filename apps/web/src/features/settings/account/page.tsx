@@ -38,7 +38,7 @@ export function SignOutButton() {
 				void router.invalidate();
 			}}
 		>
-			<Icon name="logout" size={18} />
+			<Icon name="sign-out" size={18} />
 			<Trans>Sign out</Trans>
 		</Button>
 	);

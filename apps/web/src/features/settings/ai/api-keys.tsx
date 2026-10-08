@@ -88,7 +88,7 @@ export function ApiKeysSection() {
 			}
 			action={
 				<Button size="sm" variant="secondary" onClick={() => setCreating(true)}>
-					<Icon name="add" size={18} />
+					<Icon name="plus" size={18} />
 					<Trans>New key</Trans>
 				</Button>
 			}
@@ -260,7 +260,7 @@ function NewKeyDialog({ open, onOpenChange, onCreated }: NewKeyDialogProps) {
 									swapped={copied}
 									from={
 										<>
-											<Icon name="content_copy" size={16} />
+											<Icon name="copy" size={16} />
 											<Trans>Copy</Trans>
 										</>
 									}

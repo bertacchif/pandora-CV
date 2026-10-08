@@ -22,6 +22,7 @@ import { sendEmail } from "@reactive-resume/email/transport";
 import { env } from "@reactive-resume/env/server";
 import { rateLimitConfig } from "@reactive-resume/utils/rate-limit";
 import { generateId, toUsername } from "@reactive-resume/utils/string";
+import { timezoneSchema } from "@reactive-resume/utils/timezone";
 import { isAllowedOAuthRedirectUri } from "@reactive-resume/utils/url-security.node";
 import { createGithubProfileMapper, createProfileMapper } from "./oauth-profile";
 import { authRateLimitStorage } from "./rate-limit";
@@ -308,6 +309,12 @@ const getAuthConfig = () => {
 				username: {
 					type: "string",
 					required: true,
+				},
+				timezone: {
+					type: "string",
+					required: false,
+					defaultValue: "UTC",
+					validator: { input: timezoneSchema },
 				},
 			},
 		},

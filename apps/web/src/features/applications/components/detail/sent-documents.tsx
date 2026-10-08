@@ -98,7 +98,7 @@ export function SentDocuments({ application, disabled }: SentDocumentsProps) {
 
 			{application.resumeId && (
 				<SentDocumentRow
-					icon="description"
+					icon="file-text"
 					name={resume?.name ?? t`Linked resume`}
 					status={
 						application.sentResumeVersionId ? (
@@ -127,7 +127,7 @@ export function SentDocuments({ application, disabled }: SentDocumentsProps) {
 
 			{application.coverLetterId && (
 				<SentDocumentRow
-					icon="mail"
+					icon="envelope-simple"
 					name={letter?.name ?? t`Cover letter`}
 					status={
 						application.sentCoverLetterVersionId ? (
@@ -156,7 +156,7 @@ export function SentDocuments({ application, disabled }: SentDocumentsProps) {
 							disabled={disabled}
 							onClick={() => openDialog("document.new", { step: "copy", applicationId: application.id })}
 						>
-							<Icon name="content_copy" size={16} />
+							<Icon name="copy" size={16} />
 							<Trans>Prepare a resume</Trans>
 						</Button>
 					)}
@@ -167,7 +167,7 @@ export function SentDocuments({ application, disabled }: SentDocumentsProps) {
 							disabled={disabled || createLetter.isPending}
 							onClick={() => void writeLetter()}
 						>
-							<Icon name="mail" size={16} />
+							<Icon name="envelope-simple" size={16} />
 							<Trans>Write a letter</Trans>
 						</Button>
 					)}

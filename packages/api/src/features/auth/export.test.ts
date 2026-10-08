@@ -1,8 +1,13 @@
-import { describe, expect, it, vi } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import { copyCoverLetterStyle } from "@reactive-resume/resume/cover-letter";
 import { defaultResumeData } from "@reactive-resume/schema/resume/default";
 
-const mocks = vi.hoisted(() => ({ select: vi.fn(), predicates: [] as unknown[], getLetter: vi.fn() }));
+const mocks = vi.hoisted(() => ({
+	select: vi.fn(),
+	predicates: [] as unknown[],
+	getLetter: vi.fn(),
+	exportCareer: vi.fn(),
+}));
 vi.mock("@reactive-resume/db/client", () => ({ db: { select: mocks.select } }));
 vi.mock("@reactive-resume/db/schema", () => ({
 	user: { id: "user.id" },
@@ -15,11 +20,17 @@ vi.mock("@reactive-resume/env/server", () => ({ env: {} }));
 vi.mock("@reactive-resume/auth/config", () => ({ isCustomOAuthProviderEnabled: () => false }));
 vi.mock("../storage/service", () => ({ getStorageService: vi.fn() }));
 vi.mock("../cover-letters/service", () => ({ coverLetterService: { getById: mocks.getLetter } }));
+vi.mock("../career/service", () => ({ careerService: { exportData: mocks.exportCareer } }));
 const { authService } = await import("./service");
 
 describe("account backup", () => {
+	beforeEach(() => {
+		vi.clearAllMocks();
+		mocks.predicates.length = 0;
+	});
+
 	it.each([false, true])(
-		"includes current owned letters and applications alongside resumes (linked: %s)",
+		"includes owned letters, applications and career data alongside resumes (linked: %s)",
 		async (linked) => {
 			const letter = {
 				id: "letter",
@@ -46,6 +57,24 @@ describe("account backup", () => {
 				resolved.style.metadata.template = "gengar";
 			}
 			mocks.getLetter.mockResolvedValue(resolved);
+			const career = {
+				facts: [
+					{
+						id: "fact",
+						text: "I led a warehouse migration.",
+						source: { kind: "manual", id: "career-note", quote: "I led a warehouse migration." },
+					},
+				],
+				artifacts: [
+					{
+						id: "brief",
+						data: { kind: "brief", markdown: "Discuss the warehouse migration." },
+						evidence: { factIds: ["fact"], sources: [] },
+					},
+				],
+				transcripts: [{ id: "transcript", original: "I lead the migration.", edited: "I led the migration." }],
+			};
+			mocks.exportCareer.mockResolvedValue(career);
 			const application = { id: "application", userId: "owner", company: "Lumen", role: "Designer" };
 			for (const rows of [
 				[{ id: "owner", name: "Owner" }],
@@ -67,6 +96,8 @@ describe("account backup", () => {
 			// Applications come along, without the owner's id.
 			expect(exported.applications).toEqual([{ id: "application", company: "Lumen", role: "Designer" }]);
 			expect(mocks.predicates).toContainEqual({ column: "coverLetter.userId", value: "owner" });
+			expect(mocks.exportCareer).toHaveBeenCalledExactlyOnceWith("owner");
+			expect(exported.career).toEqual(career);
 		},
 	);
 });

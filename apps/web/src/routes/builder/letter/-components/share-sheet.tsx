@@ -114,7 +114,7 @@ function LetterDownloadTab() {
 						id: "both" as const,
 						label: t`Resume + letter`,
 						extension: t`2 files`,
-						icon: "picture_as_pdf" as const,
+						icon: "file-pdf" as const,
 						description: t`This letter and “${resumeName}” as two PDFs, named to match.`,
 					},
 				]

@@ -160,8 +160,8 @@ function TabletBody({ mode }: { mode: LetterMode }) {
 type MobileView = "write" | "page" | "design";
 
 const MOBILE_TABS: { view: MobileView; icon: IconName }[] = [
-	{ view: "write", icon: "edit" },
-	{ view: "page", icon: "description" },
+	{ view: "write", icon: "pencil-simple" },
+	{ view: "page", icon: "file-text" },
 	{ view: "design", icon: "palette" },
 ];
 

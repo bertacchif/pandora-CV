@@ -14,6 +14,8 @@ export const agentThreadSchema = z.object({
 	id: z.string(),
 	title: z.string(),
 	status: z.string(),
+	scope: z.enum(["document", "application", "career"]),
+	applicationId: z.string().nullable(),
 	sourceResumeId: z.string().nullable(),
 	workingResumeId: z.string().nullable(),
 	coverLetterId: z.string().nullable(),

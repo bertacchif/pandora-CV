@@ -165,6 +165,15 @@ vi.mock("../resume/service", () => ({ resumeService: resumeServiceMock }));
 vi.mock("../cover-letters/service", () => ({
 	coverLetterService: { getById: vi.fn() },
 }));
+// These document lifecycle tests do not exercise career context or its persistence graph.
+vi.mock("../career/service", () => ({
+	careerService: {},
+	requireCareerApplication: vi.fn(),
+}));
+vi.mock("../career/tools", () => ({
+	buildCareerInstructions: vi.fn(),
+	buildCareerTools: vi.fn(() => ({})),
+}));
 const documentMock = {
 	loadDocument: vi.fn(),
 	findPosting: vi.fn(),
@@ -243,6 +252,10 @@ function buildArchivedThread(overrides: Record<string, unknown> = {}) {
 		id: "thread-1",
 		userId: "user-1",
 		aiProviderId: "provider-1",
+		scope: "document",
+		applicationId: null,
+		interviewId: null,
+		coachMode: "chat",
 		workingResumeId: "resume-1",
 		sourceResumeId: null,
 		coverLetterId: null,

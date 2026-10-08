@@ -203,7 +203,7 @@ export function CheckPageLayer({ pageIndex, pageMap }: CheckPageLayerProps) {
 						style={marginStyle(box, page)}
 						className="pointer-events-auto absolute grid size-[22px] place-items-center rounded-full border-2 border-white bg-info-text text-bg shadow-[0_1px_3px_oklch(0_0_0/0.25)]"
 					>
-						<Icon name="picture_as_pdf" size={13} />
+						<Icon name="file-pdf" size={13} />
 					</button>
 				</div>
 			))}
@@ -227,8 +227,8 @@ export function PageViewToggle() {
 	const view = useEditorStore((state) => state.pageView);
 	const setView = useEditorStore((state) => state.setPageView);
 	const options = [
-		{ value: "page", label: t`What a person sees`, icon: "description" },
-		{ value: "parser", label: t`What a parser reads`, icon: "data_object" },
+		{ value: "page", label: t`What a person sees`, icon: "file-text" },
+		{ value: "parser", label: t`What a parser reads`, icon: "brackets-curly" },
 	] as const;
 
 	return (
@@ -286,7 +286,7 @@ export function IssueStepper() {
 					onClick={() => setCheckIssue(null)}
 					className="grid size-9 place-items-center rounded-lg"
 				>
-					<Icon name="close" size={20} />
+					<Icon name="x" size={20} />
 				</button>
 				<span className="flex-1 text-center text-sm font-semibold">
 					<Trans>
@@ -299,7 +299,7 @@ export function IssueStepper() {
 					onClick={() => go(-1)}
 					className="grid size-9 place-items-center rounded-lg"
 				>
-					<Icon name="chevron_left" size={20} />
+					<Icon name="caret-left" size={20} />
 				</button>
 				<button
 					type="button"
@@ -307,7 +307,7 @@ export function IssueStepper() {
 					onClick={() => go(1)}
 					className="grid size-9 place-items-center rounded-lg"
 				>
-					<Icon name="chevron_right" size={20} />
+					<Icon name="caret-right" size={20} />
 				</button>
 			</div>
 
@@ -318,7 +318,11 @@ export function IssueStepper() {
 				<strong className="text-[15px] font-semibold">{issue.title}</strong>
 				<p className="text-[13px] leading-[19px] text-ink-2">{issue.body}</p>
 				<Button size="sm" className="h-10 w-fit px-3.5 text-sm" onClick={() => fix(issue)}>
-					{issue.fix.kind === "apply" ? <Icon name={issue.fix.icon} size={18} /> : <Icon name="edit" size={18} />}
+					{issue.fix.kind === "apply" ? (
+						<Icon name={issue.fix.icon} size={18} />
+					) : (
+						<Icon name="pencil-simple" size={18} />
+					)}
 					{issue.fix.label}
 				</Button>
 			</section>

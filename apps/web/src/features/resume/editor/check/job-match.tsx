@@ -185,7 +185,7 @@ export function JobMatchTab({ match }: JobMatchTabProps) {
 											openTerm === term.term ? "border-accent bg-accent-soft" : "border-line-2 hover:bg-hover",
 										)}
 									>
-										<Icon name="add" size={15} className="text-ink-3" />
+										<Icon name="plus" size={15} className="text-ink-3" />
 										{term.label}
 									</button>
 								))}
@@ -207,11 +207,11 @@ export function JobMatchTab({ match }: JobMatchTabProps) {
 									</p>
 									<div className="grid justify-items-start gap-1">
 										<Button size="sm" disabled={locked} onClick={() => addToSkills(open)}>
-											<Icon name="add" size={16} />
+											<Icon name="plus" size={16} />
 											<Trans>Add to Skills</Trans>
 										</Button>
 										<Button size="sm" variant="secondary" disabled={locked} onClick={() => askAssistant(open.label)}>
-											<Icon name="auto_awesome" size={16} />
+											<Icon name="sparkle" size={16} />
 											<Trans>Ask the assistant to work it in</Trans>
 										</Button>
 										<Button size="sm" variant="ghost" disabled={locked} onClick={() => hideTerm(open)}>
@@ -321,7 +321,7 @@ function PostingSource({ application }: { application: JobMatch["application"] }
 			<div className="grid gap-2 rounded-[10px] bg-bg p-3">
 				<div className="flex items-center gap-2.5">
 					<span className="grid size-7 place-items-center rounded-[7px] bg-sunken text-ink-2">
-						<Icon name="content_copy" size={16} />
+						<Icon name="copy" size={16} />
 					</span>
 					<span className="grid min-w-0 flex-1">
 						<b className="text-[13px] font-semibold">
@@ -509,7 +509,7 @@ function SaveAsApplication() {
 	if (!open) {
 		return (
 			<Button size="sm" variant="ghost" className="w-fit" onClick={() => setOpen(true)}>
-				<Icon name="work" size={16} />
+				<Icon name="briefcase" size={16} />
 				<Trans>Save as application…</Trans>
 			</Button>
 		);

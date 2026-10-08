@@ -158,18 +158,13 @@ The front matter records the app type scale. Field labels use the separate `fiel
 
 ## Iconography
 
-App icons use **Material Symbols Rounded**, weight 300, through `Icon` from `@reactive-resume/ui/components/icon`. The self-hosted subset is defined in `packages/ui/src/icons/names.ts`.
+App icons use **Phosphor** (regular weight) through `Icon` from `@reactive-resume/ui/components/icon`. `Icon` takes the glyph's Phosphor name (`x`, `gear-six`, `magnifying-glass`), the same names the [Phosphor catalog](https://phosphoricons.com) and resume icons use. To use another glyph, add it to the `icons` map in that file.
 
-To add a glyph:
+Use 20px icons on desktop and 24px on touch interfaces. Regular weight is the default; reserve filled app icons for selected navigation. Marketing illustrations may use filled icons, such as the GitHub star.
 
-1. Add its name to `names.ts`.
-2. Run `pnpm icons:build` to validate names and rebuild the subset and manifest.
+Pair icons with text. Back, close, more, undo/redo, history, assistant, and zoom controls may use `IconButton`, which requires an accessible label and supplies a tooltip with an optional shortcut. `Icon` is decorative (`aria-hidden`) and sized by its font size, so containers can resize it with `text-*`. Directional arrows, chevrons, undo, and redo mirror in RTL layouts.
 
-Use 20px icons on desktop and 24px on touch interfaces. Outline is the default; reserve filled app icons for selected navigation. Marketing illustrations may use filled symbols, such as the GitHub star.
-
-Pair icons with text. Back, close, more, undo/redo, history, assistant, and zoom controls may use `IconButton`, which requires an accessible label and supplies a tooltip with an optional shortcut. `Icon` is decorative (`aria-hidden`, `translate="no"`); CSS draws its glyph from `data-icon`, keeping the name out of text content. Directional arrows, chevrons, undo, and redo mirror in RTL layouts.
-
-Icons inside resumes use Phosphor names stored in resume data; they remain separate from app icons.
+Icons inside resumes use Phosphor names stored in resume data, drawn by the Phosphor web font; they remain separate from app icons.
 
 ## Space, shape, and elevation
 

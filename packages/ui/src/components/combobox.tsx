@@ -20,7 +20,7 @@ function ComboboxTrigger({ className, children, ...props }: ComboboxPrimitive.Tr
 			{...props}
 		>
 			{children}
-			<Icon name="expand_more" className="pointer-events-none text-ink-3" />
+			<Icon name="caret-down" className="pointer-events-none text-ink-3" />
 		</ComboboxPrimitive.Trigger>
 	);
 }
@@ -33,7 +33,7 @@ function ComboboxClear({ className, ...props }: ComboboxPrimitive.Clear.Props) {
 			className={cn(className)}
 			{...props}
 		>
-			<Icon name="close" size={18} className="pointer-events-none" />
+			<Icon name="x" size={18} className="pointer-events-none" />
 		</ComboboxPrimitive.Clear>
 	);
 }

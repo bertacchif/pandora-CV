@@ -76,7 +76,7 @@ export function UserDropdownMenu({ children }: Props) {
 
 			<DropdownMenuContent align="start" side="top">
 				<DropdownMenuItem onClick={() => void router.navigate({ to: "/dashboard/settings" })}>
-					<Icon name="settings" />
+					<Icon name="gear-six" />
 					<Trans>Settings</Trans>
 				</DropdownMenuItem>
 				<DropdownMenuSeparator />
@@ -121,7 +121,7 @@ export function UserDropdownMenu({ children }: Props) {
 				<DropdownMenuSeparator />
 
 				<DropdownMenuItem onClick={handleLogout}>
-					<Icon name="logout" size={16} />
+					<Icon name="sign-out" size={16} />
 					<Trans comment="User menu action to sign out of current account">Sign out</Trans>
 				</DropdownMenuItem>
 			</DropdownMenuContent>

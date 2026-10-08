@@ -84,14 +84,14 @@ export function AuthErrorPage({ code, description }: AuthErrorPageProps) {
 
 			{returnsToSettings ? (
 				<Link to="/dashboard/settings/account" className={buttonVariants({ variant: "secondary" })}>
-					<Icon name="arrow_back" size={16} />
+					<Icon name="arrow-left" size={16} />
 					<Trans comment="Action returning a signed-in user to the page where they manage linked providers">
 						Back to authentication settings
 					</Trans>
 				</Link>
 			) : (
 				<Link to="/auth/login" className={buttonVariants({ variant: "secondary" })}>
-					<Icon name="arrow_back" size={16} />
+					<Icon name="arrow-left" size={16} />
 					<Trans comment="Action returning the visitor to the sign-in page after a failed sign-in">
 						Back to sign in
 					</Trans>

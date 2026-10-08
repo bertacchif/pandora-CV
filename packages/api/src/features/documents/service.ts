@@ -6,6 +6,7 @@ import * as schema from "@reactive-resume/db/schema";
 import { applicationService } from "../applications/service";
 import { coverLetterService } from "../cover-letters/service";
 import { resumeService } from "../resume/service";
+import { lockDocumentOwner } from "./ownership";
 
 type DocumentType = DocumentSummary["type"];
 type DocumentRef = { userId: string; type: DocumentType; id: string };
@@ -52,17 +53,20 @@ type LetterChanges = Partial<typeof schema.coverLetter.$inferInsert>;
 
 /** The same change to either table; `letter` differs only where the columns do (the linked application). */
 async function update(ref: DocumentRef, resume: ResumeChanges, letter: LetterChanges = resume as LetterChanges) {
-	const rows =
-		ref.type === "resume"
-			? await db.update(schema.resume).set(resume).where(owned(ref)).returning({ id: schema.resume.id })
-			: await db
-					.update(schema.coverLetter)
-					// Letters carry a revision for their editor's optimistic saves; any change moves it on.
-					.set({ ...letter, revision: sql`${schema.coverLetter.revision} + 1` })
-					.where(owned(ref))
-					.returning({ id: schema.coverLetter.id });
+	await db.transaction(async (tx) => {
+		await lockDocumentOwner(tx, ref.userId);
+		const rows =
+			ref.type === "resume"
+				? await tx.update(schema.resume).set(resume).where(owned(ref)).returning({ id: schema.resume.id })
+				: await tx
+						.update(schema.coverLetter)
+						// Letters carry a revision for their editor's optimistic saves; any change moves it on.
+						.set({ ...letter, revision: sql`${schema.coverLetter.revision} + 1` })
+						.where(owned(ref))
+						.returning({ id: schema.coverLetter.id });
 
-	if (rows.length === 0) throw new ORPCError("NOT_FOUND");
+		if (rows.length === 0) throw new ORPCError("NOT_FOUND");
+	});
 }
 
 async function readState(ref: DocumentRef) {
@@ -90,7 +94,10 @@ async function assertUnlocked(ref: DocumentRef) {
 /** Deletes for good: resumes through their own path (storage too), letters directly. */
 async function deleteForGood(ref: DocumentRef) {
 	if (ref.type === "resume") return resumeService.delete({ id: ref.id, userId: ref.userId });
-	await db.delete(schema.coverLetter).where(owned(ref));
+	await db.transaction(async (tx) => {
+		await lockDocumentOwner(tx, ref.userId);
+		await tx.delete(schema.coverLetter).where(owned(ref));
+	});
 }
 
 /** Documents trashed more than 30 days ago go for good. Runs only through the explicit authenticated cleanup operation. */
@@ -272,7 +279,7 @@ export const documentsService = {
 		});
 
 		if (application) {
-			await db.update(schema.resume).set({ applicationId: application.id }).where(eq(schema.resume.id, id));
+			await update({ userId: input.userId, type: "resume", id }, { applicationId: application.id });
 			if (!application.sentResumeVersionId && (!application.resumeId || application.status === "saved"))
 				await applicationService.update({ userId: input.userId, id: application.id, resumeId: id });
 		}

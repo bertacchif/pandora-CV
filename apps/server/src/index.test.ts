@@ -31,6 +31,8 @@ vi.mock("@hono/node-server", () => ({
 	}),
 }));
 vi.mock("@reactive-resume/env/server", () => ({ env: { SERVER_PORT: 0 } }));
+// Scheduled career work has its own test; here it only has to stop when the server does.
+vi.mock("./startup/career-scheduler", () => ({ startCareerScheduler: () => ({ stop: async () => {} }) }));
 afterEach(() => vi.restoreAllMocks());
 
 describe("server startup", () => {
@@ -79,7 +81,8 @@ describe("server startup", () => {
 			finished.resolve(new Response("drained"));
 			expect(await (await response).text()).toBe("drained");
 			await closed;
-			expect(exit).toHaveBeenCalledExactlyOnceWith(0);
+			// Exit waits for the HTTP drain and the scheduler's stop together, a few microtasks after "close".
+			await vi.waitFor(() => expect(exit).toHaveBeenCalledExactlyOnceWith(0));
 		} finally {
 			finished.resolve(new Response("drained"));
 			await new Promise<void>((resolve) => runningServer.close(() => resolve()));

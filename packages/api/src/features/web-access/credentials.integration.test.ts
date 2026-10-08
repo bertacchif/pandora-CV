@@ -40,16 +40,21 @@ describe.skipIf(!process.env.INTEGRATIONS_TEST_DATABASE_URL)("integration creden
 		await pool.query(
 			'CREATE TABLE "user" (id text PRIMARY KEY); CREATE TABLE resume (id text PRIMARY KEY); CREATE TABLE application (id text PRIMARY KEY)',
 		);
-		for (const name of ["20260513181752_bent_human_cannonball", "20261001042749_v6_release"]) {
+		for (const name of [
+			"20260513181752_bent_human_cannonball",
+			"20261001042749_v6_release",
+			"20261007205051_career_platform",
+		]) {
 			const sql = await readFile(new URL(`../../../../../migrations/${name}/migration.sql`, import.meta.url), "utf8");
-			// The fixture owns the AI tables and web credentials, not the rest of the v6 upgrade.
+			// The fixture owns the AI tables and web credentials, not the rest of the later upgrades.
+			const owned = {
+				"20261001042749_v6_release": /^(?:CREATE TABLE|ALTER TABLE) "web_access_credentials"/,
+				"20261007205051_career_platform":
+					/^(?:ALTER TABLE|CREATE UNIQUE INDEX "ai_providers_[a-z_]+" ON) "ai_providers"/,
+			}[name];
 			const statements = sql
 				.split("--> statement-breakpoint")
-				.filter(
-					(statement) =>
-						name !== "20261001042749_v6_release" ||
-						/^(?:CREATE TABLE|ALTER TABLE) "web_access_credentials"/.test(statement.trim()),
-				);
+				.filter((statement) => !owned || owned.test(statement.trim()));
 			await pool.query(statements.join("\n").replaceAll('"public".', ""));
 		}
 		web = (await import("./credentials")).webAccessService;
@@ -180,5 +185,30 @@ describe.skipIf(!process.env.INTEGRATIONS_TEST_DATABASE_URL)("integration creden
 		expect(await ai.list({ userId: "alice" })).toMatchObject([{ id: personal.id, managed: false }]);
 		expect((await ai.getDefaultRunnable({ userId: "alice" }))?.apiKey).toBe("personal-key");
 		await expect(ai.getRunnableById({ userId: "alice", id: global.id })).rejects.toMatchObject({ code: "NOT_FOUND" });
+	});
+
+	it("uses the default provider while it's usable, and keeps one default per account", async () => {
+		const add = (label: string) =>
+			ai.create({ userId: "alice", label, provider: "openai", model: "model", apiKey: `${label}-key` });
+		const first = await add("first");
+		const second = await add("second");
+		await pool.query("UPDATE ai_providers SET test_status = 'success', enabled = true");
+		await pool.query("UPDATE ai_providers SET last_used_at = now() WHERE id = $1", [first.id]);
+		// Without a default, the most recently used one.
+		expect((await ai.getDefaultRunnable({ userId: "alice" }))?.id).toBe(first.id);
+		await ai.setDefault({ userId: "alice", id: second.id });
+		await ai.markUsed({ userId: "alice", id: first.id });
+		expect((await ai.getDefaultRunnable({ userId: "alice" }))?.id).toBe(second.id);
+		await ai.setDefault({ userId: "alice", id: first.id });
+		expect((await ai.list({ userId: "alice" })).map(({ label, isDefault }) => [label, isDefault])).toEqual([
+			["first", true],
+			["second", false],
+		]);
+		// A switched-off default stays chosen but isn't used, and can't be made the default again until it's back on.
+		await pool.query("UPDATE ai_providers SET enabled = false WHERE id = $1", [first.id]);
+		expect((await ai.getDefaultRunnable({ userId: "alice" }))?.id).toBe(second.id);
+		await ai.setDefault({ userId: "alice", id: second.id });
+		await expect(ai.setDefault({ userId: "alice", id: first.id })).rejects.toMatchObject({ code: "BAD_REQUEST" });
+		await expect(ai.setDefault({ userId: "bob", id: second.id })).rejects.toMatchObject({ code: "NOT_FOUND" });
 	});
 });

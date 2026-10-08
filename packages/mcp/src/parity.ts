@@ -9,6 +9,7 @@ import { env } from "@reactive-resume/env/server";
 import { fileInputSchema, toWireObjectSchema, wireJsonSchema } from "./contracts";
 import { readMcpFile } from "./files";
 import { json, withErrorHandling } from "./results";
+import { PARITY_TOOL_DESCRIPTIONS } from "./tool-meta";
 
 export const MCP_ROUTER = { ...router, rest: restAliases };
 
@@ -56,6 +57,7 @@ const PARITY_PROCEDURES = {
 	"aiProviders.list": router.aiProviders.list,
 	"aiProviders.delete": router.aiProviders.delete,
 	"aiProviders.test": router.aiProviders.test,
+	"aiProviders.setDefault": router.aiProviders.setDefault,
 	"webAccess.status": router.webAccess.status,
 	"webAccess.delete": router.webAccess.delete,
 	"webAccess.test": router.webAccess.test,
@@ -70,6 +72,28 @@ const PARITY_PROCEDURES = {
 	"agent.messages.setEditStatus": router.agent.messages.setEditStatus,
 	"agent.attachments.create": router.agent.attachments.create,
 	"agent.attachments.delete": router.agent.attachments.delete,
+	"career.profile": router.career.profile,
+	"career.saveProfile": router.career.saveProfile,
+	"career.facts": router.career.facts,
+	"career.saveFact": router.career.saveFact,
+	"career.updateFact": router.career.updateFact,
+	"career.forgetFact": router.career.forgetFact,
+	"career.stories": router.career.stories,
+	"career.saveStory": router.career.saveStory,
+	"career.deleteStory": router.career.deleteStory,
+	"career.savedItems": router.career.savedItems,
+	"career.deleteSavedItem": router.career.deleteSavedItem,
+	"career.applyReply": router.career.applyReply,
+	"career.workspace": router.career.workspace,
+	"career.saveWorkspace": router.career.saveWorkspace,
+	"career.schedules": router.career.schedules,
+	"career.saveSchedule": router.career.saveSchedule,
+	"career.deleteSchedule": router.career.deleteSchedule,
+	"career.opportunities": router.career.opportunities,
+	"career.dismissOpportunity": router.career.dismissOpportunity,
+	"career.trackOpportunity": router.career.trackOpportunity,
+	"career.notifications": router.career.notifications,
+	"career.markNotificationRead": router.career.markNotificationRead,
 	"auth.providers.list": router.auth.providers.list,
 	"auth.exportData": router.auth.exportData,
 	"flags.get": router.flags.get,
@@ -107,6 +131,12 @@ const readOnlyPosts = new Set([
 	"webAccess.test",
 ]);
 const exportPaths = new Set(["rest.documentExports.resume", "rest.documentExports.letter"]);
+const destructiveWrites = new Set([
+	"career.saveProfile",
+	"career.saveStory",
+	"career.saveSchedule",
+	"career.applyReply",
+]);
 
 /** These workflows require browser interaction so secrets and security ceremonies stay with the user. */
 const BROWSER_HANDOFFS = {
@@ -222,15 +252,21 @@ export const PARITY_TOOL_META: Record<
 				parityToolName(path),
 				{
 					title: route.summary ?? path,
-					description: `${route.description ?? route.summary ?? path}${path === "resume.updates.subscribe" ? " Returns an owned snapshot; poll updatedAt for changes over stateless MCP." : ""}${streamingPaths.has(path) ? " Returns collected stream chunks, at most 500,000 characters; use the thread getter to retrieve persisted assistant replies." : ""}${exportPaths.has(path) ? " Returns an authenticated REST download URL; send the same bearer token or API key to download. Rendering occurs when downloaded." : ""}`,
+					description: `${PARITY_TOOL_DESCRIPTIONS[path] ?? route.description ?? route.summary ?? path}${path === "resume.updates.subscribe" ? " Returns an owned snapshot; poll updatedAt for changes over stateless MCP." : ""}${streamingPaths.has(path) ? " Returns collected stream chunks, at most 500,000 characters; use the thread getter to retrieve persisted assistant replies." : ""}${exportPaths.has(path) ? " Returns an authenticated REST download URL; send the same bearer token or API key to download. Rendering occurs when downloaded." : ""}`,
 					inputSchema: contract.inputSchema,
 					outputSchema: contract.outputSchema,
 					annotations: {
 						readOnlyHint: readOnly,
-						destructiveHint: !readOnly && /update|delete|purge|remove|restore|password|trash|set/i.test(path),
+						destructiveHint:
+							!readOnly &&
+							(route.method === "DELETE" ||
+								destructiveWrites.has(path) ||
+								/update|delete|purge|remove|restore|password|trash|set/i.test(path)),
 						idempotentHint: readOnly && !/draft|parse|test|search|improve|review/i.test(path),
 						openWorldHint:
 							path === "statistics.github.getStarCount" ||
+							path === "career.saveSchedule" ||
+							path === "agent.messages.send" ||
 							/ai|webAccess|storage|attachments|Exports|importResumeFile/i.test(path),
 					},
 				},
@@ -282,16 +318,14 @@ async function decodeInput(
 	return value;
 }
 
-async function encodeOutput(value: unknown): Promise<unknown> {
+function encodeOutput(value: unknown): unknown {
 	if (value instanceof Date) return value.toISOString();
-	if (Array.isArray(value)) return Promise.all(value.map((item) => encodeOutput(item)));
+	if (Array.isArray(value)) return value.map(encodeOutput);
 	if (value && typeof value === "object") {
 		return Object.fromEntries(
-			await Promise.all(
-				Object.entries(value)
-					.filter(([, item]) => item !== undefined)
-					.map(async ([key, item]) => [key, await encodeOutput(item)]),
-			),
+			Object.entries(value)
+				.filter(([, item]) => item !== undefined)
+				.map(([key, item]) => [key, encodeOutput(item)]),
 		);
 	}
 	return value ?? null;
@@ -397,7 +431,7 @@ export function registerParityTools(
 					}
 					result = { events, truncated };
 				}
-				const wire = await encodeOutput(result);
+				const wire = encodeOutput(result);
 				const response = json(wire);
 				if (path === "resume.verifyPassword") {
 					// Password verification mints a resource cookie. Expose it explicitly for

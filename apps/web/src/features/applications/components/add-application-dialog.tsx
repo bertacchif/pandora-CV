@@ -21,6 +21,7 @@ import { toast } from "@reactive-resume/ui/components/toast";
 import { cn } from "@reactive-resume/utils/style";
 import { useInvalidateApplications } from "../use-application-actions";
 import { useDialogStore } from "@/dialogs/store";
+import { AiProviderLoadState } from "@/features/settings/integrations/ai-provider-load-state";
 import { useHasUsableAiProvider } from "@/features/settings/integrations/hooks/use-has-usable-ai-provider";
 import { getOrpcErrorMessage } from "@/libs/error-message";
 import { client, orpc } from "@/libs/orpc/client";
@@ -83,7 +84,8 @@ function AddApplicationForm({ onClose, onAdded }: AddApplicationFormProps) {
 	const [pastedText, setPastedText] = useState("");
 	const [description, setDescription] = useState<string | null>(null);
 	const [reading, setReading] = useState<{ text: string; result: Parsed } | null>(null);
-	const { hasUsableProvider } = useHasUsableAiProvider();
+	const providerState = useHasUsableAiProvider();
+	const { hasUsableProvider } = providerState;
 	const invalidate = useInvalidateApplications();
 	const openDialog = useDialogStore((state) => state.openDialog);
 
@@ -381,15 +383,19 @@ function AddApplicationForm({ onClose, onAdded }: AddApplicationFormProps) {
 						)}
 					</div>
 				)}
-				<ReadStatus
-					text={text}
-					link={link}
-					readable={readable}
-					pending={read.isPending}
-					error={read.error}
-					parsed={parsed}
-					ai={hasUsableProvider}
-				/>
+				{providerState.isUnavailable && !link ? (
+					<AiProviderLoadState state={providerState} />
+				) : (
+					<ReadStatus
+						text={text}
+						link={link}
+						readable={readable}
+						pending={read.isPending}
+						error={read.error}
+						parsed={parsed}
+						ai={hasUsableProvider}
+					/>
+				)}
 			</div>
 
 			<div className="grid grid-cols-2 gap-3 max-sm:grid-cols-1">
@@ -548,7 +554,7 @@ function ReadStatus({ text, link, readable, pending, error, parsed, ai }: ReadSt
 	if (error) {
 		return (
 			<p className={cn(base, "text-warn-text")} role="alert">
-				<Icon name="error" size={16} className="shrink-0" />
+				<Icon name="warning-circle" size={16} className="shrink-0" />
 				{getOrpcErrorMessage(error, {
 					byCode: { POSTING_UNREADABLE: t`That link couldn't be read. Paste the posting text instead.` },
 					fallback: t`The posting couldn't be read. Fill in the role and company.`,
@@ -556,14 +562,22 @@ function ReadStatus({ text, link, readable, pending, error, parsed, ai }: ReadSt
 			</p>
 		);
 	}
+	if (parsed && (!parsed.role.trim() || !parsed.company.trim())) {
+		return (
+			<p className={cn(base, "text-warn-text")} role="status">
+				<Icon name="warning-circle" size={16} className="shrink-0" />
+				<Trans>Some job details couldn't be read. Fill in the role and company, or paste one job's posting text.</Trans>
+			</p>
+		);
+	}
 	if (parsed?.filledBy === "ai") {
 		return (
 			<p className={cn(base, "text-accent-text")} role="status">
-				<Icon name="check_circle" size={16} className="shrink-0" />
+				<Icon name="check-circle" size={16} className="shrink-0" />
 				<Plural
 					value={parsed.requirements.length}
-					one="Found role, company, location and # requirement. Saved with the application."
-					other="Found role, company, location and # requirements. Saved with the application."
+					one="Found role, company and # requirement. Review the details before saving."
+					other="Found role, company and # requirements. Review the details before saving."
 				/>
 			</p>
 		);
@@ -571,8 +585,8 @@ function ReadStatus({ text, link, readable, pending, error, parsed, ai }: ReadSt
 	if (parsed?.filledBy === "page") {
 		return (
 			<p className={cn(base, "text-accent-text")} role="status">
-				<Icon name="check_circle" size={16} className="shrink-0" />
-				<Trans>Found the role and company on the page. The posting is saved with the application.</Trans>
+				<Icon name="check-circle" size={16} className="shrink-0" />
+				<Trans>Found the role and company on the page. Review the details before saving.</Trans>
 			</p>
 		);
 	}

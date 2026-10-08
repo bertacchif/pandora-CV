@@ -208,7 +208,7 @@ export function Conversation(props: ConversationProps) {
 
 				{stopped && !streaming && !proposedInLast && (
 					<p className="flex items-center gap-2 text-sm text-ink-2 transition-opacity duration-standard ease-enter starting:opacity-0">
-						<Icon name="stop_circle" size={18} className="text-ink-3" />
+						<Icon name="stop-circle" size={18} className="text-ink-3" />
 						<Trans>Stopped. No edits were proposed.</Trans>
 						<button
 							type="button"
@@ -226,7 +226,7 @@ export function Conversation(props: ConversationProps) {
 						className="grid gap-2 rounded-xl bg-danger-soft p-3 text-[13px] text-danger-text transition-opacity duration-standard ease-enter starting:opacity-0"
 					>
 						<span className="flex gap-2">
-							<Icon name="error" size={18} className="shrink-0" />
+							<Icon name="warning-circle" size={18} className="shrink-0" />
 							<Trans>
 								{props.providerLabel} returned “
 								{getOrpcErrorMessage(error, {
@@ -250,7 +250,7 @@ export function Conversation(props: ConversationProps) {
 				{!streaming && messages.length > 0 && (
 					<div className="flex justify-end transition-opacity duration-standard ease-enter starting:opacity-0">
 						<Button size="sm" variant="ghost" className="text-ink-3" onClick={() => void copyTranscript(messages)}>
-							<Icon name="content_copy" size={16} />
+							<Icon name="copy" size={16} />
 							<Trans>Copy transcript</Trans>
 						</Button>
 					</div>
@@ -327,7 +327,7 @@ function MessageView({
 				{text && <p className="rounded-[12px_12px_4px_12px] bg-sunken px-3 py-2 text-sm whitespace-pre-wrap">{text}</p>}
 				{files.map((file) => (
 					<span key={file.url} className="flex items-center gap-1 rounded-md bg-sunken px-2 py-1 text-xs text-ink-2">
-						<Icon name="attach_file" size={14} />
+						<Icon name="paperclip" size={14} />
 						{(file as { filename?: string }).filename ?? t`Attachment`}
 					</span>
 				))}
@@ -681,14 +681,14 @@ export function Composer(props: ComposerProps) {
 	const chips = [
 		{
 			key: "document" as const,
-			icon: document.kind === "letter" ? ("mail" as const) : ("description" as const),
+			icon: document.kind === "letter" ? ("envelope-simple" as const) : ("file-text" as const),
 			label: document.name,
 		},
 		...(document.posting
 			? [
 					{
 						key: "posting" as const,
-						icon: "work" as const,
+						icon: "briefcase" as const,
 						label: t`${document.posting.company} posting`,
 					},
 				]
@@ -726,7 +726,7 @@ export function Composer(props: ComposerProps) {
 					{attachments.map((attachment) => (
 						<RemovableChip
 							key={attachment.id}
-							icon="attach_file"
+							icon="paperclip"
 							label={attachment.filename}
 							maxWidth="max-w-[140px]"
 							removeLabel={t`Remove ${attachment.filename}`}
@@ -762,7 +762,7 @@ export function Composer(props: ComposerProps) {
 				{(props.threadId || props.ensureThread) && (
 					<>
 						<IconButton
-							icon="attach_file"
+							icon="paperclip"
 							label={t`Attach a file`}
 							size="icon-sm"
 							disabled={disabled || uploading}
@@ -788,7 +788,7 @@ export function Composer(props: ComposerProps) {
 						streaming ? "bg-ink text-bg" : hasText ? "bg-accent text-on-accent" : "bg-sunken text-ink-3",
 					)}
 				>
-					<Icon name={streaming ? "stop" : "arrow_upward"} size={20} />
+					<Icon name={streaming ? "stop" : "arrow-up"} size={20} />
 				</button>
 			</div>
 
@@ -826,7 +826,7 @@ function RemovableChip({ icon, label, maxWidth, removeLabel, onRemove }: Removab
 				onClick={onRemove}
 				className="grid size-5 place-items-center rounded text-ink-3 transition-colors hover:bg-hover hover:text-ink"
 			>
-				<Icon name="close" size={14} />
+				<Icon name="x" size={14} />
 			</button>
 		</span>
 	);

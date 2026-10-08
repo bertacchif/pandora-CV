@@ -61,11 +61,17 @@ export function encryptCredential(apiKey: string): StoredCredentialFields {
 	};
 }
 
+const unreadableCredential = () =>
+	new ORPCError("AI_CREDENTIAL_DECRYPTION_FAILED", {
+		status: 412,
+		message: "The saved provider key can't be decrypted. Enter the key again in Settings → AI & developer.",
+	});
+
 export function decryptCredential(payload: string) {
 	const [version, encodedIv, encodedAuthTag, encodedCiphertext] = payload.split(".");
-	if (version !== CREDENTIAL_VERSION || !encodedIv || !encodedAuthTag || encodedCiphertext === undefined) {
-		throw new Error("INVALID_ENCRYPTED_CREDENTIAL");
-	}
+	// A malformed payload is as unrecoverable as one sealed with another secret: the user enters the key again.
+	if (version !== CREDENTIAL_VERSION || !encodedIv || !encodedAuthTag || encodedCiphertext === undefined)
+		throw unreadableCredential();
 
 	const key = getEncryptionKey();
 	try {
@@ -73,10 +79,7 @@ export function decryptCredential(payload: string) {
 		decipher.setAuthTag(decode(encodedAuthTag));
 		return Buffer.concat([decipher.update(decode(encodedCiphertext)), decipher.final()]).toString("utf8");
 	} catch {
-		throw new ORPCError("AI_CREDENTIAL_DECRYPTION_FAILED", {
-			status: 412,
-			message: "The saved provider key can't be decrypted. Enter the key again in Settings → AI & developer.",
-		});
+		throw unreadableCredential();
 	}
 }
 

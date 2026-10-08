@@ -148,6 +148,21 @@
 						"pages": ["guides/using-ai", "guides/using-the-assistant", "guides/ai-agent-tools"]
 					},
 					{
+						"group": "Career and Application Workspaces",
+						"pages": [
+							"guides/career-overview",
+							"guides/first-career-application",
+							"guides/building-career-knowledge",
+							"guides/checking-job-fit",
+							"guides/writing-application-answers",
+							"guides/preparing-for-interview-day",
+							"guides/finding-roles-automatically",
+							"guides/replying-to-recruiters",
+							"guides/comparing-job-offers",
+							"guides/career-workspace-reference"
+						]
+					},
+					{
 						"group": "Application Tracker",
 						"pages": [
 							"guides/tracking-job-applications",
@@ -233,6 +248,7 @@
 							"contributing/development",
 							"contributing/architecture",
 							"contributing/web-access",
+							"contributing/career-platform",
 							"contributing/translations",
 							"contributing/deployment-checks"
 						]

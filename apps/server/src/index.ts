@@ -10,6 +10,7 @@ export async function main() {
 	const { createApp } = await import("./http/app");
 	const { initializeAuth } = await import("@reactive-resume/auth/config");
 	await initializeAuth();
+	const { startCareerScheduler } = await import("./startup/career-scheduler");
 
 	// Safety net: Node 24 crashes the whole process on an unhandled rejection. One request's
 	// stray promise must not take the server down for everyone, so log and keep serving.
@@ -33,18 +34,23 @@ export async function main() {
 			console.info(`🚀 Up and running on http://localhost:${info.port}`);
 		},
 	);
+	const careerScheduler = startCareerScheduler();
 
 	let shuttingDown = false;
 	const shutdown = () => {
 		if (shuttingDown) return;
 		shuttingDown = true;
-		// Stop accepting connections, then wait for active requests before exiting.
-		server.close((error) => {
-			if (error) {
-				console.error("Failed to drain HTTP requests", error);
-				process.exit(1);
-			}
-			process.exit(0);
+		// Stop accepting HTTP and scheduled work, then drain both before exiting.
+		const httpDrain = new Promise<void>((resolve, reject) => {
+			server.close((error) => {
+				if (error) reject(error);
+				else resolve();
+			});
+		});
+		void Promise.allSettled([httpDrain, careerScheduler.stop()]).then((results) => {
+			const failed = results.some((result) => result.status === "rejected");
+			if (failed) console.error("Failed to drain server work during shutdown.");
+			process.exit(failed ? 1 : 0);
 		});
 	};
 	process.once("SIGTERM", shutdown);

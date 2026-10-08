@@ -44,6 +44,7 @@ vi.mock("@reactive-resume/db/schema", () => ({
 		lastTestedAt: "ai_provider.last_tested_at",
 		lastUsedAt: "ai_provider.last_used_at",
 		enabled: "ai_provider.enabled",
+		isDefault: "ai_provider.is_default",
 		createdAt: "ai_provider.created_at",
 		updatedAt: "ai_provider.updated_at",
 	},
@@ -84,6 +85,7 @@ function providerRow(overrides: Record<string, unknown> = {}) {
 		lastTestedAt: new Date("2026-07-01T00:00:00Z"),
 		lastUsedAt: new Date("2026-07-07T00:00:00Z"),
 		enabled: true,
+		isDefault: false,
 		createdAt: new Date("2026-07-01T00:00:00Z"),
 		updatedAt: new Date("2026-07-01T00:00:00Z"),
 		...overrides,
@@ -98,7 +100,7 @@ describe("aiProvidersService", () => {
 		queryState.orderByArgs = [];
 	});
 
-	it("prefers the most recently used enabled and tested provider, then creation order", async () => {
+	it("prefers the default enabled and tested provider, then the most recently used, then creation order", async () => {
 		queryState.rows = [providerRow({ id: "first-created" })];
 
 		await expect(aiProvidersService.getDefaultRunnable({ userId: "user-1" })).resolves.toMatchObject({
@@ -116,6 +118,7 @@ describe("aiProvidersService", () => {
 			],
 		});
 		expect(queryState.orderByArgs).toEqual([
+			{ type: "desc", value: "ai_provider.is_default" },
 			{
 				type: "desc",
 				value: {

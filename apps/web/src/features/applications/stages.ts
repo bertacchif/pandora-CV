@@ -16,6 +16,7 @@ export const LIST_ORDER: readonly ApplicationStatus[] = [
 ];
 
 export const CLOSED_REASONS: readonly ApplicationClosedReason[] = [
+	"accepted",
 	"not-selected",
 	"withdrew",
 	"accepted-other",
@@ -37,6 +38,7 @@ export const getStageColor = (status: ApplicationStatus) =>
 
 export const getClosedReasonLabel = (reason: ApplicationClosedReason) =>
 	({
+		accepted: t`Accepted offer`,
 		"not-selected": t`Not selected`,
 		withdrew: t`I withdrew`,
 		"accepted-other": t`Accepted another offer`,

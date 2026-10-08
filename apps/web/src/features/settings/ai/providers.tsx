@@ -20,6 +20,7 @@ import { Input } from "@reactive-resume/ui/components/input";
 import { Label } from "@reactive-resume/ui/components/label";
 import { Spinner } from "@reactive-resume/ui/components/spinner";
 import { Switch } from "@reactive-resume/ui/components/switch";
+import { toast } from "@reactive-resume/ui/components/toast";
 import { cn } from "@reactive-resume/utils/style";
 import {
 	describeTest,
@@ -55,6 +56,10 @@ export function ProvidersSection() {
 	const [adding, setAdding] = useState(false);
 	const [editing, setEditing] = useState<SavedProvider | null>(null);
 	const managed = providers?.find((provider) => provider.managed);
+	// The server lists the default first, so the first usable provider is the one every automatic choice uses.
+	const usable = providers?.filter((provider) => provider.enabled && provider.testStatus === "success") ?? [];
+	const defaultId = usable[0]?.id;
+	const makeDefault = useMutation(orpc.aiProviders.setDefault.mutationOptions());
 
 	return (
 		<section aria-labelledby={`${id}-title`} className="overflow-hidden rounded-xl border border-line bg-surface">
@@ -63,7 +68,10 @@ export function ProvidersSection() {
 					<Trans>AI providers</Trans>
 				</h2>
 				<p className="max-w-[60ch] text-[13px] leading-5 text-ink-3">
-					<Trans>Writing help, tailored suggestions and the assistant. Your keys stay encrypted.</Trans>
+					<Trans>
+						Writing help, tailored suggestions and the assistant. The default provider is used wherever you don't pick
+						one. Your keys stay encrypted.
+					</Trans>
 				</p>
 			</header>
 			<div className="grid gap-4 p-5">
@@ -94,14 +102,38 @@ export function ProvidersSection() {
 				) : (
 					<>
 						{providers?.map((provider) => (
-							<ProviderRow key={provider.id} provider={provider} onEdit={() => setEditing(provider)} />
+							<ProviderRow
+								key={provider.id}
+								provider={provider}
+								isDefault={provider.id === defaultId && (providers?.length ?? 0) > 1}
+								onMakeDefault={
+									usable.length > 1 && provider.id !== defaultId && usable.includes(provider)
+										? () =>
+												makeDefault.mutate(
+													{ id: provider.id },
+													{
+														onError: (failure) =>
+															toast.add({
+																type: "error",
+																description: getOrpcErrorMessage(failure, {
+																	fallback: t`Couldn't make it the default.`,
+																	allowServerMessage: true,
+																}),
+															}),
+													},
+												)
+										: undefined
+								}
+								makingDefault={makeDefault.isPending && makeDefault.variables?.id === provider.id}
+								onEdit={() => setEditing(provider)}
+							/>
 						))}
 						<button
 							type="button"
 							onClick={() => setAdding(true)}
 							className="flex min-h-14 items-center gap-3 rounded-[10px] border border-dashed border-line-2 px-3 py-2.5 text-start text-sm transition-colors duration-quick hover:bg-hover"
 						>
-							<Icon name="add" size={20} />
+							<Icon name="plus" size={20} />
 							<span className="grid gap-0.5">
 								<span className="font-medium">
 									<Trans>Add AI provider</Trans>
@@ -139,7 +171,7 @@ function ProviderLogo({ provider, className }: ProviderLogoProps) {
 					onError={() => setFailed(true)}
 				/>
 			) : (
-				<Icon name="auto_awesome" size={20} />
+				<Icon name="sparkle" size={20} />
 			)}
 		</span>
 	);
@@ -180,9 +212,17 @@ function useProviderTest() {
 	return { run, result, isPending: test.isPending };
 }
 
-type ProviderRowProps = { provider: SavedProvider; onEdit: () => void };
+type ProviderRowProps = {
+	provider: SavedProvider;
+	/** Used wherever no provider is picked. */
+	isDefault: boolean;
+	/** Offered on other tested, switched-on providers. */
+	onMakeDefault: (() => void) | undefined;
+	makingDefault: boolean;
+	onEdit: () => void;
+};
 
-function ProviderRow({ provider, onEdit }: ProviderRowProps) {
+function ProviderRow({ provider, isDefault, onMakeDefault, makingDefault, onEdit }: ProviderRowProps) {
 	const test = useProviderTest();
 	const error = test.result ? test.result.error : provider.testStatus === "failure" ? provider.testError : null;
 
@@ -211,13 +251,23 @@ function ProviderRow({ provider, onEdit }: ProviderRowProps) {
 								<Trans>Off</Trans>
 							)}
 						</span>
+						{isDefault && (
+							<span className="rounded-full border border-accent px-2 py-0.5 text-xs font-medium text-accent-text">
+								<Trans>Default</Trans>
+							</span>
+						)}
 					</span>
 					<span className="text-xs break-all text-ink-2">{provider.model}</span>
 					<span className="text-xs text-ink-3">
 						<Trans>Key ends in {keyEnding(provider.apiKeyPreview)}</Trans>
 					</span>
 				</span>
-				<div className="col-start-2 flex items-center gap-2 sm:ms-auto">
+				<div className="col-start-2 flex flex-wrap items-center gap-2 sm:ms-auto">
+					{onMakeDefault && (
+						<Button size="sm" variant="ghost" loading={makingDefault} onClick={onMakeDefault}>
+							<Trans>Make default</Trans>
+						</Button>
+					)}
 					<Button
 						size="sm"
 						variant="secondary"

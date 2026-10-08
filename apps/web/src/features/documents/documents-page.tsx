@@ -123,7 +123,7 @@ export function DocumentsPage({ search, onSearchChange }: DocumentsPageProps) {
 						<div className="ms-auto flex flex-wrap items-center gap-2 max-sm:ms-0 max-sm:w-full">
 							<InputGroup className="w-60 max-sm:w-full">
 								<InputGroupAddon>
-									<Icon name="search" size={18} />
+									<Icon name="magnifying-glass" size={18} />
 								</InputGroupAddon>
 								<InputGroupInput
 									ref={searchRef}
@@ -154,10 +154,10 @@ export function DocumentsPage({ search, onSearchChange }: DocumentsPageProps) {
 								onValueChange={(next) => setView(next as "grid" | "list")}
 							>
 								<SegmentedControlItem value="grid" aria-label={t`Grid`}>
-									<Icon name="grid_view" size={18} />
+									<Icon name="squares-four" size={18} />
 								</SegmentedControlItem>
 								<SegmentedControlItem value="list" aria-label={t`List`}>
-									<Icon name="view_list" size={18} />
+									<Icon name="list-dashes" size={18} />
 								</SegmentedControlItem>
 							</SegmentedControl>
 						</div>
@@ -171,7 +171,7 @@ export function DocumentsPage({ search, onSearchChange }: DocumentsPageProps) {
 						<LibrarySkeleton view={view} />
 					) : shown.length === 0 ? (
 						<div className="grid justify-items-center gap-2 py-16 text-center">
-							<Icon name="search_off" size={28} className="text-ink-3" />
+							<Icon name="magnifying-glass" size={28} className="text-ink-3" />
 							<p className="font-semibold">
 								{search.q.trim() ? (
 									<Trans>Nothing matches “{search.q.trim()}”</Trans>
@@ -293,7 +293,7 @@ function FirstRun({ onChooseFile }: { onChooseFile: () => void }) {
 				</Trans>
 			</p>
 			<div className="flex flex-wrap items-center gap-3 rounded-xl border-[1.5px] border-dashed border-line-2 p-5">
-				<Icon name="upload_file" size={24} className="text-ink-2" />
+				<Icon name="file-arrow-up" size={24} className="text-ink-2" />
 				<span className="flex-1 text-sm text-ink-2">
 					<Trans>Drop a PDF, Word or JSON file</Trans>
 				</span>
@@ -429,7 +429,7 @@ function DropToImport() {
 			)}
 		>
 			<div className="grid justify-items-center gap-2 text-center">
-				<Icon name="download" size={32} className="text-accent-text" />
+				<Icon name="download-simple" size={32} className="text-accent-text" />
 				<p className="text-lg font-semibold">
 					<Trans>Drop to import</Trans>
 				</p>

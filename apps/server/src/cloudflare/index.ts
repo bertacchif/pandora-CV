@@ -4,6 +4,7 @@ import type {
 	Fetcher,
 	Hyperdrive,
 	R2Bucket,
+	ScheduledController,
 } from "@cloudflare/workers-types";
 import type { CoordinationService } from "@reactive-resume/db/coordination";
 import { AsyncLocalStorage } from "node:async_hooks";
@@ -13,6 +14,7 @@ import wasm from "@formepdf/core/pkg-web/forme_bg.wasm";
 import { init } from "@formepdf/core/worker";
 import { Pool } from "pg";
 import { configureAgentStreamLifetime } from "@reactive-resume/api/features/agent/streams";
+import { runCareerJobs } from "@reactive-resume/api/features/career/jobs";
 import { configureStorageService, getStorageService } from "@reactive-resume/api/features/storage";
 import { initializeAuth } from "@reactive-resume/auth/config";
 import { withDatabasePool } from "@reactive-resume/db/client";
@@ -105,8 +107,50 @@ const app = createApp({
 	},
 });
 
-const endPool = (pool: Pool, store: RequestStore) =>
-	store.ctx.waitUntil(Promise.allSettled(store.background).then(() => pool.end()));
+async function closePool(pool: Pool, store: RequestStore) {
+	try {
+		let settled = 0;
+		while (settled < store.background.length) {
+			const pending = store.background.slice(settled);
+			settled += pending.length;
+			await Promise.allSettled(pending);
+		}
+	} finally {
+		await pool.end();
+	}
+}
+
+const endPool = (pool: Pool, store: RequestStore) => store.ctx.waitUntil(closePool(pool, store));
+
+function createInvocation(bindings: CloudflareBindings, ctx: ExecutionContext) {
+	if (!env.CLOUDFLARE || env.STORAGE_BACKEND !== "r2" || !env.FLAG_DISABLE_IMAGE_PROCESSING || env.REDIS_URL) {
+		throw new Error("Cloudflare requires CLOUDFLARE=1, R2, disabled image processing and no REDIS_URL.");
+	}
+	configureStorageService(new R2StorageService(bindings.BUCKET, env.DEPLOYMENT_NAMESPACE));
+	const pool = new Pool({
+		connectionString: bindings.HYPERDRIVE.connectionString,
+		max: 1,
+		connectionTimeoutMillis: 10_000,
+	});
+	const logError = (error: Error) => {
+		if (!pool.ending) console.error("[cloudflare] Database connection failed", error.message);
+	};
+	pool.on("error", logError);
+	pool.on("connect", (client) => client.on("error", logError));
+	const store: RequestStore = { bindings, ctx, background: [] };
+	return {
+		pool,
+		store,
+		run: <T>(callback: () => T) =>
+			requests.run(store, () =>
+				withDatabasePool(pool, async () => {
+					await initializeAuth();
+					await init(wasm);
+					return callback();
+				}),
+			),
+	};
+}
 
 /** Keep the request's pool alive until streaming and background work finish, including client cancellation. */
 function closePoolAfterResponse(response: Response, pool: Pool, store: RequestStore): Response {
@@ -156,10 +200,6 @@ function closePoolAfterResponse(response: Response, pool: Pool, store: RequestSt
 export default {
 	async fetch(request: Request, bindings: CloudflareBindings, ctx: ExecutionContext): Promise<Response> {
 		if (new URL(request.url).pathname.startsWith("/_prerender")) return new Response("Not Found", { status: 404 });
-		if (!env.CLOUDFLARE || env.STORAGE_BACKEND !== "r2" || !env.FLAG_DISABLE_IMAGE_PROCESSING || env.REDIS_URL) {
-			throw new Error("Cloudflare requires CLOUDFLARE=1, R2, disabled image processing and no REDIS_URL.");
-		}
-		configureStorageService(new R2StorageService(bindings.BUCKET, env.DEPLOYMENT_NAMESPACE));
 		const headers = new Headers(request.headers);
 		const ip = headers.get("cf-connecting-ip");
 		for (const name of TRUSTED_IP_HEADERS) headers.delete(name);
@@ -167,29 +207,17 @@ export default {
 			headers.set("x-real-ip", ip);
 			headers.set("x-forwarded-for", ip);
 		}
-		const pool = new Pool({
-			connectionString: bindings.HYPERDRIVE.connectionString,
-			max: 1,
-			connectionTimeoutMillis: 10_000,
-		});
-		const logError = (error: Error) => {
-			if (!pool.ending) console.error("[cloudflare] Database connection failed", error.message);
-		};
-		pool.on("error", logError);
-		pool.on("connect", (client) => client.on("error", logError));
-		const store: RequestStore = { bindings, ctx, background: [] };
+		const { pool, store, run } = createInvocation(bindings, ctx);
 		try {
-			const response = await requests.run(store, () =>
-				withDatabasePool(pool, async () => {
-					await initializeAuth();
-					await init(wasm);
-					return app.fetch(new Request(request, { headers }));
-				}),
-			);
+			const response = await run(() => app.fetch(new Request(request, { headers })));
 			return closePoolAfterResponse(response, pool, store);
 		} catch (error) {
 			endPool(pool, store);
 			throw error;
 		}
+	},
+	scheduled(_controller: ScheduledController, bindings: CloudflareBindings, ctx: ExecutionContext): void {
+		const { pool, store, run } = createInvocation(bindings, ctx);
+		ctx.waitUntil(run(runCareerJobs).finally(() => closePool(pool, store)));
 	},
 };

@@ -151,22 +151,22 @@ export function DocumentMenuContent({
 	const actions = useDocumentActions();
 
 	const trashEntries: MenuEntry[] = [
-		{ icon: "restore_from_trash", label: t`Restore`, onSelect: () => void actions.restore(document) },
-		{ icon: "delete_forever", label: t`Delete now…`, onSelect: () => void actions.purge(document), danger: true },
+		{ icon: "arrow-counter-clockwise", label: t`Restore`, onSelect: () => void actions.restore(document) },
+		{ icon: "trash", label: t`Delete now…`, onSelect: () => void actions.purge(document), danger: true },
 	];
 	const liveEntries: MenuEntry[] = [
-		{ icon: "open_in_new", label: t`Open`, onSelect: onOpen },
-		{ icon: "edit", label: t`Rename`, onSelect: onRename, disabled: document.isLocked },
-		{ icon: "content_copy", label: t`Duplicate`, onSelect: () => void actions.duplicate(document) },
+		{ icon: "arrow-square-out", label: t`Open`, onSelect: onOpen },
+		{ icon: "pencil-simple", label: t`Rename`, onSelect: onRename, disabled: document.isLocked },
+		{ icon: "copy", label: t`Duplicate`, onSelect: () => void actions.duplicate(document) },
 		document.type === "resume"
-			? { icon: "work", label: t`Copy for a job…`, onSelect: () => actions.copyForJob(document) }
-			: { icon: "work", label: t`Link to application…`, onSelect: onLink, disabled: document.isLocked },
-		{ icon: "sell", label: t`Tags…`, onSelect: onTags, disabled: document.isLocked },
+			? { icon: "briefcase", label: t`Copy for a job…`, onSelect: () => actions.copyForJob(document) }
+			: { icon: "briefcase", label: t`Link to application…`, onSelect: onLink, disabled: document.isLocked },
+		{ icon: "tag", label: t`Tags…`, onSelect: onTags, disabled: document.isLocked },
 		document.isLocked
-			? { icon: "lock_open", label: t`Unlock`, onSelect: () => actions.setLocked(document, false) }
+			? { icon: "lock-open", label: t`Unlock`, onSelect: () => actions.setLocked(document, false) }
 			: { icon: "lock", label: t`Lock editing`, onSelect: () => actions.setLocked(document, true) },
 		{
-			icon: "delete",
+			icon: "trash",
 			label: t`Move to Trash`,
 			onSelect: () => void actions.trash(document),
 			danger: true,
@@ -298,7 +298,7 @@ export function LinkApplicationDialog({ document: requested, onClose }: LinkAppl
 							disabled={link.isPending}
 							onClick={() => void choose(application.id)}
 						>
-							<Icon name="work" className="text-ink-2" />
+							<Icon name="briefcase" className="text-ink-2" />
 							<span className="grid min-w-0">
 								<span className="truncate font-medium">{application.role}</span>
 								<span className="truncate text-xs text-ink-3">{application.company}</span>

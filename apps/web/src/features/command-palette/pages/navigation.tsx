@@ -22,7 +22,7 @@ export function NavigationCommandGroup() {
 		<>
 			<BaseCommandGroup heading={<Trans>Go to…</Trans>}>
 				<CommandItem keywords={[t`Home`]} value="navigation.home" onSelect={() => onNavigate("/")}>
-					<Icon name="home" size={16} />
+					<Icon name="house" size={16} />
 					<Trans>Home</Trans>
 				</CommandItem>
 
@@ -32,7 +32,7 @@ export function NavigationCommandGroup() {
 					value="navigation.documents"
 					onSelect={() => onNavigate("/dashboard")}
 				>
-					<Icon name="description" size={16} />
+					<Icon name="file-text" size={16} />
 					<Trans>Documents</Trans>
 				</CommandItem>
 
@@ -45,7 +45,7 @@ export function NavigationCommandGroup() {
 						useDialogStore.getState().openDialog("document.new", undefined);
 					}}
 				>
-					<Icon name="add" size={16} />
+					<Icon name="plus" size={16} />
 					<Trans>New document</Trans>
 				</CommandItem>
 
@@ -55,7 +55,7 @@ export function NavigationCommandGroup() {
 					value="navigation.trash"
 					onSelect={() => onNavigate("/dashboard/trash")}
 				>
-					<Icon name="delete" size={16} />
+					<Icon name="trash" size={16} />
 					<Trans>Trash</Trans>
 				</CommandItem>
 
@@ -64,7 +64,7 @@ export function NavigationCommandGroup() {
 					value="navigation.ats-checker"
 					onSelect={() => onNavigate("/ats-checker")}
 				>
-					<Icon name="verified" size={16} />
+					<Icon name="seal-check" size={16} />
 					<Trans>ATS Checker</Trans>
 				</CommandItem>
 
@@ -74,7 +74,7 @@ export function NavigationCommandGroup() {
 					value="navigation.applications"
 					onSelect={() => onNavigate("/dashboard/applications")}
 				>
-					<Icon name="work" size={16} />
+					<Icon name="briefcase" size={16} />
 					<Trans>Applications</Trans>
 				</CommandItem>
 
@@ -87,7 +87,7 @@ export function NavigationCommandGroup() {
 						reset();
 					}}
 				>
-					<Icon name="add" size={16} />
+					<Icon name="plus" size={16} />
 					<Trans>New Application</Trans>
 				</CommandItem>
 
@@ -97,7 +97,7 @@ export function NavigationCommandGroup() {
 					value="navigation.settings"
 					onSelect={() => pushPage("settings")}
 				>
-					<Icon name="settings" size={16} />
+					<Icon name="gear-six" size={16} />
 					<Trans>Settings</Trans>
 				</CommandItem>
 			</BaseCommandGroup>
@@ -116,7 +116,7 @@ export function NavigationCommandGroup() {
 					value="navigation.settings.account"
 					onSelect={() => onNavigate("/dashboard/settings/account")}
 				>
-					<Icon name="account_circle" size={16} />
+					<Icon name="user-circle" size={16} />
 					<Trans>Account</Trans>
 				</CommandItem>
 
@@ -125,7 +125,7 @@ export function NavigationCommandGroup() {
 					value="navigation.settings.preferences"
 					onSelect={() => onNavigate("/dashboard/settings/preferences")}
 				>
-					<Icon name="settings" size={16} />
+					<Icon name="gear-six" size={16} />
 					<Trans>Preferences</Trans>
 				</CommandItem>
 

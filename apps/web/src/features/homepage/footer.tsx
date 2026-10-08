@@ -103,10 +103,11 @@ export function LandingFooter() {
 									href={licenseUrl}
 									className="text-accent-text underline underline-offset-[3px] transition-colors hover:text-accent-hover"
 								>
-									MIT License
+									MIT
 								</a>
 							</Trans>
 						</p>
+						<p>v{__APP_VERSION__}</p>
 					</div>
 				</div>
 

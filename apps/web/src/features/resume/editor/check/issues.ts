@@ -160,7 +160,7 @@ function describeFinding(finding: AtsFinding, data: ResumeData, target: PageMapT
 					: {
 							kind: "apply",
 							label: t`Use ${url}`,
-							icon: "link",
+							icon: "link-simple-horizontal",
 							done: t`Link updated`,
 							apply: (draft) => setAt(draft, finding.pointer, url),
 						},
@@ -173,7 +173,7 @@ function describeFinding(finding: AtsFinding, data: ResumeData, target: PageMapT
 				fix: {
 					kind: "apply",
 					label: t`Hide the photo`,
-					icon: "visibility_off",
+					icon: "eye-slash",
 					done: t`Photo hidden`,
 					apply: (draft) => {
 						draft.picture.hidden = true;
@@ -218,7 +218,7 @@ function describeFinding(finding: AtsFinding, data: ResumeData, target: PageMapT
 				fix: {
 					kind: "apply",
 					label: t`Add it to page 1`,
-					icon: "add",
+					icon: "plus",
 					done: t`${name} added to page 1`,
 					apply: (draft) => {
 						const [page] = draft.metadata.layout.pages;
@@ -248,7 +248,7 @@ function describeFinding(finding: AtsFinding, data: ResumeData, target: PageMapT
 				fix: {
 					kind: "apply",
 					label: t`Use the standard heading`,
-					icon: "title",
+					icon: "text-t",
 					done: t`Heading changed`,
 					// An empty title prints the section type's name in the resume's language.
 					apply: (draft) => setAt(draft, finding.pointer, ""),
@@ -264,7 +264,7 @@ function describeFinding(finding: AtsFinding, data: ResumeData, target: PageMapT
 				fix: {
 					kind: "apply",
 					label: t`Use one column`,
-					icon: "view_list",
+					icon: "list-dashes",
 					done: t`${name} uses one column`,
 					apply: (draft) => setAt(draft, finding.pointer, 1),
 				},
@@ -278,7 +278,7 @@ function describeFinding(finding: AtsFinding, data: ResumeData, target: PageMapT
 				fix: {
 					kind: "apply",
 					label: t`Move it to the main column`,
-					icon: "arrow_forward",
+					icon: "arrow-right",
 					done: t`${name} moved to the main column`,
 					apply: (draft) => {
 						for (const page of draft.metadata.layout.pages) {
@@ -303,7 +303,7 @@ function describeFinding(finding: AtsFinding, data: ResumeData, target: PageMapT
 				fix: {
 					kind: "apply",
 					label: t`Switch to one column`,
-					icon: "view_list",
+					icon: "list-dashes",
 					done: t`Switched to one column`,
 					// Full-width pages print no sidebar, so its sections move into the main column first.
 					apply: (draft) => {
@@ -324,7 +324,7 @@ function describeFinding(finding: AtsFinding, data: ResumeData, target: PageMapT
 				fix: {
 					kind: "apply",
 					label: t`Use ${minimum} pt`,
-					icon: "format_size",
+					icon: "text-aa",
 					done: t`Body text set to ${minimum} pt`,
 					apply: (draft) => setAt(draft, finding.pointer, minimum),
 				},
@@ -336,7 +336,7 @@ function describeFinding(finding: AtsFinding, data: ResumeData, target: PageMapT
 				fix: {
 					kind: "apply",
 					label: t`Use ${minimum}`,
-					icon: "tune",
+					icon: "sliders-horizontal",
 					done: t`Line height set to ${minimum}`,
 					apply: (draft) => setAt(draft, finding.pointer, minimum),
 				},
@@ -348,7 +348,7 @@ function describeFinding(finding: AtsFinding, data: ResumeData, target: PageMapT
 				fix: {
 					kind: "apply",
 					label: t`Use ${minimum} pt margins`,
-					icon: "tune",
+					icon: "sliders-horizontal",
 					done: t`Margins set to ${minimum} pt`,
 					apply: (draft) => setAt(draft, finding.pointer, minimum),
 				},

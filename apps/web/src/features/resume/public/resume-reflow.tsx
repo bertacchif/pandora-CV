@@ -99,18 +99,18 @@ type ContactPill = { icon: IconName; label: string; href?: string };
 
 function contactPills(basics: ResumeData["basics"]): ContactPill[] {
 	const pills: ContactPill[] = [];
-	if (basics.email) pills.push({ icon: "mail", label: basics.email, href: `mailto:${basics.email}` });
-	if (basics.phone) pills.push({ icon: "call", label: basics.phone, href: `tel:${basics.phone.replace(/\s+/g, "")}` });
+	if (basics.email) pills.push({ icon: "envelope-simple", label: basics.email, href: `mailto:${basics.email}` });
+	if (basics.phone) pills.push({ icon: "phone", label: basics.phone, href: `tel:${basics.phone.replace(/\s+/g, "")}` });
 	if (basics.website.url)
 		pills.push({
-			icon: "language",
+			icon: "globe",
 			label: basics.website.label || basics.website.url.replace(/^https?:\/\//, ""),
 			href: basics.website.url,
 		});
 	for (const field of basics.customFields)
 		if (field.text)
 			pills.push({
-				icon: "link",
+				icon: "link-simple-horizontal",
 				label: field.text,
 				...(/^(https?:|mailto:|tel:)/i.test(field.link) ? { href: field.link } : {}),
 			});

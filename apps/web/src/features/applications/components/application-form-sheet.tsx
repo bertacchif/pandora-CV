@@ -142,7 +142,7 @@ function JobDescriptionAutofill({ value, onChange, onFill }: JobDescriptionAutof
 			<AccordionItem value="job-description">
 				<AccordionTrigger>
 					<span className="flex items-center gap-1.5">
-						<Icon name="auto_awesome" size={16} className="text-accent-text" />
+						<Icon name="sparkle" size={16} className="text-accent-text" />
 						<Trans>Job description</Trans>
 					</span>
 				</AccordionTrigger>
@@ -179,7 +179,7 @@ function JobDescriptionAutofill({ value, onChange, onFill }: JobDescriptionAutof
 							disabled={value.trim().length < MIN_AUTOFILL_CHARS || autofill.isPending}
 							onClick={() => runAutofill(value)}
 						>
-							<Icon name="auto_awesome" size={16} />
+							<Icon name="sparkle" size={16} />
 							<Trans>Fill fields</Trans>
 						</Button>
 					</div>
@@ -579,7 +579,7 @@ function TagsField({ id, value, suggestions, onChange }: TagsFieldProps) {
 								className="hover:text-danger-text"
 								onClick={() => onChange(value.filter((t) => t !== tag))}
 							>
-								<Icon name="close" size={12} />
+								<Icon name="x" size={12} />
 							</button>
 						</span>
 					))}

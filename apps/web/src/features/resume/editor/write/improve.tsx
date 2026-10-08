@@ -42,9 +42,9 @@ export function ImprovePanel({ editor, line, where, onClose }: ImprovePanelProps
 	const improve = useMutation(orpc.ai.improve.mutationOptions());
 
 	const options: Array<{ action: Action; icon: IconName; label: string }> = [
-		{ action: "verb", icon: "bolt", label: t`Stronger verb` },
-		{ action: "result", icon: "trending_up", label: t`Add a result` },
-		{ action: "shorter", icon: "compress", label: t`Make it shorter` },
+		{ action: "verb", icon: "lightning", label: t`Stronger verb` },
+		{ action: "result", icon: "trend-up", label: t`Add a result` },
+		{ action: "shorter", icon: "arrows-in-line-vertical", label: t`Make it shorter` },
 	];
 
 	const run = (action: Action) =>
@@ -109,7 +109,7 @@ export function ImprovePanel({ editor, line, where, onClose }: ImprovePanelProps
 				</div>
 			) : improve.isPending ? (
 				<p role="status" className="flex items-center gap-2 p-2 text-sm text-ink-2">
-					<Icon name="auto_awesome" size={16} className="animate-pulse motion-reduce:animate-none" />
+					<Icon name="sparkle" size={16} className="animate-pulse motion-reduce:animate-none" />
 					<Trans>Improving…</Trans>
 				</p>
 			) : asking ? (
@@ -152,7 +152,7 @@ export function ImprovePanel({ editor, line, where, onClose }: ImprovePanelProps
 						onClick={() => setAsking(true)}
 						className="flex h-9 items-center gap-2.5 rounded-md px-2 text-start text-sm transition-colors duration-quick hover:bg-hover"
 					>
-						<Icon name="chat" size={18} className="text-ink-2" />
+						<Icon name="chat-text" size={18} className="text-ink-2" />
 						<Trans>Ask for something else…</Trans>
 					</button>
 				</div>

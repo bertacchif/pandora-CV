@@ -124,20 +124,20 @@ function DocumentMenuItems({ onOpenDialog }: DocumentMenuItemsProps) {
 	return (
 		<DropdownMenuContent align="start" className="w-60">
 			<DropdownMenuItem disabled={isLocked} onClick={() => openDialog("resume.update", { id, name, slug, tags })}>
-				<Icon name="edit" />
+				<Icon name="pencil-simple" />
 				<Trans>Rename…</Trans>
 			</DropdownMenuItem>
 			<DropdownMenuItem onClick={() => openDialog("resume.duplicate", { id, name, slug, tags })}>
-				<Icon name="content_copy" />
+				<Icon name="copy" />
 				<Trans>Duplicate</Trans>
 			</DropdownMenuItem>
 			<DropdownMenuItem onClick={handleToggleLock}>
-				<Icon name={isLocked ? "lock_open" : "lock"} />
+				<Icon name={isLocked ? "lock-open" : "lock"} />
 				{isLocked ? <Trans>Unlock editing</Trans> : <Trans>Lock editing</Trans>}
 			</DropdownMenuItem>
 			<DropdownMenuSeparator />
 			<DropdownMenuItem onClick={() => onOpenDialog("notes")}>
-				<Icon name="sticky_note_2" />
+				<Icon name="note" />
 				<Trans>Notes</Trans>
 			</DropdownMenuItem>
 			<DropdownMenuItem onClick={() => onOpenDialog("details")}>
@@ -145,12 +145,12 @@ function DocumentMenuItems({ onOpenDialog }: DocumentMenuItemsProps) {
 				<Trans>Details</Trans>
 			</DropdownMenuItem>
 			<DropdownMenuItem onClick={() => void onPrint()}>
-				<Icon name="print" />
+				<Icon name="printer" />
 				<Trans>Print</Trans>
 			</DropdownMenuItem>
 			<DropdownMenuSeparator />
 			<DropdownMenuItem variant="destructive" disabled={isLocked} onClick={handleTrash}>
-				<Icon name="delete" />
+				<Icon name="trash" />
 				<Trans>Move to Trash</Trans>
 			</DropdownMenuItem>
 		</DropdownMenuContent>

@@ -29,22 +29,25 @@ function fold(line: string) {
 	return parts.join("\r\n");
 }
 
-/** One event as an .ics file's text, in UTC, for "Add to calendar". */
-export function buildIcs(event: CalendarEvent, now = new Date()): string {
+/** One or more events as an .ics file's text, in UTC, for "Add to calendar". */
+export function buildIcs(event: CalendarEvent | CalendarEvent[], now = new Date()): string {
+	const events = Array.isArray(event) ? event : [event];
 	const lines = [
 		"BEGIN:VCALENDAR",
 		"VERSION:2.0",
 		"PRODID:-//Reactive Resume//Applications//EN",
 		"CALSCALE:GREGORIAN",
-		"BEGIN:VEVENT",
-		`UID:${event.uid}@reactive-resume`,
-		`DTSTAMP:${utcStamp(now)}`,
-		`DTSTART:${utcStamp(event.start)}`,
-		`DTEND:${utcStamp(event.end)}`,
-		`SUMMARY:${escapeText(event.title)}`,
-		...(event.location ? [`LOCATION:${escapeText(event.location)}`] : []),
-		...(event.description ? [`DESCRIPTION:${escapeText(event.description)}`] : []),
-		"END:VEVENT",
+		...events.flatMap((item) => [
+			"BEGIN:VEVENT",
+			`UID:${item.uid}@reactive-resume`,
+			`DTSTAMP:${utcStamp(now)}`,
+			`DTSTART:${utcStamp(item.start)}`,
+			`DTEND:${utcStamp(item.end)}`,
+			`SUMMARY:${escapeText(item.title)}`,
+			...(item.location ? [`LOCATION:${escapeText(item.location)}`] : []),
+			...(item.description ? [`DESCRIPTION:${escapeText(item.description)}`] : []),
+			"END:VEVENT",
+		]),
 		"END:VCALENDAR",
 	];
 

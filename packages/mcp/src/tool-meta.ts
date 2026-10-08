@@ -20,6 +20,49 @@ import { templateSchema } from "@reactive-resume/schema/templates";
 import { toWireObjectSchema, toWireSchema } from "./contracts";
 import { MCP_TOOL_NAME as T } from "./mcp-tool-names";
 
+// Contracts remain derived from the allowlisted API procedures in parity.ts.
+export const PARITY_TOOL_DESCRIPTIONS: Record<string, string> = {
+	"agent.threads.start":
+		"Start a document, application, or general career conversation using a tested saved AI provider. For scope=document, choose exactly one resumeId or coverLetterId. For scope=application, provide applicationId. For scope=career, omit document and application IDs.",
+	"career.profile":
+		"Read the user's career preferences: target roles, locations, what matters, minimum base salary, office days, notice period, timezone and memory mode (ask, auto or off).",
+	"career.saveProfile":
+		"Replace the user's career profile. Read the existing profile first and provide all fields to preserve them; omitted fields reset to their defaults.",
+	"career.facts":
+		"List career facts with their source and status. A null applicationId selects shared career memory; an applicationId selects that application's available memory. Optionally filter by query.",
+	"career.saveFact":
+		"Save an evidence-backed career fact with its original source and quote. Use applicationId for application-specific memory or null for shared career memory. Source ownership and scope are validated by the service.",
+	"career.updateFact":
+		"Correct a saved fact's text (the original is kept in its revisions), switch whether the coach uses it, or explicitly share it across the user's applications.",
+	"career.forgetFact":
+		"Erase a saved fact's text, source quotation and correction history, and unlink it from stories and saved items. A suppression marker prevents automatic recreation from the same source.",
+	"career.stories":
+		"List saved STARR stories and their supporting fact IDs for shared career context or an owned application.",
+	"career.saveStory":
+		"Create a STARR story, or replace an existing story by providing its id. Provide situation, task, action, result, reflection, and supporting fact IDs. Shared stories can only reference shared facts; the service validates ownership and scope.",
+	"career.deleteStory": "Delete an owned STARR story. Its supporting facts remain available.",
+	"career.savedItems":
+		"Read what the coach saved for an application (fit checks, briefings, practice feedback, debriefs, answers, employer replies and offers), or one kind across applications. Outdated items were written before Knowledge or the application changed.",
+	"career.deleteSavedItem": "Delete an owned saved item.",
+	"career.applyReply":
+		"Apply the chosen changes (by index) of a read employer message to its application: stage, follow-up, next-step note, or saving offer terms. This changes the application; it does not send an email.",
+	"career.workspace":
+		"Read an application's workspace: form answers, the submit checklist, questions to ask, evidence added from Fit, ticked plan rows and the pasted employer message.",
+	"career.saveWorkspace":
+		"Save parts of an application's workspace. Each key given replaces that whole key; keys left out keep their values.",
+	"career.trackOpportunity":
+		"Create an application at Saved from a discovered role, with its posting link and text and the preferences it matched.",
+	"career.schedules": "List the user's career discovery, interview preparation, and follow-up schedules.",
+	"career.saveSchedule":
+		"Create a career schedule, or replace one by providing its id. Explicitly choose enabled and email preferences, nextRunAt, timezone, optional repeat interval, and any application, interview, or saved AI provider. Enabled schedules may later perform research or coaching and send configured notifications; saving does not run a job immediately.",
+	"career.deleteSchedule": "Delete an owned career schedule and prevent its future scheduled runs.",
+	"career.opportunities":
+		"List discovered opportunities for review. Discovery results are suggestions; create a tracked application only when the user chooses one.",
+	"career.dismissOpportunity": "Dismiss an owned discovered opportunity from the review queue.",
+	"career.notifications": "Read the user's career notifications and their read status.",
+	"career.markNotificationRead": "Mark an owned career notification as read.",
+};
+
 const READ_IDEMPOTENT: ToolAnnotations = {
 	readOnlyHint: true,
 	destructiveHint: false,
@@ -109,6 +152,15 @@ const interviewLocationSchema = interviewDetailsSchema.shape.location
 const interviewNotesSchema = interviewDetailsSchema.shape.notes
 	.unwrap()
 	.describe("Interviewers, topics to prepare, or other details.");
+const interviewParticipantsSchema = interviewDetailsSchema.shape.participants
+	.unwrap()
+	.describe("Interview participants with names, roles and optional public HTTPS profile URLs.");
+const interviewAudienceSchema = interviewDetailsSchema.shape.audience
+	.unwrap()
+	.describe("Interview audience: recruiter, hiring-manager, practitioner, panel or other.");
+const interviewTimezoneSchema = interviewDetailsSchema.shape.timezone
+	.unwrap()
+	.describe("IANA timezone for the interview, e.g. Europe/Berlin.");
 const httpUrlSchema = z
 	.string()
 	.trim()
@@ -129,7 +181,7 @@ const applicationMutableFieldsSchema = {
 	closedReason: applicationClosedReasonSchema
 		.nullable()
 		.optional()
-		.describe("Why a closed application ended: not-selected, withdrew, accepted-other or no-response."),
+		.describe("Why a closed application ended: accepted, not-selected, withdrew, accepted-other or no-response."),
 	location: z.string().nullable().optional(),
 	salary: z.string().nullable().optional(),
 	source: z.string().nullable().optional(),
@@ -670,6 +722,11 @@ const BASE_TOOL_META = {
 				durationMinutes: interviewDurationSchema.optional().describe("Length in minutes (5–1440). Defaults to 60."),
 				location: interviewLocationSchema.optional(),
 				notes: interviewNotesSchema.optional(),
+				participants: interviewParticipantsSchema
+					.optional()
+					.describe("Interview participants. Defaults to an empty list."),
+				audience: interviewAudienceSchema.optional().describe("Interview audience. Defaults to other."),
+				timezone: interviewTimezoneSchema.optional().describe("Interview IANA timezone. Defaults to UTC."),
 			}),
 		),
 		annotations: WRITE_NON_IDEMPOTENT,
@@ -688,6 +745,9 @@ const BASE_TOOL_META = {
 				durationMinutes: interviewDurationSchema.optional(),
 				location: interviewLocationSchema.optional(),
 				notes: interviewNotesSchema.optional(),
+				participants: interviewParticipantsSchema.optional(),
+				audience: interviewAudienceSchema.optional(),
+				timezone: interviewTimezoneSchema.optional(),
 			}),
 		),
 		annotations: WRITE_DESTRUCTIVE,

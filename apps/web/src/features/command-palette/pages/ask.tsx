@@ -49,7 +49,7 @@ export function AskCommandGroup() {
 	return (
 		<BaseCommandGroup heading={<Trans>Ask</Trans>}>
 			<CommandItem value={`ask ${question}`} onSelect={() => void ask()}>
-				<Icon name="auto_awesome" size={16} />
+				<Icon name="sparkle" size={16} />
 				<span className="min-w-0 truncate">
 					<Trans>Ask the assistant “{question}”</Trans>
 				</span>

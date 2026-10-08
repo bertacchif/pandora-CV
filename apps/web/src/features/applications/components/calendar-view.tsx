@@ -101,7 +101,7 @@ export function ApplicationCalendar({ applications, allApplications, onOpen }: A
 
 					<div className="ms-auto flex items-center gap-1">
 						<Button size="icon-sm" variant="ghost" title={t`Previous month`} onClick={() => shiftMonth(-1)}>
-							<Icon name="chevron_left" size={16} />
+							<Icon name="caret-left" size={16} />
 						</Button>
 						<Button
 							size="sm"
@@ -112,10 +112,10 @@ export function ApplicationCalendar({ applications, allApplications, onOpen }: A
 							<Trans>This month</Trans>
 						</Button>
 						<Button size="icon-sm" variant="ghost" title={t`Next month`} onClick={() => shiftMonth(1)}>
-							<Icon name="chevron_right" size={16} />
+							<Icon name="caret-right" size={16} />
 						</Button>
 						<Button size="sm" className="ms-2" onClick={() => schedule()}>
-							<Icon name="calendar_add_on" size={16} />
+							<Icon name="calendar-plus" size={16} />
 							<Trans>Schedule interview</Trans>
 						</Button>
 					</div>
@@ -168,12 +168,12 @@ export function ApplicationCalendar({ applications, allApplications, onOpen }: A
 											className="flex size-6 items-center justify-center rounded-md text-ink-3 opacity-0 transition-opacity group-hover/day:opacity-100 hover:bg-sunken hover:text-ink focus-visible:opacity-100 max-sm:hidden"
 											onClick={() => schedule(day)}
 										>
-											<Icon name="add" size={14} />
+											<Icon name="plus" size={14} />
 										</button>
 										<span
 											className={cn(
 												"flex size-6 items-center justify-center rounded-full text-xs",
-												!inMonth && "text-ink-3/60",
+												!inMonth && "text-ink-3",
 												isToday && "bg-accent font-semibold text-on-accent",
 											)}
 										>
@@ -237,7 +237,7 @@ export function ApplicationCalendar({ applications, allApplications, onOpen }: A
 				{upcoming.length === 0 ? (
 					<div className="flex flex-col items-center gap-3 rounded-xl border border-dashed border-line px-4 py-8 text-center">
 						<div className="flex size-10 items-center justify-center rounded-full bg-sunken">
-							<Icon name="calendar_today" size={20} className="text-ink-3" />
+							<Icon name="calendar-blank" size={20} className="text-ink-3" />
 						</div>
 						<div className="space-y-1">
 							<p className="text-sm font-medium">
@@ -248,7 +248,7 @@ export function ApplicationCalendar({ applications, allApplications, onOpen }: A
 							</p>
 						</div>
 						<Button size="sm" variant="secondary" onClick={() => schedule()}>
-							<Icon name="calendar_add_on" size={16} />
+							<Icon name="calendar-plus" size={16} />
 							<Trans>Schedule interview</Trans>
 						</Button>
 					</div>
@@ -314,7 +314,7 @@ function UpcomingCard({ item, timeRange, locale, onEdit, onOpenApplication }: Up
 				</span>
 				{item.interview.location && (
 					<span className="mt-1.5 flex items-center gap-1 text-xs text-ink-3">
-						<Icon name="location_on" size={16} className="shrink-0" />
+						<Icon name="map-pin" size={16} className="shrink-0" />
 						<span className="truncate">{item.interview.location}</span>
 					</span>
 				)}

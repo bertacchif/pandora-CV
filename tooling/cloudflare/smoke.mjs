@@ -136,6 +136,32 @@ try {
 			},
 		}),
 	);
+	// Native scheduled events run without an HTTP token, and repeated ticks cannot publish twice.
+	assert.equal((await client.flags.get({})).careerSchedulingEnabled, true);
+	assert.equal((await request("/api/career/run")).status, 404);
+	const applicationId = await client.applications.create({
+		company: "Cron test company",
+		role: "Reliability engineer",
+	});
+	const schedule = await client.career.saveSchedule({
+		kind: "follow-up",
+		applicationId,
+		enabled: true,
+		nextRunAt: new Date(Date.now() - 60_000),
+		timezone: "UTC",
+	});
+	for (let tick = 0; tick < 2; tick++) {
+		assert.equal((await worker.scheduled({ cron: "* * * * *" })).outcome, "ok");
+	}
+	const notifications = await client.career.notifications({});
+	assert.equal(notifications.filter((notification) => notification.applicationId === applicationId).length, 1);
+	assert.equal(
+		(await client.career.schedules({})).find((saved) => saved.id === schedule.id).lastQueuedAt.getTime(),
+		schedule.nextRunAt.getTime(),
+	);
+	await client.career.deleteSchedule({ id: schedule.id });
+	await client.applications.delete({ id: applicationId });
+
 	const id = await client.resume.create({ name: "Worker test", tags: [], withSampleData: true });
 	const png = await readFile(resolve(root, "apps/web/public/pwa-64x64.png"));
 	const upload = await client.storage.uploadFile(new File([png], "picture.png", { type: "image/png" }));
@@ -250,7 +276,7 @@ try {
 		null,
 	);
 	console.log(
-		"Cloudflare smoke passed: auth, transactions, R2 privacy, live updates, PDF pictures, assistant streaming/stop, atomic limits, expiry.",
+		"Cloudflare smoke passed: auth, native cron, transactions, R2 privacy, live updates, PDF pictures, assistant streaming/stop, atomic limits, expiry.",
 	);
 } catch (error) {
 	for (const log of harness?.getLogs() ?? []) {

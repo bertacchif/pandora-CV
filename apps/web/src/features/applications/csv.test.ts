@@ -29,14 +29,23 @@ describe("mapCsvToApplications", () => {
 		);
 	});
 
-	it("skips rows missing company or role and drops invalid status", () => {
+	it("reports invalid stages and dates without silently importing different values", () => {
 		const csv =
 			"company,role,status,stage date\nStripe,Eng,bogus,2026-99-99\n,NoCompany,applied,2026-07-01\nAcme,,saved,2026-07-01";
-		const { rows, skipped } = mapCsvToApplications(parseCsv(csv));
-		expect(rows).toHaveLength(1);
-		expect(rows[0]?.status).toBeUndefined(); // "bogus" dropped
-		expect(rows[0]?.stageEnteredAt).toBeUndefined(); // invalid date dropped
+		const { rows, skipped, invalidValues } = mapCsvToApplications(parseCsv(csv));
+		expect(rows).toHaveLength(0);
+		expect(invalidValues).toEqual([
+			{ row: 2, field: "status", value: "bogus" },
+			{ row: 2, field: "stageEnteredAt", value: "2026-99-99" },
+		]);
 		expect(skipped).toBe(2);
+	});
+	it("reports malformed posting metadata and lets an explicit column omission resolve it", () => {
+		const table = parseCsv("Company,Role,Posting Source\nAcme,Engineer,not-json");
+		expect(mapCsvToApplications(table).invalidValues).toEqual([{ row: 2, field: "postingSource", value: "not-json" }]);
+		const corrected = mapCsvToApplications(table, ["company", "role", null]);
+		expect(corrected.invalidValues).toEqual([]);
+		expect(corrected.rows).toEqual([{ company: "Acme", role: "Engineer" }]);
 	});
 
 	it("keeps the application and drops only the contact when the email is malformed", () => {

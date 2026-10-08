@@ -4,6 +4,7 @@
 	"type": "module",
 	"private": true,
 	"exports": {
+		"./career": "./src/career.ts",
 		"./cover-letter/data": "./src/cover-letter/data.ts",
 		"./applications/*": "./src/applications/*.ts",
 		"./icons": "./src/icons.ts",
@@ -19,6 +20,7 @@
 		"test:agent": "vitest run --reporter=agent --reporter=json --outputFile.json=reports/vitest-results.json --passWithNoTests"
 	},
 	"dependencies": {
+		"@reactive-resume/utils": "workspace:*",
 		"zod": "catalog:"
 	},
 	"devDependencies": {

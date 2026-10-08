@@ -23,12 +23,12 @@ export function ErrorScreen({ reset }: ErrorComponentProps) {
 
 			<div className="flex items-center gap-x-2">
 				<Button onClick={reset}>
-					<Icon name="refresh" size={16} />
+					<Icon name="arrow-clockwise" size={16} />
 					<Trans>Try again</Trans>
 				</Button>
 
 				<Link to="/dashboard" className={buttonVariants({ variant: "secondary" })}>
-					<Icon name="home" size={16} />
+					<Icon name="house" size={16} />
 					<Trans>Go to dashboard</Trans>
 				</Link>
 			</div>

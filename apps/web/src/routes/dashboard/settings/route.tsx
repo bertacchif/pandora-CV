@@ -14,9 +14,9 @@ type Page = {
 
 // Six pages became three, each with one job (README §5.9).
 const SETTINGS_PAGES: Page[] = [
-	{ to: "/dashboard/settings/account", icon: "account_circle", label: () => t`Account` },
-	{ to: "/dashboard/settings/preferences", icon: "tune", label: () => t`Preferences` },
-	{ to: "/dashboard/settings/ai", icon: "hub", label: () => t`AI & developer` },
+	{ to: "/dashboard/settings/account", icon: "user-circle", label: () => t`Account` },
+	{ to: "/dashboard/settings/preferences", icon: "sliders-horizontal", label: () => t`Preferences` },
+	{ to: "/dashboard/settings/ai", icon: "sparkle", label: () => t`AI & developer` },
 ];
 
 // The project's own links: where to read up, see the code, help translate, report a problem or donate.
@@ -77,7 +77,7 @@ function RouteComponent() {
 						viewTransition={popTransition}
 						className="mb-4 inline-flex h-9 items-center gap-1 text-sm text-ink-2 sm:hidden"
 					>
-						<Icon name="chevron_left" size={20} />
+						<Icon name="caret-left" size={20} />
 						<Trans>Settings</Trans>
 					</Link>
 				)}

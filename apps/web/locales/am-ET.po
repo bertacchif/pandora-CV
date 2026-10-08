@@ -79,6 +79,11 @@ msgstr "(ራስጌ የለም)"
 msgid "{0, plural, one {“{1}” appears once in the posting.} other {“{2}” appears #× in the posting.}}"
 msgstr "{0, plural, one {\"{1}\" አንድ ጊዜ በስራ መለጠፍ ላይ ይታያል.} other {\"{2}\" በስራ መለጠፍ ላይ # × ይታያል።}}"
 
+#. placeholder {0}: data.answers.length
+#: src/features/career/workspace/saved.tsx
+msgid "{0, plural, one {# answer} other {# answers}}"
+msgstr ""
+
 #. placeholder {0}: importable.length
 #: src/features/applications/components/import-applications-sheet.tsx
 msgid "{0, plural, one {# application ready to import} other {# applications ready to import}}"
@@ -88,6 +93,11 @@ msgstr "{0, plural, one {ለማስመጣት ዝግጁ # የስራ ማመልከ�
 #: src/features/applications/components/export-applications-sheet.tsx
 msgid "{0, plural, one {# application to export} other {# applications to export}}"
 msgstr "{0, plural, one {ወደ ውጭ ለመላክ # መተግበሪያ} other {# ወደ ውጭ የሚላኩ መተግበሪያዎች}}"
+
+#. placeholder {0}: applications.length
+#: src/features/career/coach-thread.tsx
+msgid "{0, plural, one {# application} other {# applications}}"
+msgstr ""
 
 #. placeholder {0}: state?.characters ?? 0
 #: src/features/resume/editor/write/rich-text-editor.tsx
@@ -109,6 +119,13 @@ msgstr "{0, plural, one {# ቀን} other {# ቀናት}}"
 msgid "{0, plural, one {# edit couldn't be placed: its text changed. Ask again to redo it.} other {# edits couldn't be placed: their text changed. Ask again to redo them.}}"
 msgstr "{0, plural, one {# አርትዖት ሊቀመጥ አልቻለም፡ ጽሑፉ ተቀይሯል። እንደገና እንዲሰራው ጠይቅ።} other {# አርትዖቶች ሊቀመጡ አልቻሉም፡ ጽሑፋቸው ተቀይሯል። እንደገና እንዲሰራቸው ጠይቅ።}}"
 
+#. placeholder {0}: knowledge.active.length
+#. placeholder {0}: used.facts.length
+#: src/features/career/coach-thread.tsx
+#: src/features/career/coach.tsx
+msgid "{0, plural, one {# fact} other {# facts}}"
+msgstr ""
+
 #. placeholder {0}: report.ignored.length
 #: src/features/resume/editor/check/check-panel.tsx
 msgid "{0, plural, one {# issue is ignored.} other {# issues are ignored.}}"
@@ -125,15 +142,37 @@ msgstr "{0, plural, one {# አርትዖት አቅርቧል} other {# አርት�
 msgid "{0, plural, one {# row has no company or role and will be skipped.} other {# rows have no company or role and will be skipped.}}"
 msgstr "{0, plural, one {# ረድፍ ኩባንያ ወይም ሚና የለውም እና ይዘለላል።} other {# ረድፎች ኩባንያ ወይም ሚና የላቸውም እና ይዘለላሉ።}}"
 
+#. placeholder {0}: offerIds.length
+#. placeholder {0}: used.offers.length
+#: src/features/career/coach-thread.tsx
+#: src/features/career/coach.tsx
+msgid "{0, plural, one {# saved offer} other {# saved offers}}"
+msgstr ""
+
 #. placeholder {0}: ids.length
 #: src/features/applications/components/list-view.tsx
 msgid "{0, plural, one {# selected} other {# selected}}"
 msgstr "{0, plural, one {# ተመርጧል} other {# ተመርጧል}}"
 
+#. placeholder {0}: used.stories.length
+#: src/features/career/coach-thread.tsx
+msgid "{0, plural, one {# story} other {# stories}}"
+msgstr ""
+
+#. placeholder {0}: remembered.ids.length
+#: src/features/career/coach-thread.tsx
+msgid "{0, plural, one {Added # fact to Knowledge.} other {Added # facts to Knowledge.}}"
+msgstr ""
+
 #. placeholder {0}: step.days
 #: src/features/applications/next-step.ts
 msgid "{0, plural, one {Applied # day ago} other {Applied # days ago}}"
 msgstr "{0, plural, one {ከ# ቀን በፊት ተተግብሯል።} other {ከ# ቀናት በፊት ተተግብሯል።}}"
+
+#. placeholder {0}: fact.usedBy.stories
+#: src/features/career/knowledge/facts.tsx
+msgid "{0, plural, one {Backs # story} other {Backs # stories}}"
+msgstr ""
 
 #. placeholder {0}: step.days
 #: src/features/applications/next-step.ts
@@ -142,13 +181,18 @@ msgstr "{0, plural, one {ለ # ቀን} other {ለ # ቀናት}}"
 
 #. placeholder {0}: parsed.requirements.length
 #: src/features/applications/components/add-application-dialog.tsx
-msgid "{0, plural, one {Found role, company, location and # requirement. Saved with the application.} other {Found role, company, location and # requirements. Saved with the application.}}"
-msgstr "{0, plural, one {ሚና፣ ኩባንያ፣ አካባቢ እና የ# መስፈርት ተገኝቷል። በስራ ማመልከቻው ተቀምጧል።} other {ሚና ፣ ኩባንያ ፣ አካባቢ እና የ # መስፈርቶች ተገኝቷል። በስራ ማመልከቻው ተቀምጧል።}}"
+msgid "{0, plural, one {Found role, company and # requirement. Review the details before saving.} other {Found role, company and # requirements. Review the details before saving.}}"
+msgstr ""
 
 #. placeholder {0}: importable.length
 #: src/features/applications/components/import-applications-sheet.tsx
 msgid "{0, plural, one {Import # application} other {Import # applications}}"
 msgstr "{0, plural, one {# የስራ ማመልከቻ አስመጣ} other {# የስራ ማመልከቻዎችን አስመጣ}}"
+
+#. placeholder {0}: knowledge.active.length
+#: src/features/career/coach.tsx
+msgid "{0, plural, one {Knowledge · # fact} other {Knowledge · # facts}}"
+msgstr ""
 
 #. placeholder {0}: step.days
 #: src/features/applications/next-step.ts
@@ -159,6 +203,26 @@ msgstr "{0, plural, one {በ# ቀን ምንም ምላሽ የለም።} other {�
 #: src/features/resume/editor/check/writing-tab.tsx
 msgid "{0, plural, one {Reading # passage of your resume…} other {Reading # bullets and paragraphs of your resume…}}"
 msgstr "{0, plural, one {የመመርመሪያዎን # ምንባብ በማንበብ…} other {የመመርመሪያዎ # ዝርዝር ግቤቶችን እና አንቀጾችን በማንበብ…}}"
+
+#. placeholder {0}: items.length
+#: src/features/career/coach-thread.tsx
+msgid "{0, plural, one {Remember # fact?} other {Remember # facts?}}"
+msgstr ""
+
+#. placeholder {0}: -minutes
+#: src/features/career/workspace/prepare.tsx
+msgid "{0, plural, one {Started # minute ago} other {Started # minutes ago}}"
+msgstr ""
+
+#. placeholder {0}: fact.usedBy.savedItems
+#: src/features/career/knowledge/facts.tsx
+msgid "{0, plural, one {used in # saved item} other {used in # saved items}}"
+msgstr ""
+
+#. placeholder {0}: when(runAt)
+#: src/features/career/workspace/prepare.tsx
+msgid "{0} · {providerLabel}. Sends this application and your Knowledge; your provider may charge."
+msgstr ""
 
 #. placeholder {0}: document.name
 #: src/features/documents/document-actions.tsx
@@ -206,10 +270,34 @@ msgstr "{0} ተገኝቷል"
 msgid "{0} found, {unreadable} unreadable"
 msgstr "{0} ተገኝቷል፣ {unreadable} የማይነበብ"
 
+#. placeholder {0}: Math.round(minutes / 60)
+#: src/features/career/workspace/shell.tsx
+msgid "{0} h"
+msgstr ""
+
+#. placeholder {0}: draft.time
+#. placeholder {1}: draft.timezone
+#. placeholder {2}: when(at)
+#: src/features/applications/components/interview-dialog.tsx
+msgid "{0} in {1} is {2} in your timezone ({preferredZone})."
+msgstr ""
+
+#. placeholder {0}: interviewKindOf(upcoming.kind)?.label ?? ""
 #. placeholder {0}: kind?.label ?? entry.kind
 #: src/features/applications/components/detail/activity.tsx
+#: src/features/career/workspace/shell.tsx
 msgid "{0} interview"
 msgstr "{0} ቃለ መጠይቅ"
+
+#. placeholder {0}: row.minutes
+#: src/features/career/workspace/prepare.tsx
+msgid "{0} min"
+msgstr ""
+
+#. placeholder {0}: formatMoney(locale, terms.currency, difference)
+#: src/features/career/offers.tsx
+msgid "{0} more"
+msgstr ""
 
 #. placeholder {0}: report.passedChecks
 #. placeholder {1}: report.applicableChecks
@@ -283,6 +371,14 @@ msgstr "{0} ክፍሎች እና {1} ግቤቶች ተገኝተዋል።"
 msgid "{0} skipped"
 msgstr "{0} ታልፈዋል"
 
+#. placeholder {0}: count("supported")
+#. placeholder {1}: count("partial")
+#. placeholder {2}: count("missing")
+#. placeholder {3}: data.summary
+#: src/features/career/workspace/saved.tsx
+msgid "{0} supported, {1} partly supported, {2} with no evidence yet. {3}"
+msgstr ""
+
 #. placeholder {0}: findings.length
 #: src/features/ats-checker/report/report-view.tsx
 msgid "{0} to fix"
@@ -293,6 +389,11 @@ msgstr "{0} የሚታረሙ"
 #: src/features/resume/editor/write/entry-card.tsx
 msgid "{0}, entry {1} of {count}"
 msgstr "{0}፣ የ{count} መግቢያ {1}"
+
+#. placeholder {0}: terms.location
+#: src/features/career/offers.tsx
+msgid "{0}, not one of your places"
+msgstr ""
 
 #. placeholder {0}: issue.fix.done
 #: src/features/resume/editor/check/actions.ts
@@ -312,21 +413,66 @@ msgstr "{applicationCount, plural, one {# የሥራ ማመልከቻ} other {# �
 msgid "{base} (copy)"
 msgstr "{base} (ቅጂ)"
 
+#: src/features/career/workspace/apply.tsx
+msgid "{characters, plural, one {# character} other {# characters}}"
+msgstr ""
+
 #: src/features/resume/editor/write/section-row.tsx
 msgid "{column, plural, one {# column} other {# columns}}"
 msgstr "{column, plural, one {# አምድ} other {# አምዶች}}"
+
+#: src/features/career/knowledge/facts.tsx
+msgid "{company} only"
+msgstr ""
 
 #: src/routes/dashboard/applications/index.tsx
 msgid "{company}: no reply for {days} days. A short follow-up is usually fine now."
 msgstr "{company}፡ ለ{days} ቀናት ምንም ምላሽ የለም። አጭር ክትትል ብዙውን ጊዜ አሁን ጥሩ ነው።"
 
+#: src/features/career/coach-thread.tsx
+msgid "{connection} didn't respond."
+msgstr ""
+
 #: src/features/resume/editor/write/section-row.tsx
 msgid "{count, plural, one {# entry} other {# entries}}"
 msgstr "{count, plural, one {# ግቤት} other {# ግቤቶች}}"
 
+#: src/features/career/workspace/messages.tsx
+msgid "{count, plural, one {Apply # change} other {Apply # changes}}"
+msgstr ""
+
+#: src/features/career/offers.tsx
+msgid "{days, plural, one {# office day a week} other {# office days a week}}"
+msgstr ""
+
+#: src/features/career/offers.tsx
+msgid "{days, plural, one {# office day, over your limit} other {# office days, over your limit}}"
+msgstr ""
+
+#: src/features/career/offers.tsx
+msgid "{days, plural, one {# office day, under your limit} other {# office days, under your limit}}"
+msgstr ""
+
+#: src/features/career/offers.tsx
+msgid "{days, plural, one {# office day, your limit} other {# office days, your limit}}"
+msgstr ""
+
 #: src/features/settings/account/data.tsx
 msgid "{documents, plural, one {# document} other {# documents}}"
 msgstr "{documents, plural, one {# ሰነድ} other {# ሰነዶች}}"
+
+#. placeholder {0}: items.length
+#: src/features/career/workspace/apply.tsx
+msgid "{done} of {0}"
+msgstr ""
+
+#: src/features/career/workspace/debrief.tsx
+msgid "{done} of {count} done"
+msgstr ""
+
+#: src/features/career/workspace/prepare.tsx
+msgid "{doneMinutes} of {total} min"
+msgstr ""
 
 #: src/features/resume/editor/write/write-panel.tsx
 msgid "{entries, plural, one {# entry} other {# entries}}"
@@ -340,14 +486,21 @@ msgstr "{entry} መቼ እንደሆነ አይናገርም። ቀኖች በጊዜ
 msgid "{entry} names the role but not what you did, so it adds no keywords."
 msgstr "{entry} ሚናውን ይሰይማል ግን ያደረጋችሁትን አይደለም፣ ስለዚህ ምንም ቁልፍ ቃላት አይጨምርም።"
 
+#: src/features/career/knowledge/stories.tsx
+msgid "{factCount, plural, one {# fact} other {# facts}}"
+msgstr ""
+
+#: src/features/career/workspace/saved.tsx
+msgid "{facts, plural, one {# fact} other {# facts}}"
+msgstr ""
+
 #: src/features/resume/editor/check/check-panel.tsx
 msgid "{failing, plural, one {# to review} other {# to review}}"
 msgstr "{failing, plural, one {ለመገምገም #} other {ለመገምገም #}}"
 
-#. Time left in the Product Hunt launch day
-#: src/components/ui/product-hunt-banner.tsx
-msgid "{hours}h {minutes}m left"
-msgstr "{hours} ሰዓታት ከ{minutes} ደቂቃዎች ቀርተዋል።"
+#: src/features/career/knowledge/stories.tsx
+msgid "{filled} of 5 parts"
+msgstr ""
 
 #: src/features/ats-checker/checker.tsx
 msgid "{issues, plural, one {# issue could cost you a match.} other {# issues could cost you a match.}}"
@@ -362,12 +515,41 @@ msgid "{keyCount, plural, one {# API key} other {# API keys}}"
 msgstr "{keyCount, plural, one {# API ቁልፍ} other {# API ቁልፎች}}"
 
 #: src/features/applications/next-step.ts
+#: src/features/career/today.tsx
 msgid "{kind} interview"
 msgstr "{kind} ቃለ መጠይቅ"
+
+#: src/features/career/coach-thread.tsx
+msgid "{label} connection"
+msgstr ""
+
+#: src/features/career/workspace/debrief.tsx
+msgid "{length}m"
+msgstr ""
 
 #: src/routes/builder/$resumeId/-components/page-canvas.tsx
 msgid "{lines, plural, one {Runs onto page {next} by about # line} other {Runs onto page {next} by about # lines}}"
 msgstr "{lines, plural, one {ወደ {next} ወደ # መስመር ገደማ ይሰራል} other {ወደ {next} ወደ # መስመሮች ገደማ ይሰራል}}"
+
+#: src/features/career/offers.tsx
+msgid "{minimum} minimum"
+msgstr ""
+
+#: src/features/career/offers.tsx
+msgid "{minimum} minimum, in other terms"
+msgstr ""
+
+#: src/features/career/workspace/debrief.tsx
+msgid "{minutes, plural, one {# minute in total} other {# minutes in total}}"
+msgstr ""
+
+#: src/features/career/workspace/prepare.tsx
+msgid "{minutes, plural, one {Starts in # minute} other {Starts in # minutes}}"
+msgstr ""
+
+#: src/features/career/workspace/shell.tsx
+msgid "{minutes} min"
+msgstr ""
 
 #: src/features/applications/components/calendar-view.tsx
 msgid "{monthCount} interviews"
@@ -376,6 +558,10 @@ msgstr "{monthCount} ቃለመጠይቆች"
 #: src/features/resume/editor/check/issues.ts
 msgid "{name} added to page 1"
 msgstr "{name} ወደ ገጽ 1 ታክሏል።"
+
+#: src/features/career/hooks.ts
+msgid "{name} didn't respond. Nothing was changed; try again."
+msgstr ""
 
 #: src/features/resume/editor/check/issues.ts
 msgid "{name} is split into {columns} columns"
@@ -442,6 +628,18 @@ msgstr "{since, plural, =0 {ከዛሬ ጀምሮ} one {ለ # ቀን} other {ለ #
 msgid "{size} pt"
 msgstr "{size} pt"
 
+#: src/features/career/workspace/saved.tsx
+msgid "{stories, plural, one {# story} other {# stories}}"
+msgstr ""
+
+#: src/features/career/workspace/messages.tsx
+msgid "{summary}. Opens in Career → Offers."
+msgstr ""
+
+#: src/features/career/workspace/fit.tsx
+msgid "{supported} supported · {partial} partly · {missing} missing"
+msgstr ""
+
 #: src/features/homepage/design.tsx
 msgid "{templateCount} templates."
 msgstr "{templateCount} አብነቶች."
@@ -453,6 +651,15 @@ msgstr "{title} ጸድቷል።"
 #: src/features/resume/editor/write/section-row.tsx
 msgid "{title} deleted"
 msgstr "{title} ተሰርዟል።"
+
+#. placeholder {0}: when(saved.nextRunAt)
+#: src/features/career/today.tsx
+msgid "{title} is on · next {0}"
+msgstr ""
+
+#: src/features/career/today.tsx
+msgid "{title} paused"
+msgstr ""
 
 #: src/features/resume/editor/write/write-panel.tsx
 msgid "{toCheck, plural, one {# field needs a look.} other {# fields need a look.}}"
@@ -472,9 +679,34 @@ msgstr "{type} · {0} ቀናት ቀርተዋል።"
 msgid "{type} · Edited {0}"
 msgstr "{type} · የተስተካከለ {0}"
 
+#: src/features/career/offers.tsx
+msgid "{value} a month"
+msgstr ""
+
+#: src/features/career/offers.tsx
+msgid "{value} a year"
+msgstr ""
+
+#: src/features/career/offers.tsx
+msgid "{value} an hour"
+msgstr ""
+
+#: src/features/career/workspace/apply.tsx
 #: src/routes/builder/letter/-components/write-panel.tsx
 msgid "{words, plural, one {# word} other {# words}}"
 msgstr "{words, plural, one {# ቃል} other {# ቃላት}}"
+
+#: src/features/career/knowledge/preferences.tsx
+msgid "/ hour"
+msgstr ""
+
+#: src/features/career/knowledge/preferences.tsx
+msgid "/ month"
+msgstr ""
+
+#: src/features/career/knowledge/preferences.tsx
+msgid "/ year"
+msgstr ""
 
 #: src/features/applications/components/calendar-view.tsx
 msgid "+{extra} more"
@@ -487,6 +719,16 @@ msgstr "+13 ነጥቦች ማግበር"
 #: src/features/resume/editor/check/check-panel.tsx
 msgid "<0>Nothing to fix.</0> Every check passes."
 msgstr "<0> ምንም የሚስተካከል የለም።</0> እያንዳንዱ ቼክ ያልፋል።"
+
+#. placeholder {0}: day(application.appliedAt)
+#. placeholder {1}: application.company
+#: src/features/career/workspace/apply.tsx
+msgid "<0>Submitted on {0}.</0> The versions you sent are kept in Saved. Edits here don't change what {1} received."
+msgstr ""
+
+#: src/features/career/offers.tsx
+msgid "<0>Totals aren't added up on purpose.</0> Bonus and equity depend on conditions, and equity value is uncertain for both. Read the original offer documents before comparing totals."
+msgstr ""
 
 #: src/features/homepage/check.tsx
 #: src/features/homepage/sheet.tsx
@@ -501,6 +743,10 @@ msgstr "1 አምድ፣ መስመር ውስጥ"
 msgid "1 interview"
 msgstr "1 ቃለ መጠይቅ"
 
+#: src/features/career/workspace/prepare.tsx
+msgid "10-minute briefing"
+msgstr ""
+
 #: src/features/resume/editor/design/style-groups.tsx
 msgid "10–11 recommended"
 msgstr "10-11 ይመከራል"
@@ -508,6 +754,11 @@ msgstr "10-11 ይመከራል"
 #: src/routes/builder/letter/-components/share-sheet.tsx
 msgid "2 files"
 msgstr "2 ፋይሎች"
+
+#: src/features/career/schedule-sheet.tsx
+#: src/features/career/today.tsx
+msgid "2 hours before"
+msgstr ""
 
 #: src/features/resume/editor/write/summary-editor.tsx
 msgid "2–3 sentences reads best"
@@ -528,6 +779,11 @@ msgstr "2017 – 2021"
 #: src/features/homepage/write.tsx
 msgid "2021 – Present"
 msgstr "2021 - አሁን"
+
+#: src/features/career/schedule-sheet.tsx
+#: src/features/career/today.tsx
+msgid "24 hours before"
+msgstr ""
 
 #: src/features/settings/ai/api-keys.tsx
 msgid "30 days"
@@ -580,6 +836,18 @@ msgstr "የቀን ክልል አብዛኞቹ ሶፍትዌሮች ማንበብ በ�
 #: src/features/resume/editor/check/issues.ts
 msgid "A date won't be read"
 msgstr "ቀን አይነበብም።"
+
+#: src/features/career/knowledge/stories.tsx
+msgid "A fact changed. Review this story."
+msgstr ""
+
+#: src/features/career/coach-thread.tsx
+msgid "A fact you've since forgotten"
+msgstr ""
+
+#: src/features/career/workspace/prepare.tsx
+msgid "A focused plan for this round"
+msgstr ""
 
 #: src/features/ats-checker/messages.ts
 msgid "A font is referenced but not embedded."
@@ -634,6 +902,10 @@ msgstr "የመግባት አስታዋሽ፣ እስከሚያደርጉት ድረስ
 msgid "A role has no description"
 msgstr "ሚና መግለጫ የለውም"
 
+#: src/features/career/coach-thread.tsx
+msgid "A saved offer"
+msgstr ""
+
 #: src/features/resume/editor/check/writing-tab.tsx
 msgid "A second opinion on your wording"
 msgstr "በእርስዎ የቃላት አገባብ ላይ ሁለተኛ አስተያየት"
@@ -641,6 +913,14 @@ msgstr "በእርስዎ የቃላት አገባብ ላይ ሁለተኛ አስተ�
 #: src/features/applications/next-step.ts
 msgid "A short follow-up is usually fine now"
 msgstr "አጭር ክትትል ብዙውን ጊዜ አሁን ጥሩ ነው።"
+
+#: src/features/career/coach-thread.tsx
+msgid "A story you've since deleted"
+msgstr ""
+
+#: src/features/career/workspace/prepare.tsx
+msgid "A timed plan, your opening, the stories to bring and questions to ask. It becomes your checklist 10 minutes before the call."
+msgstr ""
 
 #: src/features/ats-checker/messages.ts
 msgid "A web address is written without https://."
@@ -650,6 +930,10 @@ msgstr "የድር አድራሻ ያለ https:// ተጽፏል።"
 msgid "About"
 msgstr "ስለዚህ መተግበሪያ"
 
+#: src/features/career/workspace/practise.tsx
+msgid "About 90 seconds when spoken"
+msgstr ""
+
 #: src/features/resume/editor/design/style-groups.tsx
 msgid "Accent colour"
 msgstr "የአነጋገር ቀለም"
@@ -658,6 +942,7 @@ msgstr "የአነጋገር ቀለም"
 msgid "Accent is used for headings, icons and the header band. Body text stays near-black for print and ATS."
 msgstr "አክሰንት ለርዕሶች፣ አዶዎች እና የራስጌ ባንድ ጥቅም ላይ ይውላል። የሰውነት ጽሑፍ ለህትመት እና ለ ATS ከጥቁር አጠገብ ይቆያል።"
 
+#: src/features/career/workspace/apply.tsx
 #: src/features/homepage/write.tsx
 #: src/features/resume/editor/proposals/proposal-list.tsx
 msgid "Accept"
@@ -675,6 +960,10 @@ msgstr "ተቀባይነት አግኝቷል"
 msgid "Accepted another offer"
 msgstr "ሌላ ቅናሽ ተቀብሏል።"
 
+#: src/features/applications/stages.ts
+msgid "Accepted offer"
+msgstr ""
+
 #: src/features/settings/ai/api-keys.tsx
 msgid "Access"
 msgstr "መዳረሻ"
@@ -689,12 +978,20 @@ msgstr "ሰነዶችዎን እና የስራ ማመልከቻዎችዎን ማን�
 msgid "Accessibility"
 msgstr "ተደራሽነት"
 
+#: src/features/career/knowledge/facts.tsx
+msgid "Accomplishment"
+msgstr ""
+
 #: src/features/command-palette/pages/navigation.tsx
 #: src/features/settings/root.tsx
 #: src/routes/dashboard/-components/app-shell.tsx
 #: src/routes/dashboard/settings/route.tsx
 msgid "Account"
 msgstr "መለያ"
+
+#: src/features/career/knowledge/stories.tsx
+msgid "Action"
+msgstr ""
 
 #: src/features/settings/ai/api-keys.tsx
 msgid "Actions"
@@ -711,6 +1008,8 @@ msgstr "እንቅስቃሴ"
 #: src/features/applications/components/detail/activity.tsx
 #: src/features/applications/components/detail/contacts.tsx
 #: src/features/applications/components/list-view.tsx
+#: src/features/career/knowledge/facts.tsx
+#: src/features/career/today.tsx
 #: src/features/resume/editor/write/basics-card.tsx
 msgid "Add"
 msgstr "ያክሉ"
@@ -719,6 +1018,10 @@ msgstr "ያክሉ"
 #: src/features/resume/editor/check/job-match.tsx
 msgid "Add “{0}”"
 msgstr "\"{0}\" አክል"
+
+#: src/features/career/knowledge/facts.tsx
+msgid "Add a fact, for example “I mentored two associate PMs in 2025”"
+msgstr ""
 
 #: src/components/input/chip-input.tsx
 msgid "Add a keyword..."
@@ -745,13 +1048,33 @@ msgstr "ማስታወሻ ጨምር"
 msgid "Add a note…"
 msgstr "ማስታወሻ ያክሉ…"
 
+#: src/features/applications/components/interview-dialog.tsx
+msgid "Add a person"
+msgstr ""
+
 #: src/features/resume/editor/check/issues.ts
 msgid "Add a phone number"
 msgstr "ስልክ ቁጥር ጨምር"
 
+#: src/features/career/knowledge/preferences.tsx
+msgid "Add a place, then Enter"
+msgstr ""
+
+#: src/features/career/workspace/apply.tsx
+msgid "Add a question from the form"
+msgstr ""
+
 #: src/features/resume/editor/write/improve.tsx
 msgid "Add a result"
 msgstr "ውጤት ጨምር"
+
+#: src/features/career/schedule-sheet.tsx
+msgid "Add a role or company to look for."
+msgstr ""
+
+#: src/features/career/knowledge/preferences.tsx
+msgid "Add a role, then Enter"
+msgstr ""
 
 #: src/features/ats-checker/messages.ts
 msgid "Add a section headed \"Education\". Many systems have a required education field."
@@ -760,6 +1083,10 @@ msgstr "\"Education\" የሚል ራስጌ ያለው ክፍል ይጨምሩ። �
 #: src/features/ats-checker/messages.ts
 msgid "Add a section headed \"Experience\" or \"Work Experience\". It is the field most systems rank on."
 msgstr "\"Experience\" ወይም \"Work Experience\" የሚል ራስጌ ያለው ክፍል ይጨምሩ። አብዛኞቹ ስርዓቶች የሚያስቀምጡት በዚህ መስክ ላይ ነው።"
+
+#: src/features/career/knowledge/stories.tsx
+msgid "Add a story"
+msgstr ""
 
 #: src/features/resume/editor/check/writing-tab.tsx
 msgid "Add a summary or describe a role first; there's nothing to review yet."
@@ -785,9 +1112,30 @@ msgstr "@ እና ጎራውን እንደ name@example.com ያክሉ"
 msgid "Add an address."
 msgstr "አድራሻ አክል"
 
+#: src/features/career/schedule-sheet.tsx
+msgid "Add an application first"
+msgstr ""
+
 #: src/features/resume/editor/check/issues.ts
 msgid "Add an email"
 msgstr "ኢሜይል ያክሉ"
+
+#: src/features/career/workspace/prepare.tsx
+#: src/features/career/workspace/shell.tsx
+msgid "Add an interview"
+msgstr ""
+
+#: src/features/career/knowledge/stories.tsx
+msgid "Add an interview first"
+msgstr ""
+
+#: src/features/career/schedule-sheet.tsx
+msgid "Add an interview in an application first"
+msgstr ""
+
+#: src/features/career/workspace/prepare.tsx
+msgid "Add an interview to plan for it"
+msgstr ""
 
 #: src/features/applications/components/application-form-sheet.tsx
 #: src/features/command-palette/pages/navigation.tsx
@@ -821,6 +1169,10 @@ msgstr "ትምህርት ጨምር"
 #: src/features/resume/editor/write/section-row.tsx
 msgid "Add entry"
 msgstr "ግቤት ጨምር"
+
+#: src/features/career/workspace/fit.tsx
+msgid "Add evidence"
+msgstr ""
 
 #: src/features/resume/editor/check/issues.ts
 #: src/features/resume/editor/write/outline.tsx
@@ -924,12 +1276,18 @@ msgid "Add the domain ending, like {domain}.com"
 msgstr "እንደ {domain}.com የመሳሰሉ የሚያልቅ ጎራዎችን ያክሉ"
 
 #: src/features/applications/components/detail/next-step-card.tsx
+#: src/features/career/workspace/debrief.tsx
+#: src/features/career/workspace/shell.tsx
 msgid "Add to calendar"
 msgstr "ወደ ቀን መቁጠሪያ አክል"
 
 #: src/features/applications/components/application-form-sheet.tsx
 msgid "Add to pipeline"
 msgstr "ወደ ሂደቱ ያክሉ"
+
+#: src/features/career/workspace/fit.tsx
+msgid "Add to questions"
+msgstr ""
 
 #: src/features/resume/editor/check/job-match.tsx
 msgid "Add to Skills"
@@ -943,6 +1301,10 @@ msgstr "ምን እንደሚሰሩ የሚገልጹ ሁለት ወይም ሶስት 
 msgid "Add volunteering"
 msgstr "በጎ ፈቃደኝነትን ይጨምሩ"
 
+#: src/features/career/knowledge/stories.tsx
+msgid "Add what happened before you can save."
+msgstr ""
+
 #: src/features/resume/editor/check/issues.ts
 msgid "Add your name"
 msgstr "ስምህን ጨምር"
@@ -953,9 +1315,38 @@ msgstr "ስምህን ጨምር"
 msgid "Added {0} at {1}"
 msgstr "{0} በ {1} ታክሏል።"
 
+#: src/features/career/knowledge/facts.tsx
+#: src/features/career/shared.tsx
+msgid "Added by you"
+msgstr ""
+
+#: src/features/career/coach-thread.tsx
+msgid "Added to Knowledge as a preference."
+msgstr ""
+
+#: src/features/career/coach-thread.tsx
+msgid "Added to Knowledge as a skill."
+msgstr ""
+
+#: src/features/career/coach-thread.tsx
+msgid "Added to Knowledge as an accomplishment."
+msgstr ""
+
+#: src/features/career/coach-thread.tsx
+msgid "Added to Knowledge as an experience."
+msgstr ""
+
+#: src/features/career/workspace/fit.tsx
+msgid "Added to Prepare"
+msgstr ""
+
 #: src/features/resume/share/link-tab.tsx
 msgid "Address"
 msgstr "አድራሻ"
+
+#: src/features/career/workspace/messages.tsx
+msgid "Adds a reminder to Today if you haven't heard back by then."
+msgstr ""
 
 #: src/features/homepage/sections.tsx
 msgid "Ads"
@@ -973,12 +1364,52 @@ msgstr "ለሚያነበው ሰው የቀረበ ምክር። ከዚህ ውስጥ 
 msgid "Afrikaans"
 msgstr "አፍሪካንስ"
 
+#: src/features/career/workspace/debrief.tsx
+msgid "After the behavioral interview"
+msgstr ""
+
+#: src/features/career/workspace/debrief.tsx
+msgid "After the interview"
+msgstr ""
+
+#: src/features/career/workspace/debrief.tsx
+msgid "After the onsite"
+msgstr ""
+
+#: src/features/career/workspace/debrief.tsx
+msgid "After the screening"
+msgstr ""
+
+#: src/features/career/workspace/debrief.tsx
+msgid "After the technical interview"
+msgstr ""
+
+#: src/features/career/workspace/debrief.tsx
+msgid "After your first review, a light plan for this week appears here."
+msgstr ""
+
+#: src/features/career/workspace/fit.tsx
+msgid "Against your requirements"
+msgstr ""
+
 #: src/features/command-palette/pages/navigation.tsx
 #: src/features/settings/ai/page.tsx
 #: src/features/settings/root.tsx
 #: src/routes/dashboard/settings/route.tsx
 msgid "AI & developer"
 msgstr "AI እና ገንቢ"
+
+#: src/features/career/schedule-sheet.tsx
+msgid "AI connection"
+msgstr ""
+
+#: src/features/career/workspace/prepare.tsx
+msgid "AI connections are unavailable."
+msgstr ""
+
+#: src/features/career/hooks.ts
+msgid "AI connections haven't loaded. Try again before generating."
+msgstr ""
 
 #: src/features/applications/components/add-application-dialog.tsx
 msgid "AI couldn't fill the details. The posting is retained; complete the fields manually."
@@ -987,10 +1418,6 @@ msgstr "AI ዝርዝሮቹን መሙላት አልቻለም። የሥራ መለ�
 #: src/features/resume/share/format.ts
 msgid "AI edit"
 msgstr "AI አርትዕ"
-
-#: src/features/settings/ai/web-access.tsx
-msgid "AI is optional. Saving and preparing jobs doesn't need it."
-msgstr "AI አማራጭ ነው። ስራዎችን ማስቀመጥ እና ማዘጋጀት አያስፈልግም."
 
 #: src/features/command-palette/pages/navigation.tsx
 #: src/features/settings/ai/providers.tsx
@@ -1018,10 +1445,16 @@ msgstr "አልባኒኛ"
 msgid "Alex Morgan"
 msgstr "Alex Morgan"
 
+#: src/features/career/knowledge/facts.tsx
+#: src/features/career/workspace/saved.tsx
 #: src/features/documents/documents-page.tsx
 #: src/features/resume/editor/design/template-group.tsx
 msgid "All"
 msgstr "ሁሉም"
+
+#: src/features/career/knowledge/facts.tsx
+msgid "All applications"
+msgstr ""
 
 #: src/features/applications/components/export-applications-sheet.tsx
 msgid "All applications (including closed)"
@@ -1068,6 +1501,11 @@ msgstr "እንዲሁም ወደ ውጭ የተላከውን PDF ያረጋግጡ"
 msgid "Also download the {0} cover letter"
 msgstr "እንዲሁም የ {0} የሽፋን ደብዳቤ ያውርዱ"
 
+#. placeholder {0}: user?.email ?? ""
+#: src/features/career/schedule-sheet.tsx
+msgid "Also email {0}"
+msgstr ""
+
 #: src/features/resume/editor/design/style-groups.tsx
 msgid "Also shows the icons on skills, profiles and interests."
 msgstr "እንዲሁም በችሎታ፣ መገለጫዎች እና ፍላጎቶች ላይ ያሉትን አዶዎች ያሳያል።"
@@ -1113,13 +1551,37 @@ msgstr "እና እያንዳንዱ የህዝብ ግንኙነት በቋሚነት �
 msgid "Another of your resumes uses this address."
 msgstr "ሌላው የርስዎ የስራ ስምሪት ይህንን አድራሻ ይጠቀማል።"
 
+#: src/features/career/workspace/apply.tsx
+msgid "Answer"
+msgstr ""
+
+#: src/features/career/workspace/practise.tsx
+msgid "Answer by"
+msgstr ""
+
+#: src/features/career/coach-thread.tsx
+msgid "Answer copied"
+msgstr ""
+
 #: src/features/assistant/conversation.tsx
 msgid "Answer in your own words"
 msgstr "በራስዎ ቃላት ይመልሱ"
 
+#: src/features/career/workspace/saved.tsx
+msgid "Answers"
+msgstr ""
+
+#: src/features/career/workspace/apply.tsx
+msgid "Answers copied"
+msgstr ""
+
 #: src/features/settings/ai/providers.tsx
 msgid "Anthropic, Gemini, Ollama, OpenAI-compatible"
 msgstr "Anthropic፣ Gemini፣ Ollama፣ OpenAI-ተኳሃኝ"
+
+#: src/features/career/knowledge/preferences.tsx
+msgid "Any"
+msgstr ""
 
 #: src/features/resume/editor/design/style-groups.tsx
 msgid "Any font, in Advanced"
@@ -1154,6 +1616,10 @@ msgstr "API ቁልፎች"
 #: src/routes/dashboard/-components/app-shell.tsx
 msgid "App"
 msgstr "መተግበሪያ"
+
+#: src/routes/dashboard/-components/app-shell.tsx
+msgid "App navigation"
+msgstr ""
 
 #: src/features/settings/preferences.tsx
 msgid "Appearance"
@@ -1192,6 +1658,7 @@ msgid "Applicant tracking systems turn your PDF into plain text before anyone re
 msgstr "የአመልካቾች መከታተያ ስርዓቶች ማንም ከማንበብ በፊት የእርስዎን PDF ወደ ግልጽ ጽሁፍ ይለውጠዋል። አረጋጋጩም እንዲሁ ያደርጋል፣ በአሳሽዎ ውስጥ ካለው PDF.js ቤተ-መጽሐፍት ጋር፣ ከዚያ ምን ያህል የትምህርት ማስረጃዎ እንደሚተርፍ ያስመዘግባል፡ ከ 0 እስከ 100፣ ፅሁፉ እንዴት በአስተማማኝ ሁኔታ እንደሚወጣ እንጂ ስራውን የማግኘት እድሎችዎ ላይ አይደለም።"
 
 #: src/features/applications/components/interview-dialog.tsx
+#: src/features/career/schedule-sheet.tsx
 #: src/features/documents/documents-page.tsx
 #: src/features/documents/trash-page.tsx
 msgid "Application"
@@ -1222,14 +1689,29 @@ msgstr "የማመልከቻ ቀን ወደ"
 msgid "Application deleted"
 msgstr "የሥራ ማመልከቻ ተሰርዟል"
 
+#: src/features/career/workspace/shell.tsx
+msgid "Application details"
+msgstr ""
+
 #: src/features/applications/components/application-detail-sheet.tsx
 msgid "Application options"
 msgstr "የሥራ ማመልከቻ አማራጮች"
+
+#: src/features/career/coach.tsx
+msgid "application summaries"
+msgstr ""
+
+#: src/features/career/workspace/messages.tsx
+msgid "Application updated"
+msgstr ""
 
 #: src/features/applications/components/application-form-sheet.tsx
 msgid "Application updated."
 msgstr "ማመልከቻ ተዘምኗል።"
 
+#: src/features/career/coach-thread.tsx
+#: src/features/career/coach.tsx
+#: src/features/career/workspace/shell.tsx
 #: src/features/command-palette/pages/navigation.tsx
 #: src/features/command-palette/pages/resumes.tsx
 #: src/routes/dashboard/-components/app-shell.tsx
@@ -1251,14 +1733,33 @@ msgstr "ወደ ውጭ የሚላኩ መተግበሪያዎች"
 
 #: src/features/applications/components/application-detail-sheet.tsx
 #: src/features/applications/stages.ts
+#: src/features/career/workspace/messages.tsx
 #: src/features/homepage/tailor.tsx
 #: src/features/resume/editor/proposals/proposal-list.tsx
 msgid "Applied"
 msgstr "ማመልከቻ ቀርቧል"
 
+#. placeholder {0}: date(application.appliedAt)
+#: src/features/career/workspace/shell.tsx
+msgid "Applied {0}"
+msgstr ""
+
 #: src/features/applications/next-step.ts
 msgid "Applied today"
 msgstr "ዛሬ ተተግብሯል"
+
+#. placeholder {0}: day(followUp.at)
+#: src/features/career/workspace/messages.tsx
+msgid "Applied. Follow-up set for {0}."
+msgstr ""
+
+#: src/features/career/workspace/messages.tsx
+msgid "Applied. The application is updated."
+msgstr ""
+
+#: src/features/career/workspace/shell.tsx
+msgid "Apply"
+msgstr ""
 
 #: src/libs/locale.ts
 msgid "Arabic"
@@ -1285,6 +1786,39 @@ msgstr "ሶፍትዌር እንዳነበበው"
 msgid "Ask"
 msgstr "ጠይቅ"
 
+#. placeholder {0}: names(who)
+#: src/features/career/offers.tsx
+msgid "Ask {0}"
+msgstr ""
+
+#: src/features/career/workspace/coach-sheet.tsx
+msgid "Ask about this application…"
+msgstr ""
+
+#: src/features/career/coach.tsx
+msgid "Ask about your next career step…"
+msgstr ""
+
+#: src/features/career/coach.tsx
+msgid "Ask about your search, or bring an accomplishment you want to explain better. Answers use what's switched on below and say what they relied on."
+msgstr ""
+
+#: src/features/career/workspace/coach-sheet.tsx
+msgid "Ask anything about this job. The coach reads the posting, your notes and what you sent, and knows you're on {tabName}."
+msgstr ""
+
+#: src/features/career/offers.tsx
+msgid "Ask before deciding."
+msgstr ""
+
+#: src/features/career/offers.tsx
+msgid "Ask both"
+msgstr ""
+
+#: src/features/career/knowledge/facts.tsx
+msgid "Ask first"
+msgstr ""
+
 #: src/features/resume/editor/write/improve.tsx
 msgid "Ask for something else…"
 msgstr "ሌላ ነገር ጠይቅ…"
@@ -1296,6 +1830,10 @@ msgstr "ረዳቱን \"{question}\" ይጠይቁ"
 #: src/features/resume/editor/check/job-match.tsx
 msgid "Ask the assistant to work it in"
 msgstr "ረዳቱ እንዲሰራበት ይጠይቁት።"
+
+#: src/features/career/workspace/shell.tsx
+msgid "Ask the coach"
+msgstr ""
 
 #: src/features/settings/ai/web-access.tsx
 msgid "Ask your server administrator to enable credential encryption or configure a shared web connection."
@@ -1359,6 +1897,7 @@ msgid "Attach a cover letter file (PDF)"
 msgstr "የሽፋን ደብዳቤ ፋይል (PDF) አያይዝ"
 
 #: src/features/assistant/conversation.tsx
+#: src/features/career/coach-thread.tsx
 msgid "Attach a file"
 msgstr "ፋይል ያያይዙ"
 
@@ -1371,12 +1910,17 @@ msgid "Attach a resume file (PDF)"
 msgstr "የሪዙሜ ፋይል አያይዝ (PDF)"
 
 #: src/features/assistant/conversation.tsx
+#: src/features/career/coach-thread.tsx
 msgid "Attachment"
 msgstr "አባሪ"
 
 #: src/features/applications/components/application-form-sheet.tsx
 msgid "Auto-fill failed."
 msgstr "ራስ-ሙላት አልተሳካም።"
+
+#: src/features/career/knowledge/facts.tsx
+msgid "Automatically"
+msgstr ""
 
 #: src/features/resume/share/format.ts
 msgid "autosaved"
@@ -1413,10 +1957,18 @@ msgstr "ቢኤ, የግንኙነት ንድፍ"
 msgid "Back"
 msgstr "ተመለስ"
 
+#: src/features/career/workspace/shell.tsx
+msgid "Back to applications"
+msgstr ""
+
 #. Action returning a signed-in user to the page where they manage linked providers
 #: src/features/auth/pages/error.tsx
 msgid "Back to authentication settings"
 msgstr "ወደ የማረጋገጫ ቅንብሮች ተመለስ"
+
+#: src/features/career/workspace/shell.tsx
+msgid "Back to current"
+msgstr ""
 
 #: src/features/documents/trash-page.tsx
 #: src/features/resume/editor/chrome.tsx
@@ -1433,6 +1985,15 @@ msgstr "ወደ አሁን ተመለስ"
 #: src/features/auth/pages/verify-2fa.tsx
 msgid "Back to sign in"
 msgstr "ወደ መግቢያ ተመለስ"
+
+#: src/features/career/knowledge/stories.tsx
+msgid "Back to stories"
+msgstr ""
+
+#: src/features/career/knowledge/stories.tsx
+#: src/features/career/workspace/apply.tsx
+msgid "Backed by"
+msgstr ""
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/design.tsx
 msgid "Background Color"
@@ -1454,6 +2015,10 @@ msgstr "ባነር"
 msgid "Barista, 2012"
 msgstr "ባሪስታ ፣ 2012"
 
+#: src/features/career/offers.tsx
+msgid "Base salary"
+msgstr ""
+
 #: src/features/assistant/provider-setup.tsx
 #: src/features/settings/ai/providers.tsx
 msgid "Base URL"
@@ -1467,6 +2032,14 @@ msgstr "መሰረታዊ"
 #: src/features/resume/share/format.ts
 msgid "Before restore"
 msgstr "ከመመለሱ በፊት"
+
+#: src/features/career/workspace/apply.tsx
+msgid "Before you submit"
+msgstr ""
+
+#: src/features/applications/components/interview-dialog.tsx
+msgid "Behavioral"
+msgstr ""
 
 #: src/libs/locale.ts
 msgid "Bengali"
@@ -1501,6 +2074,10 @@ msgstr "የሰውነት ጽሑፍ ወደ {minimum} ተቀናብሯል pt"
 msgid "Bold"
 msgstr "ወፍራም"
 
+#: src/features/career/offers.tsx
+msgid "Bonus"
+msgstr ""
+
 #: src/features/resume/editor/write/picture-settings.tsx
 msgid "Border Color"
 msgstr "የድንበር ቀለም"
@@ -1513,6 +2090,10 @@ msgstr "የክልል እርዝመት"
 msgid "Border Width"
 msgstr "የክልል ወፍራምነት"
 
+#: src/features/career/offers.tsx
+msgid "Both offers cover everything compared here."
+msgstr ""
+
 #: src/features/ats-checker/messages.ts
 msgid "Break the resume into the usual sections so it can be segmented."
 msgstr "ለመከፋፈል እንዲያመች የስራ ልምድ ማስረጃውን ወደ መደበኛ ክፍሎች ይከፋፍሉት።"
@@ -1520,6 +2101,24 @@ msgstr "ለመከፋፈል እንዲያመች የስራ ልምድ ማስረጃ�
 #: src/routes/builder/$resumeId/-sidebar/right/sections/typography.tsx
 msgid "Breaks long words between syllables, using the language set in Page."
 msgstr "በገጽ ላይ የተቀመጠውን ቋንቋ በመጠቀም ረዣዥም ቃላትን በሴላዎች መካከል ይሰብራል።"
+
+#: src/features/career/workspace/prepare.tsx
+#: src/features/career/workspace/saved.tsx
+msgid "Briefing"
+msgstr ""
+
+#: src/features/career/today.tsx
+msgid "Briefing ready"
+msgstr ""
+
+#. placeholder {0}: when(row.nextRunAt)
+#: src/features/career/workspace/prepare.tsx
+msgid "Briefing refresh is on · {0}"
+msgstr ""
+
+#: src/features/career/workspace/prepare.tsx
+msgid "Briefing refresh paused"
+msgstr ""
 
 #: src/features/homepage/ui.tsx
 msgid "Build your resume"
@@ -1581,6 +2180,10 @@ msgstr "ሶፍትዌር የእርስዎን የስራ ልምድ ማንበብ ይ�
 #: src/features/applications/components/export-applications-sheet.tsx
 #: src/features/applications/components/import-applications-sheet.tsx
 #: src/features/applications/components/interview-dialog.tsx
+#: src/features/career/knowledge/facts.tsx
+#: src/features/career/knowledge/stories.tsx
+#: src/features/career/schedule-sheet.tsx
+#: src/features/career/workspace/fit.tsx
 #: src/features/documents/new-document-dialog.tsx
 #: src/features/resume/builder/password-dialog.tsx
 #: src/features/resume/editor/check/job-match.tsx
@@ -1590,6 +2193,11 @@ msgstr "ሶፍትዌር የእርስዎን የስራ ልምድ ማንበብ ይ�
 #: src/hooks/use-confirm.tsx
 msgid "Cancel"
 msgstr "ሰርዝ"
+
+#: src/routes/dashboard/-components/app-shell.tsx
+#: src/routes/dashboard/career/route.tsx
+msgid "Career"
+msgstr ""
 
 #: src/libs/locale.ts
 msgid "Catalan"
@@ -1607,6 +2215,7 @@ msgstr "የማረጋገጫዎች"
 msgid "Change"
 msgstr "ለውጥ"
 
+#: src/features/career/coach-thread.tsx
 #: src/features/settings/ai/web-access.tsx
 msgid "Change connection"
 msgstr "ግንኙነት ቀይር"
@@ -1642,6 +2251,10 @@ msgstr "ገጽታውን ወደ… ቀይር"
 #: src/features/applications/components/detail/activity.tsx
 msgid "Change this timeline entry."
 msgstr "ይህን የጊዜ መስመር ግቤት ቀይር።"
+
+#: src/features/career/knowledge/preferences.tsx
+msgid "Change timezone"
+msgstr ""
 
 #: src/routes/builder/letter/-components/letter-bar.tsx
 msgid "Changed elsewhere"
@@ -1682,6 +2295,10 @@ msgstr "PDF ያረጋግጡ"
 msgid "Check a sample file"
 msgstr "የናሙና ፋይልን ያረጋግጡ"
 
+#: src/features/career/workspace/fit.tsx
+msgid "Check again"
+msgstr ""
+
 #: src/features/ats-checker/checker.tsx
 msgid "Check another file"
 msgstr "ሌላ ፋይል ይፈትሹ"
@@ -1690,17 +2307,37 @@ msgstr "ሌላ ፋይል ይፈትሹ"
 msgid "Check any PDF, no account needed"
 msgstr "ማንኛውንም PDF ያረጋግጡ፣ ምንም መለያ አያስፈልግም"
 
+#: src/features/career/workspace/apply.tsx
+msgid "Check every claim, date and result against your experience."
+msgstr ""
+
+#: src/features/career/workspace/fit.tsx
+msgid "Check fit"
+msgstr ""
+
 #: src/features/resume/editor/write/improve.tsx
 msgid "Check it's accurate."
 msgstr "ትክክል መሆኑን ያረጋግጡ።"
+
+#: src/features/career/workspace/practise.tsx
+msgid "check numbers and names before using it"
+msgstr ""
 
 #: src/features/homepage/check.tsx
 msgid "Check reads your resume the way hiring software does and explains what to fix in plain words. It runs in your browser, so the file stays with you: 0 uploads."
 msgstr "የምርመራ ባህሪ የመቅጠር ሶፍትዌሮች በሚሰራበት መንገድ የእርስዎን የሥራ ልምድ መግለጫ ያነባል እና ምን ማስተካከል እንዳለበት በቀላል ቃላት ያብራራል። በአሳሽዎ ውስጥ ይሰራል፣ ስለዚህ ፋይልዎ በመሳሪያዎ ላይ ይቆያል፡ 0 ሰቀላዎች።"
 
+#: src/features/career/workspace/prepare.tsx
+msgid "Check the details"
+msgstr ""
+
 #: src/features/ats-checker/messages.ts
 msgid "Check the exported file contains everything you expect, and that all of it is selectable text."
 msgstr "ወደ ውጭ የተላከው ፋይል የሚጠብቁትን ሁሉ እንደያዘ እና ሁሉም ሊመረጥ የሚችል ጽሁፍ መሆኑን ያረጋግጡ።"
+
+#: src/features/career/workspace/fit.tsx
+msgid "Check this role against your evidence"
+msgstr ""
 
 #: src/features/resume/editor/check/check-panel.tsx
 msgid "Check views"
@@ -1727,6 +2364,10 @@ msgstr "መለያዎን ለማረጋገጥ አገናኝ በኢሜልዎ ውስ�
 msgid "Checking {0}"
 msgstr "{0} በመፈተሽ ላይ"
 
+#: src/features/career/shared.tsx
+msgid "Checking against Knowledge"
+msgstr ""
+
 #: src/features/ats-checker/checker.tsx
 msgid "Checking layout and content"
 msgstr "አቀማመጥ እና ይዘት በመፈተሽ ላይ"
@@ -1735,9 +2376,17 @@ msgstr "አቀማመጥ እና ይዘት በመፈተሽ ላይ"
 msgid "Checking the exported PDF…"
 msgstr "ወደ ውጭ የተላከውን PDF በመፈተሽ ላይ…"
 
+#: src/features/career/shared.tsx
+msgid "Checking your preferences"
+msgstr ""
+
 #: src/features/resume/share/link-tab.tsx
 msgid "Checking… Copy is available after saving."
 msgstr "በመፈተሽ ላይ… ኮፒ ከተቀመጠ በኋላ ይገኛል።"
+
+#: src/features/career/workspace/apply.tsx
+msgid "Checklist progress"
+msgstr ""
 
 #: src/features/resume/editor/check/check-panel.tsx
 msgid "Checks by category"
@@ -1767,9 +2416,17 @@ msgstr "ለማስመጣት ፋይል ይምረጡ"
 msgid "Choose a resume in Write to match its design. Until then, the letter has its own."
 msgstr "ከዲዛይኑ ጋር ለማዛመድ በጻፍ ውስጥ የመማሪያ መጽሐፍ ምረጥ። እስከዚያ ድረስ ደብዳቤው የራሱ አለው."
 
+#: src/features/career/workspace/practise.tsx
+msgid "Choose a WebM, MP4, MP3, WAV or Ogg file up to 2 MB."
+msgstr ""
+
 #: src/features/applications/components/interview-dialog.tsx
 msgid "Choose an application…"
 msgstr "የሥራ ማመልከቻ ይምረጡ…"
+
+#: src/features/career/offers.tsx
+msgid "Choose an offer"
+msgstr ""
 
 #: src/features/documents/new-document-dialog.tsx
 msgid "Choose another file"
@@ -1782,6 +2439,10 @@ msgstr "ቀለም ይምረጡ"
 #: src/components/level/combobox.tsx
 msgid "Circle"
 msgstr "ክብ"
+
+#: src/features/career/workspace/fit.tsx
+msgid "Clarify"
+msgstr ""
 
 #: src/features/homepage/sheet.tsx
 msgid "Classic"
@@ -1826,6 +2487,11 @@ msgid "Client ID"
 msgstr "የደንበኛ መታወቂያ"
 
 #: src/features/applications/components/application-detail-sheet.tsx
+#: src/features/applications/components/interview-dialog.tsx
+#: src/features/career/coach.tsx
+#: src/features/career/schedule-sheet.tsx
+#: src/features/career/workspace/coach-sheet.tsx
+#: src/features/career/workspace/prepare.tsx
 #: src/features/resume/editor/check/page-layer.tsx
 #: src/routes/builder/$resumeId/-components/share-sheet.tsx
 #: src/routes/builder/letter/-components/share-sheet.tsx
@@ -1863,6 +2529,12 @@ msgstr "ገጠመ…"
 msgid "Closed"
 msgstr "ዝግ"
 
+#: src/features/career/coach.tsx
+#: src/features/career/workspace/coach-sheet.tsx
+#: src/routes/dashboard/career/route.tsx
+msgid "Coach"
+msgstr ""
+
 #: src/routes/builder/$resumeId/-components/design-panel.tsx
 #: src/routes/builder/letter/-components/design-panel.tsx
 msgid "Color"
@@ -1880,6 +2552,10 @@ msgstr "አምዶች"
 #: src/features/resume/editor/check/issues.ts
 msgid "Columns can scramble the order text is read in."
 msgstr "ዓምዶች የተነበበውን የትዕዛዝ ጽሑፍ ሊያበላሹ ይችላሉ።"
+
+#: src/features/career/today.tsx
+msgid "Coming up"
+msgstr ""
 
 #. Accessible label for command list region inside command palette
 #. Accessible label for the command palette dialog
@@ -1910,6 +2586,23 @@ msgstr "የታመቀ"
 msgid "Company"
 msgstr "ኩባንያ"
 
+#. placeholder {0}: application.company
+#: src/features/career/workspace/practise.tsx
+msgid "Compare attempts to see what improved. Practice questions are simulated, not from {0}."
+msgstr ""
+
+#: src/features/career/workspace/shell.tsx
+msgid "Compare offers"
+msgstr ""
+
+#: src/features/career/offers.tsx
+msgid "Compared in their original currency and pay period. Comparing doesn't share anything with the coach."
+msgstr ""
+
+#: src/features/career/workspace/practise.tsx
+msgid "Compared with your stories and the posting."
+msgstr ""
+
 #: src/features/assistant/assistant-panel.tsx
 msgid "Compares your resume with the posting"
 msgstr "የስራ ልምድዎን ከስራ መለጠፍ ጋር ያወዳድራል።"
@@ -1938,6 +2631,18 @@ msgstr "የይለፍ ቃል ያረጋግጡ"
 msgid "Confirm submission and choose the documents you actually sent. Their current versions will be saved."
 msgstr "ማስገባቱን ያረጋግጡ እና በትክክል የላኳቸውን ሰነዶች ይምረጡ። የእነሱ የአሁኑ ስሪቶች ይቀመጣሉ።"
 
+#: src/features/career/workspace/messages.tsx
+msgid "Confirm the time before adding a new interview."
+msgstr ""
+
+#: src/features/career/workspace/messages.tsx
+msgid "Confirm the time with {contact} before adding a new interview."
+msgstr ""
+
+#: src/features/career/workspace/prepare.tsx
+msgid "Confirm the time, link and who you'll meet. Glance at the resume and letter you sent."
+msgstr ""
+
 #: src/features/assistant/provider-setup.tsx
 #: src/features/settings/account/security.tsx
 msgid "Connect"
@@ -1955,11 +2660,22 @@ msgstr "የ AI አቅራቢን ያገናኙ"
 msgid "Connect an AI provider above to use the assistant. Saving and preparing jobs doesn't need one."
 msgstr "ረዳቱን ለመጠቀም ከላይ ያለውን AI አቅራቢ ያገናኙ። ስራዎችን ማስቀመጥ እና ማዘጋጀት አያስፈልግም."
 
+#: src/features/career/schedule-sheet.tsx
+#: src/features/career/workspace/fit.tsx
+#: src/features/career/workspace/prepare.tsx
+msgid "Connect an AI provider in Settings"
+msgstr ""
+
+#: src/features/career/workspace/prepare.tsx
+msgid "Connect an AI provider in Settings to refresh it automatically."
+msgstr ""
+
 #: src/features/auth/pages/consent.tsx
 msgid "Connect an application"
 msgstr "መተግበሪያ ያገናኙ"
 
 #: src/features/assistant/assistant-panel.tsx
+#: src/features/career/coach.tsx
 msgid "Connect another…"
 msgstr "ሌላ አገናኝ…"
 
@@ -1980,9 +2696,21 @@ msgstr "ተገናኝቷል"
 msgid "Connected applications"
 msgstr "የተገናኙ መተግበሪያዎች"
 
+#: src/features/career/shared.tsx
+msgid "Connecting the dots"
+msgstr ""
+
 #: src/features/settings/ai/web-access.tsx
 msgid "Connection saved"
 msgstr "ግንኙነት ተቀምጧል"
+
+#: src/features/career/coach.tsx
+msgid "Connection: {text}"
+msgstr ""
+
+#: src/features/career/workspace/practise.tsx
+msgid "Connections bill speech separately and may use tokens on your account. Your browser's speech is free, but its maker may process the audio. The server keeps transcripts, never recordings."
+msgstr ""
 
 #: src/features/applications/components/application-detail-sheet.tsx
 #: src/features/homepage/footer.tsx
@@ -2049,12 +2777,35 @@ msgid "Contribute code"
 msgstr "ኮድ ያበርክቱ"
 
 #: src/features/assistant/conversation.tsx
+#: src/features/career/coach-thread.tsx
 msgid "Conversation"
 msgstr "ውይይት"
 
+#: src/features/career/coach.tsx
+msgid "Conversation copied"
+msgstr ""
+
+#: src/features/career/coach-thread.tsx
+msgid "Conversation deleted"
+msgstr ""
+
+#: src/features/career/coach.tsx
+msgid "Conversation name"
+msgstr ""
+
+#: src/features/career/coach.tsx
+#: src/features/career/workspace/coach-sheet.tsx
 #: src/features/command-palette/pages/resumes.tsx
 msgid "Conversations"
 msgstr "ውይይቶች"
+
+#: src/features/career/coach.tsx
+msgid "Conversations about one job live in its workspace."
+msgstr ""
+
+#: src/features/career/shared.tsx
+msgid "Cooking"
+msgstr ""
 
 #: src/features/homepage/share.tsx
 #: src/features/resume/share/copy-link-button.tsx
@@ -2065,6 +2816,7 @@ msgstr "ተገልብጧል"
 
 #. Action button to copy two-factor backup codes to clipboard
 #: src/dialogs/auth/enable-two-factor.tsx
+#: src/features/career/coach-thread.tsx
 #: src/features/resume/share/link-tab.tsx
 #: src/features/settings/ai/api-keys.tsx
 #: src/features/settings/ai/mcp.tsx
@@ -2079,9 +2831,17 @@ msgstr "ለሥራ የሚሆን የትምህርት ማስረጃ ቅዳ"
 msgid "Copy and store these backup codes in case you lose your device."
 msgstr "መሣሪያዎን ከጠፉ በኋላ ለመግባት እንዲጠቅሙባቸው እነዚህን የመከላከያ ኮዶች ይቅዱ እና ያከማቹ።"
 
+#: src/features/career/workspace/apply.tsx
+msgid "Copy answers"
+msgstr ""
+
 #: src/dialogs/auth/enable-two-factor.tsx
 msgid "Copy Backup Codes"
 msgstr "የመከላከያ ኮዶችን ቅጂ አድርግ"
+
+#: src/features/career/coach.tsx
+msgid "Copy conversation"
+msgstr ""
 
 #: src/features/documents/document-actions.tsx
 msgid "Copy for a job…"
@@ -2095,6 +2855,14 @@ msgstr "አሁን ገልብጠው። ለእርስዎ ደህንነት፣ እን�
 #: src/features/resume/public/public-resume.tsx
 msgid "Copy link"
 msgstr "አገናኝ ቅዳ"
+
+#: src/features/career/offers.tsx
+msgid "Copy questions"
+msgstr ""
+
+#: src/features/career/workspace/messages.tsx
+msgid "Copy reply"
+msgstr ""
 
 #. Accessible label for the button that copies the two-factor secret key
 #: src/dialogs/auth/enable-two-factor.tsx
@@ -2117,9 +2885,21 @@ msgstr "ጽሁፉን ከወጣው ፋይል ገልብጠው ያንብቡት፤ �
 msgid "Copy transcript"
 msgstr "ግልባጭ ይቅዱ"
 
+#: src/features/career/knowledge/facts.tsx
+msgid "Correct"
+msgstr ""
+
 #: src/features/ats-checker/messages.ts
 msgid "Correct the year, or write \"Present\" for ongoing work."
 msgstr "አመቱን ያስተካክሉ፣ ወይም ለቀጣይ ስራ \"Present\" ብለው ይጻፉ።"
+
+#: src/features/career/knowledge/facts.tsx
+msgid "Correct this fact"
+msgstr ""
+
+#: src/features/career/knowledge/facts.tsx
+msgid "Corrected {correctedOn} · original kept"
+msgstr ""
 
 #: src/features/auth/pages/consent.tsx
 msgid "Could not complete this connection. Restart the connection from your client and try again."
@@ -2163,6 +2943,10 @@ msgstr "ሁለት-ደረጃ ማረጋገጫን ማዋቀር አልተቻለም�
 msgid "Could not sort these items; they stayed at the end: {0}."
 msgstr "እነዚህን እቃዎች መደርደር አልተቻለም; መጨረሻ ላይ ቆዩ: {0}."
 
+#: src/features/career/knowledge/facts.tsx
+msgid "Couldn't add that fact."
+msgstr ""
+
 #: src/features/applications/components/add-application-dialog.tsx
 msgid "Couldn't add the application."
 msgstr "የሥራ ማመልከቻውን ማከል አልተቻለም።"
@@ -2176,6 +2960,7 @@ msgid "Couldn't add the passkey. Try again."
 msgstr "የይለፍ ቁልፉን ማከል አልተቻለም። እንደገና ይሞክሩ።"
 
 #: src/features/assistant/conversation.tsx
+#: src/features/career/coach-thread.tsx
 msgid "Couldn't attach the file."
 msgstr "ፋይሉን ማያያዝ አልተቻለም።"
 
@@ -2191,9 +2976,21 @@ msgstr "ንድፉን መቀየር አልተቻለም። እንደገና ይሞ�
 msgid "Couldn't change the email. Try again."
 msgstr "ኢሜይሉን መቀየር አልተቻለም። እንደገና ይሞክሩ።"
 
+#: src/features/career/workspace/prepare.tsx
+msgid "Couldn't change the schedule."
+msgstr ""
+
+#: src/features/career/today.tsx
+msgid "Couldn't change this schedule."
+msgstr ""
+
 #: src/features/assistant/provider-setup.tsx
 msgid "Couldn't connect. Check the key and try again."
 msgstr "መገናኘት አልተቻለም። ቁልፉን ይፈትሹ እና እንደገና ይሞክሩ።"
+
+#: src/features/career/offers.tsx
+msgid "Couldn't copy the questions. Select the text and copy it manually."
+msgstr ""
 
 #: src/features/documents/new-document-dialog.tsx
 msgid "Couldn't copy the resume."
@@ -2202,6 +2999,10 @@ msgstr "የትምህርት ማስረጃውን መቅዳት አልተቻለም።
 #: src/features/assistant/conversation.tsx
 msgid "Couldn't copy the transcript."
 msgstr "ግልባጩን መቅዳት አልተቻለም።"
+
+#: src/features/career/coach-thread.tsx
+msgid "Couldn't copy to the clipboard."
+msgstr ""
 
 #: src/features/documents/new-document-dialog.tsx
 msgid "Couldn't create the document."
@@ -2219,6 +3020,10 @@ msgstr "ደብዳቤውን መፍጠር አልተቻለም።"
 msgid "Couldn't delete it."
 msgstr "መሰረዝ አልተቻለም።"
 
+#: src/features/career/knowledge/stories.tsx
+msgid "Couldn't delete that story."
+msgstr ""
+
 #: src/features/settings/account/data.tsx
 msgid "Couldn't delete the account."
 msgstr "መለያውን መሰረዝ አልተቻለም።"
@@ -2235,13 +3040,29 @@ msgstr "ቃለ መጠይቁን መሰረዝ አልተቻለም።"
 msgid "Couldn't delete the provider."
 msgstr "አቅራቢውን መሰረዝ አልተቻለም።"
 
+#: src/features/career/coach-thread.tsx
+msgid "Couldn't delete this conversation."
+msgstr ""
+
+#: src/features/career/today.tsx
+msgid "Couldn't delete this schedule."
+msgstr ""
+
 #: src/features/settings/account/data.tsx
 msgid "Couldn't export. Try again."
 msgstr "ወደ ውጭ መላክ አልተቻለም። እንደገና ይሞክሩ።"
 
+#: src/features/career/knowledge/facts.tsx
+msgid "Couldn't forget that fact."
+msgstr ""
+
 #: src/features/resume/editor/write/improve.tsx
 msgid "Couldn't get a suggestion. Nothing changed."
 msgstr "ጥቆማ ማግኘት አልተቻለም። ምንም አልተለወጠም።"
+
+#: src/features/career/today.tsx
+msgid "Couldn't hide this role."
+msgstr ""
 
 #: src/features/documents/new-document-dialog.tsx
 msgid "Couldn't import"
@@ -2255,13 +3076,45 @@ msgstr "ፋይሉን ማስመጣት አልተቻለም። ከሰነዶች እ�
 msgid "Couldn't link the application."
 msgstr "የሥራ ማመልከቻውን ማገናኘት አልተቻለም።"
 
+#: src/features/documents/new-document-dialog.tsx
+msgid "Couldn't load AI connections. Try again before importing this file."
+msgstr ""
+
+#: src/features/settings/integrations/ai-provider-load-state.tsx
+msgid "Couldn't load AI connections. Your saved connections haven't changed."
+msgstr ""
+
+#: src/routes/dashboard/applications/index.tsx
+msgid "Couldn't load applications. Try again."
+msgstr ""
+
 #: src/features/documents/library-error.tsx
 msgid "Couldn't load documents"
 msgstr "ሰነዶችን መጫን አልተቻለም"
 
+#: src/features/career/knowledge/stories.tsx
+msgid "Couldn't load interviews. Retry"
+msgstr ""
+
 #: src/features/ats-checker/checker.tsx
 msgid "Couldn't load the sample file. Try again."
 msgstr "የናሙና ፋይሉን መጫን አልተቻለም። እንደገና ይሞክሩ።"
+
+#: src/features/career/load-state.tsx
+msgid "Couldn't load this. Your saved data hasn't changed."
+msgstr ""
+
+#: src/features/settings/ai/providers.tsx
+msgid "Couldn't make it the default."
+msgstr ""
+
+#: src/features/career/workspace/apply.tsx
+msgid "Couldn't mark it as applied."
+msgstr ""
+
+#: src/features/career/today.tsx
+msgid "Couldn't mark this as read."
+msgstr ""
 
 #. placeholder {0}: part.errorText
 #: src/features/assistant/conversation.tsx
@@ -2289,9 +3142,21 @@ msgstr "ይህን ገጽ፡ {0} ማንበብ አልተቻለም"
 msgid "Couldn't record submission. Try again."
 msgstr "ማስገባትን መመዝገብ አልተቻለም። እንደገና ይሞክሩ።"
 
+#: src/features/career/coach-thread.tsx
+msgid "Couldn't remember that. Try again."
+msgstr ""
+
+#: src/features/career/today.tsx
+msgid "Couldn't remove it from Applications."
+msgstr ""
+
 #: src/features/settings/account/security.tsx
 msgid "Couldn't remove the passkey. Try again."
 msgstr "የይለፍ ቁልፉን ማስወገድ አልተቻለም። እንደገና ይሞክሩ።"
+
+#: src/features/career/coach.tsx
+msgid "Couldn't rename it."
+msgstr ""
 
 #: src/features/settings/account/security.tsx
 msgid "Couldn't rename the passkey."
@@ -2301,9 +3166,25 @@ msgstr "የይለፍ ቁልፉን እንደገና መሰየም አልተቻለ�
 msgid "Couldn't revoke the key."
 msgstr "ቁልፉን መሻር አልተቻለም።"
 
+#: src/features/career/knowledge/facts.tsx
+msgid "Couldn't save that change."
+msgstr ""
+
+#: src/features/career/hooks.ts
+msgid "Couldn't save that change. Check your connection and try again."
+msgstr ""
+
 #: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Couldn't save that change. Try again."
 msgstr "ያንን ለውጥ ማስቀመጥ አልተቻለም። እንደገና ይሞክሩ።"
+
+#: src/features/career/workspace/fit.tsx
+msgid "Couldn't save that to Knowledge."
+msgstr ""
+
+#: src/features/career/workspace/debrief.tsx
+msgid "Couldn't save that to Knowledge. Try again."
+msgstr ""
 
 #: src/features/resume/editor/check/job-match.tsx
 msgid "Couldn't save the application."
@@ -2325,9 +3206,25 @@ msgstr "የስራ መለጠፍን ማስቀመጥ አልተቻለም።"
 msgid "Couldn't save the provider."
 msgstr "አቅራቢውን ማስቀመጥ አልተቻለም።"
 
+#: src/features/career/knowledge/stories.tsx
+msgid "Couldn't save the story."
+msgstr ""
+
 #: src/features/applications/components/application-detail-sheet.tsx
 msgid "Couldn't save the tags."
 msgstr "መለያዎቹን ማስቀመጥ አልተቻለም።"
+
+#: src/features/settings/preferences.tsx
+msgid "Couldn't save the timezone."
+msgstr ""
+
+#: src/features/career/today.tsx
+msgid "Couldn't save this role to Applications."
+msgstr ""
+
+#: src/features/career/schedule-sheet.tsx
+msgid "Couldn't save this schedule."
+msgstr ""
 
 #: src/features/applications/components/application-form-sheet.tsx
 msgid "Couldn't save your changes. Please try again."
@@ -2340,6 +3237,10 @@ msgstr "ለውጦችዎን ማስቀመጥ አልተቻለም። እባክዎ �
 #: src/routes/builder/letter/$coverLetterId.tsx
 msgid "Couldn't save your changes. Try again before continuing."
 msgstr "ለውጦችዎን ማስቀመጥ አልተቻለም። ከመቀጠልዎ በፊት እንደገና ይሞክሩ።"
+
+#: src/features/career/knowledge/preferences.tsx
+msgid "Couldn't save your preferences."
+msgstr ""
 
 #: src/features/applications/components/application-detail-sheet.tsx
 #: src/features/applications/components/detail/sent-documents.tsx
@@ -2358,13 +3259,34 @@ msgstr "ቃለ መጠይቁን መርሐግብር ማስያዝ አልተቻለ�
 msgid "Couldn't send the email. Try again."
 msgstr "ኢሜይሉን መላክ አልተቻለም። እንደገና ይሞክሩ።"
 
+#: src/features/career/workspace/practise.tsx
+msgid "Couldn't start recording. Choose an audio file, or type your answer."
+msgstr ""
+
 #: src/features/assistant/assistant-panel.tsx
+#: src/features/career/coach-thread.tsx
 msgid "Couldn't start the conversation. Try again."
 msgstr "ውይይቱን መጀመር አልተቻለም። እንደገና ይሞክሩ።"
+
+#: src/features/career/coach.tsx
+msgid "Couldn't switch connections."
+msgstr ""
 
 #: src/features/assistant/assistant-panel.tsx
 msgid "Couldn't switch models."
 msgstr "ሞዴሎችን መቀየር አልተቻለም።"
+
+#: src/features/career/workspace/practise.tsx
+msgid "Couldn't transcribe. Your recording is still here."
+msgstr ""
+
+#: src/features/career/coach-thread.tsx
+msgid "Couldn't undo that."
+msgstr ""
+
+#: src/features/career/workspace/messages.tsx
+msgid "Couldn't update the application. Nothing was changed."
+msgstr ""
 
 #: src/features/applications/components/list-view.tsx
 msgid "Couldn't update the applications. Try again."
@@ -2385,6 +3307,14 @@ msgstr "ፎቶውን መስቀል አልተቻለም።"
 #: src/features/applications/components/insights-view.tsx
 msgid "Count by source"
 msgstr "በምንጭ ቆጠራ"
+
+#: src/features/career/workspace/apply.tsx
+msgid "Count characters"
+msgstr ""
+
+#: src/features/career/workspace/apply.tsx
+msgid "Count words"
+msgstr ""
 
 #: src/features/ats-checker/report/jd-coverage.tsx
 msgid "Counted separately from the parse score. Coverage does not predict anything."
@@ -2501,9 +3431,17 @@ msgstr "ተሻጋሪ-ተግባራዊ አመራር"
 msgid "CSV data"
 msgstr "የCSV ውሂብ"
 
+#: src/features/career/knowledge/preferences.tsx
+msgid "Currency"
+msgstr ""
+
 #: src/features/applications/components/export-applications-sheet.tsx
 msgid "Current filters"
 msgstr "የአሁኑ ማጣሪያዎች"
+
+#: src/features/career/workspace/prepare.tsx
+msgid "Current focus, relevant experience, and why this role interests you."
+msgstr ""
 
 #: src/dialogs/auth/change-password.tsx
 msgid "Current Password"
@@ -2543,6 +3481,10 @@ msgstr "ብጁ ቅጦች አልተተገበሩም። እነሱን ለመተግ�
 msgid "Czech"
 msgstr "ቼክኛ"
 
+#: src/features/career/today.tsx
+msgid "Daily at {clock} · next {next}"
+msgstr ""
+
 #. placeholder {0}: summary.peak
 #: src/features/resume/share/link-tab.tsx
 msgid "Daily views over 30 days, peak {0}"
@@ -2564,14 +3506,11 @@ msgstr "ጨለማ ገጽታ"
 
 #: src/features/applications/components/detail/activity.tsx
 #: src/features/applications/components/detail/next-step-card.tsx
+#: src/features/applications/components/interview-dialog.tsx
 #: src/features/resume/editor/write/dates-field.tsx
 #: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Date"
 msgstr "ቀን"
-
-#: src/features/applications/components/interview-dialog.tsx
-msgid "Date & time"
-msgstr "ቀን እና ሰዓት"
 
 #: src/routes/builder/$resumeId/-components/design-panel.tsx
 msgid "Date format"
@@ -2612,6 +3551,15 @@ msgstr "ውድ የFieldnote ቡድን፣"
 msgid "Dear hiring team,"
 msgstr "ውድ የቅጥር ቡድን፣"
 
+#: src/features/career/workspace/saved.tsx
+#: src/features/career/workspace/shell.tsx
+msgid "Debrief"
+msgstr ""
+
+#: src/features/settings/ai/providers.tsx
+msgid "Default"
+msgstr ""
+
 #: src/features/resume/editor/write/entries.tsx
 msgid "Degree"
 msgstr "ዲግሪ"
@@ -2622,6 +3570,9 @@ msgstr "ዲግሪ"
 #: src/features/applications/components/interview-dialog.tsx
 #: src/features/applications/components/list-view.tsx
 #: src/features/assistant/assistant-panel.tsx
+#: src/features/career/coach.tsx
+#: src/features/career/schedule-sheet.tsx
+#: src/features/career/workspace/saved.tsx
 #: src/features/resume/editor/write/entry-card.tsx
 #: src/features/resume/share/history-tab.tsx
 #: src/features/settings/account/data.tsx
@@ -2688,10 +3639,18 @@ msgstr "አቅራቢን ሰርዝ"
 msgid "Delete section"
 msgstr "ክፍልን ሰርዝ"
 
+#: src/features/career/knowledge/stories.tsx
+msgid "Delete story"
+msgstr ""
+
 #: src/features/applications/components/application-actions-menu.tsx
 #: src/features/applications/components/application-detail-sheet.tsx
 msgid "Delete this application?"
 msgstr "ይህን ማመልከቻ ይሰርዙ?"
+
+#: src/features/career/workspace/coach-sheet.tsx
+msgid "Delete this conversation"
+msgstr ""
 
 #: src/features/assistant/assistant-panel.tsx
 msgid "Delete this conversation?"
@@ -2700,10 +3659,6 @@ msgstr "ይህ ውይይት ይሰረዝ?"
 #: src/features/applications/components/detail/activity.tsx
 msgid "Delete this entry?"
 msgstr "ይህ ግቤት ይሰረዝ?"
-
-#: src/features/applications/components/interview-dialog.tsx
-msgid "Delete this interview?"
-msgstr "ይህ ቃለ መጠይቅ ይሰረዝ?"
 
 #: src/features/settings/ai/providers.tsx
 msgid "Delete this provider?"
@@ -2742,6 +3697,14 @@ msgstr "\"{title}\" ተሰርዟል"
 #: src/features/applications/components/list-view.tsx
 msgid "Deleted {0}"
 msgstr "{0} ተሰርዟል።"
+
+#: src/features/career/offers.tsx
+msgid "Deleted application"
+msgstr ""
+
+#: src/features/career/workspace/saved.tsx
+msgid "Deleted from Saved"
+msgstr ""
 
 #: src/features/documents/trash-page.tsx
 msgid "Deleted in"
@@ -2798,6 +3761,7 @@ msgstr "የንድፍ ዳግም ማስጀመር ወደ ነባሪዎች"
 msgid "Design systems"
 msgstr "የንድፍ ሥርዓቶች"
 
+#: src/features/career/workspace/shell.tsx
 #: src/routes/builder/$resumeId/-components/document-menu.tsx
 msgid "Details"
 msgstr "ዝርዝሮች"
@@ -2806,6 +3770,26 @@ msgstr "ዝርዝሮች"
 #: src/features/auth/pages/error.tsx
 msgid "Details from the provider:"
 msgstr "ከአቅራቢው የተገኘ ዝርዝር፡"
+
+#: src/features/career/workspace/practise.tsx
+msgid "Dictation started"
+msgstr ""
+
+#: src/features/career/workspace/practise.tsx
+msgid "Dictation stopped at the 2-minute limit."
+msgstr ""
+
+#: src/features/career/workspace/debrief.tsx
+msgid "Didn't land"
+msgstr ""
+
+#: src/features/career/offers.tsx
+msgid "Different currency, not compared"
+msgstr ""
+
+#: src/features/career/offers.tsx
+msgid "Different pay period, not compared"
+msgstr ""
 
 #. Destructive action button to turn off two-factor authentication
 #: src/dialogs/auth/disable-two-factor.tsx
@@ -2820,9 +3804,14 @@ msgstr "ሁለት-ደረጃ ማረጋገጫን ማቦዘን"
 msgid "Disabling two-factor authentication..."
 msgstr "ሁለት-ደረጃ ማረጋገጫን በመሰናከል ላይ…"
 
+#: src/features/career/schedule-sheet.tsx
 #: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Discard"
 msgstr "አስወግድ"
+
+#: src/features/career/schedule-sheet.tsx
+msgid "Discard changes?"
+msgstr ""
 
 #: src/features/settings/account/security.tsx
 msgid "Disconnect"
@@ -2832,7 +3821,6 @@ msgstr "ግንኙነትን ቁርጥ"
 msgid "Discord"
 msgstr "ዲስኮርድ"
 
-#: src/components/ui/product-hunt-banner.tsx
 #: src/features/resume/editor/write/write-panel.tsx
 #: src/routes/builder/letter/-components/write-panel.tsx
 #: src/routes/dashboard/applications/index.tsx
@@ -2862,6 +3850,7 @@ msgid "Documents"
 msgstr "ሰነዶች"
 
 #: src/features/applications/components/detail/sent-documents.tsx
+#: src/features/career/workspace/shell.tsx
 msgid "Documents for this job"
 msgstr "ለዚህ ሥራ ሰነዶች"
 
@@ -2889,8 +3878,19 @@ msgstr "ይለግሱ"
 msgid "Done"
 msgstr "ተከናውኗል"
 
+#. placeholder {0}: day(row.nextRunAt)
+#: src/features/career/today.tsx
+msgid "Done · {0}"
+msgstr ""
+
+#: src/features/career/shared.tsx
+msgid "Double-checking"
+msgstr ""
+
 #. Action button to download two-factor backup codes as a text file
 #: src/dialogs/auth/enable-two-factor.tsx
+#: src/features/career/workspace/apply.tsx
+#: src/features/career/workspace/practise.tsx
 #: src/routes/builder/$resumeId/-components/editor-bar.tsx
 #: src/routes/builder/$resumeId/-components/share-sheet.tsx
 #: src/routes/builder/letter/-components/letter-bar.tsx
@@ -2950,6 +3950,7 @@ msgstr "የስራ ልምድዎን እና ይህን ደብዳቤ አውርደዋ�
 msgid "downloads"
 msgstr "ውርዶች"
 
+#: src/features/career/workspace/apply.tsx
 #: src/features/resume/editor/write/entry-card.tsx
 msgid "Draft"
 msgstr "የሰነድ ረቂቅ"
@@ -2986,9 +3987,25 @@ msgstr "ከትምህርት መዝገብዎ ረቂቅ"
 msgid "Draft kept. Edit anything you like."
 msgstr "ረቂቅ ተጠብቆ ቆይቷል። የሚወዱትን ማንኛውንም ነገር ያርትዑ።"
 
+#: src/features/career/workspace/prepare.tsx
+msgid "Draft story"
+msgstr ""
+
+#: src/features/career/shared.tsx
+msgid "Drafting"
+msgstr ""
+
+#: src/features/career/shared.tsx
+msgid "Drafting a reply"
+msgstr ""
+
 #: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Drafting needs an AI provider."
 msgstr "ረቂቅ AI አቅራቢ ያስፈልገዋል።"
+
+#: src/features/career/shared.tsx
+msgid "Drafting questions"
+msgstr ""
 
 #. placeholder {0}: draft.provider
 #: src/routes/builder/letter/-components/write-panel.tsx
@@ -3060,20 +4077,30 @@ msgstr "የተባዛ"
 msgid "Duplicating your resume..."
 msgstr "የየታሪክዎን ቅጂ በመፍጠር ላይ…"
 
-#: src/features/applications/components/interview-dialog.tsx
-msgid "Duration"
-msgstr "ቆይታ"
-
 #: src/libs/locale.ts
 msgid "Dutch"
 msgstr "ደች"
+
+#: src/features/career/workspace/practise.tsx
+msgid "Each answer you get feedback on is kept here, newest first."
+msgstr ""
+
+#: src/features/career/workspace/fit.tsx
+msgid "Each requirement in the posting is checked against the facts and stories in your Knowledge. Gaps show as missing evidence, never missing ability."
+msgstr ""
 
 #: src/features/assistant/conversation.tsx
 msgid "Each send starts fresh with this message and selected files. Previous conversation history stays here."
 msgstr "እያንዳንዱ መላክ የሚጀምረው በዚህ መልእክት እና በተመረጡ ፋይሎች ነው። የቀድሞ የውይይት ታሪክ እዚህ ይቆያል።"
 
+#: src/features/career/coach.tsx
+msgid "earlier messages in this chat"
+msgstr ""
+
 #: src/components/input/chip-input.tsx
 #: src/features/applications/components/detail/next-step-card.tsx
+#: src/features/career/knowledge/stories.tsx
+#: src/features/career/workspace/shell.tsx
 #: src/features/resume/editor/write/basics-card.tsx
 #: src/features/settings/ai/providers.tsx
 msgid "Edit"
@@ -3133,6 +4160,14 @@ msgstr "አገናኝ አርትዕ"
 #: src/features/applications/components/detail/activity.tsx
 msgid "Edit note"
 msgstr "ማስታወሻ አርትዕ"
+
+#: src/features/career/workspace/apply.tsx
+msgid "Edit question"
+msgstr ""
+
+#: src/features/career/schedule-sheet.tsx
+msgid "Edit schedule"
+msgstr ""
 
 #: src/features/resume/editor/check/issues.ts
 msgid "Edit the email"
@@ -3259,6 +4294,14 @@ msgstr "የተሻሻለ ንባብ የለም; አብሮ የተሰራውን አን
 msgid "Enhanced reading was unavailable. The built-in reader retrieved this posting."
 msgstr "የተሻሻለ ንባብ አልተገኘም። አብሮ የተሰራው አንባቢ ይህን የስራ መለጠፍ ሰርስሮ አውጥቷል።"
 
+#: src/components/ui/donation-toast.tsx
+msgid "Enjoying Reactive Resume?"
+msgstr ""
+
+#: src/features/career/knowledge/preferences.tsx
+msgid "Enter a full amount, such as 95000. Your previous amount is unchanged."
+msgstr ""
+
 #: src/features/settings/account/profile.tsx
 msgid "Enter a name, up to 64 characters."
 msgstr "ስም አስገባ፣ እስከ 64 ቁምፊዎች።"
@@ -3312,6 +4355,22 @@ msgstr "መግባት ተሰርዟል።"
 msgid "Entry options"
 msgstr "የመግቢያ አማራጮች"
 
+#: src/features/career/offers.tsx
+msgid "Equity"
+msgstr ""
+
+#: src/features/career/today.tsx
+msgid "Every {days} days at {clock} · next {next}"
+msgstr ""
+
+#: src/features/career/schedule-sheet.tsx
+msgid "Every 3 days"
+msgstr ""
+
+#: src/features/career/schedule-sheet.tsx
+msgid "Every day"
+msgstr ""
+
 #: src/features/resume/editor/check/issues.ts
 msgid "Every entry has dates in a form systems read, in order, and none in the future."
 msgstr "እያንዳንዱ ግቤት በተነበበ፣ በቅደም ተከተል፣ እና ወደፊት ምንም ዓይነት የቅፅ ስርዓቶች ውስጥ ቀኖች አሉት።"
@@ -3328,10 +4387,19 @@ msgstr "እያንዳንዱ አብነት ጽሑፍን መሰረት ያደረገ �
 msgid "Every term the posting stresses is already there."
 msgstr "በእያንዳንዱ ቃል የሥራ መለጠፍ ጭንቀቶች ቀድሞውኑ አሉ።"
 
+#: src/features/career/schedule-sheet.tsx
+msgid "Every week"
+msgstr ""
+
 #. Hero headline, line 1 of 4: “Everything / you’ve done, / on one / page.”
 #: src/features/homepage/hero.tsx
 msgid "Everything"
 msgstr "ያከናወኑት"
+
+#. placeholder {0}: application.company
+#: src/features/career/workspace/saved.tsx
+msgid "Everything the coach wrote for {0}, newest first."
+msgstr ""
 
 #: src/features/homepage/hero.tsx
 msgid "Everything you’ve done, on one page."
@@ -3341,6 +4409,7 @@ msgstr "ያደረጋችሁት ሁሉ፣ በአንድ ገጽ ላይ።"
 msgid "Exit focus mode"
 msgstr "ከትኩረት ሁነታ ውጣ"
 
+#: src/features/career/knowledge/facts.tsx
 #: src/features/homepage/check.tsx
 #: src/features/homepage/sheet.tsx
 #: src/features/homepage/write.tsx
@@ -3414,6 +4483,23 @@ msgstr "ይህን የመለያ መዝገብ ያውጡ፣ ከዚያ JSON ፋይ�
 #: src/features/resume/editor/check/parser-view.tsx
 msgid "Extracted from the PDF on the page · reading order"
 msgstr "በገጹ ላይ ካለው PDF የተወሰደ · የንባብ ትዕዛዝ"
+
+#: src/features/career/knowledge/facts.tsx
+msgid "Fact forgotten"
+msgstr ""
+
+#: src/features/career/knowledge/facts.tsx
+msgid "Fact type"
+msgstr ""
+
+#: src/features/career/coach-thread.tsx
+#: src/routes/dashboard/career/knowledge/route.tsx
+msgid "Facts"
+msgstr ""
+
+#: src/features/career/coach.tsx
+msgid "Facts, stories and preferences that are switched on in Knowledge"
+msgstr ""
 
 #: src/features/settings/ai/providers.tsx
 msgid "Failed"
@@ -3497,6 +4583,14 @@ msgstr "ኮድዎን ማረጋገጥ አልተሳካም። እባክዎ እን�
 msgid "Features"
 msgstr "ባህሪያት"
 
+#: src/features/career/workspace/practise.tsx
+msgid "Feedback"
+msgstr ""
+
+#: src/features/career/workspace/practise.tsx
+msgid "Feedback needs an AI connection. <0>Add one in Settings</0>. Nothing is sent until you ask."
+msgstr ""
+
 #. placeholder {0}: index + 1
 #: src/features/resume/editor/write/basics-card.tsx
 msgid "Field {0}"
@@ -3556,6 +4650,10 @@ msgstr "ግቤቶችን መሙላት"
 msgid "Filter by tag"
 msgstr "በመለያ አጣራ"
 
+#: src/features/career/schedule-sheet.tsx
+msgid "Find roles"
+msgstr ""
+
 #: src/features/assistant/assistant-panel.tsx
 msgid "Find weak bullets"
 msgstr "ደካማ ዝርዝር ግቤቶችን ያግኙ"
@@ -3564,14 +4662,28 @@ msgstr "ደካማ ዝርዝር ግቤቶችን ያግኙ"
 msgid "Finding sections"
 msgstr "ክፍሎችን ማግኘት"
 
+#: src/features/career/shared.tsx
+msgid "Finding what works"
+msgstr ""
+
 #: src/libs/locale.ts
 msgid "Finnish"
 msgstr "ፊኒሽ"
 
+#: src/features/career/schedule-sheet.tsx
+msgid "First run"
+msgstr ""
+
+#: src/features/career/workspace/saved.tsx
+#: src/features/career/workspace/shell.tsx
 #: src/features/resume/editor/chrome.tsx
 #: src/features/resume/editor/write/picture-settings.tsx
 msgid "Fit"
 msgstr "ተስማሚ"
+
+#: src/features/career/workspace/saved.tsx
+msgid "Fit checks, briefings, practice feedback, debriefs, answers and replies land here as the other tabs create them."
+msgstr ""
 
 #: src/features/resume/editor/chrome.tsx
 msgid "Fit page to width"
@@ -3609,6 +4721,10 @@ msgstr "እነዚህን በጥቂት ደቂቃዎች ውስጥ አስተካክ�
 msgid "Fix these in the editor"
 msgstr "እነዚህን በአርታዒው ውስጥ ያስተካክሉ"
 
+#: src/features/applications/components/import-applications-sheet.tsx
+msgid "Fix these values in the CSV, or leave their columns out, before importing."
+msgstr ""
+
 #: src/features/ats-checker/messages.ts
 msgid "Flatten the form so the text is part of the page."
 msgstr "ጽሁፉ የገጹ አካል እንዲሆን ቅጹን ጠፍጣፋ ያድርጉት።"
@@ -3617,9 +4733,18 @@ msgstr "ጽሁፉ የገጹ አካል እንዲሆን ቅጹን ጠፍጣፋ ያ
 msgid "Fluency"
 msgstr "የቋንቋ ችሎታ"
 
+#: src/features/career/workspace/prepare.tsx
+msgid "Focus, experience, why this role"
+msgstr ""
+
 #: src/features/applications/next-step.ts
 msgid "Follow up"
 msgstr "በድጋሚ ያነጋግሩ"
+
+#. placeholder {0}: when(change.at)
+#: src/features/career/workspace/messages.tsx
+msgid "Follow up on {0}"
+msgstr ""
 
 #: src/features/applications/components/detail/next-step-card.tsx
 msgid "Follow-up"
@@ -3632,6 +4757,10 @@ msgstr "የክትትል ቀን"
 #: src/features/applications/components/application-form-sheet.tsx
 msgid "Follow-up note"
 msgstr "የክትትል ማስታወሻ"
+
+#: src/features/career/schedule-sheet.tsx
+msgid "Follow-up reminder"
+msgstr ""
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/typography.tsx
 msgid "Font Family"
@@ -3661,9 +4790,18 @@ msgstr "ቅርጸ ቁምፊዎችን መጫን አልተቻለም። ወደ ው�
 msgid "For"
 msgstr "ለ"
 
+#: src/features/career/workspace/prepare.tsx
+msgid "For each: situation, task, your action, result, reflection. Leave out numbers you're unsure of."
+msgstr ""
+
 #: src/routes/builder/$resumeId/-sidebar/right/sections/notes.tsx
 msgid "For example, note which companies you sent this resume to, or links to the job descriptions."
 msgstr "ለምሳሌ፣ ይህን የስራ ልምድ ማስረጃ ወደ የትኞቹ ኩባንያዎች እንደላኩ፣ ወይም የሥራ መግለጫዎቹን አገናኞች ይመዝግቡ።"
+
+#. placeholder {0}: requirement.text
+#: src/features/career/workspace/fit.tsx
+msgid "For example: “{0}: I did … at … in 2024, and it led to …”"
+msgstr ""
 
 #: src/features/resume/share/download-tab.tsx
 msgid "For portals or recruiters who ask for Word. Layout is simplified."
@@ -3673,6 +4811,10 @@ msgstr "Word ለሚጠይቁ ፖርታል ወይም ቀጣሪዎች። አቀማ
 msgid "For scripts, extensions and MCP clients. Keys act as you and can read and edit your documents."
 msgstr "ለስክሪፕቶች፣ ቅጥያዎች እና MCP ደንበኞች። ቁልፎች እንደ እርስዎ ይሰራሉ ​​እና ሰነዶችዎን ማንበብ እና ማርትዕ ይችላሉ።"
 
+#: src/features/career/workspace/debrief.tsx
+msgid "For the next round:"
+msgstr ""
+
 #: src/features/resume/editor/check/job-match.tsx
 msgid "For this visit only"
 msgstr "ለዚህ ጉብኝት ብቻ"
@@ -3680,6 +4822,10 @@ msgstr "ለዚህ ጉብኝት ብቻ"
 #: src/features/documents/new-document-dialog.tsx
 msgid "For which job?"
 msgstr "ለየትኛው ሥራ?"
+
+#: src/features/career/knowledge/facts.tsx
+msgid "Forget"
+msgstr ""
 
 #. Link label to password reset page from login form
 #: src/features/auth/pages/login.tsx
@@ -3702,9 +4848,22 @@ msgstr "የቅርጸት ቅጥ ሉህ"
 msgid "Formatting"
 msgstr "በመቅረጽ ላይ"
 
+#. placeholder {0}: day(row.firstSeenAt)
+#: src/features/career/today.tsx
+msgid "Found {0}"
+msgstr ""
+
 #: src/features/applications/components/add-application-dialog.tsx
-msgid "Found the role and company on the page. The posting is saved with the application."
-msgstr "በገጹ ላይ ሚና እና ኩባንያ ተገኝቷል. የሥራ መለጠፍ በስራ ማመልከቻው ይቀመጣል."
+msgid "Found the role and company on the page. Review the details before saving."
+msgstr ""
+
+#: src/features/career/today.tsx
+msgid "Found today"
+msgstr ""
+
+#: src/features/career/today.tsx
+msgid "Found yesterday"
+msgstr ""
 
 #: src/libs/seo.ts
 msgid "Free ATS resume checker"
@@ -3724,21 +4883,46 @@ msgstr "ነፃ፣ ክፍት ምንጭ የሥራ ልምድ መግለጫ ገንቢ
 msgid "French"
 msgstr "ፈረንሳይኛ"
 
+#: src/features/career/workspace/fit.tsx
 #: src/routes/builder/letter/-components/write-panel.tsx
 msgid "From"
 msgstr "ከ"
+
+#: src/features/career/knowledge/facts.tsx
+msgid "From a debrief"
+msgstr ""
+
+#: src/features/career/knowledge/facts.tsx
+msgid "From a document you attached"
+msgstr ""
 
 #: src/features/homepage/sections.tsx
 msgid "from developers who back it"
 msgstr "ከሚደግፉት ገንቢዎች"
 
+#: src/features/career/workspace/fit.tsx
+msgid "From Fit"
+msgstr ""
+
 #: src/features/resume/share/format.ts
 msgid "from the assistant or API"
 msgstr "ከረዳት ወይም API"
 
+#: src/features/career/knowledge/facts.tsx
+msgid "From your cover letter"
+msgstr ""
+
 #: src/features/assistant/assistant-panel.tsx
 msgid "From your experience entries"
 msgstr "ከተሞክሮዎ ግቤቶች"
+
+#: src/features/career/knowledge/facts.tsx
+msgid "From your message"
+msgstr ""
+
+#: src/features/career/knowledge/facts.tsx
+msgid "From your resume"
+msgstr ""
 
 #: src/features/resume/editor/write/basics-card.tsx
 msgid "Full name"
@@ -3767,6 +4951,18 @@ msgstr "ጀርመንኛ"
 msgid "Get a key at <0>{0}</0>. It's stored encrypted and used only for your requests."
 msgstr "በ<0>{0}</0> ላይ ቁልፍ ያግኙ። የተመሰጠረ ነው የተከማቸ እና ለጥያቄዎችህ ብቻ ጥቅም ላይ የዋለ ነው።"
 
+#: src/features/career/workspace/practise.tsx
+msgid "Get feedback"
+msgstr ""
+
+#: src/features/career/workspace/practise.tsx
+msgid "Get feedback sends the question, your answer, this posting and your stories to {providerName}."
+msgstr ""
+
+#: src/features/career/today.tsx
+msgid "Get new roles here every morning"
+msgstr ""
+
 #: src/features/homepage/footer.tsx
 msgid "Get started"
 msgstr "እንጀምር"
@@ -3789,6 +4985,10 @@ msgstr "የጊዜ መስመርዎ መልሶ እንዲገነባ እንዲቻል�
 #: src/features/ats-checker/messages.ts
 msgid "Give every role and qualification a date range."
 msgstr "ለእያንዳንዱ ሚና እና ብቃት የቀን ክልል ይስጡ።"
+
+#: src/features/career/knowledge/stories.tsx
+msgid "Give the story a title before you can save."
+msgstr ""
 
 #. Secondary navigation button on backup-code verification screen
 #: src/features/auth/pages/verify-2fa.tsx
@@ -3858,6 +5058,10 @@ msgstr "ርዕስ ተቀይሯል።"
 msgid "Headline"
 msgstr "ርዕሰ ነጥብ"
 
+#: src/features/career/workspace/practise.tsx
+msgid "Hear it"
+msgstr ""
+
 #: src/features/applications/components/insights-view.tsx
 msgid "heard back"
 msgstr "ተመልሶ ሰምቷል"
@@ -3870,6 +5074,10 @@ msgstr "ዕብራስጥ"
 msgid "Help & docs"
 msgstr "እገዛ እና ሰነዶች"
 
+#: src/features/career/coach.tsx
+msgid "Help me turn an accomplishment into a Situation, Task, Action, Result and Reflection story."
+msgstr ""
+
 #: src/features/settings/preferences.tsx
 msgid "Help translate"
 msgstr "ለመተርጎም ያግዙ"
@@ -3879,6 +5087,10 @@ msgstr "ለመተርጎም ያግዙ"
 #: src/features/resume/editor/write/entry-card.tsx
 msgid "Hidden"
 msgstr "ተደብቆ"
+
+#: src/features/career/today.tsx
+msgid "Hidden from New roles"
+msgstr ""
 
 #: src/features/resume/editor/write/write-panel.tsx
 msgid "Hidden sections keep their content but aren't printed or shared. Fields save as you type."
@@ -3962,9 +5174,33 @@ msgstr "መነሻ"
 msgid "Hosting and development are paid for by people like you. Optional tip:"
 msgstr "ማስተናገድ እና ልማት የሚከፈሉት እንደ እርስዎ ባሉ ሰዎች ነው። አማራጭ ጠቃሚ ምክር፡"
 
+#: src/features/career/workspace/prepare.tsx
+msgid "How did it go?"
+msgstr ""
+
+#: src/features/career/workspace/debrief.tsx
+msgid "How did it land?"
+msgstr ""
+
 #: src/features/applications/components/insights-view.tsx
 msgid "How far applications get"
 msgstr "የሥራ ማመልከቻዎች ምን ያህል ርቀት ያገኛሉ"
+
+#: src/features/career/offers.tsx
+msgid "How is the bonus decided, and how much of it was paid out last year?"
+msgstr ""
+
+#: src/features/career/offers.tsx
+msgid "How many days a week are expected in the office?"
+msgstr ""
+
+#: src/features/career/offers.tsx
+msgid "How many days of leave come with it?"
+msgstr ""
+
+#: src/features/career/schedule-sheet.tsx
+msgid "How often"
+msgstr ""
 
 #: src/features/ats-checker/checker.tsx
 msgid "How to show the file"
@@ -4136,6 +5372,10 @@ msgstr "ሁለት መስመሮች ወደ አንድ እንዳይዋሃዱ የመ�
 msgid "Indonesian"
 msgstr "ኢንዶኔዥኛ"
 
+#: src/features/career/workspace/fit.tsx
+msgid "Inferred"
+msgstr ""
+
 #: src/features/resume/editor/write/section-row.tsx
 msgid "Inline"
 msgstr "መስመር ውስጥ"
@@ -4162,25 +5402,68 @@ msgid "Interface only. Each resume sets its own language in Design."
 msgstr "በይነገጽ ብቻ። እያንዳንዱ የትምህርት ማስረጃ በንድፍ ውስጥ የራሱን ቋንቋ ያዘጋጃል።"
 
 #: src/features/applications/stages.ts
+#: src/features/career/schedule-sheet.tsx
 #: src/features/homepage/tailor.tsx
 msgid "Interview"
 msgstr "ቃለ መጠይቅ"
 
-#: src/features/applications/components/interview-dialog.tsx
-msgid "Interview scheduled."
-msgstr "ቃለ መጠይቅ ቀጠሮ ተይዞለታል።"
+#: src/features/career/workspace/debrief.tsx
+msgid "Interview debrief"
+msgstr ""
 
 #: src/features/applications/components/interview-dialog.tsx
-msgid "Interview type"
-msgstr "የቃለ መጠይቅ ዓይነት"
+msgid "Interview deleted"
+msgstr ""
+
+#: src/features/applications/components/interview-dialog.tsx
+msgid "Interview is in another timezone"
+msgstr ""
+
+#: src/features/career/workspace/shell.tsx
+msgid "Interview notes"
+msgstr ""
+
+#: src/features/career/schedule-sheet.tsx
+#: src/features/career/today.tsx
+msgid "Interview preparation"
+msgstr ""
+
+#: src/features/applications/components/interview-dialog.tsx
+msgid "Interview saved"
+msgstr ""
+
+#. placeholder {0}: when(schedule.nextRunAt)
+#: src/features/applications/components/interview-dialog.tsx
+msgid "Interview saved · briefing moves to {0}"
+msgstr ""
+
+#: src/features/settings/preferences.tsx
+msgid "Interview times, reminders and schedules in Career use it."
+msgstr ""
+
+#: src/features/applications/components/interview-dialog.tsx
+msgid "Interview timezone"
+msgstr ""
 
 #: src/features/applications/components/detail/contacts.tsx
 msgid "Interviewer"
 msgstr "ጠያቂ"
 
+#: src/features/career/offers.tsx
+msgid "Is equity part of the offer?"
+msgstr ""
+
 #: src/features/homepage/faq.tsx
 msgid "Is Reactive Resume really free?"
 msgstr "በእርግጥ Reactive Resume ነፃ ነው?"
+
+#: src/features/career/offers.tsx
+msgid "Is there a bonus, and what does it depend on?"
+msgstr ""
+
+#: src/features/career/offers.tsx
+msgid "Is there a learning budget?"
+msgstr ""
 
 #. placeholder {0}: issue.number
 #: src/features/resume/editor/check/parser-view.tsx
@@ -4229,13 +5512,13 @@ msgstr "ጉዳዮች እና የስራ ግጥሚያ አሁንም ያለ AI ይሰ
 msgid "It has entries but isn't placed on a page."
 msgstr "ግቤቶች አሉት ግን በገጽ ላይ አልተቀመጠም።"
 
+#: src/features/career/knowledge/stories.tsx
+msgid "It may have been deleted. Choose another story or add a new one."
+msgstr ""
+
 #: src/features/documents/document-actions.tsx
 msgid "It will be deleted for good and can't be restored."
 msgstr "ለበጎ ይሰረዛል እና ወደነበረበት ሊመለስ አይችልም።"
-
-#: src/features/applications/components/interview-dialog.tsx
-msgid "It will be removed from the timeline and calendar. This can't be undone."
-msgstr "ከግዜ መስመር እና የቀን መቁጠሪያ ይወገዳል. ይህ ሊቀለበስ አይችልም።"
 
 #: src/features/settings/account/security.tsx
 msgid "It will no longer sign you in."
@@ -4245,10 +5528,9 @@ msgstr "ከአሁን በኋላ እርስዎን አያስገቡም።"
 msgid "It will show on the application's timeline and on the calendar."
 msgstr "በስራ ማመልከቻው የጊዜ ሰሌዳ እና በቀን መቁጠሪያ ላይ ይታያል."
 
-#. Body of the launch-day banner
-#: src/components/ui/product-hunt-banner.tsx
-msgid "It's free and open source, and always will be. If it has helped you, an upvote today helps more people find it."
-msgstr "ነፃ እና ክፍት ምንጭ ነው፣ እና ሁልጊዜም ይሆናል። የረዳዎት ከሆነ ዛሬ የድጋፍ ድምጽ ብዙ ሰዎች እንዲያገኟቸው ይረዳል።"
+#: src/components/ui/donation-toast.tsx
+msgid "It's free and open source, kept going by donations from the people who use it. If it has helped you, consider chipping in."
+msgstr ""
 
 #: src/features/applications/components/detail/activity.tsx
 msgid "It's removed from the timeline for good."
@@ -4269,6 +5551,11 @@ msgstr "ግቤቶች ከ30 ቀናት በኋላ በቋሚነት ይሰረዛሉ�
 #: src/features/documents/trash-page.tsx
 msgid "Items you move here stay for 30 days."
 msgstr "ወደዚህ የሚዘዋወሩት ግቤቶች ለ30 ቀናት ይቆዩ።"
+
+#. placeholder {0}: providers[0]?.label ?? ""
+#: src/features/career/schedule-sheet.tsx
+msgid "Its connection was switched off or removed, so it runs on {0} until you choose another."
+msgstr ""
 
 #: src/features/assistant/assistant-panel.tsx
 msgid "Its messages and attachments are deleted. Edits you accepted stay in the document."
@@ -4367,6 +5654,10 @@ msgstr "መተግበሪያውን በማይጠቀሙበት ጊዜ መዳረሻዎ
 msgid "Keep account"
 msgstr "መለያ አቆይ"
 
+#: src/features/career/schedule-sheet.tsx
+msgid "Keep editing"
+msgstr ""
+
 #: src/features/documents/document-actions.tsx
 msgid "Keep in Trash"
 msgstr "በቆሻሻ መጣያ ውስጥ ያስቀምጡ"
@@ -4374,6 +5665,10 @@ msgstr "በቆሻሻ መጣያ ውስጥ ያስቀምጡ"
 #: src/features/homepage/sections.tsx
 msgid "Keep it <0>free.</0>"
 msgstr "<0>ነፃ እንዲቆይ</0> ያግዙ።"
+
+#: src/features/career/workspace/prepare.tsx
+msgid "Keep it honest"
+msgstr ""
 
 #: src/features/ats-checker/messages.ts
 msgid "Keep it under 2.5 MB, usually by removing or shrinking images."
@@ -4403,6 +5698,10 @@ msgstr "ተደጋጋሚ ራስጌዎችን አጭር ያድርጉ፣ ወይም �
 #: src/features/resume/editor/chrome.tsx
 msgid "Keep the panel beside the page"
 msgstr "ፓነሉን ከገጹ አጠገብ ያቆዩት።"
+
+#: src/features/career/workspace/practise.tsx
+msgid "Keep the recording in this browser so I can download it"
+msgstr ""
 
 #: src/features/ats-checker/messages.ts
 msgid "Keep them to roughly two lines, so a skim-reader finishes them."
@@ -4453,6 +5752,15 @@ msgstr "ክህመርኛ"
 #: src/features/letters/compose.ts
 msgid "Kind regards,"
 msgstr "ምልካም ምኞት፣"
+
+#: src/routes/dashboard/career/knowledge/route.tsx
+#: src/routes/dashboard/career/route.tsx
+msgid "Knowledge"
+msgstr ""
+
+#: src/features/career/coach.tsx
+msgid "Knowledge couldn't load. Try again or switch Knowledge off before sending."
+msgstr ""
 
 #: src/libs/locale.ts
 msgid "Korean"
@@ -4534,6 +5842,11 @@ msgstr "በውጤቱ ይምሩ እና ሚዛን ይስጡት."
 msgid "Leads with why you fit"
 msgstr "ለምን እንደሚመጥኑ ይመራል።"
 
+#: src/features/career/offers.tsx
+msgid "Learning budget"
+msgstr ""
+
+#: src/features/career/offers.tsx
 #: src/hooks/use-form-blocker.tsx
 msgid "Leave"
 msgstr "ውጣ"
@@ -4579,6 +5892,14 @@ msgstr "ሕጋዊ"
 msgid "Length"
 msgstr "ርዝመት"
 
+#: src/features/applications/components/interview-dialog.tsx
+msgid "Length · minutes"
+msgstr ""
+
+#: src/features/applications/components/interview-dialog.tsx
+msgid "Length in minutes"
+msgstr ""
+
 #: src/features/ats-checker/messages.ts
 msgid "Length is not a defect, and there is no universal one-page rule. Keep the pages that earn their place."
 msgstr "ርዝመት ጉድለት አይደለም፣ እና ሁሉን አቀፍ የአንድ-ገጽ ህግ የለም። ቦታቸውን የሚገባቸውን ገጾች ያቆዩ።"
@@ -4590,6 +5911,10 @@ msgstr "እንደ Claude ወይም Cursor ያሉ የ AI ደንበኞች ከላ�
 #: src/features/documents/documents-page.tsx
 msgid "Let's start with what you have"
 msgstr "ባለህ ነገር እንጀምር"
+
+#: src/features/career/coach.tsx
+msgid "Lets the coach search public pages through your web search service"
+msgstr ""
 
 #: src/features/assistant/assistant-panel.tsx
 msgid "letter"
@@ -4603,6 +5928,14 @@ msgstr "ደብዳቤ"
 #: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Letter"
 msgstr "መልእክት።"
+
+#: src/features/career/workspace/shell.tsx
+msgid "Letter · not sent yet"
+msgstr ""
+
+#: src/features/career/workspace/shell.tsx
+msgid "Letter · version sent"
+msgstr ""
 
 #: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Letter body"
@@ -4631,8 +5964,8 @@ msgid "Level {level} of 5"
 msgstr "ደረጃ {level} ከ5 ውስጥ"
 
 #: src/features/homepage/footer.tsx
-msgid "Licensed under <0>MIT License</0>"
-msgstr "ፈቃድ በ<0>MIT License</0>"
+msgid "Licensed under <0>MIT</0>"
+msgstr ""
 
 #: src/features/ats-checker/messages.ts
 msgid "Ligatures can drop letters out of words such as \"workflow\"."
@@ -4726,6 +6059,10 @@ msgstr "ማገናኛ ተዘምኗል"
 msgid "Linked · not sent yet"
 msgstr "ተገናኝቷል · እስካሁን አልተላከም።"
 
+#: src/features/career/workspace/shell.tsx
+msgid "Linked documents couldn't be loaded."
+msgstr ""
+
 #: src/features/applications/components/detail/sent-documents.tsx
 msgid "Linked resume"
 msgstr "የተቆራኘ የትምህርት ማስረጃ"
@@ -4779,6 +6116,10 @@ msgstr "ዝርዝር"
 msgid "List the tools and technologies you use. Recruiters search skills more than any other field."
 msgstr "የሚጠቀሙባቸውን መሳሪያዎችና ቴክኖሎጂዎች ይዘርዝሩ። ቀጣሪዎች ከየትኛውም መስክ ይልቅ ችሎታዎችን ይፈልጋሉ።"
 
+#: src/features/career/workspace/practise.tsx
+msgid "Listening… Stop when you're done."
+msgstr ""
+
 #: src/libs/locale.ts
 msgid "Lithuanian"
 msgstr "ሊቱዌንያንኛ"
@@ -4792,14 +6133,13 @@ msgstr "ቀጥታ · ሲያርትዑ ይዘምናል።"
 msgid "Live at {0}"
 msgstr "በ{0} ቀጥታ ስርጭት"
 
-#. Eyebrow on the launch-day banner
-#: src/components/ui/product-hunt-banner.tsx
-msgid "Live on Product Hunt"
-msgstr "በProduct Hunt ላይ ቀጥታ ስርጭት"
-
 #: src/features/homepage/sections.tsx
 msgid "Live totals, refreshed every 6 hours."
 msgstr "የቀጥታ ድምር፣ በየ6 ሰዓቱ ይታደሳል።"
+
+#: src/features/settings/integrations/ai-provider-load-state.tsx
+msgid "Loading AI connections…"
+msgstr ""
 
 #: src/features/command-palette/pages/resumes.tsx
 msgid "Loading applications…"
@@ -4821,6 +6161,18 @@ msgstr "ግንኙነቶችን በመጫን ላይ..."
 msgid "Loading conversations…"
 msgstr "ንግግሮችን በመጫን ላይ…"
 
+#: src/features/career/knowledge/stories.tsx
+msgid "Loading interviews…"
+msgstr ""
+
+#: src/features/career/coach.tsx
+msgid "Loading Knowledge before you send…"
+msgstr ""
+
+#: src/features/career/workspace/shell.tsx
+msgid "Loading linked documents…"
+msgstr ""
+
 #: src/features/settings/ai/providers.tsx
 msgid "Loading model suggestions… You can also enter any model ID."
 msgstr "የሞዴል ጥቆማዎችን በመጫን ላይ… እንዲሁም ማንኛውንም የሞዴል መታወቂያ ማስገባት ይችላሉ።"
@@ -4834,18 +6186,31 @@ msgstr "አቅራቢዎችን በመጫን ላይ…"
 msgid "Loading resumes…"
 msgstr "የስራ ልምድ ማስረጃዎችን በመጫን ላይ…"
 
+#: src/features/career/workspace/shell.tsx
+msgid "Loading saved version…"
+msgstr ""
+
 #: src/features/homepage/sections.tsx
 msgid "Loading the total"
 msgstr "ጠቅላላውን በመጫን ላይ"
 
+#: src/features/career/workspace/shell.tsx
+msgid "Loading workspace…"
+msgstr ""
+
 #: src/features/applications/components/add-application-dialog.tsx
 #: src/features/applications/components/application-form-sheet.tsx
 #: src/features/applications/components/import-applications-sheet.tsx
+#: src/features/applications/components/interview-dialog.tsx
 #: src/features/resume/editor/check/parser-view.tsx
 #: src/features/resume/editor/write/basics-card.tsx
 #: src/features/resume/editor/write/entries.tsx
 msgid "Location"
 msgstr "ቦታ"
+
+#: src/features/career/coach-thread.tsx
+msgid "Locations"
+msgstr ""
 
 #: src/features/documents/document-actions.tsx
 #: src/routes/builder/$resumeId/-components/document-menu.tsx
@@ -4864,6 +6229,10 @@ msgstr "ተቆልፏል። ለማርትዕ ይክፈቱ።"
 #: src/features/ats-checker/messages.ts
 msgid "Long stretches are set in capitals."
 msgstr "ረዣዥም ክፍሎች በአቢይ ሆሄያት ተጽፈዋል።"
+
+#: src/features/career/schedule-sheet.tsx
+msgid "Look for"
+msgstr ""
 
 #: src/features/resume/share/download-tab.tsx
 msgid "Looks exactly like the page. Use it for applications and email."
@@ -4898,6 +6267,10 @@ msgstr "ዋና አቅጣጫ"
 #: src/features/homepage/design.tsx
 msgid "Make any of them yours."
 msgstr "ማናቸውንም ያንተ ያድርጉት።"
+
+#: src/features/settings/ai/providers.tsx
+msgid "Make default"
+msgstr ""
 
 #: src/features/assistant/assistant-panel.tsx
 msgid "Make it more specific"
@@ -4969,12 +6342,37 @@ msgid "Margins set to {minimum} pt"
 msgstr "ህዳጎች ወደ {minimum} pt"
 
 #: src/features/applications/components/application-detail-sheet.tsx
+#: src/features/career/workspace/apply.tsx
 msgid "Mark as applied"
 msgstr "እንደተተገበረ ምልክት ያድርጉበት"
+
+#: src/features/career/today.tsx
+msgid "Mark as read"
+msgstr ""
+
+#: src/features/career/workspace/messages.tsx
+msgid "Mark it as applied in Apply first."
+msgstr ""
+
+#: src/features/career/workspace/apply.tsx
+msgid "Mark the application as applied to keep the versions you sent."
+msgstr ""
+
+#: src/features/career/workspace/apply.tsx
+msgid "Markdown (.md)"
+msgstr ""
 
 #: src/features/resume/editor/write/rich-text-editor.tsx
 msgid "Markdown shortcuts on"
 msgstr "Markdown አቋራጮች በርተዋል።"
+
+#: src/features/career/workspace/apply.tsx
+msgid "Marked as applied. The versions you sent are kept."
+msgstr ""
+
+#: src/features/career/today.tsx
+msgid "Marked as read"
+msgstr ""
 
 #. placeholder {0}: resume?.name ?? t`the resume`
 #: src/routes/builder/letter/-components/design-panel.tsx
@@ -5001,6 +6399,14 @@ msgstr "ከመመዝገቢያው ({summary}) ጋር ይዛመዳል።"
 msgid "Matching the resume"
 msgstr "የትምህርት ማስረጃውን ማዛመድ"
 
+#: src/features/career/shared.tsx
+msgid "Matching your facts"
+msgstr ""
+
+#: src/components/ui/donation-toast.tsx
+msgid "Maybe later"
+msgstr ""
+
 #: src/features/command-palette/pages/navigation.tsx
 msgid "MCP"
 msgstr "MCP"
@@ -5021,9 +6427,29 @@ msgstr "መካከለኛ"
 msgid "Message the assistant"
 msgstr "ለረዳቱ መልእክት ይላኩ።"
 
+#: src/features/career/coach-thread.tsx
+msgid "Message the coach"
+msgstr ""
+
+#: src/features/career/workspace/shell.tsx
+msgid "Messages"
+msgstr ""
+
+#: src/features/career/workspace/practise.tsx
+msgid "Microphone blocked. Allow it in your browser settings, or type your answer."
+msgstr ""
+
+#: src/features/career/knowledge/preferences.tsx
+msgid "Minimum base salary"
+msgstr ""
+
 #: src/features/homepage/footer.tsx
 msgid "MIT License"
 msgstr "የMIT ፈቃድ"
+
+#: src/features/career/workspace/debrief.tsx
+msgid "Mixed"
+msgstr ""
 
 #: src/features/homepage/check.tsx
 msgid "mixed format"
@@ -5033,6 +6459,10 @@ msgstr "የተደባለቀ ቅርጸት"
 #: src/features/settings/ai/providers.tsx
 msgid "Model"
 msgstr "ሞዴል"
+
+#: src/features/career/workspace/practise.tsx
+msgid "Model for {label}"
+msgstr ""
 
 #: src/features/settings/ai/providers.tsx
 msgid "Model suggestions are unavailable. You can still enter any model ID."
@@ -5051,6 +6481,10 @@ msgstr "ሞኖ"
 msgid "More download formats"
 msgstr "ተጨማሪ የማውረድ ቅርጸቶች"
 
+#: src/features/career/coach.tsx
+msgid "More for {title}"
+msgstr ""
+
 #: src/features/resume/editor/write/fields.tsx
 msgid "More options"
 msgstr "ተጨማሪ አማራጮች"
@@ -5066,6 +6500,11 @@ msgstr "ተጨማሪ አቅራቢዎች እና አማራጮች በ<0>ቅንብ�
 #: src/features/ats-checker/messages.ts
 msgid "More than one email address appears."
 msgstr "ከአንድ በላይ የኢሜል አድራሻ ይታያል።"
+
+#: src/features/career/schedule-sheet.tsx
+#: src/features/career/today.tsx
+msgid "Morning of"
+msgstr ""
 
 #: src/features/ats-checker/messages.ts
 msgid "Most bullets open with filler rather than something you did."
@@ -5129,6 +6568,10 @@ msgstr "አንቀሳቅስ ወደ"
 msgid "Move to {0}"
 msgstr "ወደ {0} ውሰድ"
 
+#: src/features/career/workspace/messages.tsx
+msgid "Move to {stage}"
+msgstr ""
+
 #: src/features/documents/document-actions.tsx
 #: src/routes/builder/$resumeId/-components/document-menu.tsx
 #: src/routes/builder/letter/-components/letter-bar.tsx
@@ -5156,9 +6599,15 @@ msgstr "ኢሜልዎን እና ስልክ ቁጥርዎን ወደ ገጽ አንድ
 msgid "Moved to {0}"
 msgstr "ወደ {0} ተንቀሳቅሷል"
 
+#. placeholder {0}: getStageLabel(application.status)
+#: src/features/career/workspace/messages.tsx
+msgid "Moves the application from {0}."
+msgstr ""
+
 #. Label for full name input on registration form
 #: src/dialogs/resume/index.tsx
 #: src/features/applications/components/detail/contacts.tsx
+#: src/features/applications/components/interview-dialog.tsx
 #: src/features/auth/pages/register.tsx
 #: src/features/documents/document-card.tsx
 #: src/features/documents/documents-page.tsx
@@ -5172,6 +6621,11 @@ msgstr "ወደ {0} ተንቀሳቅሷል"
 msgid "Name"
 msgstr "ስም"
 
+#. placeholder {0}: index + 1
+#: src/features/applications/components/interview-dialog.tsx
+msgid "Name of person {0}"
+msgstr ""
+
 #: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Name or team"
 msgstr "ስም ወይም ቡድን"
@@ -5179,6 +6633,10 @@ msgstr "ስም ወይም ቡድን"
 #: src/dialogs/resume/index.tsx
 msgid "Name the resume after the position you are applying for."
 msgstr "የስራ ልምድ ማስረጃውን እያመለከቱበት ባለው የሥራ መደብ ስም ይሰይሙት።"
+
+#: src/features/career/knowledge/stories.tsx
+msgid "Name the story"
+msgstr ""
 
 #: src/features/settings/account/security.tsx
 msgid "Name this passkey"
@@ -5220,6 +6678,10 @@ msgstr "ጠባብ ህዳጎች"
 msgid "Needs attention"
 msgstr "ትኩረት ያስፈልገዋል"
 
+#: src/features/career/today.tsx
+msgid "Needs you"
+msgstr ""
+
 #: src/libs/locale.ts
 msgid "Nepali"
 msgstr "ኔፓሊኛ"
@@ -5228,6 +6690,7 @@ msgstr "ኔፓሊኛ"
 msgid "Network"
 msgstr "ኔትዎርክ"
 
+#: src/features/career/knowledge/facts.tsx
 #: src/features/settings/ai/api-keys.tsx
 msgid "Never"
 msgstr "በጭራሽ"
@@ -5251,6 +6714,9 @@ msgid "New Application"
 msgstr "አዲስ ማመልከቻ"
 
 #: src/features/assistant/assistant-panel.tsx
+#: src/features/career/coach-thread.tsx
+#: src/features/career/coach.tsx
+#: src/features/career/workspace/coach-sheet.tsx
 msgid "New conversation"
 msgstr "አዲስ ውይይት"
 
@@ -5262,6 +6728,10 @@ msgstr "በምትኩ አዲስ የሽፋን ደብዳቤ"
 #: src/features/documents/new-document-dialog.tsx
 msgid "New document"
 msgstr "አዲስ ሰነድ"
+
+#: src/features/career/knowledge/facts.tsx
+msgid "New fact"
+msgstr ""
 
 #: src/features/settings/ai/api-keys.tsx
 msgid "New key"
@@ -5281,6 +6751,18 @@ msgstr "አዲስ ገጽ"
 msgid "New Password"
 msgstr "አዲስ የይለፍ ቃል"
 
+#: src/features/career/today.tsx
+msgid "New roles from your search"
+msgstr ""
+
+#: src/features/career/today.tsx
+msgid "New roles, reminders and finished briefings appear here."
+msgstr ""
+
+#: src/features/career/schedule-sheet.tsx
+msgid "New schedule"
+msgstr ""
+
 #: src/features/resume/editor/write/entry-card.tsx
 msgid "New section"
 msgstr "አዲስ ክፍል"
@@ -5293,10 +6775,25 @@ msgstr "ቀጣይ እትም።"
 msgid "Next month"
 msgstr "በሚቀጥለው ወር"
 
+#: src/features/career/workspace/practise.tsx
+msgid "Next question"
+msgstr ""
+
 #: src/features/applications/components/detail/next-step-card.tsx
 #: src/features/applications/components/list-view.tsx
+#: src/features/career/workspace/shell.tsx
 msgid "Next step"
 msgstr "ቀጣዩ ደረጃ"
+
+#. placeholder {0}: change.note
+#: src/features/career/workspace/messages.tsx
+msgid "Next step: {0}"
+msgstr ""
+
+#. placeholder {0}: change.note
+#: src/features/career/workspace/messages.tsx
+msgid "Next step: {0}. Adds a reminder to Today."
+msgstr ""
 
 #: src/features/applications/components/interview-dialog.tsx
 msgid "No active applications."
@@ -5324,6 +6821,10 @@ msgstr "እስካሁን ምንም የስራ ማመልከቻ የለም። በመ�
 msgid "No bullet lists were found."
 msgstr "ምንም የነጥብ ዝርዝሮች አልተገኙም።"
 
+#: src/features/career/workspace/messages.tsx
+msgid "No change needed. It's already at {stage}."
+msgstr ""
+
 #. Empty-state message when no command palette results match the search query
 #: src/features/command-palette/index.tsx
 msgid "No commands match that search."
@@ -5345,6 +6846,10 @@ msgstr "ምንም መደበኛ የክፍል ርዕሶች አልተገኙም።"
 msgid "No conversations about this document yet."
 msgstr "ስለዚህ ሰነድ እስካሁን ምንም ንግግሮች የሉም።"
 
+#: src/features/career/knowledge/facts.tsx
+msgid "No corrections"
+msgstr ""
+
 #: src/features/ats-checker/messages.ts
 msgid "No dates were found."
 msgstr "ምንም ቀናት አልተገኙም።"
@@ -5365,6 +6870,22 @@ msgstr "ምንም ኢሜይል አድራሻ የለም።"
 msgid "No email address was found."
 msgstr "ምንም የኢሜል አድራሻ አልተገኘም።"
 
+#: src/features/career/shared.tsx
+msgid "No evidence yet"
+msgstr ""
+
+#: src/features/career/knowledge/facts.tsx
+msgid "No facts match. Try another word or type."
+msgstr ""
+
+#: src/features/career/knowledge/stories.tsx
+msgid "No facts to link yet. Add them in Facts."
+msgstr ""
+
+#: src/features/career/knowledge/facts.tsx
+msgid "No facts yet. Add one above."
+msgstr ""
+
 #: src/features/applications/components/calendar-view.tsx
 msgid "No interviews"
 msgstr "ምንም ቃለ መጠይቅ የለም።"
@@ -5384,6 +6905,27 @@ msgstr "ምንም መስመር ከአሰሪ ጋር የተጣመረ የስራ መ
 #: src/features/resume/editor/check/issues.ts
 msgid "No location"
 msgstr "አካባቢ የለም"
+
+#: src/features/career/today.tsx
+msgid "No new roles. Discovery is paused."
+msgstr ""
+
+#. placeholder {0}: day(active.nextRunAt)
+#: src/features/career/today.tsx
+msgid "No new roles. Discovery runs again on {0} at {clock}."
+msgstr ""
+
+#: src/features/career/today.tsx
+msgid "No new roles. Discovery runs again today at {clock}."
+msgstr ""
+
+#: src/features/career/today.tsx
+msgid "No new roles. Discovery runs again tomorrow at {clock}."
+msgstr ""
+
+#: src/features/career/offers.tsx
+msgid "No offers to compare yet"
+msgstr ""
 
 #: src/routes/builder/$resumeId/-components/editor-bar.tsx
 msgid "No open issues"
@@ -5433,9 +6975,21 @@ msgstr "እስካሁን ምንም የምንጭ ውሂብ የለም።"
 msgid "No specific terms could be pulled out of that job description, so it may be mostly boilerplate. Paste the requirements section for a more useful comparison."
 msgstr "ከዚያ የስራ መግለጫ ውስጥ የተለዩ ቃላት ሊወጡ አልቻሉም፣ ስለዚህ በአብዛኛው መደበኛ ጽሁፍ ሊሆን ይችላል። ይበልጥ ጠቃሚ ንጽጽር ለማግኘት የመስፈርቶች ክፍልን ይለጥፉ።"
 
+#: src/features/career/knowledge/stories.tsx
+msgid "No stories yet"
+msgstr ""
+
 #: src/features/settings/ai/providers.tsx
 msgid "No suggestions for this provider. Enter any model ID."
 msgstr "ለዚህ አቅራቢ ምንም ጥቆማዎች የሉም። ማንኛውንም የሞዴል መታወቂያ ያስገቡ።"
+
+#: src/features/career/knowledge/stories.tsx
+msgid "No supporting facts. Link one before using this story."
+msgstr ""
+
+#: src/features/career/knowledge/stories.tsx
+msgid "No tags yet"
+msgstr ""
 
 #: src/features/resume/editor/check/job-match.tsx
 msgid "No terms stood out in this posting."
@@ -5445,6 +6999,10 @@ msgstr "በዚህ የሥራ መለጠፍ ላይ ምንም ውሎች አልታዩ
 #: src/features/ats-checker/messages.ts
 msgid "No text could be read from this file."
 msgstr "ከዚህ ፋይል ምንም ጽሁፍ ሊነበብ አልቻለም።"
+
+#: src/features/settings/preferences.tsx
+msgid "No timezone matches."
+msgstr ""
 
 #: src/features/resume/editor/check/issues.ts
 msgid "No work experience shows"
@@ -5495,6 +7053,10 @@ msgstr "Northwind Labs · Lisbon"
 msgid "Norwegian"
 msgstr "ኖርዌጂያንኛ"
 
+#: src/features/career/workspace/messages.tsx
+msgid "Not applied"
+msgstr ""
+
 #: src/features/applications/next-step.ts
 msgid "Not applied yet"
 msgstr "እስካሁን አልተተገበረም።"
@@ -5502,6 +7064,10 @@ msgstr "እስካሁን አልተተገበረም።"
 #: src/features/settings/account/security.tsx
 msgid "Not connected"
 msgstr "አልተገናኘም"
+
+#: src/features/career/today.tsx
+msgid "Not for me"
+msgstr ""
 
 #: src/features/resume/editor/check/parser-view.tsx
 msgid "not found"
@@ -5512,6 +7078,14 @@ msgstr "አልተገኘም።"
 msgid "Not found: {0}"
 msgstr "አልተገኘም: {0}"
 
+#: src/features/career/offers.tsx
+msgid "Not in either offer yet"
+msgstr ""
+
+#: src/features/career/offers.tsx
+msgid "Not in the offer · ask {company}"
+msgstr ""
+
 #: src/features/ats-checker/report/jd-coverage.tsx
 msgid "Not in your resume"
 msgstr "በስራ ልምድ ማስረጃዎ ውስጥ የለም"
@@ -5520,10 +7094,23 @@ msgstr "በስራ ልምድ ማስረጃዎ ውስጥ የለም"
 msgid "Not in your resume · add only if true"
 msgstr "በመመዝገቢያዎ ውስጥ የለም · እውነት ከሆነ ብቻ ይጨምሩ"
 
+#: src/features/career/shared.tsx
+msgid "Not now"
+msgstr ""
+
+#: src/features/career/knowledge/stories.tsx
+msgid "Not recorded yet. Leave it blank until you can support it."
+msgstr ""
+
+#: src/features/career/knowledge/preferences.tsx
 #: src/features/resume/editor/save-status.tsx
 #: src/routes/builder/letter/-components/letter-bar.tsx
 msgid "Not saved"
 msgstr "አልተቀመጠም።"
+
+#: src/features/career/coach-thread.tsx
+msgid "Not saved — this fact was forgotten before."
+msgstr ""
 
 #: src/features/resume/editor/check/job-match.tsx
 msgid "not scored"
@@ -5549,6 +7136,18 @@ msgstr "ምን መጻፍ እንዳለብህ እርግጠኛ አይደለህም?"
 msgid "Not true for me, hide it"
 msgstr "ለእኔ እውነት አይደለም, ደብቀው"
 
+#: src/features/career/knowledge/facts.tsx
+msgid "Not used"
+msgstr ""
+
+#: src/features/career/knowledge/facts.tsx
+msgid "Not used in a story or saved item yet"
+msgstr ""
+
+#: src/features/career/knowledge/stories.tsx
+msgid "Not used in coaching, so it can't back a story."
+msgstr ""
+
 #: src/features/settings/account/profile.tsx
 msgid "Not verified yet. Resend the link"
 msgstr "እስካሁን አልተረጋገጠም። አገናኙን እንደገና ላክ"
@@ -5560,7 +7159,6 @@ msgstr "መረጃ"
 #: src/features/applications/components/application-form-sheet.tsx
 #: src/features/applications/components/application-notes.tsx
 #: src/features/applications/components/import-applications-sheet.tsx
-#: src/features/applications/components/interview-dialog.tsx
 #: src/libs/resume/section.tsx
 #: src/routes/builder/$resumeId/-components/document-menu.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/notes.tsx
@@ -5570,6 +7168,10 @@ msgstr "ማስታወሻዎች"
 #: src/features/ats-checker/checker.tsx
 msgid "Nothing here should cost you a match."
 msgstr "እዚህ ምንም ነገር ዋጋ ሊያስከፍልዎ አይገባም።"
+
+#: src/features/career/today.tsx
+msgid "Nothing is applied for or created until you choose."
+msgstr ""
 
 #: src/features/ats-checker/messages.ts
 msgid "Nothing marks a role as ongoing."
@@ -5584,9 +7186,21 @@ msgstr "ከ\"{0}\" ጋር የሚዛመድ ምንም ነገር የለም"
 msgid "Nothing matches these filters"
 msgstr "ከእነዚህ ማጣሪያዎች ጋር የሚዛመድ ምንም ነገር የለም።"
 
+#: src/features/career/workspace/saved.tsx
+msgid "Nothing saved yet"
+msgstr ""
+
 #: src/features/applications/components/calendar-view.tsx
 msgid "Nothing scheduled yet"
 msgstr "እስካሁን ምንም የታቀደ ነገር የለም።"
+
+#: src/features/career/today.tsx
+msgid "Nothing scheduled yet."
+msgstr ""
+
+#: src/features/career/workspace/messages.tsx
+msgid "Nothing to apply"
+msgstr ""
 
 #: src/features/ats-checker/report/report-view.tsx
 msgid "Nothing to fix here."
@@ -5604,6 +7218,16 @@ msgstr "ምንም የሚገመገም የለም።"
 msgid "Nothing to suggest."
 msgstr "ምንም የሚጠቆም የለም።"
 
+#: src/features/career/workspace/practise.tsx
+msgid "Nothing was heard. Try again, or type your answer."
+msgstr ""
+
+#: src/features/career/knowledge/preferences.tsx
+msgid "Notice period"
+msgstr ""
+
+#: src/features/career/coach-thread.tsx
+#: src/features/career/coach.tsx
 #: src/features/resume/share/history-tab.tsx
 msgid "Now"
 msgstr "አሁን"
@@ -5611,6 +7235,10 @@ msgstr "አሁን"
 #: src/features/resume/editor/write/rich-text-editor.tsx
 msgid "Numbered list"
 msgstr "ቁጥር ያለው ዝርዝር"
+
+#: src/features/career/workspace/debrief.tsx
+msgid "Observation"
+msgstr ""
 
 #: src/libs/locale.ts
 msgid "Odia"
@@ -5629,9 +7257,22 @@ msgid "Off. The letter keeps its own copy of your details."
 msgstr "ጠፍቷል ደብዳቤው የእርስዎን ዝርዝሮች የራሱን ቅጂ ይይዛል።"
 
 #: src/features/applications/stages.ts
+#: src/features/career/workspace/saved.tsx
 #: src/features/homepage/tailor.tsx
 msgid "Offer"
 msgstr "የሥራ ቅናሽ"
+
+#: src/routes/dashboard/career/route.tsx
+msgid "Offers"
+msgstr ""
+
+#: src/features/career/knowledge/preferences.tsx
+msgid "Office days a week, at most"
+msgstr ""
+
+#: src/features/career/today.tsx
+msgid "Office days not stated"
+msgstr ""
 
 #: src/features/resume/editor/save-status.tsx
 msgid "Offline · saved on this device"
@@ -5645,6 +7286,10 @@ msgstr "በአንድ"
 #: src/features/resume/share/link-tab.tsx
 msgid "On. Anyone with the link can view. It isn't listed or indexed by search engines."
 msgstr "በርቷል አገናኙ ያለው ማንኛውም ሰው ማየት ይችላል። በፍለጋ ሞተሮች አልተዘረዘረም ወይም አልተጠቆመም።"
+
+#: src/features/career/workspace/prepare.tsx
+msgid "Once a round is scheduled, Prepare builds a timed plan, your opening and the questions to ask."
+msgstr ""
 
 #: src/features/applications/components/insights-view.tsx
 msgid "Once you've sent a few applications, this shows how far they get and how quickly people reply."
@@ -5705,7 +7350,12 @@ msgstr "አንተ ብቻ እነዚህን ታያለህ"
 msgid "Only you, until you share it. A resume can stay private, go live at a public link, or be protected with a password, and you can change that at any time. Deleting your account deletes your resumes with it."
 msgstr "አንተ ብቻ፣ እስክታካፍል ድረስ። የመመዝገቢያ ትምህርት በግል ሊቆይ፣ በሕዝብ ማገናኛ ላይ በቀጥታ መሄድ ወይም በይለፍ ቃል ሊጠበቅ ይችላል እና በማንኛውም ጊዜ መለወጥ ይችላሉ። መለያዎን መሰረዝ የርስዎን የስራ ልምድ በሱ ይሰርዛል።"
 
+#: src/features/applications/components/interview-dialog.tsx
+msgid "Onsite"
+msgstr ""
+
 #: src/features/applications/components/detail/sent-documents.tsx
+#: src/features/career/today.tsx
 #: src/features/documents/document-actions.tsx
 #: src/routes/dashboard/applications/index.tsx
 msgid "Open"
@@ -5720,9 +7370,9 @@ msgstr "{title} ን ይክፈቱ"
 msgid "Open AI settings"
 msgstr "የ AI ቅንብሮችን ይክፈቱ"
 
-#: src/features/applications/components/application-detail-sheet.tsx
-msgid "Open application"
-msgstr "የሥራ ማመልከቻውን ይክፈቱ"
+#: src/features/career/today.tsx
+msgid "Open briefing"
+msgstr ""
 
 #. Button label to open the user's default email app
 #: src/features/auth/pages/forgot-password.tsx
@@ -5733,25 +7383,55 @@ msgstr "የኢሜል ደንበኛን ክፈት"
 msgid "Open focus mode"
 msgstr "የትኩረት ሁነታን ክፈት"
 
+#. placeholder {0}: tabLabel(meta.tab)
+#: src/features/career/workspace/saved.tsx
+msgid "Open in {0}"
+msgstr ""
+
 #: src/features/documents/new-document-dialog.tsx
 msgid "Open in editor"
 msgstr "አርታዒውን ይክፈቱ"
+
+#: src/features/career/workspace/saved.tsx
+msgid "Open in Offers"
+msgstr ""
 
 #: src/routes/builder/$resumeId/-components/editor-bar.tsx
 msgid "open issues"
 msgstr "ክፍት ጉዳዮች"
 
+#: src/features/career/coach-thread.tsx
+msgid "Open Preferences"
+msgstr ""
+
 #: src/features/resume/share/link-tab.tsx
 msgid "Open public page"
 msgstr "ይፋዊ ገጹን ይክፈቱ"
+
+#: src/features/career/workspace/prepare.tsx
+msgid "Open story"
+msgstr ""
 
 #: src/features/ats-checker/messages.ts
 msgid "Open the exported file and confirm you can select and copy every part of it."
 msgstr "የወጣውን ፋይል ይክፈቱ እና እያንዳንዱን ክፍል መምረጥና መቅዳት እንደሚችሉ ያረጋግጡ።"
 
+#: src/features/career/today.tsx
+msgid "Open the schedule"
+msgstr ""
+
+#: src/features/applications/components/application-detail-sheet.tsx
+#: src/features/career/today.tsx
+msgid "Open workspace"
+msgstr ""
+
 #: src/features/ats-checker/checker.tsx
 msgid "Opening the file"
 msgstr "ፋይሉን በመክፈት ላይ"
+
+#: src/features/career/workspace/messages.tsx
+msgid "Opens in Career → Offers."
+msgstr ""
 
 #: src/features/resume/stylesheet/editor.tsx
 msgid "opens in new tab"
@@ -5760,6 +7440,11 @@ msgstr "በአዲስ ታብ ይከፈታል"
 #: src/features/documents/new-document-dialog.tsx
 msgid "Opens the editor on your name. Nothing else to fill in first."
 msgstr "በስምህ ላይ አርታዒውን ይከፍታል። መጀመሪያ ለመሙላት ሌላ ምንም ነገር የለም።"
+
+#: src/features/career/schedule-sheet.tsx
+#: src/features/career/today.tsx
+msgid "Opportunity discovery"
+msgstr ""
 
 #: src/features/settings/ai/web-access.tsx
 msgid "Optional"
@@ -5824,9 +7509,17 @@ msgstr "ኦሪጅናል ገጽ"
 msgid "Original table formatting is preserved. This content is read-only because it cannot be edited safely."
 msgstr "ኦሪጅናል የጠረጴዛ ቅርጸት ተጠብቆ ይቆያል። ይህ ይዘት ደህንነቱ በተጠበቀ ሁኔታ ሊስተካከል ስለማይችል ተነባቢ-ብቻ ነው።"
 
+#: src/features/applications/components/interview-dialog.tsx
+msgid "Other"
+msgstr ""
+
 #: src/features/assistant/provider-setup.tsx
 msgid "Other · OpenAI-compatible"
 msgstr "ሌላ · OpenAI-ተኳሃኝ"
+
+#: src/features/career/offers.tsx
+msgid "Other benefits"
+msgstr ""
 
 #. placeholder {0}: others.length
 #: src/features/assistant/assistant-panel.tsx
@@ -5905,6 +7598,10 @@ msgstr "Parcel & Co."
 msgid "Parcel & Co. · Porto"
 msgstr "Parcel & Co. · Porto"
 
+#: src/features/career/shared.tsx
+msgid "Partly supported"
+msgstr ""
+
 #. Authentication provider display name in account settings
 #. Label for passkey sign-in button
 #: src/features/auth/components/social-auth.tsx
@@ -5970,6 +7667,15 @@ msgstr "የስራ አገናኝ ለጥፍ። መለጠፍን እናስቀምጠ�
 msgid "Paste a job posting…"
 msgstr "የስራ መለጠፍን ለጥፍ…"
 
+#. placeholder {0}: application.company
+#: src/features/career/workspace/messages.tsx
+msgid "Paste a message from {0}"
+msgstr ""
+
+#: src/features/career/offers.tsx
+msgid "Paste an offer into an application's Messages tab."
+msgstr ""
+
 #: src/features/applications/components/add-application-dialog.tsx
 msgid "Paste description instead"
 msgstr "በምትኩ መግለጫ ለጥፍ"
@@ -5978,6 +7684,10 @@ msgstr "በምትኩ መግለጫ ለጥፍ"
 msgid "Paste rows or upload a .csv. Columns are matched automatically, and you check the match before anything is saved."
 msgstr "ረድፎችን ለጥፍ ወይም .csv ይስቀሉ። አምዶች በራስ-ሰር ይዛመዳሉ፣ እና ምንም ነገር ከመቀመጡ በፊት ግጥሚያውን ይፈትሹ።"
 
+#: src/features/career/workspace/messages.tsx
+msgid "Paste the email or message, without the signature."
+msgstr ""
+
 #: src/features/applications/components/application-form-sheet.tsx
 msgid "Paste the full job description here…"
 msgstr "ሙሉውን የሥራ መግለጫ እዚህ ይለጥፉ…"
@@ -5985,6 +7695,10 @@ msgstr "ሙሉውን የሥራ መግለጫ እዚህ ይለጥፉ…"
 #: src/features/ats-checker/checker.tsx
 msgid "Paste the posting to see which of its terms your resume already has."
 msgstr "የሥራ መደብዎ የትኛው ውል እንዳለው ለማየት የስራ መለጠፍን ይለጥፉ።"
+
+#: src/features/career/workspace/apply.tsx
+msgid "Paste the question from the form"
+msgstr ""
 
 #: src/features/settings/ai/web-access.tsx
 msgid "Paste your key"
@@ -6006,6 +7720,18 @@ msgstr "መለጠፍ መስኮቹን በራስ-ሰር ይሞላል።"
 #: src/features/homepage/sections.tsx
 msgid "Pause the list of languages"
 msgstr "የቋንቋዎች ዝርዝርን ለአፍታ አቁም"
+
+#: src/features/career/today.tsx
+msgid "Paused · {line}"
+msgstr ""
+
+#: src/features/career/schedule-sheet.tsx
+msgid "Paused schedules keep their settings."
+msgstr ""
+
+#: src/features/career/knowledge/preferences.tsx
+msgid "Pay period"
+msgstr ""
 
 #: src/features/resume/stylesheet/editor.tsx
 msgid "PDF styles support a subset of CSS. Rotation, dashed and dotted borders, and some layout properties are ignored."
@@ -6053,6 +7779,10 @@ msgstr "ፎቶ ከገጹ ተደብቋል።"
 msgid "Photo on the page."
 msgstr "በገጹ ላይ ፎቶ."
 
+#: src/features/career/schedule-sheet.tsx
+msgid "Pick a time after now."
+msgstr ""
+
 #: src/components/input/icon-picker.tsx
 msgid "Pick an icon"
 msgstr "አዶ ይምረጡ"
@@ -6065,6 +7795,14 @@ msgstr "ከ{templateCount} አብነቶች ይምረጡ እና ቅርጸ-ቁም�
 msgid "Pick one format and use it everywhere."
 msgstr "አንድ ቅርጸት ይምረጡ እና በሁሉም ቦታ ይጠቀሙበት።"
 
+#: src/features/career/workspace/prepare.tsx
+msgid "Pick two examples"
+msgstr ""
+
+#: src/features/career/shared.tsx
+msgid "Picking your stories"
+msgstr ""
+
 #: src/libs/resume/section.tsx
 msgid "Picture"
 msgstr "ፎቶ"
@@ -6073,17 +7811,37 @@ msgstr "ፎቶ"
 msgid "Pipeline flow"
 msgstr "የሂደቱ ፍሰት"
 
+#: src/features/career/workspace/apply.tsx
+msgid "Plain text (.txt)"
+msgstr ""
+
 #: src/features/resume/share/download-tab.tsx
 msgid "Plain text with headings. Paste into application forms and notes."
 msgstr "ግልጽ ጽሑፍ ከርዕሶች ጋር። ወደ ሥራ ማመልከቻ ቅጾች እና ማስታወሻዎች ይለጥፉ።"
 
+#: src/features/career/workspace/prepare.tsx
+msgid "Plan again"
+msgstr ""
+
+#: src/features/career/workspace/prepare.tsx
+msgid "Plan my preparation"
+msgstr ""
+
+#: src/features/career/offers.tsx
+msgid "Plan what to ask"
+msgstr ""
+
+#: src/routes/dashboard/career/route.tsx
+msgid "Plan your search, keep your evidence in one place, and decide between offers."
+msgstr ""
+
+#: src/features/career/shared.tsx
+msgid "Planning your week"
+msgstr ""
+
 #: src/features/homepage/sections.tsx
 msgid "Play the list of languages"
 msgstr "የቋንቋዎችን ዝርዝር አጫውት።"
-
-#: src/components/ui/donation-toast.tsx
-msgid "Please support the project"
-msgstr "እባክዎን ፕሮጀክቱን ይደግፉ"
 
 #: src/features/applications/components/file-attachment-field.tsx
 msgid "Please upload a PDF file."
@@ -6092,6 +7850,10 @@ msgstr "እባክዎ የፒዲኤፍ ፋይል ይስቀሉ።"
 #: src/libs/locale.ts
 msgid "Polish"
 msgstr "ፖላንድኛ"
+
+#: src/features/career/shared.tsx
+msgid "Polishing"
+msgstr ""
 
 #. Preset button for setting picture aspect ratio to portrait orientation
 #: src/features/resume/editor/write/picture-settings.tsx
@@ -6115,6 +7877,12 @@ msgstr "ፖርቹጋልኛ (ፖርቱጋል)"
 msgid "Position"
 msgstr "አቀማመጥ"
 
+#: src/features/career/workspace/saved.tsx
+msgid "posting"
+msgstr ""
+
+#: src/features/applications/components/application-detail-sheet.tsx
+#: src/features/career/workspace/fit.tsx
 #: src/features/homepage/tailor.tsx
 msgid "Posting"
 msgstr "የሥራ ማስታወቂያ"
@@ -6131,32 +7899,70 @@ msgstr "የሥራ መለጠፍ ምንጭ"
 msgid "Posting terms in your resume"
 msgstr "በስራ ደብተርዎ ውስጥ የስራ መለጠፍ ውሎች"
 
+#: src/features/career/workspace/practise.tsx
+#: src/features/career/workspace/saved.tsx
+msgid "Practice"
+msgstr ""
+
+#: src/features/career/workspace/debrief.tsx
+msgid "Practice for your {company} interviews."
+msgstr ""
+
+#: src/features/career/workspace/debrief.tsx
+msgid "Practice priorities, not conclusions about why an employer decided anything."
+msgstr ""
+
+#: src/features/career/workspace/debrief.tsx
+msgid "Practice priority:"
+msgstr ""
+
+#: src/features/career/knowledge/stories.tsx
+#: src/features/career/workspace/prepare.tsx
+#: src/features/career/workspace/shell.tsx
+msgid "Practise"
+msgstr ""
+
+#: src/features/career/workspace/practise.tsx
+msgid "Practise another question"
+msgstr ""
+
+#: src/features/career/workspace/practise.tsx
+msgid "Practising your story: {storyTitle}"
+msgstr ""
+
 #: src/features/ats-checker/messages.ts
 msgid "Prefer a single column, or keep the side column to short, self-contained lists."
 msgstr "ነጠላ አምድን ይምረጡ፣ ወይም የጎን አምዱን ለአጫጭር፣ ራሳቸውን ለቻሉ ዝርዝሮች ብቻ ያድርጉት።"
 
+#: src/features/career/knowledge/facts.tsx
+msgid "Preference"
+msgstr ""
+
+#: src/features/career/coach-thread.tsx
 #: src/features/command-palette/pages/navigation.tsx
 #: src/features/command-palette/pages/preferences/index.tsx
 #: src/features/settings/root.tsx
+#: src/routes/dashboard/career/knowledge/route.tsx
 #: src/routes/dashboard/settings/route.tsx
 msgid "Preferences"
 msgstr "ምርጫዎች"
+
+#: src/features/career/schedule-sheet.tsx
+#: src/features/career/workspace/shell.tsx
+msgid "Prepare"
+msgstr ""
+
+#: src/features/career/schedule-sheet.tsx
+msgid "Prepare a briefing"
+msgstr ""
 
 #: src/features/applications/components/detail/sent-documents.tsx
 msgid "Prepare a resume"
 msgstr "የትምህርት ማስረጃ ያዘጋጁ"
 
-#: src/features/applications/components/application-detail-sheet.tsx
-msgid "Prepare for next step"
-msgstr "ለቀጣዩ ደረጃ ይዘጋጁ"
-
 #: src/features/assistant/assistant-panel.tsx
 msgid "Prepare me for the interview"
 msgstr "ለቃለ መጠይቁ አዘጋጅልኝ"
-
-#: src/features/applications/components/application-detail-sheet.tsx
-msgid "Prepare resume"
-msgstr "የትምህርት ማስረጃ ያዘጋጁ"
 
 #: src/features/resume/share/download-tab.tsx
 msgid "Preparing {label} file…"
@@ -6252,10 +8058,6 @@ msgstr "የምርት ንድፍ አውጪ"
 msgid "Product designer with nine years of experience building <0>design systems</0> and research-led products for B2B teams."
 msgstr "ለB2B ቡድኖች <0>የንድፍ ስርዓቶችን</0> እና በጥናት የተመሩ ምርቶችን በመገንባት የዘጠኝ ዓመት ልምድ ያለው የምርት ንድፍ አውጪ።"
 
-#: src/components/ui/product-hunt-banner.tsx
-msgid "Product Hunt launch"
-msgstr "Product Hunt ማስጀመር"
-
 #: src/features/resume/editor/write/entries.tsx
 msgid "Proficiency"
 msgstr "ችሎታ"
@@ -6266,6 +8068,19 @@ msgstr "ችሎታ"
 #: src/features/settings/account/profile.tsx
 msgid "Profile"
 msgstr "መገለጫ"
+
+#: src/features/applications/components/interview-dialog.tsx
+msgid "Profile link (optional)"
+msgstr ""
+
+#. placeholder {0}: index + 1
+#: src/features/applications/components/interview-dialog.tsx
+msgid "Profile link of person {0}"
+msgstr ""
+
+#: src/features/applications/components/interview-dialog.tsx
+msgid "Profile links must be public HTTPS addresses."
+msgstr ""
 
 #: src/libs/resume/section-title.ts
 #: src/libs/resume/section.tsx
@@ -6284,6 +8099,10 @@ msgstr "ፕሮጀክቶች"
 #: src/features/homepage/hero.tsx
 msgid "Promoted to lead, 2021"
 msgstr "ለመሪነት ከፍ ተደርገዋል፣ 2021"
+
+#: src/features/career/workspace/messages.tsx
+msgid "Proposed changes"
+msgstr ""
 
 #: src/features/resume/editor/proposals/proposal-list.tsx
 msgid "Proposed edits"
@@ -6318,6 +8137,10 @@ msgstr "ይፋዊ"
 msgid "Public link"
 msgstr "የህዝብ ግንኙነት"
 
+#: src/features/applications/components/interview-dialog.tsx
+msgid "Public profile links are optional and only used if Web research is on."
+msgstr ""
+
 #: src/routes/builder/$resumeId/-components/document-details.tsx
 msgid "Public, with a password"
 msgstr "ይፋዊ፣ በይለፍ ቃል"
@@ -6351,9 +8174,33 @@ msgstr "QR ኮድ"
 msgid "QR code for {url}"
 msgstr "የQR ኮድ ለ{url}"
 
+#: src/features/career/workspace/practise.tsx
+msgid "Question {position} of {total}"
+msgstr ""
+
+#: src/features/career/workspace/apply.tsx
+msgid "Question from the form"
+msgstr ""
+
+#: src/features/career/workspace/apply.tsx
+msgid "Question options"
+msgstr ""
+
+#: src/features/career/workspace/apply.tsx
+msgid "Question removed"
+msgstr ""
+
 #: src/features/homepage/faq.tsx
 msgid "Questions"
 msgstr "ጥያቄዎች"
+
+#: src/features/career/offers.tsx
+msgid "Questions copied"
+msgstr ""
+
+#: src/features/career/workspace/prepare.tsx
+msgid "Questions to ask"
+msgstr ""
 
 #: src/routes/builder/$resumeId/-components/design-panel.tsx
 msgid "Raise the design sheet"
@@ -6395,26 +8242,39 @@ msgstr "Reactive Resume {__APP_VERSION__} · MIT"
 msgid "Reactive Resume is a free, open-source resume builder. Write it, design it, check it and tailor it for every job. Start with 1 resume."
 msgstr "Reactive Resume ነፃ፣ ክፍት ምንጭ የሥራ ልምድ መግለጫ ገንቢ ነው። የስራ ልምድዎን ይፃፉ፣ ይንደፉ፣ ያረጋግጡት፣ እና ለሚያመለክቱበት ስራ ሁሉ ያመቻቹት። በ 1 የሥራ ልምድ መግለጫ ይጀምሩ።"
 
-#: src/components/ui/donation-toast.tsx
-msgid "Reactive Resume is free and open source. If it has helped you, please consider donating."
-msgstr "ምላሽ ሰጪ የስራ ልምድ (Reactive) ነፃ እና ክፍት ምንጭ ነው። ከረዳዎት፣ እባክዎን መለገስን ያስቡበት።"
-
 #: src/features/homepage/sections.tsx
 msgid "Reactive Resume is open source under the MIT License. Amruth Pillai and a community of contributors keep it running, and donations pay for hosting and development. There are 0 paid tiers."
 msgstr "Reactive Resume በMIT License ስር ክፍት ምንጭ ነው። Amruth Pillai እና የአስተዋጽዖ አበርካቾች ማህበረሰብ እንዲሰራ ያቆዩታል፣ እና ልገሳዎች ለማስተናገድ እና ለልማት ይከፍላሉ። 0 የሚከፈልባቸው ደረጃዎች አሉ።"
 
-#. Title of the launch-day banner
-#: src/components/ui/product-hunt-banner.tsx
-msgid "Reactive Resume v6 is here!"
-msgstr "Reactive Resume v6 እዚህ አለ!"
+#. placeholder {0}: reader.label
+#: src/features/career/workspace/practise.tsx
+msgid "Read aloud by {0}, which may use tokens on that account."
+msgstr ""
+
+#: src/features/career/workspace/practise.tsx
+msgid "Read aloud by your browser's voice."
+msgstr ""
+
+#: src/features/career/workspace/prepare.tsx
+msgid "Read briefing"
+msgstr ""
+
+#: src/features/career/workspace/messages.tsx
+msgid "Read it for me"
+msgstr ""
 
 #: src/features/settings/ai/api-keys.tsx
 msgid "Read only"
 msgstr "ተነባቢ-ብቻ መዳረሻ"
 
 #: src/features/applications/components/add-application-dialog.tsx
+#: src/features/career/today.tsx
 msgid "Read posting"
 msgstr "የሥራ መለጠፍን ያንብቡ"
+
+#: src/features/career/workspace/practise.tsx
+msgid "Read questions with"
+msgstr ""
 
 #: src/features/resume/stylesheet/editor.tsx
 msgid "Read the Applying Custom Styles guide."
@@ -6485,9 +8345,17 @@ msgstr "ፋይሉን በማንበብ ላይ"
 msgid "Reading the link…"
 msgstr "ሊንኩን በማንበብ…"
 
+#: src/features/career/shared.tsx
+msgid "Reading the message"
+msgstr ""
+
 #: src/features/resume/editor/check/parser-view.tsx
 msgid "Reading the PDF…"
 msgstr "PDF በማንበብ…"
+
+#: src/features/career/shared.tsx
+msgid "Reading the posting"
+msgstr ""
 
 #: src/features/applications/components/add-application-dialog.tsx
 #: src/features/applications/components/application-form-sheet.tsx
@@ -6495,9 +8363,17 @@ msgstr "PDF በማንበብ…"
 msgid "Reading the posting…"
 msgstr "ማስታወቂያውን በማንበብ ላይ…"
 
+#: src/features/career/shared.tsx
+msgid "Reading the question"
+msgstr ""
+
 #: src/features/ats-checker/checker.tsx
 msgid "Reading the text"
 msgstr "ጽሑፉን በማንበብ"
+
+#: src/features/career/shared.tsx
+msgid "Reading what you shared"
+msgstr ""
 
 #: src/features/resume/import/read-file.ts
 msgid "Reading Word files needs an AI provider. Set one up in Settings, or import a PDF or JSON file instead."
@@ -6506,6 +8382,14 @@ msgstr "Word ፋይሎችን ማንበብ AI አቅራቢ ያስፈልገዋል�
 #: src/features/settings/ai/web-access.tsx
 msgid "Reading works"
 msgstr "ማንበብ ይሰራል"
+
+#: src/features/career/shared.tsx
+msgid "Reading your answer"
+msgstr ""
+
+#: src/features/career/shared.tsx
+msgid "Reading your notes"
+msgstr ""
 
 #: src/features/ats-checker/checker.tsx
 #: src/features/resume/editor/check/check-panel.tsx
@@ -6516,6 +8400,7 @@ msgstr "በንጽህና ያነባል።"
 msgid "Reads supported public job pages. No account needed."
 msgstr "የሚደገፉ የህዝብ የስራ ገጾችን ያነባል። ምንም መለያ አያስፈልግም።"
 
+#: src/features/career/workspace/prepare.tsx
 #: src/features/settings/ai/providers.tsx
 msgid "Ready"
 msgstr "ዝግጁ"
@@ -6524,13 +8409,45 @@ msgstr "ዝግጁ"
 msgid "Reason"
 msgstr "ምክንያት"
 
+#: src/features/career/workspace/practise.tsx
+msgid "Recalled"
+msgstr ""
+
+#: src/features/career/coach.tsx
+msgid "Recent"
+msgstr ""
+
 #: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Recipient"
 msgstr "ተቀባይ"
 
+#: src/features/career/workspace/practise.tsx
+msgid "Record again"
+msgstr ""
+
 #: src/features/applications/components/add-application-dialog.tsx
 msgid "Record application"
 msgstr "የሥራ ማመልከቻን ይመዝግቡ"
+
+#: src/features/career/workspace/practise.tsx
+msgid "Record your answer"
+msgstr ""
+
+#: src/features/career/workspace/practise.tsx
+msgid "Recording · {elapsed}"
+msgstr ""
+
+#: src/features/career/workspace/practise.tsx
+msgid "Recording started"
+msgstr ""
+
+#: src/features/career/workspace/practise.tsx
+msgid "Recording stopped at the 2-minute limit. Transcribing what you said."
+msgstr ""
+
+#: src/features/career/workspace/practise.tsx
+msgid "Recording time"
+msgstr ""
 
 #: src/features/applications/components/detail/contacts.tsx
 msgid "Recruiter"
@@ -6569,6 +8486,30 @@ msgstr "ሪፈራል"
 msgid "Referred by…, things to emphasize, etc."
 msgstr "በ…የተጠቀሰ፣ አጽንዖት ሊሰጣቸው የሚገቡ ነገሮች፣ ወዘተ።"
 
+#: src/features/career/knowledge/stories.tsx
+msgid "Reflection"
+msgstr ""
+
+#: src/features/career/workspace/prepare.tsx
+msgid "Refresh the briefing 2 hours before"
+msgstr ""
+
+#: src/features/career/workspace/prepare.tsx
+msgid "Refresh the briefing 24 hours before"
+msgstr ""
+
+#: src/features/career/workspace/prepare.tsx
+msgid "Refresh the briefing on the morning of"
+msgstr ""
+
+#: src/features/career/workspace/prepare.tsx
+msgid "Rehearse aloud"
+msgstr ""
+
+#: src/features/career/workspace/prepare.tsx
+msgid "Rehearse one answer aloud"
+msgstr ""
+
 #: src/features/resume/editor/proposals/proposal-list.tsx
 msgid "Reject"
 msgstr "እምቢ"
@@ -6581,9 +8522,47 @@ msgstr "ውድቅ ተደርጓል"
 msgid "Reload"
 msgstr "ዳግም ጫን"
 
+#: src/features/career/shared.tsx
+msgid "Remember"
+msgstr ""
+
+#: src/features/career/knowledge/facts.tsx
+msgid "Remember facts from my messages"
+msgstr ""
+
+#: src/features/career/coach-thread.tsx
+#: src/features/career/workspace/debrief.tsx
+msgid "Remember for {company} only?"
+msgstr ""
+
+#: src/features/career/coach-thread.tsx
+msgid "Remember this for future coaching?"
+msgstr ""
+
 #: src/features/auth/pages/forgot-password.tsx
 msgid "Remember your password? <0/>"
 msgstr "የይለፍ ቃልዎን ያስታውሳሉ? <0/>"
+
+#: src/features/career/coach-thread.tsx
+msgid "Remembered: “{text}”"
+msgstr ""
+
+#: src/features/career/schedule-sheet.tsx
+msgid "Remind me"
+msgstr ""
+
+#: src/features/career/schedule-sheet.tsx
+msgid "Remind me on"
+msgstr ""
+
+#: src/features/career/today.tsx
+msgid "Reminders appear here. Email copies are optional and need a verified address."
+msgstr ""
+
+#: src/features/career/knowledge/preferences.tsx
+#: src/features/career/offers.tsx
+msgid "Remote"
+msgstr ""
 
 #: src/features/applications/components/application-form-sheet.tsx
 msgid "Remote, Hybrid, a city…"
@@ -6601,12 +8580,14 @@ msgstr "አስወግድ"
 #. placeholder {0}: passkey.name || t`Unnamed passkey`
 #: src/features/applications/components/detail/contacts.tsx
 #: src/features/assistant/conversation.tsx
+#: src/features/career/coach-thread.tsx
 #: src/features/settings/account/security.tsx
 msgid "Remove {0}"
 msgstr "{0} አስወግድ"
 
 #. Screen reader label for button that removes a keyword chip. Variable is the current keyword text.
 #: src/components/input/chip-input.tsx
+#: src/features/career/knowledge/preferences.tsx
 msgid "Remove {chip}"
 msgstr "{chip} አስወግድ"
 
@@ -6625,6 +8606,15 @@ msgstr "መስክ አስወግድ"
 #: src/features/applications/components/file-attachment-field.tsx
 msgid "Remove file"
 msgstr "ፋይል አስወግድ"
+
+#. placeholder {0}: index + 1
+#: src/features/applications/components/interview-dialog.tsx
+msgid "Remove person {0}"
+msgstr ""
+
+#: src/features/career/workspace/apply.tsx
+msgid "Remove question"
+msgstr ""
 
 #: src/features/resume/editor/write/entries.tsx
 msgid "Remove role"
@@ -6646,6 +8636,7 @@ msgstr "ይህ የይለፍ ቃል ይወገድ?"
 msgid "Remove this photo?"
 msgstr "ይህ ፎቶ ይወገድ?"
 
+#: src/features/career/coach.tsx
 #: src/features/documents/document-actions.tsx
 #: src/features/settings/account/security.tsx
 msgid "Rename"
@@ -6696,6 +8687,18 @@ msgstr "የአይኮን ፊደላትን በቀላል ጽሁፍ ይተኩ፣ ከ�
 msgid "Replace tables with plain paragraphs and lists. Cells extract in storage order, not reading order."
 msgstr "ሠንጠረዦችን በቀላል አንቀጾችና ዝርዝሮች ይተኩ። ክፍሎች የሚወጡት በማከማቻ ቅደም ተከተል እንጂ በንባብ ቅደም ተከተል አይደለም።"
 
+#: src/features/career/workspace/messages.tsx
+msgid "Replaces “{current}” on the application."
+msgstr ""
+
+#: src/features/career/workspace/saved.tsx
+msgid "Reply"
+msgstr ""
+
+#: src/features/career/workspace/messages.tsx
+msgid "Reply copied"
+msgstr ""
+
 #: src/features/homepage/sections.tsx
 #: src/routes/dashboard/settings/route.tsx
 msgid "Report a bug"
@@ -6708,6 +8711,18 @@ msgstr "ችግኝት ሪፖርት አድርግ"
 #: src/features/resume/share/link-tab.tsx
 msgid "Require a password"
 msgstr "የይለፍ ቃል ጠይቅ"
+
+#: src/features/career/workspace/fit.tsx
+msgid "Requirement"
+msgstr ""
+
+#: src/features/career/knowledge/preferences.tsx
+msgid "Requirements"
+msgstr ""
+
+#: src/features/career/workspace/fit.tsx
+msgid "Requirements and your evidence"
+msgstr ""
 
 #: src/features/ats-checker/messages.ts
 msgid "Reserve capitals for short headings. They slow reading and can defeat case-sensitive search."
@@ -6733,6 +8748,10 @@ msgstr "የይለፍ ቃልዎን በመዳግም ላይ…"
 #: src/features/homepage/footer.tsx
 msgid "Resources"
 msgstr "ሀብቶች"
+
+#: src/features/career/offers.tsx
+msgid "Respond by"
+msgstr ""
 
 #: src/features/homepage/write.tsx
 msgid "Responsible for the design system and helping other teams with their designs."
@@ -6764,6 +8783,10 @@ msgstr "እስካሁን ያልተቀመጡ ለውጦች ወደነበሩበት �
 msgid "Restored the version from {0}. Your previous state is saved as “Before restore”."
 msgstr "ስሪቱን ከ{0} ወደነበረበት ተመልሷል። የቀድሞ ሁኔታዎ እንደ \"ከመመለስ በፊት\" ተቀምጧል."
 
+#: src/features/career/knowledge/stories.tsx
+msgid "Result"
+msgstr ""
+
 #: src/features/assistant/assistant-panel.tsx
 msgid "resume"
 msgstr "የትምህርት ማስረጃ"
@@ -6774,6 +8797,14 @@ msgstr "የትምህርት ማስረጃ"
 #: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Resume"
 msgstr "የስራ ልምድ ማስረጃ"
+
+#: src/features/career/workspace/shell.tsx
+msgid "Resume · not sent yet"
+msgstr ""
+
+#: src/features/career/workspace/shell.tsx
+msgid "Resume · version sent"
+msgstr ""
 
 #: src/features/applications/components/add-application-dialog.tsx
 msgid "Resume (optional)"
@@ -6838,9 +8869,11 @@ msgid "Retrieved {0}. Origin freshness is unknown unless reported."
 msgstr "የተገኘ {0}። ሪፖርት ካልተደረገ በስተቀር የመነሻው ትኩስነት አይታወቅም።"
 
 #: src/features/assistant/conversation.tsx
+#: src/features/career/knowledge/preferences.tsx
 #: src/features/resume/editor/check/writing-tab.tsx
 #: src/features/resume/editor/save-status.tsx
 #: src/routes/builder/letter/-components/letter-bar.tsx
+#: src/routes/dashboard/applications/index.tsx
 msgid "Retry"
 msgstr "እንደገና ሞክር"
 
@@ -6857,17 +8890,43 @@ msgstr "እንደገና ለማስቀመጥ ይሞክሩ"
 msgid "Retrying…"
 msgstr "እንደገና በመሞከር ላይ…"
 
+#: src/features/career/today.tsx
+#: src/features/career/workspace/debrief.tsx
 #: src/features/resume/share/download-tab.tsx
 msgid "Review"
 msgstr "ግምገማ"
+
+#: src/features/career/today.tsx
+msgid "Review draft"
+msgstr ""
 
 #: src/features/resume/editor/write/write-panel.tsx
 msgid "Review each section before using this resume."
 msgstr "ይህንን የትምህርት ማስረጃ ከመጠቀምዎ በፊት እያንዳንዱን ክፍል ይከልሱ።"
 
+#: src/features/career/workspace/debrief.tsx
+msgid "Review my answer"
+msgstr ""
+
+#: src/features/career/workspace/debrief.tsx
+msgid "Review my answer sends the question, what you said, this posting and your Knowledge to {providerName}."
+msgstr ""
+
+#: src/features/career/workspace/apply.tsx
+msgid "Review required form answers and remove unsupported claims."
+msgstr ""
+
+#: src/features/career/workspace/apply.tsx
+msgid "Review the selected resume and cover letter in their editors."
+msgstr ""
+
 #: src/features/resume/editor/check/writing-tab.tsx
 msgid "Review writing"
 msgstr "ጽሑፍን ይገምግሙ"
+
+#: src/features/career/workspace/debrief.tsx
+msgid "Reviewing needs an AI connection. <0>Add one in Settings</0>. What you write here stays in this browser until then."
+msgstr ""
 
 #: src/features/settings/ai/api-keys.tsx
 msgid "Revoke"
@@ -6894,8 +8953,13 @@ msgstr "\"{name}\" ተሽሯል። እሱን የሚጠቀሙ መተግበሪያ�
 msgid "Right"
 msgstr "ቀኝ"
 
+#: src/features/career/workspace/prepare.tsx
+msgid "Right now"
+msgstr ""
+
 #: src/features/applications/components/add-application-dialog.tsx
 #: src/features/applications/components/import-applications-sheet.tsx
+#: src/features/applications/components/interview-dialog.tsx
 #: src/features/applications/components/list-view.tsx
 #: src/features/resume/editor/check/job-match.tsx
 msgid "Role"
@@ -6914,9 +8978,22 @@ msgstr "ሚና {0}"
 msgid "Role / title"
 msgstr "ሚና / ርዕስ"
 
+#. placeholder {0}: index + 1
+#: src/features/applications/components/interview-dialog.tsx
+msgid "Role of person {0}"
+msgstr ""
+
 #: src/features/applications/components/add-application-dialog.tsx
 msgid "Role, company or location"
 msgstr "ሚና፣ ኩባንያ ወይም አካባቢ"
+
+#: src/features/career/coach-thread.tsx
+msgid "Roles"
+msgstr ""
+
+#: src/features/career/schedule-sheet.tsx
+msgid "Roles, places and companies. Starts from your preferences."
+msgstr ""
 
 #: src/libs/locale.ts
 msgid "Romanian"
@@ -6935,6 +9012,11 @@ msgstr "ማሽከርከር"
 msgid "Rotation isn't supported by PDF rendering."
 msgstr "ማሽከርከር በPDF አተረጓጎም አይደገፍም።"
 
+#. placeholder {0}: fieldLabel(field)
+#: src/features/applications/components/import-applications-sheet.tsx
+msgid "Row {row}, {0}: “{value}” is invalid."
+msgstr ""
+
 #: src/features/resume/editor/check/writing-tab.tsx
 msgid "Run again"
 msgstr "እንደገና ያሂዱ"
@@ -6952,6 +9034,10 @@ msgstr "ሩስኛ"
 #: src/features/applications/components/import-applications-sheet.tsx
 msgid "Salary"
 msgstr "ደመወዝ"
+
+#: src/features/career/today.tsx
+msgid "Salary not listed"
+msgstr ""
 
 #: src/features/applications/components/application-form-sheet.tsx
 msgid "Salary range"
@@ -6989,12 +9075,15 @@ msgstr "የትምህርት ማስረጃዎችን ያስቀምጡ እና ያዘ�
 msgid "Save and test"
 msgstr "ያስቀምጡ እና ይሞክሩ"
 
+#: src/features/career/offers.tsx
+msgid "Save another offer to compare"
+msgstr ""
+
 #: src/features/resume/editor/check/job-match.tsx
 msgid "Save as application…"
 msgstr "እንደ የሥራ ማመልከቻ አስቀምጥ…"
 
 #: src/features/applications/components/application-form-sheet.tsx
-#: src/features/applications/components/interview-dialog.tsx
 msgid "Save changes"
 msgstr "ለውጦችን አስቀምጥ"
 
@@ -7006,18 +9095,42 @@ msgstr "ለውጦቹን አስቀምጥ"
 msgid "Save connection"
 msgstr "ግንኙነት አስቀምጥ"
 
+#: src/features/career/knowledge/facts.tsx
+msgid "Save correction"
+msgstr ""
+
 #: src/features/settings/ai/web-access.tsx
 msgid "Save first, then test search and reading. No test runs automatically."
 msgstr "መጀመሪያ ያስቀምጡ፣ ከዚያ ፍለጋ እና ማንበብ ይሞክሩ። ምንም ሙከራ በራስ-ሰር አይሰራም።"
+
+#: src/features/applications/components/interview-dialog.tsx
+msgid "Save interview"
+msgstr ""
 
 #: src/features/applications/components/add-application-dialog.tsx
 #: src/routes/dashboard/applications/index.tsx
 msgid "Save job"
 msgstr "ሥራ አስቀምጥ"
 
+#: src/features/career/schedule-sheet.tsx
+msgid "Save schedule"
+msgstr ""
+
+#: src/features/career/knowledge/stories.tsx
+msgid "Save story"
+msgstr ""
+
 #: src/features/ats-checker/messages.ts
 msgid "Save the file with every page upright."
 msgstr "እያንዳንዱ ገጽ ቀጥ ብሎ ባለበት ፋይሉን ያስቀምጡ።"
+
+#: src/features/career/workspace/messages.tsx
+msgid "Save these offer terms to compare"
+msgstr ""
+
+#: src/features/career/workspace/fit.tsx
+msgid "Save to Knowledge"
+msgstr ""
 
 #: src/features/resume/editor/check/job-match.tsx
 msgid "Save to the application"
@@ -7029,6 +9142,8 @@ msgstr "ተቀምጧል"
 
 #: src/features/applications/components/add-application-dialog.tsx
 #: src/features/applications/stages.ts
+#: src/features/career/knowledge/preferences.tsx
+#: src/features/career/workspace/shell.tsx
 #: src/features/homepage/tailor.tsx
 #: src/features/resume/editor/save-status.tsx
 #: src/routes/builder/letter/-components/letter-bar.tsx
@@ -7043,6 +9158,21 @@ msgstr "ተቀምጧል · ስሪት {version}"
 msgid "Saved “{trimmed}”"
 msgstr "\"{trimmed}\" ተቀምጧል"
 
+#. placeholder {0}: when(offer.createdAt)
+#: src/features/career/offers.tsx
+msgid "saved {0}"
+msgstr ""
+
+#. placeholder {0}: companyOf(row)
+#: src/features/career/today.tsx
+msgid "Saved {0} to Applications"
+msgstr ""
+
+#. placeholder {0}: story.data.title
+#: src/features/career/coach-thread.tsx
+msgid "Saved a story: {0}"
+msgstr ""
+
 #: src/features/resume/editor/check/job-match.tsx
 msgid "Saved as an application and linked"
 msgstr "እንደ የሥራ ማመልከቻ ተቀምጧል እና የተገናኘ"
@@ -7050,6 +9180,35 @@ msgstr "እንደ የሥራ ማመልከቻ ተቀምጧል እና የተገና�
 #: src/features/applications/components/add-application-dialog.tsx
 msgid "Saved description"
 msgstr "የተቀመጠ መግለጫ"
+
+#: src/features/career/knowledge/preferences.tsx
+msgid "Saved just now"
+msgstr ""
+
+#: src/features/career/coach-thread.tsx
+msgid "Saved offers"
+msgstr ""
+
+#: src/features/career/today.tsx
+msgid "Saved to Applications"
+msgstr ""
+
+#: src/features/career/today.tsx
+msgid "Saved to Applications with the posting"
+msgstr ""
+
+#: src/features/career/workspace/fit.tsx
+msgid "Saved to Knowledge as a fact"
+msgstr ""
+
+#: src/features/career/coach-thread.tsx
+#: src/features/career/workspace/debrief.tsx
+msgid "Saved to Knowledge, private to this application."
+msgstr ""
+
+#: src/features/career/workspace/practise.tsx
+msgid "Saved to Saved · Practice"
+msgstr ""
 
 #. placeholder {0}: window.location.host
 #: src/features/resume/share/link-tab.tsx
@@ -7060,6 +9219,7 @@ msgstr "{0}/{username}/{slug} በማስቀመጥ ላይ… ኮፒ ከተቀመ�
 msgid "Saving is taking longer than expected. Your changes are still open."
 msgstr "ቁጠባ ከተጠበቀው በላይ እየወሰደ ነው። የእርስዎ ለውጦች አሁንም ክፍት ናቸው።"
 
+#: src/features/career/knowledge/preferences.tsx
 #: src/features/resume/editor/save-status.tsx
 #: src/routes/builder/letter/-components/letter-bar.tsx
 msgid "Saving…"
@@ -7068,10 +9228,6 @@ msgstr "በማስቀመጥ ላይ…"
 #: src/dialogs/auth/enable-two-factor.tsx
 msgid "Scan the QR code below with your preferred authenticator app. You can also copy the secret below and paste it into your app."
 msgstr "በታች ያለውን QR ኮድ በሚፈልጉት የማረጋገጫ መተግበሪያ ተንቀሳቃሽ ያስክኑ። በተጨማሪም ከታች ያለውን ሚስጥር ቁልፍ ቅጂ ማድረግ እና ወደ መተግበሪያዎ መለጠፍ ትችላላችሁ።"
-
-#: src/features/applications/components/interview-dialog.tsx
-msgid "Schedule"
-msgstr "መርሐግብር"
 
 #: src/features/applications/components/interview-dialog.tsx
 msgid "Schedule an interview"
@@ -7085,14 +9241,31 @@ msgstr "በ{date} ላይ ቃለ መጠይቅ ያቅዱ"
 msgid "Schedule an interview…"
 msgstr "ቃለ መጠይቅ ያቅዱ…"
 
+#: src/features/career/today.tsx
+msgid "Schedule deleted"
+msgstr ""
+
 #: src/features/applications/components/calendar-view.tsx
 msgid "Schedule interview"
 msgstr "ቃለ መጠይቅ ቀጠሮ ይያዙ"
+
+#: src/features/career/schedule-sheet.tsx
+msgid "Schedule saved"
+msgstr ""
+
+#: src/features/career/workspace/prepare.tsx
+msgid "Scheduled work isn't available on this server."
+msgstr ""
+
+#: src/features/career/today.tsx
+msgid "Schedules"
+msgstr ""
 
 #: src/features/resume/editor/write/entries.tsx
 msgid "School"
 msgstr "ት/ቤት"
 
+#: src/features/applications/components/interview-dialog.tsx
 #: src/features/applications/stages.ts
 msgid "Screening"
 msgstr "ማጣራት።"
@@ -7128,6 +9301,10 @@ msgstr "ፍለጋ ርዕሶችን፣ መለያዎችን እና የተገናኙ �
 msgid "Search documents"
 msgstr "ሰነዶችን ይፈልጉ"
 
+#: src/features/career/knowledge/facts.tsx
+msgid "Search facts"
+msgstr ""
+
 #: src/features/settings/ai/web-access.tsx
 msgid "Search failed"
 msgstr "ፍለጋ አልተሳካም።"
@@ -7158,6 +9335,14 @@ msgstr "ይፈልጉ ወይም ያሂዱ…"
 msgid "Search role, company or contact"
 msgstr "ሚና ፣ ኩባንያ ወይም ግንኙነት ይፈልጉ"
 
+#: src/features/career/coach.tsx
+msgid "Search terms go to your web search service."
+msgstr ""
+
+#: src/features/settings/preferences.tsx
+msgid "Search timezones"
+msgstr ""
+
 #: src/features/settings/ai/web-access.tsx
 msgid "Search works"
 msgstr "ፍለጋ ይሰራል"
@@ -7183,6 +9368,10 @@ msgstr "በ{connectedProvider} ገጾችን ይፈልጉ እና ያነባል፣ 
 msgid "Searching job postings…"
 msgstr "የስራ ማስታወቂያዎችን በመፈለግ ላይ…"
 
+#: src/features/career/coach-thread.tsx
+msgid "Searching the web"
+msgstr ""
+
 #: src/features/assistant/conversation.tsx
 msgid "Searching the web…"
 msgstr "ድሩን በመፈለግ ላይ…"
@@ -7207,6 +9396,10 @@ msgstr "ክፍሎች · የህትመት ትዕዛዝ"
 #: src/features/resume/editor/check/issues.ts
 msgid "Sections use headings systems recognise, and work experience shows."
 msgstr "ክፍሎች ርእሶች ስርዓቶች እውቅና ይጠቀማሉ, እና የስራ ልምድ ያሳያል."
+
+#: src/features/career/workspace/prepare.tsx
+msgid "See below"
+msgstr ""
 
 #: src/features/applications/components/list-view.tsx
 msgid "Select"
@@ -7235,6 +9428,7 @@ msgid "Semantic CSS stylesheet"
 msgstr "የትርጓሜ CSS የቅጥ ሉህ"
 
 #: src/features/assistant/conversation.tsx
+#: src/features/career/coach-thread.tsx
 msgid "Send"
 msgstr "ላክ"
 
@@ -7254,6 +9448,19 @@ msgstr "የላኪ ዝርዝሮች ወደ ደብዳቤው ተቀድተዋል።"
 #: src/features/auth/pages/forgot-password.tsx
 msgid "Sending password reset email..."
 msgstr "የይለፍ ቃል ዳግም እንዲታወቅ ኢሜል በመላክ ላይ…"
+
+#: src/features/career/workspace/prepare.tsx
+msgid "Sends this application (posting, notes, interview details) and Knowledge that's switched on to {label}."
+msgstr ""
+
+#. placeholder {0}: provider.label
+#: src/features/career/workspace/fit.tsx
+msgid "Sends this application's posting, notes and documents, plus Knowledge that's switched on, to {0}."
+msgstr ""
+
+#: src/features/career/schedule-sheet.tsx
+msgid "Sends this application's posting, notes and documents, plus Knowledge that's switched on, to this connection. Your provider may charge for it."
+msgstr ""
 
 #: src/features/assistant/conversation.tsx
 msgid "Sends this letter and the posting to {provider} with your key, only when you press send."
@@ -7278,6 +9485,10 @@ msgstr "መልእክትዎን እና ስራውን ወደ {provider} በቁልፍ
 #: src/features/assistant/conversation.tsx
 msgid "Sends your message to {provider} with your key, only when you press send."
 msgstr "መልእክትዎን ወደ {provider} በቁልፍዎ ይልካል፣ ላክን ሲጫኑ ብቻ።"
+
+#: src/features/career/workspace/coach-sheet.tsx
+msgid "Sends your message, this application (posting, notes, documents sent) and Knowledge that's switched on to {connection}."
+msgstr ""
 
 #. placeholder {0}: provider?.label
 #. placeholder {1}: provider?.model
@@ -7320,6 +9531,14 @@ msgstr "የይለፍ ቃል አቀናብር"
 #: src/features/ats-checker/messages.ts
 msgid "Set the document language when exporting."
 msgstr "ወደ ውጭ ሲልኩ የሰነዱን ቋንቋ ያዘጋጁ።"
+
+#: src/features/career/today.tsx
+msgid "Set up discovery"
+msgstr ""
+
+#: src/features/career/schedule-sheet.tsx
+msgid "Set up web search in Settings"
+msgstr ""
 
 #: src/features/command-palette/pages/navigation.tsx
 #: src/features/settings/root.tsx
@@ -7380,6 +9599,10 @@ msgstr "በ… አጋራ"
 msgid "Sharing"
 msgstr "ማካፈል"
 
+#: src/features/career/shared.tsx
+msgid "Sharpening the opening"
+msgstr ""
+
 #: src/features/homepage/sheet.tsx
 msgid "Shipped <0>accessible</0> checkout flows for web and iOS, meeting WCAG 2.1 AA."
 msgstr "የWCAG 2.1 AA መስፈርቶችን የሚያሟሉ <0>ለሁሉም ተደራሽ</0> የክፍያ ሂደቶችን ለድር እና iOS አቀረብኩ።"
@@ -7396,6 +9619,10 @@ msgstr "አጭር እና ቀጥተኛ። የስራ መለጠፍ አጭር ቢጠ
 msgid "Short and polite, for the recruiter"
 msgstr "አጭር እና ጨዋ፣ ለቀጣሪው"
 
+#: src/features/career/workspace/apply.tsx
+msgid "Shorten questions to 2,000 characters and answers to 6,000 characters before marking this applied."
+msgstr ""
+
 #: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Shorter"
 msgstr "አጠር ያለ"
@@ -7405,9 +9632,16 @@ msgid "Show"
 msgstr "አሳይ"
 
 #. placeholder {0}: Math.min(remaining, COLUMN_PAGE_SIZE)
+#. placeholder {0}: visible.length - shown.length
 #: src/features/applications/components/board.tsx
+#: src/features/career/today.tsx
 msgid "Show {0} more"
 msgstr "ተጨማሪ {0} አሳይ"
+
+#. placeholder {0}: read.length
+#: src/features/career/today.tsx
+msgid "Show {0} read"
+msgstr ""
 
 #: src/features/resume/editor/write/section-row.tsx
 msgid "Show {title} on the page"
@@ -7416,6 +9650,10 @@ msgstr "{title} በገጹ ላይ አሳይ"
 #: src/features/resume/editor/check/job-match.tsx
 msgid "Show again"
 msgstr "እንደገና አሳይ"
+
+#: src/features/career/knowledge/facts.tsx
+msgid "Show all types"
+msgstr ""
 
 #: src/routes/dashboard/applications/index.tsx
 msgid "Show closed"
@@ -7455,6 +9693,10 @@ msgstr "አብነቶችን አሳይ"
 #: src/features/resume/editor/check/check-panel.tsx
 msgid "Show them again"
 msgstr "እንደገና አሳያቸው"
+
+#: src/features/applications/components/interview-dialog.tsx
+msgid "Shown in your timezone."
+msgstr ""
 
 #. Layout editor column label for the secondary sidebar area
 #: src/features/homepage/sheet.tsx
@@ -7578,6 +9820,18 @@ msgstr "በእያንዳንዱ ገጽ ላይ አቢይ ሆሄ ያለው የክፍ
 msgid "Single-column; polished and serious for senior or enterprise-level positions."
 msgstr "አንድ-አምድ የሆነ፣ የታማኝ እና ኃላፊነት ያለው ለከፍተኛ ወይም ለድርጅታዊ ደረጃ ሚናዎች የሚስማማ።"
 
+#: src/features/career/knowledge/stories.tsx
+msgid "Situation"
+msgstr ""
+
+#: src/features/career/workspace/prepare.tsx
+msgid "Situation, action, result"
+msgstr ""
+
+#: src/features/career/knowledge/stories.tsx
+msgid "Situation, Task, Action, Result, Reflection. Link each story to facts you can support; leave unknown outcomes blank."
+msgstr ""
+
 #: src/features/homepage/hero.tsx
 msgid "Six product teams"
 msgstr "ስድስት የምርት ቡድኖች"
@@ -7586,12 +9840,20 @@ msgstr "ስድስት የምርት ቡድኖች"
 msgid "Size"
 msgstr "መጠን"
 
+#: src/features/career/knowledge/facts.tsx
+msgid "Skill"
+msgstr ""
+
 #: src/features/homepage/check.tsx
 #: src/features/homepage/sheet.tsx
 #: src/libs/resume/section-title.ts
 #: src/libs/resume/section.tsx
 msgid "Skills"
 msgstr "ችሎታዎች"
+
+#: src/features/career/workspace/apply.tsx
+msgid "Skip"
+msgstr ""
 
 #: src/features/resume/editor/write/picture-settings.tsx
 msgid "Skip and Upload"
@@ -7642,6 +9904,10 @@ msgstr "አንዳንድ ምርመራዎች ይህ ፋይል የማይይዘው�
 #: src/features/ats-checker/messages.ts
 msgid "Some glyphs have no meaning outside this file."
 msgstr "አንዳንድ ፊደላት ከዚህ ፋይል ውጭ ትርጉም የላቸውም።"
+
+#: src/features/applications/components/add-application-dialog.tsx
+msgid "Some job details couldn't be read. Fill in the role and company, or paste one job's posting text."
+msgstr ""
 
 #: src/features/ats-checker/messages.ts
 msgid "Some lines are stored out of reading order."
@@ -7706,6 +9972,7 @@ msgstr "በቀን ደርድር"
 #: src/features/applications/components/application-detail-sheet.tsx
 #: src/features/applications/components/application-form-sheet.tsx
 #: src/features/applications/components/import-applications-sheet.tsx
+#: src/features/career/knowledge/facts.tsx
 #: src/routes/dashboard/settings/route.tsx
 msgid "Source"
 msgstr "ምንጭ"
@@ -7715,6 +9982,8 @@ msgid "Source code"
 msgstr "ምንጭ ኮድ"
 
 #: src/features/assistant/conversation.tsx
+#: src/features/career/coach-thread.tsx
+#: src/features/career/coach.tsx
 msgid "Sources"
 msgstr "ምንጮች"
 
@@ -7739,6 +10008,10 @@ msgstr "ስፓኒሽ (ቢ2)"
 msgid "Spanish, B2"
 msgstr "ስፓኒሽ፣ B2"
 
+#: src/features/career/workspace/practise.tsx
+msgid "Speak"
+msgstr ""
+
 #: src/features/homepage/sections.tsx
 msgid "Speaks your language"
 msgstr "ቋንቋህን ይናገራል"
@@ -7746,6 +10019,18 @@ msgstr "ቋንቋህን ይናገራል"
 #: src/features/ats-checker/messages.ts
 msgid "Spell the month, as in \"Mar 2022\"."
 msgstr "ወሩን በፊደል ይጻፉ፣ እንደ \"Mar 2022\" ያለ።"
+
+#: src/features/career/workspace/practise.tsx
+msgid "spoken"
+msgstr ""
+
+#: src/features/career/workspace/practise.tsx
+msgid "Spoken audio is unavailable. Continue with the text question."
+msgstr ""
+
+#: src/features/career/shared.tsx
+msgid "Spotting what changed"
+msgstr ""
 
 #. Preset button for setting picture aspect ratio to square
 #: src/components/level/combobox.tsx
@@ -7764,6 +10049,10 @@ msgstr "ደረጃ"
 #: src/features/applications/components/import-applications-sheet.tsx
 msgid "Stage date"
 msgstr "የደረጃ ቀን"
+
+#: src/features/career/workspace/messages.tsx
+msgid "Stage stays {stage}"
+msgstr ""
 
 #: src/features/applications/components/application-detail-sheet.tsx
 msgid "Stages"
@@ -7797,6 +10086,10 @@ msgstr "በGitHub ላይ ያሉ ኮከቦች"
 #: src/features/resume/editor/write/dates-field.tsx
 msgid "Start"
 msgstr "ጀምር"
+
+#: src/features/career/workspace/prepare.tsx
+msgid "Start a debrief"
+msgstr ""
 
 #: src/features/documents/documents-page.tsx
 #: src/features/documents/new-document-dialog.tsx
@@ -7856,9 +10149,30 @@ msgstr "መተየብ ጀምር። አንዱን ለማርቀቅ መጀመሪያ �
 msgid "Start with the sections most resumes have."
 msgstr "በአብዛኛዎቹ የትምህርት ማስረጃዎች ካሉት ክፍሎች ጀምር።"
 
+#: src/features/career/shared.tsx
+msgid "Started"
+msgstr ""
+
+#: src/features/career/shared.tsx
+msgid "Starts in {minutes} minutes"
+msgstr ""
+
+#. placeholder {0}: draft.lead === "24h" ? 24 : 2
+#: src/features/career/schedule-sheet.tsx
+msgid "Starts in under {0} hours, so the briefing runs now."
+msgstr ""
+
+#: src/features/career/workspace/prepare.tsx
+msgid "Starts now"
+msgstr ""
+
 #: src/libs/resume/section.tsx
 msgid "Statistics"
 msgstr "ስታቲስቲክስ"
+
+#: src/features/career/workspace/fit.tsx
+msgid "Status"
+msgstr ""
 
 #: src/hooks/use-form-blocker.tsx
 msgid "Stay"
@@ -7873,17 +10187,61 @@ msgid "Still {pages} pages at 9 pt. Hide a section or shorten entries."
 msgstr "አሁንም የ{pages} ገጾች በ9 ነጥብ ክፍልን ደብቅ ወይም ግቤቶችን አሳጥር።"
 
 #: src/features/assistant/conversation.tsx
+#: src/features/career/coach-thread.tsx
 #: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Stop"
 msgstr "ተወ"
+
+#: src/features/career/workspace/practise.tsx
+msgid "Stop audio"
+msgstr ""
+
+#: src/features/career/workspace/practise.tsx
+msgid "Stop recording"
+msgstr ""
+
+#: src/features/career/workspace/practise.tsx
+msgid "Stop when you're done. Nothing is sent until then."
+msgstr ""
+
+#: src/features/career/coach-thread.tsx
+msgid "Stopped"
+msgstr ""
+
+#. placeholder {0}: clock(seconds)
+#: src/features/career/workspace/practise.tsx
+msgid "Stopped at {0}"
+msgstr ""
 
 #: src/features/assistant/conversation.tsx
 msgid "Stopped. No edits were proposed."
 msgstr "ቆሟል። ምንም አርትዖቶች አልቀረቡም።"
 
+#: src/features/career/coach-thread.tsx
+#: src/features/career/workspace/prepare.tsx
+#: src/routes/dashboard/career/knowledge/route.tsx
+msgid "Stories"
+msgstr ""
+
+#: src/features/career/workspace/prepare.tsx
+msgid "Stories to bring"
+msgstr ""
+
 #: src/features/homepage/header.tsx
 msgid "Story"
 msgstr "ታሪክ"
+
+#: src/features/career/knowledge/stories.tsx
+msgid "Story deleted"
+msgstr ""
+
+#: src/features/career/knowledge/stories.tsx
+msgid "Story not found"
+msgstr ""
+
+#: src/features/career/workspace/practise.tsx
+msgid "Strengthen"
+msgstr ""
 
 #: src/features/resume/editor/write/improve.tsx
 msgid "Stronger verb"
@@ -7892,6 +10250,10 @@ msgstr "የበለጠ ጠንካራ ግስ"
 #: src/features/resume/stylesheet/toolbar.tsx
 msgid "Stylesheet editor"
 msgstr "የቅጥ ሉህ አርታኢ"
+
+#: src/features/career/workspace/apply.tsx
+msgid "Submit through the employer's application page yourself."
+msgstr ""
 
 #. placeholder {0}: application.coverLetterName ?? "PDF"
 #: src/features/applications/components/application-detail-sheet.tsx
@@ -7907,6 +10269,10 @@ msgstr "ተያይዟል የትምህርት ማስረጃ፡ {0}"
 msgid "Subreddit"
 msgstr "ሰብሬዲት"
 
+#: src/features/career/workspace/prepare.tsx
+msgid "Success at 90 days · next step"
+msgstr ""
+
 #: src/features/resume/editor/proposals/proposal-list.tsx
 msgid "Suggest again"
 msgstr "እንደገና ይጠቁሙ"
@@ -7915,6 +10281,10 @@ msgstr "እንደገና ይጠቁሙ"
 msgid "Suggested from the source and the job. Change it anytime."
 msgstr "ከምንጩ እና ከሥራው የተጠቆመ። በማንኛውም ጊዜ ይቀይሩት."
 
+#: src/features/career/workspace/messages.tsx
+msgid "Suggested reply · edit before sending"
+msgstr ""
+
 #: src/features/settings/ai/providers.tsx
 msgid "Suggestions from <0>models.dev</0>. You can also enter any model ID."
 msgstr "የጥቆማ አስተያየቶች ከ <0>models.dev</0>። ማንኛውንም የሞዴል መታወቂያ ማስገባትም ይችላሉ።"
@@ -7922,6 +10292,10 @@ msgstr "የጥቆማ አስተያየቶች ከ <0>models.dev</0>። ማንኛው
 #: src/features/assistant/assistant-panel.tsx
 msgid "Suggests cuts, never deletes on its own"
 msgstr "መቁረጥን ይጠቁማል፣ በራሱ አይሰርዝም"
+
+#: src/features/career/coach.tsx
+msgid "Summaries of your open applications"
+msgstr ""
 
 #: src/features/resume/editor/write/summary-editor.tsx
 #: src/libs/resume/section-title.ts
@@ -7933,10 +10307,14 @@ msgstr "ማጠቃለያ"
 msgid "Support"
 msgstr "ድጋፍ"
 
-#. Button on the launch-day banner that opens the Product Hunt page
-#: src/components/ui/product-hunt-banner.tsx
-msgid "Support on Product Hunt"
-msgstr "በ Product Hunt ላይ ይደግፉን"
+#: src/features/career/shared.tsx
+#: src/features/career/workspace/debrief.tsx
+msgid "Supported"
+msgstr ""
+
+#: src/features/career/offers.tsx
+msgid "Swap"
+msgstr ""
 
 #: src/features/ats-checker/messages.ts
 msgid "Swap the start and end dates."
@@ -8000,6 +10378,7 @@ msgstr "መለያ"
 #: src/features/applications/components/application-detail-sheet.tsx
 #: src/features/applications/components/application-form-sheet.tsx
 #: src/features/applications/components/import-applications-sheet.tsx
+#: src/features/career/knowledge/stories.tsx
 #: src/features/documents/document-actions.tsx
 msgid "Tags"
 msgstr "መለያዎች"
@@ -8015,6 +10394,10 @@ msgstr "መለያዎች ለሶፍትዌር ግልጽ የንባብ ቅደም ተ�
 #: src/features/documents/document-actions.tsx
 msgid "Tags group documents in the library; pick one above the grid to filter by it."
 msgstr "በቤተ-መጽሐፍት ውስጥ የቡድን ሰነዶች መለያዎች; በእሱ ለማጣራት ከፍርግርግ በላይ አንዱን ይምረጡ።"
+
+#: src/features/career/knowledge/stories.tsx
+msgid "Tags, separated by commas"
+msgstr ""
 
 #: src/features/documents/document-actions.tsx
 msgid "Tags…"
@@ -8037,6 +10420,35 @@ msgstr "የተጣጣመ vs. ቤዝ ሪሱሜ"
 #: src/libs/locale.ts
 msgid "Tamil"
 msgstr "ታሚልኛ"
+
+#: src/features/career/knowledge/preferences.tsx
+msgid "Target roles"
+msgstr ""
+
+#: src/features/career/knowledge/stories.tsx
+msgid "Task"
+msgstr ""
+
+#: src/features/applications/components/interview-dialog.tsx
+msgid "Technical"
+msgstr ""
+
+#. placeholder {0}: selectedStory.data.title
+#: src/features/career/workspace/practise.tsx
+msgid "Tell me about “{0}”. What was your part, what did you do, and what changed?"
+msgstr ""
+
+#: src/features/career/workspace/practise.tsx
+msgid "Tell me about a piece of work you're proud of."
+msgstr ""
+
+#: src/features/career/workspace/practise.tsx
+msgid "Tell me about a piece of work you're proud of. What was your part in it, and how did you measure success?"
+msgstr ""
+
+#: src/features/career/workspace/practise.tsx
+msgid "Tell me about a time you disagreed with a colleague. How did you resolve it?"
+msgstr ""
 
 #: src/libs/locale.ts
 msgid "Telugu"
@@ -8176,6 +10588,10 @@ msgstr "ያ የአቅራቢ መለያ ከመለያዎ የተለየ የኢሜይ�
 msgid "That provider setup isn't valid. Check the base URL."
 msgstr "ያ አቅራቢ ማዋቀር ልክ አይደለም። መሰረቱን URL ያረጋግጡ።"
 
+#: src/features/career/workspace/practise.tsx
+msgid "That recording was empty or over 2 MB. Try a shorter answer."
+msgstr ""
+
 #: src/features/auth/pages/error.tsx
 msgid "That sign-in provider is no longer available on this server."
 msgstr "ያ የመግቢያ አቅራቢ በዚህ አገልጋይ ላይ ከእንግዲህ አይገኝም።"
@@ -8211,6 +10627,26 @@ msgstr "አብሮ የተሰራው አንባቢ ንቁ ሆኖ ይቆያል።"
 #: src/features/resume/editor/check/writing-tab.tsx
 msgid "The checks are mechanical. This asks a language model how a reader might react to your bullets and suggests rewrites. It isn't part of the score."
 msgstr "ቼኮች ሜካኒካል ናቸው። ይህ አንድ አንባቢ ለዝርዝር ግቤቶችዎ እንዴት ምላሽ ሊሰጥ እንደሚችል የቋንቋ ሞዴል ይጠይቃል እና እንደገና መፃፍን ይጠቁማል። የውጤቱ አካል አይደለም።"
+
+#: src/features/career/knowledge/facts.tsx
+msgid "The coach doesn't remember anything from your messages."
+msgstr ""
+
+#: src/features/career/coach.tsx
+msgid "The coach isn't set up on this server. Whoever runs it needs to set ENCRYPTION_SECRET. Knowledge, Offers and your applications work without it."
+msgstr ""
+
+#: src/features/career/knowledge/facts.tsx
+msgid "The coach proposes each fact in the chat. Nothing is saved until you agree."
+msgstr ""
+
+#: src/features/career/workspace/shell.tsx
+msgid "The coach reads these for this application only."
+msgstr ""
+
+#: src/features/career/knowledge/facts.tsx
+msgid "The coach saves facts you state, and tells you. You can undo."
+msgstr ""
 
 #: src/features/documents/new-document-dialog.tsx
 msgid "The copy is linked to the application, so Check and the assistant use its posting."
@@ -8264,6 +10700,18 @@ msgstr "ደብዳቤው እንደገና ከሪሱሜ ንድፍ ጋር ይዛመ�
 msgid "The line changed since you asked, so it wasn't replaced."
 msgstr "ከጠየቁ በኋላ መስመሩ ተለውጧል፣ ስለዚህ አልተተካም።"
 
+#: src/features/career/workspace/saved.tsx
+msgid "the message"
+msgstr ""
+
+#: src/features/career/schedule-sheet.tsx
+msgid "The morning of the interview has passed, so the briefing runs now."
+msgstr ""
+
+#: src/features/career/coach.tsx
+msgid "The offers you chose to compare, with their terms"
+msgstr ""
+
 #: src/features/ats-checker/messages.ts
 msgid "The order the text is stored in disagrees badly with the order it reads in."
 msgstr "ጽሁፉ የተከማቸበት ቅደም ተከተል ከሚነበብበት ቅደም ተከተል ጋር በእጅጉ አይስማማም።"
@@ -8271,6 +10719,10 @@ msgstr "ጽሁፉ የተከማቸበት ቅደም ተከተል ከሚነበብ�
 #: src/features/applications/components/add-application-dialog.tsx
 msgid "The original link stays with this job."
 msgstr "ዋናው አገናኝ ከዚህ ሥራ ጋር ይቆያል."
+
+#: src/features/career/knowledge/facts.tsx
+msgid "The original stays in the history."
+msgstr ""
 
 #: src/features/applications/components/add-application-dialog.tsx
 msgid "The page had no job details to read. Fill in the role and company."
@@ -8426,6 +10878,10 @@ msgstr "ወደ መገለጫ፣ ፖርትፎሊዮ ወይም ማከማቻ የሚ�
 msgid "There is no summary paragraph."
 msgstr "ምንም የማጠቃለያ አንቀጽ የለም።"
 
+#: src/features/career/workspace/apply.tsx
+msgid "These are the answers saved when you applied."
+msgstr ""
+
 #: src/features/applications/components/list-view.tsx
 msgid "They and their timelines are deleted permanently. This can't be undone."
 msgstr "እነሱ እና የጊዜ መስመሮቻቸው እስከመጨረሻው ይሰረዛሉ። ይህ ሊቀለበስ አይችልም።"
@@ -8434,19 +10890,36 @@ msgstr "እነሱ እና የጊዜ መስመሮቻቸው እስከመጨረሻ�
 msgid "They look for headings such as Experience, Education and Skills."
 msgstr "እንደ ልምድ፣ ትምህርት እና ችሎታ ያሉ ርዕሶችን ይፈልጋሉ።"
 
+#: src/features/career/shared.tsx
+msgid "Thinking"
+msgstr ""
+
 #: src/features/assistant/conversation.tsx
 msgid "Thinking…"
 msgstr "በማሰብ…"
 
+#: src/features/career/workspace/shell.tsx
+msgid "This application couldn't be opened."
+msgstr ""
+
 #: src/features/resume/editor/check/job-match.tsx
 msgid "This application has no posting saved yet. Paste it to match against it."
 msgstr "ይህ የሥራ ማመልከቻ እስካሁን የተቀመጠ ምንም ሥራ የለዉም። ከእሱ ጋር እንዲመሳሰል ለጥፍ።"
+
+#: src/features/career/workspace/practise.tsx
+msgid "This browser can't record here. Choose an audio file, or type your answer."
+msgstr ""
+
+#: src/features/career/workspace/practise.tsx
+msgid "This browser can't take dictation, and none of your AI connections can transcribe speech (OpenAI, Google Gemini, Mistral, xAI, Groq or Vercel AI Gateway can). <0>Add one in Settings</0>, or type your answer."
+msgstr ""
 
 #: src/features/auth/pages/consent.tsx
 msgid "This connection request is invalid or has expired."
 msgstr "ይህ የግንኙነት ጥያቄ ልክ ያልሆነ ወይም ጊዜው አልፎበታል።"
 
 #: src/features/assistant/assistant-panel.tsx
+#: src/features/career/coach-thread.tsx
 msgid "This conversation couldn't be opened."
 msgstr "ይህ ውይይት ሊከፈት አልቻለም።"
 
@@ -8606,6 +11079,18 @@ msgstr "የዚህ የስራ ልምድ ማጋሪያ ቅንብሮች በሌላ ቦ
 msgid "This saved description is clipped or incomplete. Review before preparing documents."
 msgstr "ይህ የተቀመጠ መግለጫ የተቀነጨበ ወይም ያልተጠናቀቀ ነው። ሰነዶችን ከማዘጋጀትዎ በፊት ይከልሱ."
 
+#: src/features/career/workspace/shell.tsx
+msgid "This saved version belongs to a different tab. Open it from Saved."
+msgstr ""
+
+#: src/features/career/workspace/shell.tsx
+msgid "This saved version couldn't be loaded."
+msgstr ""
+
+#: src/features/career/workspace/shell.tsx
+msgid "This saved version is no longer available."
+msgstr ""
+
 #: src/features/auth/pages/error.tsx
 msgid "This sign-in attempt expired or was already used. Please start again."
 msgstr "ይህ የመግቢያ ሙከራ ጊዜው አልፎበታል ወይም አስቀድሞ ጥቅም ላይ ውሏል። እባክዎ እንደገና ይጀምሩ።"
@@ -8614,18 +11099,72 @@ msgstr "ይህ የመግቢያ ሙከራ ጊዜው አልፎበታል ወይም 
 msgid "This step is optional, but recommended."
 msgstr "ይህ እርስዎ መፈለጌ ቢሆንም የሚመከር ደረጃ ነው።"
 
+#: src/features/career/workspace/practise.tsx
+msgid "This story is unavailable or uses facts that are switched off."
+msgstr ""
+
+#: src/features/applications/components/interview-dialog.tsx
+msgid "This time does not exist in the selected timezone. Choose another time."
+msgstr ""
+
+#: src/features/career/schedule-sheet.tsx
+msgid "This time does not exist in your timezone. Choose another time."
+msgstr ""
+
+#: src/features/career/workspace/debrief.tsx
+msgid "This week: make your evidence easier to follow"
+msgstr ""
+
+#: src/features/career/workspace/shell.tsx
+msgid "This workspace couldn't be loaded."
+msgstr ""
+
 #: src/features/command-palette/pages/resumes.tsx
 msgid "Threads"
 msgstr "ውይይቶች"
+
+#: src/features/career/workspace/apply.tsx
+msgid "Tighten"
+msgstr ""
 
 #: src/features/assistant/assistant-panel.tsx
 msgid "Tighten to one page"
 msgstr "ወደ አንድ ገጽ አጥብቅ"
 
+#: src/features/career/shared.tsx
+msgid "Tightening"
+msgstr ""
+
+#. placeholder {0}: draft.timezone
+#: src/features/applications/components/interview-dialog.tsx
+msgid "Time · {0}"
+msgstr ""
+
+#: src/features/career/schedule-sheet.tsx
+msgid "Time · {timeZone}"
+msgstr ""
+
+#: src/features/career/workspace/prepare.tsx
+msgid "Time, link, who, what you sent"
+msgstr ""
+
+#: src/features/career/knowledge/preferences.tsx
+msgid "Times are shown in {timeZone}."
+msgstr ""
+
+#: src/features/settings/preferences.tsx
+msgid "Timezone"
+msgstr ""
+
+#: src/features/career/shared.tsx
+msgid "Timing the plan"
+msgstr ""
+
 #: src/features/ats-checker/messages.ts
 msgid "Tip"
 msgstr "ጠቃሚ ምክር"
 
+#: src/features/career/knowledge/stories.tsx
 #: src/features/resume/editor/write/entries.tsx
 msgid "Title"
 msgstr "ርዕስ"
@@ -8636,12 +11175,17 @@ msgstr "ለ"
 
 #: src/features/applications/components/calendar-view.tsx
 #: src/features/resume/share/link-tab.tsx
+#: src/routes/dashboard/career/route.tsx
 msgid "Today"
 msgstr "ዛሬ"
 
 #: src/features/resume/share/format.ts
 msgid "Today {time}"
 msgstr "ዛሬ {time}"
+
+#: src/features/career/workspace/practise.tsx
+msgid "Today, {hour}"
+msgstr ""
 
 #: src/features/applications/components/calendar-view.tsx
 msgid "Tomorrow"
@@ -8663,6 +11207,10 @@ msgstr "ጠቅላላ"
 msgid "Track a job you're applying to and link the resume you sent."
 msgstr "የሚያመለክቱበትን ሥራ ይከታተሉ እና የላኩትን የሥራ ልምድ (ሲቪ) ያገናኙ።"
 
+#: src/features/career/today.tsx
+msgid "Track in Applications"
+msgstr ""
+
 #: src/routes/dashboard/applications/index.tsx
 msgid "Track your first job"
 msgstr "የመጀመሪያ ስራዎን ይከታተሉ"
@@ -8670,6 +11218,18 @@ msgstr "የመጀመሪያ ስራዎን ይከታተሉ"
 #: src/features/homepage/sections.tsx
 msgid "Tracking"
 msgstr "መከታተል"
+
+#: src/features/career/workspace/practise.tsx
+msgid "Transcribe answers with"
+msgstr ""
+
+#: src/features/career/workspace/practise.tsx
+msgid "Transcribed"
+msgstr ""
+
+#: src/features/career/workspace/practise.tsx
+msgid "Transcribing with {model}…"
+msgstr ""
 
 #: src/features/assistant/conversation.tsx
 msgid "Transcript copied"
@@ -8701,6 +11261,10 @@ msgstr "ሪሳይክል ቢን"
 msgid "Trash is empty"
 msgstr "መጣያ ባዶ ነው።"
 
+#: src/features/career/shared.tsx
+msgid "Trimming words"
+msgstr ""
+
 #. placeholder {0}: result.suggestion
 #: src/features/resume/share/link-tab.tsx
 msgid "Try {0}"
@@ -8711,17 +11275,30 @@ msgid "Try a sample"
 msgstr "ናሙና ይሞክሩ"
 
 #: src/components/layout/error-screen.tsx
+#: src/features/career/coach-thread.tsx
+#: src/features/career/load-state.tsx
+#: src/features/career/workspace/practise.tsx
+#: src/features/career/workspace/shell.tsx
 #: src/features/documents/library-error.tsx
 #: src/features/resume/editor/write/improve.tsx
 #: src/features/resume/share/download-tab.tsx
 #: src/features/settings/ai/web-access.tsx
+#: src/features/settings/integrations/ai-provider-load-state.tsx
 #: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Try again"
 msgstr "እንደገና ሞክር"
 
+#: src/features/career/workspace/practise.tsx
+msgid "Try again with this"
+msgstr ""
+
 #: src/features/homepage/faq.tsx
 msgid "Try the ATS checker"
 msgstr "የ ATS አረጋጋጭ ይሞክሩ"
+
+#: src/features/career/workspace/practise.tsx
+msgid "Try this opening"
+msgstr ""
 
 #: src/features/documents/new-document-dialog.tsx
 msgid "Try with a sample resume"
@@ -8743,6 +11320,10 @@ msgstr "አድራሻ ለመምረጥ ሊንኩን ያብሩ።"
 msgid "Turn on the public link to count views and downloads. Counts are anonymous."
 msgstr "እይታዎችን እና ማውረዶችን ለመቁጠር የህዝብ ማገናኛን ያብሩ። የአጠቃቀም ብዛት የማይታወቅ ነው።"
 
+#: src/features/career/schedule-sheet.tsx
+msgid "Turn this schedule on"
+msgstr ""
+
 #: src/features/resume/editor/design/template-group.tsx
 msgid "Two columns"
 msgstr "ሁለት ዓምዶች"
@@ -8750,6 +11331,10 @@ msgstr "ሁለት ዓምዶች"
 #: src/features/homepage/check.tsx
 msgid "Two date formats found"
 msgstr "ሁለት የቀን ቅርጸቶች ተገኝተዋል"
+
+#: src/features/career/workspace/prepare.tsx
+msgid "Two stories"
+msgstr ""
 
 #: src/dialogs/resume/template/data.ts
 msgid "Two-column with a bold colored sidebar and skill bars; great for creative or tech roles where visual flair is welcome."
@@ -8809,6 +11394,8 @@ msgstr "የሁለት-ደረጃ ማረጋገጫ QR ኮድ"
 msgid "Two-step verification"
 msgstr "ባለ ሁለት ደረጃ ማረጋገጫ"
 
+#: src/features/applications/components/interview-dialog.tsx
+#: src/features/career/workspace/practise.tsx
 #: src/features/documents/documents-page.tsx
 #: src/features/documents/trash-page.tsx
 #: src/routes/builder/$resumeId/-components/design-panel.tsx
@@ -8827,6 +11414,14 @@ msgstr "ለማረጋገጥ <0>{CONFIRMATION}</0> ይተይቡ"
 msgid "Type a command or search…"
 msgstr "ትዕዛዝ ይተይቡ ወይም ይፈልጉ…"
 
+#: src/features/career/workspace/practise.tsx
+msgid "Type instead"
+msgstr ""
+
+#: src/features/career/workspace/practise.tsx
+msgid "typed"
+msgstr ""
+
 #: src/libs/resume/section.tsx
 msgid "Typography"
 msgstr "ታይፖግራፊ"
@@ -8840,6 +11435,10 @@ msgid "Underline links"
 msgstr "አገናኞችን አስምር"
 
 #: src/features/assistant/document.ts
+#: src/features/career/coach-thread.tsx
+#: src/features/career/shared.tsx
+#: src/features/career/today.tsx
+#: src/features/career/workspace/fit.tsx
 #: src/features/documents/document-actions.tsx
 #: src/features/homepage/write.tsx
 #: src/features/resume/editor/check/actions.ts
@@ -8864,6 +11463,10 @@ msgstr "የሥራ ልምድ ለውጥ ቀልብስ"
 #: src/features/homepage/sheet.tsx
 msgid "University of Porto"
 msgstr "University of Porto"
+
+#: src/features/career/offers.tsx
+msgid "Unknown"
+msgstr ""
 
 #: src/features/documents/document-actions.tsx
 msgid "Unlink"
@@ -8910,6 +11513,14 @@ msgstr "ርዕስ የሌለው ደብዳቤ"
 #: src/features/documents/new-document-dialog.tsx
 msgid "Untitled resume"
 msgstr "ርዕስ አልባ የትምህርት ማስረጃ"
+
+#: src/features/career/workspace/practise.tsx
+msgid "Up to 2 minutes. Or <0>choose an audio file</0> up to 2 MB."
+msgstr ""
+
+#: src/features/career/workspace/practise.tsx
+msgid "Up to 2 minutes. Your words appear as you speak."
+msgstr ""
 
 #: src/features/ats-checker/checker.tsx
 msgid "Up to 25 MB · checked in your browser, never uploaded"
@@ -9031,6 +11642,14 @@ msgstr "{color} ቀለም ተጠቀም"
 msgid "Use details from “{0}”"
 msgstr "ከ\"{0}\" ዝርዝሮችን ተጠቀም"
 
+#: src/features/career/knowledge/facts.tsx
+msgid "Use for all applications"
+msgstr ""
+
+#: src/features/career/knowledge/facts.tsx
+msgid "Use in coaching: {excerpt}"
+msgstr ""
+
 #: src/features/resume/share/link-tab.tsx
 msgid "Use lowercase letters, numbers and single dashes."
 msgstr "ትንሽ ሆሄያትን፣ ቁጥሮችን እና ነጠላ ሰረዞችን ተጠቀም።"
@@ -9055,6 +11674,14 @@ msgstr "ናሙና ይጠቀሙ"
 msgid "Use the standard heading"
 msgstr "መደበኛውን ርዕስ ተጠቀም"
 
+#: src/features/career/workspace/apply.tsx
+msgid "Use these answers"
+msgstr ""
+
+#: src/features/settings/preferences.tsx
+msgid "Use this device's timezone ({device})"
+msgstr ""
+
 #: src/features/settings/ai/providers.tsx
 msgid "Use this provider"
 msgstr "ይህንን አቅራቢ ይጠቀሙ"
@@ -9062,6 +11689,22 @@ msgstr "ይህንን አቅራቢ ይጠቀሙ"
 #: src/features/ats-checker/messages.ts
 msgid "Use your editor's normal bullet list, so stray glyphs do not land mid-sentence."
 msgstr "የተውጣጣ ፊደላት በአረፍተ ነገር መሃል እንዳይወድቁ የአርታዒዎን መደበኛ የነጥብ ዝርዝር ይጠቀሙ።"
+
+#: src/features/career/coach-thread.tsx
+msgid "Used"
+msgstr ""
+
+#: src/features/career/workspace/saved.tsx
+msgid "used {used}"
+msgstr ""
+
+#: src/features/career/knowledge/facts.tsx
+msgid "Used in coaching"
+msgstr ""
+
+#: src/features/career/knowledge/preferences.tsx
+msgid "Used to check roles and offers. Each is a number, so the coach can compare without guessing."
+msgstr ""
 
 #: src/features/settings/ai/web-access.tsx
 msgid "Used when {connectedProvider} can't read a page. No account needed."
@@ -9087,6 +11730,10 @@ msgstr "ከመመዝገቢያዎ ውስጥ እውነታዎችን ይጠቀማል
 msgid "Uses the linked application"
 msgstr "የተገናኘውን የሥራ ማመልከቻ ይጠቀማል"
 
+#: src/features/career/schedule-sheet.tsx
+msgid "Uses the web search service set up in Settings. Results wait in Today for your review; applications and documents are never created for you."
+msgstr ""
+
 #: src/features/settings/ai/web-access.tsx
 msgid "Uses your AI provider's own web search where supported, and reads links with the built-in reader."
 msgstr "በሚደገፍበት ጊዜ የእርስዎን AI አቅራቢ የራሱን የድር ፍለጋ ይጠቀማል፣ እና አብሮ ከተሰራው አንባቢ ጋር አገናኞችን ያነባል።"
@@ -9095,9 +11742,21 @@ msgstr "በሚደገፍበት ጊዜ የእርስዎን AI አቅራቢ የራ�
 msgid "Uzbek"
 msgstr "ኡዝቤክኛ"
 
+#: src/features/career/offers.tsx
+msgid "Valuation and dilution uncertain"
+msgstr ""
+
+#: src/features/career/offers.tsx
+msgid "Value uncertain"
+msgstr ""
+
 #: src/features/ats-checker/messages.ts
 msgid "Vary the openings so the section does not read as boilerplate."
 msgstr "ክፍሉ እንደ መደበኛ ጽሁፍ እንዳይነበብ የመክፈቻዎቹን ይለያዩ።"
+
+#: src/features/career/offers.tsx
+msgid "Verbal offer"
+msgstr ""
 
 #: src/dialogs/auth/enable-two-factor.tsx
 #: src/features/auth/pages/verify-2fa.tsx
@@ -9113,6 +11772,10 @@ msgstr "አረጋግጥ"
 #: src/features/auth/pages/verify-2fa.tsx
 msgid "Verify with a Backup Code"
 msgstr "በመከላከያ ኮድ አረጋግጥ"
+
+#: src/features/career/schedule-sheet.tsx
+msgid "Verify your email in Settings first"
+msgstr ""
 
 #: src/features/auth/pages/verify-2fa.tsx
 msgid "Verifying backup code..."
@@ -9163,6 +11826,7 @@ msgstr "የቪዲዮ አገናኝ፣ የቢሮ አድራሻ ወይም ስልክ 
 msgid "Vietnamese"
 msgstr "ቪትናምኛ"
 
+#: src/features/career/coach-thread.tsx
 #: src/features/documents/documents-page.tsx
 #: src/routes/dashboard/applications/index.tsx
 msgid "View"
@@ -9174,6 +11838,7 @@ msgstr "የሥራ ማመልከቻ ይመልከቱ"
 
 #: src/features/applications/components/add-application-dialog.tsx
 #: src/features/applications/components/application-detail-sheet.tsx
+#: src/features/career/workspace/shell.tsx
 msgid "View posting"
 msgstr "የስራ መለጠፍን ይመልከቱ"
 
@@ -9207,10 +11872,18 @@ msgstr "ጎብኚዎች PDF ማውረድ ይችላሉ።"
 msgid "Visitors enter it before they see the resume. Share it only with people you trust."
 msgstr "ጎብኚዎች የትምህርት ማስረጃውን ከማየታቸው በፊት ይገባሉ። ለምታምናቸው ሰዎች ብቻ አጋራ።"
 
+#: src/features/career/workspace/practise.tsx
+msgid "Voice settings"
+msgstr ""
+
 #: src/libs/resume/section-title.ts
 #: src/libs/resume/section.tsx
 msgid "Volunteer"
 msgstr "በጎ ፈቃደኝነት"
+
+#: src/features/career/workspace/messages.tsx
+msgid "Waiting for you"
+msgstr ""
 
 #: src/features/applications/next-step.ts
 msgid "Waiting to hear back"
@@ -9267,6 +11940,10 @@ msgstr "የድር መዳረሻ"
 msgid "Web access settings couldn't be saved or loaded."
 msgstr "የድር መዳረሻ ቅንብሮች ሊቀመጡ ወይም ሊጫኑ አልቻሉም።"
 
+#: src/features/career/coach.tsx
+msgid "Web research"
+msgstr ""
+
 #: src/features/assistant/conversation.tsx
 msgid "Web search didn't finish."
 msgstr "የድር ፍለጋ አላለቀም።"
@@ -9280,6 +11957,22 @@ msgstr "የድር ፍለጋ አልተሳካም፡ {0}"
 msgid "Website"
 msgstr "ድር ገጽ"
 
+#: src/features/career/today.tsx
+msgid "Weekly at {clock} · next {next}"
+msgstr ""
+
+#: src/features/career/knowledge/preferences.tsx
+msgid "weeks"
+msgstr ""
+
+#: src/features/career/shared.tsx
+msgid "Weighing each requirement"
+msgstr ""
+
+#: src/features/career/workspace/debrief.tsx
+msgid "Went well"
+msgstr ""
+
 #: src/features/resume/editor/check/page-layer.tsx
 msgid "What a parser reads"
 msgstr "ተንታኙ የሚያነበው"
@@ -9287,6 +11980,26 @@ msgstr "ተንታኙ የሚያነበው"
 #: src/features/resume/editor/check/page-layer.tsx
 msgid "What a person sees"
 msgstr "ሰው የሚያየው"
+
+#: src/features/career/coach.tsx
+msgid "What are you working on?"
+msgstr ""
+
+#: src/features/career/knowledge/stories.tsx
+msgid "What changed? Leave blank if you can’t support it."
+msgstr ""
+
+#: src/features/career/workspace/debrief.tsx
+msgid "What did they ask?"
+msgstr ""
+
+#: src/features/career/knowledge/stories.tsx
+msgid "What did you do, specifically?"
+msgstr ""
+
+#: src/features/career/workspace/debrief.tsx
+msgid "What did you say, as close as you remember?"
+msgstr ""
 
 #: src/features/resume/editor/write/section-row.tsx
 msgid "What do you want to rename this section to?"
@@ -9300,6 +12013,18 @@ msgstr "ምን አይነት ቅርጸቶችን ማውረድ እችላለሁ?"
 msgid "What goes in it?"
 msgstr "በውስጡ ምን ይገባል?"
 
+#: src/features/career/coach.tsx
+msgid "What interview answers should I practise?"
+msgstr ""
+
+#: src/features/career/offers.tsx
+msgid "What is the base salary, and is it negotiable?"
+msgstr ""
+
+#: src/features/career/offers.tsx
+msgid "What is the equity worth today: strike price, latest valuation, vesting and exercise window?"
+msgstr ""
+
 #: src/features/applications/components/application-detail-sheet.tsx
 msgid "What it asks for"
 msgstr "ምን ይጠይቃል"
@@ -9308,9 +12033,21 @@ msgstr "ምን ይጠይቃል"
 msgid "What it checks"
 msgstr "ምን እንደሚፈትሽ"
 
+#: src/features/career/coach-thread.tsx
+msgid "What matters"
+msgstr ""
+
+#: src/features/career/knowledge/preferences.tsx
+msgid "What matters to you"
+msgstr ""
+
 #: src/features/resume/editor/write/improve.tsx
 msgid "What should change?"
 msgstr "ምን መለወጥ አለበት?"
+
+#: src/features/career/schedule-sheet.tsx
+msgid "What should run"
+msgstr ""
 
 #: src/features/assistant/assistant-panel.tsx
 msgid "What should we work on?"
@@ -9320,17 +12057,55 @@ msgstr "በምን ላይ ነው መስራት ያለብን?"
 msgid "What software reads"
 msgstr "ምን ሶፍትዌር ያነባል።"
 
+#: src/features/career/workspace/prepare.tsx
+msgid "What success looks like, which challenge matters most, and the next step."
+msgstr ""
+
 #: src/features/resume/editor/check/check-panel.tsx
 msgid "What the file-level check found in the PDF you'd send. It ran in this tab; nothing was uploaded."
 msgstr "በምትልኩት PDF ውስጥ የፋይል ደረጃ ፍተሻ ምን አገኘ። በዚህ ትር ውስጥ ሮጦ ነበር; ምንም አልተሰቀለም."
+
+#: src/features/applications/components/interview-dialog.tsx
+msgid "What they asked you to prepare"
+msgstr ""
 
 #: src/features/applications/components/detail/next-step-card.tsx
 msgid "What to do"
 msgstr "ምን ለማድረግ"
 
+#: src/features/career/knowledge/stories.tsx
+msgid "What was happening before you started?"
+msgstr ""
+
+#: src/features/career/knowledge/stories.tsx
+msgid "What were you responsible for?"
+msgstr ""
+
+#: src/features/career/workspace/practise.tsx
+msgid "What works"
+msgstr ""
+
+#: src/features/career/knowledge/stories.tsx
+msgid "What would you do differently?"
+msgstr ""
+
+#. placeholder {0}: requirement.text
+#: src/features/career/workspace/fit.tsx
+msgid "What you did: {0}"
+msgstr ""
+
 #: src/features/applications/components/detail/sent-documents.tsx
 msgid "What you sent"
 msgstr "የላካችሁት።"
+
+#. placeholder {0}: date(application.appliedAt)
+#: src/features/career/workspace/shell.tsx
+msgid "What you sent · {0}"
+msgstr ""
+
+#: src/features/career/knowledge/preferences.tsx
+msgid "What you're looking for"
+msgstr ""
 
 #: src/features/settings/ai/api-keys.tsx
 msgid "What's it for?"
@@ -9340,13 +12115,25 @@ msgstr "ለምንድነው?"
 msgid "What's working"
 msgstr "ምን እየሰራ ነው።"
 
-#: src/features/applications/components/interview-dialog.tsx
-msgid "Where"
-msgstr "የት"
+#: src/features/career/offers.tsx
+msgid "When do they need your answer?"
+msgstr ""
+
+#: src/features/career/coach.tsx
+msgid "When you press send, {shared} go to {connection}."
+msgstr ""
 
 #: src/features/applications/components/insights-view.tsx
 msgid "Where applications come from"
 msgstr "ማመልከቻዎች ከየት ይመጣሉ"
+
+#: src/features/career/knowledge/preferences.tsx
+msgid "Where you want to work"
+msgstr ""
+
+#: src/features/career/offers.tsx
+msgid "Where you work"
+msgstr ""
 
 #: src/features/applications/components/insights-view.tsx
 msgid "Where your applications went"
@@ -9376,13 +12163,26 @@ msgstr "የጊዜ መስመርዎ መልሶ ሊገነባ ይችል እንደሆ�
 msgid "Which languages does it speak?"
 msgstr "የትኞቹን ቋንቋዎች ነው የሚናገረው?"
 
+#: src/features/career/coach.tsx
+msgid "Which opportunities best match my priorities?"
+msgstr ""
+
+#: src/features/career/offers.tsx
+msgid "Which other benefits come with it, like pension or allowances?"
+msgstr ""
+
 #: src/features/homepage/faq.tsx
 msgid "Who can see my resume?"
 msgstr "የትምህርት ማስረጃዬን ማን ማየት ይችላል?"
 
 #: src/features/applications/components/interview-dialog.tsx
-msgid "Who you're meeting, what to prepare…"
-msgstr "ከማን ጋር እየተገናኙ ነው፣ ምን ይዘጋጃሉ…"
+#: src/features/career/workspace/shell.tsx
+msgid "Who you'll meet"
+msgstr ""
+
+#: src/features/career/workspace/practise.tsx
+msgid "Why do you want this role at {company}?"
+msgstr ""
 
 #: src/features/resume/editor/design/style-groups.tsx
 msgid "Wide"
@@ -9413,6 +12213,19 @@ msgstr "Word"
 msgid "Words run together when the text is extracted."
 msgstr "ጽሁፉ ሲወጣ ቃላት አብረው ይጣበቃሉ።"
 
+#: src/features/career/workspace/prepare.tsx
+msgid "Works without AI or new research"
+msgstr ""
+
+#: src/features/career/workspace/fit.tsx
+msgid "Worth asking"
+msgstr ""
+
+#. placeholder {0}: ask.person
+#: src/features/career/workspace/fit.tsx
+msgid "Worth asking {0}"
+msgstr ""
+
 #: src/features/homepage/header.tsx
 #: src/features/homepage/write.tsx
 #: src/routes/builder/$resumeId/-components/editor-bar.tsx
@@ -9430,6 +12243,10 @@ msgstr "ለአሁኑ ሚናዎ እንደ መጨረሻ ቀን \"Present\" ብለ�
 msgid "Write a letter"
 msgstr "ደብዳቤ ጻፍ"
 
+#: src/features/career/workspace/prepare.tsx
+msgid "Write down what they asked while it's fresh. The coach compares your answers with your stories."
+msgstr ""
+
 #: src/features/ats-checker/messages.ts
 msgid "Write each role as a clear title and company line, with the dates alongside."
 msgstr "እያንዳንዱን ሚና ግልጽ በሆነ የስራ መደብ እና ኩባንያ መስመር፣ ከቀናት ጋር አብሮ ይጻፉ።"
@@ -9442,13 +12259,33 @@ msgstr "ከቀጥታ ሰነድ ቅድመ እይታ ቀጥሎ በ1 አርታኢ �
 msgid "Write it as one uninterrupted piece, with no special spacing."
 msgstr "ያለ ልዩ ክፍተት እንደ አንድ ያልተቋረጠ ቁራጭ ይጻፉት።"
 
+#: src/features/career/workspace/debrief.tsx
+msgid "Write it down while it's fresh"
+msgstr ""
+
 #: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Write it myself"
 msgstr "ራሴ ጻፍ"
 
+#: src/features/career/workspace/practise.tsx
+msgid "Write numbers as digits"
+msgstr ""
+
+#: src/features/career/knowledge/stories.tsx
+msgid "Write one about something you did, in five parts. Leave a part blank until you can support it."
+msgstr ""
+
 #: src/features/ats-checker/messages.ts
 msgid "Write the full address so it is recognised as a link."
 msgstr "እንደ አገናኝ ተለይቶ እንዲታወቅ ሙሉውን አድራሻ ይጻፉ።"
+
+#: src/features/career/workspace/fit.tsx
+msgid "Write what you did."
+msgstr ""
+
+#: src/features/career/workspace/apply.tsx
+msgid "Write your answer, or draft one from your Knowledge."
+msgstr ""
 
 #: src/features/ats-checker/messages.ts
 #: src/features/resume/editor/check/check-panel.tsx
@@ -9456,13 +12293,21 @@ msgstr "እንደ አገናኝ ተለይቶ እንዲታወቅ ሙሉውን አ�
 msgid "Writing"
 msgstr "አጻጻፍ"
 
+#: src/features/career/coach-thread.tsx
+msgid "Writing an answer…"
+msgstr ""
+
 #: src/features/settings/ai/providers.tsx
-msgid "Writing help, tailored suggestions and the assistant. Your keys stay encrypted."
-msgstr "የጽሑፍ እገዛ፣ የተስተካከሉ ጥቆማዎች እና ረዳቱ። ቁልፎችዎ እንደተመሰጠሩ ይቆያሉ።"
+msgid "Writing help, tailored suggestions and the assistant. The default provider is used wherever you don't pick one. Your keys stay encrypted."
+msgstr ""
 
 #: src/features/homepage/sections.tsx
 msgid "writing, tailoring and sending"
 msgstr "መጻፍ, መላመድ እና መላክ"
+
+#: src/features/career/offers.tsx
+msgid "Written offer"
+msgstr ""
 
 #: src/features/homepage/faq.tsx
 msgid "Yes. Every feature is free: all {templates} templates, PDF and Word downloads, the ATS checker, cover letters and the job tracker. There are no ads, no tracking and no paid tier. Donations pay for hosting and development."
@@ -9476,11 +12321,16 @@ msgstr "አዎ። PDF፣ የLinkedIn ውሂብ ወደ ውጭ መላክ፣ JSON R
 msgid "Yes. Reactive Resume is open source under the MIT License and ships as a Docker image, so it runs on your own server with your own database and storage."
 msgstr "አዎ። Reactive Resume በMIT License ስር ክፍት ምንጭ ነው እና እንደ Docker ምስል ይላካል፣ ስለዚህ በራስዎ አገልጋይ ላይ በራስዎ ዳታቤዝ እና ማከማቻ ይሰራል።"
 
+#: src/features/career/coach-thread.tsx
+msgid "Yesterday"
+msgstr ""
+
 #: src/features/resume/share/format.ts
 msgid "Yesterday {time}"
 msgstr "ትናንት {time}"
 
 #: src/features/assistant/conversation.tsx
+#: src/features/career/coach.tsx
 msgid "You"
 msgstr "አንተ"
 
@@ -9501,6 +12351,10 @@ msgstr "በተጠቃሚ ስምዎም መግባት ይችላሉ።"
 msgid "You can keep editing. Changes sync when you're back online. Download and Share need a connection."
 msgstr "ማረምዎን መቀጠል ይችላሉ። ወደ መስመር ላይ ሲመለሱ ማመሳሰልን ይለውጣል። ያውርዱ እና ያጋሩ ግንኙነት ያስፈልጋቸዋል።"
 
+#: src/features/career/workspace/apply.tsx
+msgid "You can keep up to 30 application questions."
+msgstr ""
+
 #: src/features/auth/pages/error.tsx
 msgid "You cancelled the sign-in before it finished."
 msgstr "ከመጠናቀቁ በፊት መግባቱን ሰርዘዋል።"
@@ -9509,21 +12363,53 @@ msgstr "ከመጠናቀቁ በፊት መግባቱን ሰርዘዋል።"
 msgid "You don't have a resume to copy yet. Import or create a resume first, then return to copy it for this job."
 msgstr "እስካሁን ለመቅዳት የትምህርት ማስረጃ የሎትም። መጀመሪያ ማስመጣት ወይም መመዘኛ ፍጠር፣ ከዚያ ለዚህ ስራ ለመቅዳት ይመለሱ።"
 
+#: src/features/career/workspace/debrief.tsx
+msgid "You forgot this before, so it wasn't saved again."
+msgstr ""
+
 #: src/hooks/use-form-blocker.tsx
 msgid "You have unsaved changes that will be lost."
 msgstr "ያልተቀመጡ ለውጦች አሉዎት።"
+
+#: src/features/career/offers.tsx
+msgid "You said: “{said}” Ask before deciding."
+msgstr ""
+
+#: src/features/career/offers.tsx
+msgid "You said: “{said}” Ask both companies before deciding."
+msgstr ""
+
+#: src/features/career/workspace/messages.tsx
+msgid "You send it from your own email."
+msgstr ""
 
 #: src/features/settings/account/security.tsx
 msgid "You sign in without one"
 msgstr "ያለ አንድ ገብተሃል"
 
+#: src/features/career/workspace/apply.tsx
+msgid "You submit on the employer's site yourself. Marking it applied keeps the exact versions you sent."
+msgstr ""
+
+#: src/features/career/schedule-sheet.tsx
+msgid "You'll always see it in Today. Email depends on your server's mail setup."
+msgstr ""
+
 #: src/features/homepage/tailor.tsx
 msgid "You’ll own our <0>design systems</0>, run <1>user research</1> with customers and hold a high bar for <2>accessibility</2>, working in a <3>cross-functional</3> team."
 msgstr "የእኛን <0>የንድፍ ስርዓቶች</0> ይመራሉ፣ ከደንበኞች ጋር <1>የተጠቃሚ ጥናት</1> ያካሂዳሉ፣ ለ<2>ተደራሽነት</2> ከፍተኛ መስፈርቶችን ይጠብቃሉ፤ በ<3>ተለያዩ ሙያዎችን ያቀፈ</3> ቡድን ውስጥ ይሰራሉ።"
 
+#: src/features/career/workspace/shell.tsx
+msgid "You're looking at a saved version. It can't be edited."
+msgstr ""
+
 #: src/features/resume/builder/draft.ts
 msgid "You're offline. Reconnect to save your changes before leaving."
 msgstr "ከመስመር ውጭ ነዎት። ከመውጣትዎ በፊት ለውጦችዎን ለማስቀመጥ እንደገና ይገናኙ።"
+
+#: src/features/career/today.tsx
+msgid "You're up to date"
+msgstr ""
 
 #. Hero headline, line 2 of 4: “Everything / you’ve done, / on one / page.”
 #: src/features/homepage/hero.tsx
@@ -9539,9 +12425,51 @@ msgstr "ኢሜል መደብ ገባህ!"
 msgid "Your account was deleted."
 msgstr "መለያህ ተሰርዟል።"
 
+#: src/features/career/coach.tsx
+#: src/features/career/workspace/coach-sheet.tsx
+msgid "Your AI"
+msgstr ""
+
+#: src/features/career/workspace/debrief.tsx
+#: src/features/career/workspace/practise.tsx
+msgid "your AI connection"
+msgstr ""
+
+#: src/features/career/hooks.ts
+msgid "Your AI connection"
+msgstr ""
+
+#: src/features/career/workspace/practise.tsx
+msgid "Your answer"
+msgstr ""
+
+#: src/features/career/workspace/practise.tsx
+msgid "Your attempts"
+msgstr ""
+
 #: src/features/ats-checker/messages.ts
 msgid "Your body text is very small."
 msgstr "የሰውነትዎ ጽሑፍ በጣም ትንሽ ነው።"
+
+#: src/features/career/workspace/prepare.tsx
+msgid "Your briefing"
+msgstr ""
+
+#: src/features/career/workspace/practise.tsx
+msgid "Your browser"
+msgstr ""
+
+#: src/features/career/workspace/practise.tsx
+msgid "Your browser can't take dictation here. Type your answer instead."
+msgstr ""
+
+#: src/features/career/workspace/practise.tsx
+msgid "Your browser turns your speech into text. Depending on the browser, its maker may process the audio (Google in Chrome, Apple in Safari)."
+msgstr ""
+
+#: src/features/career/workspace/practise.tsx
+msgid "Your browser's dictation stopped. Try again, or type your answer."
+msgstr ""
 
 #: src/features/ats-checker/messages.ts
 msgid "Your bullets are drawn with unusual characters."
@@ -9580,9 +12508,21 @@ msgstr "የኢሜል አድራሻዎ በተለያዩ የጽሁፍ ቁርጥራ�
 msgid "Your email address isn't verified with the provider."
 msgstr "የኢሜይል አድራሻዎ በአቅራቢው አልተረጋገጠም።"
 
+#: src/routes/dashboard/career/knowledge/route.tsx
+msgid "Your enabled facts, stories and preferences can be sent to your AI connection when you use coaching tools or scheduled interview preparation. In chat, the Knowledge switch controls what is added to each message."
+msgstr ""
+
+#: src/features/career/workspace/fit.tsx
+msgid "Your evidence"
+msgstr ""
+
 #: src/features/ats-checker/checker.tsx
 msgid "Your file"
 msgstr "የእርስዎ ፋይል"
+
+#: src/features/career/workspace/prepare.tsx
+msgid "Your focus"
+msgstr ""
 
 #: src/features/ats-checker/messages.ts
 msgid "Your headings look the same as your body text."
@@ -9591,6 +12531,10 @@ msgstr "ርዕሶችዎ ከዋናው ጽሁፍዎ ጋር ተመሳሳይ ይመ�
 #: src/routes/builder/letter/-components/letter-shell.tsx
 msgid "Your headline changed on the resume. The letter updated too."
 msgstr "አርዕስተ ዜናዎ በሪሱሜው ላይ ተቀይሯል። ደብዳቤውም ተዘምኗል።"
+
+#: src/features/career/workspace/debrief.tsx
+msgid "your Knowledge"
+msgstr ""
 
 #: src/features/ats-checker/messages.ts
 msgid "Your lines are packed very tightly."
@@ -9603,6 +12547,10 @@ msgstr "በመመዝገቢያ ደብተር ላይ ያሉበት ቦታ ተቀይ�
 #: src/features/ats-checker/messages.ts
 msgid "Your margins are very narrow."
 msgstr "ማርጂኖችዎ በጣም ጠባብ ናቸው።"
+
+#: src/features/career/coach.tsx
+msgid "your message"
+msgstr ""
 
 #: src/features/resume/editor/write/basics-card.tsx
 msgid "Your name"
@@ -9620,6 +12568,18 @@ msgstr "ስምዎ በሪሱሜው ላይ ተቀይሯል። ደብዳቤውም �
 msgid "Your name is missing"
 msgstr "ስምህ ጠፍቷል"
 
+#: src/features/career/workspace/saved.tsx
+msgid "your notes"
+msgstr ""
+
+#: src/features/career/workspace/prepare.tsx
+msgid "Your opening"
+msgstr ""
+
+#: src/features/career/workspace/prepare.tsx
+msgid "Your opening, the stories to bring and questions to ask. It becomes your checklist 10 minutes before the call."
+msgstr ""
+
 #: src/features/auth/pages/reset-password.tsx
 msgid "Your password has been reset. You can now sign in with your new password."
 msgstr "የይለፍ ቃልዎ ዳግም ተስተካክሏል። አሁን በአዲሱ የይለፍ ቃልዎ መግባት ይችላሉ።"
@@ -9636,9 +12596,22 @@ msgstr "ስልክ ቁጥርዎ በሪሱሜው ላይ ተቀይሯል። ደብ�
 msgid "Your phone number is written in an unusual shape."
 msgstr "ስልክ ቁጥርዎ ባልተለመደ ቅርጽ ተጽፏል።"
 
+#: src/features/career/coach.tsx
+msgid "your preferences"
+msgstr ""
+
 #: src/features/assistant/assistant-panel.tsx
 msgid "your provider"
 msgstr "የእርስዎ አቅራቢ"
+
+#. placeholder {0}: voice.settings.transcribe.label
+#: src/features/career/workspace/practise.tsx
+msgid "Your recording goes to {0} to be transcribed, which may use tokens on that account."
+msgstr ""
+
+#: src/features/career/offers.tsx
+msgid "Your requirements"
+msgstr ""
 
 #: src/routes/builder/letter/-components/share-sheet.tsx
 msgid "your resume"
@@ -9664,9 +12637,21 @@ msgstr "የስራ ልምድ ማስረጃዎ \"I\" እና \"my\" ይጠቀማል�
 msgid "Your resume, live at"
 msgstr "የትምህርት ማስረጃዎ፣ ቀጥታ በ"
 
+#: src/features/career/coach.tsx
+msgid "your stories"
+msgstr ""
+
+#: src/features/career/workspace/practise.tsx
+msgid "Your story couldn't be loaded."
+msgstr ""
+
 #: src/features/homepage/sections.tsx
 msgid "Your turn"
 msgstr "ተራህ"
+
+#: src/features/career/workspace/prepare.tsx
+msgid "Your two-minute introduction"
+msgstr ""
 
 #: src/features/resume/editor/write/picture-settings.tsx
 msgid "Zoom"

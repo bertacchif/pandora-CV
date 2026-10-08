@@ -10,6 +10,7 @@ import { SegmentedControl, SegmentedControlItem } from "@reactive-resume/ui/comp
 import { Spinner } from "@reactive-resume/ui/components/spinner";
 import { cn } from "@reactive-resume/utils/style";
 import { useHasUsableAiProvider } from "../integrations/hooks/use-has-usable-ai-provider";
+import { AiProviderLoadState } from "@/features/settings/integrations/ai-provider-load-state";
 import { getOrpcErrorMessage } from "@/libs/error-message";
 import { orpc } from "@/libs/orpc/client";
 
@@ -31,7 +32,8 @@ export function WebAccessSection() {
 	const [apiKey, setApiKey] = useState("");
 	const [provider, setProvider] = useState<Provider>("firecrawl");
 	const [editing, setEditing] = useState(false);
-	const { hasUsableProvider, isLoading: aiLoading } = useHasUsableAiProvider();
+	const providerState = useHasUsableAiProvider();
+	const { hasUsableProvider } = providerState;
 	const { data: status, error, isLoading, refetch } = useQuery(orpc.webAccess.status.queryOptions());
 	const refresh = () => {
 		setApiKey("");
@@ -66,7 +68,7 @@ export function WebAccessSection() {
 			</header>
 
 			<div className="mx-5 flex items-start gap-3 border-b border-line py-4 max-sm:mx-4">
-				<Icon name="description" size={20} className="mt-0.5 shrink-0 text-ink-2" />
+				<Icon name="file-text" size={20} className="mt-0.5 shrink-0 text-ink-2" />
 				<div className="grid flex-1 gap-1">
 					<div className="flex flex-wrap items-center justify-between gap-2">
 						<h3 className="text-sm font-medium">
@@ -89,7 +91,7 @@ export function WebAccessSection() {
 
 			<div className="grid gap-4 px-5 py-4 max-sm:px-4">
 				<div className="flex items-start gap-3">
-					<Icon name="search" size={20} className="mt-0.5 shrink-0 text-ink-2" />
+					<Icon name="magnifying-glass" size={20} className="mt-0.5 shrink-0 text-ink-2" />
 					<div className="grid flex-1 gap-1.5">
 						<div className="flex flex-wrap items-center justify-between gap-2">
 							<h3 className="text-sm font-medium">
@@ -126,7 +128,7 @@ export function WebAccessSection() {
 						role="alert"
 						className="flex items-start gap-2 rounded-lg bg-danger-soft px-3 py-2.5 text-[13px] leading-5 text-danger-text"
 					>
-						<Icon name="error" size={18} className="mt-0.5 shrink-0" />
+						<Icon name="warning-circle" size={18} className="mt-0.5 shrink-0" />
 						{getOrpcErrorMessage(failure, { fallback: t`Web access settings couldn't be saved or loaded.` })}
 					</p>
 				)}
@@ -224,7 +226,7 @@ export function WebAccessSection() {
 										key={index}
 										className={cn("flex items-start gap-2", result.success ? "text-accent-text" : "text-warn-text")}
 									>
-										<Icon name={result.success ? "check_circle" : "info"} size={16} className="mt-0.5 shrink-0" />
+										<Icon name={result.success ? "check-circle" : "info"} size={16} className="mt-0.5 shrink-0" />
 										<span>
 											<span className="font-medium">{label}.</span>
 											{!result.success && <> {testFailureMessage(result.error)}</>}
@@ -250,7 +252,7 @@ export function WebAccessSection() {
 						)}
 						{status.canSave && !status.configured && !editing && (
 							<Button variant="secondary" className="ms-8 w-fit max-sm:ms-0" onClick={openEditor}>
-								<Icon name="link" size={18} />
+								<Icon name="link-simple-horizontal" size={18} />
 								<Trans>Connect a service</Trans>
 							</Button>
 						)}
@@ -351,13 +353,13 @@ export function WebAccessSection() {
 			</div>
 
 			<footer className="flex items-start gap-2 border-t border-line bg-bg px-5 py-3 text-xs leading-5 text-ink-2 max-sm:px-4">
-				<Icon name="auto_awesome" size={16} className="mt-0.5 shrink-0 text-ink-3" />
-				<p>
+				<Icon name="sparkle" size={16} className="mt-0.5 shrink-0 text-ink-3" />
+				<div>
 					<span className="font-medium">
 						<Trans>Assistant.</Trans>
 					</span>{" "}
-					{aiLoading ? (
-						<Trans>AI is optional. Saving and preparing jobs doesn't need it.</Trans>
+					{providerState.isUnavailable ? (
+						<AiProviderLoadState state={providerState} />
 					) : !hasUsableProvider ? (
 						<Trans>
 							Connect an AI provider above to use the assistant. Saving and preparing jobs doesn't need one.
@@ -369,7 +371,7 @@ export function WebAccessSection() {
 							Uses your AI provider's own web search where supported, and reads links with the built-in reader.
 						</Trans>
 					)}
-				</p>
+				</div>
 			</footer>
 		</section>
 	);

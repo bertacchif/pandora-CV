@@ -81,7 +81,7 @@ export function describeNextStep(
 			const kind = interviewKindOf(step.interview.kind)?.label ?? step.interview.kind;
 			const where = step.interview.location ? ` · ${step.interview.location}` : "";
 			return {
-				icon: "event",
+				icon: "calendar-dot",
 				title: t`${kind} interview`,
 				sub: `${formatWhen(step.at, locale, true)}${where}`,
 				tone: "normal",
@@ -89,14 +89,14 @@ export function describeNextStep(
 		}
 		case "follow-up":
 			return {
-				icon: step.overdue ? "schedule" : "event",
+				icon: step.overdue ? "clock" : "calendar-dot",
 				title: step.note || t`Follow up`,
 				sub: formatWhen(step.at, locale, false),
 				tone: step.overdue ? "warn" : "normal",
 			};
 		case "no-reply":
 			return {
-				icon: "schedule",
+				icon: "clock",
 				title: plural(step.days, { one: "No reply in # day", other: "No reply in # days" }),
 				sub: t`A short follow-up is usually fine now`,
 				tone: "warn",
@@ -104,7 +104,7 @@ export function describeNextStep(
 		case "waiting":
 			return application.status === "applied"
 				? {
-						icon: "hourglass_empty",
+						icon: "hourglass",
 						title:
 							step.days === 0
 								? t`Applied today`
@@ -113,13 +113,13 @@ export function describeNextStep(
 						tone: "normal",
 					}
 				: {
-						icon: "hourglass_empty",
+						icon: "hourglass",
 						title: t`Waiting to hear back`,
 						sub: plural(step.days, { one: "For # day", other: "For # days" }),
 						tone: "normal",
 					};
 		case "not-applied":
-			return { icon: "bookmark", title: t`Not applied yet`, sub: "", tone: "muted" };
+			return { icon: "bookmark-simple", title: t`Not applied yet`, sub: "", tone: "muted" };
 		case "closed":
 			return {
 				icon: "check",

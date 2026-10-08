@@ -1,4 +1,5 @@
 import type { ApplicationDocumentKind } from "../../dto/application";
+import type { DbOrTx } from "@reactive-resume/db/client";
 import type {
 	AiMetadata,
 	ApplicationClosedReason,
@@ -8,12 +9,17 @@ import type {
 	InterviewDetails,
 } from "@reactive-resume/schema/applications/data";
 import { ORPCError } from "@orpc/client";
-import { and, arrayContains, desc, eq, inArray, sql } from "drizzle-orm";
+import { and, arrayContains, desc, eq, inArray, isNull, sql } from "drizzle-orm";
 import { db } from "@reactive-resume/db/client";
 import * as schema from "@reactive-resume/db/schema";
 import { lintResumeForAts } from "@reactive-resume/resume/ats";
+import { copyCoverLetterStyle } from "@reactive-resume/resume/cover-letter";
+import { coverLetterSchema } from "@reactive-resume/schema/cover-letter/data";
 import { generateId } from "@reactive-resume/utils/string";
+import { requestRunCancellation } from "../agent/cancellation";
+import { prepareRunAt } from "../career/scheduling";
 import { coverLetterService } from "../cover-letters/service";
+import { writeLetterVersion } from "../cover-letters/versions";
 import { resumeService } from "../resume/service";
 import { writeVersion } from "../resume/version-history";
 import { getStorageService, uploadFile } from "../storage/service";
@@ -132,6 +138,16 @@ async function requireOwned(id: string, userId: string) {
 	return row;
 }
 
+/** Serialize snapshot writers without blocking foreign-key checks against this owner. */
+async function lockApplicationUser(client: DbOrTx, userId: string) {
+	const [owner] = await client
+		.select({ id: schema.user.id })
+		.from(schema.user)
+		.where(eq(schema.user.id, userId))
+		.for("no key update");
+	if (!owner) throw new ORPCError("NOT_FOUND");
+}
+
 async function assertOwnedResume(userId: string, resumeId: string | null | undefined) {
 	if (!resumeId) return;
 	await resumeService.getById({ id: resumeId, userId });
@@ -152,13 +168,21 @@ type ApplicationRow = typeof schema.application.$inferSelect;
  * the company, with its Check score at the time, and so is its linked letter. The application keeps pointing at
  * them, so it can open exactly what went out while the documents move on.
  */
-async function recordSentResume(row: ApplicationRow): Promise<ApplicationRow> {
+export async function recordSentResume(row: ApplicationRow, client: DbOrTx): Promise<ApplicationRow> {
 	if (!SENT_STAGES.has(row.status)) return row;
 	const changes: Partial<ApplicationRow> = {};
 
 	if (row.resumeId && !row.sentResumeVersionId) {
-		const resume = await resumeService.getById({ id: row.resumeId, userId: row.userId });
-		const version = await writeVersion(db, {
+		const [resume] = await client
+			.select()
+			.from(schema.resume)
+			.where(
+				and(eq(schema.resume.id, row.resumeId), eq(schema.resume.userId, row.userId), isNull(schema.resume.trashedAt)),
+			)
+			.for("update");
+		if (!resume)
+			throw new ORPCError("NOT_FOUND", { message: "The linked resume is unavailable. Restore it before submitting." });
+		const version = await writeVersion(client, {
 			resumeId: row.resumeId,
 			userId: row.userId,
 			data: resume.data,
@@ -171,16 +195,47 @@ async function recordSentResume(row: ApplicationRow): Promise<ApplicationRow> {
 
 	// The letter sent with it is kept the same way.
 	if (row.coverLetterId && !row.sentCoverLetterVersionId) {
-		const version = await coverLetterService.recordSent({
-			id: row.coverLetterId,
-			userId: row.userId,
-			company: row.company,
-		});
+		const [stored] = await client
+			.select()
+			.from(schema.coverLetter)
+			.where(
+				and(
+					eq(schema.coverLetter.id, row.coverLetterId),
+					eq(schema.coverLetter.userId, row.userId),
+					isNull(schema.coverLetter.trashedAt),
+				),
+			)
+			.for("update");
+		if (!stored)
+			throw new ORPCError("NOT_FOUND", { message: "The linked letter is unavailable. Restore it before submitting." });
+		const letter = coverLetterSchema.parse(stored);
+		if (letter.sourceResumeId && (letter.senderLinked || letter.designLinked)) {
+			const [source] = await client
+				.select()
+				.from(schema.resume)
+				.where(
+					and(
+						eq(schema.resume.id, letter.sourceResumeId),
+						eq(schema.resume.userId, row.userId),
+						isNull(schema.resume.trashedAt),
+					),
+				)
+				.for("update");
+			if (source) {
+				const linked = copyCoverLetterStyle(source.data, letter.style.sectionId, letter.style.itemId);
+				letter.style = {
+					...letter.style,
+					...(letter.senderLinked ? { basics: linked.basics, picture: linked.picture } : {}),
+					...(letter.designLinked ? { metadata: linked.metadata } : {}),
+				};
+			}
+		}
+		const version = await writeLetterVersion(client, { letter, userId: row.userId, kind: "sent", name: row.company });
 		changes.sentCoverLetterVersionId = version.id;
 	}
 
 	if (Object.keys(changes).length === 0) return row;
-	const [updated] = await db
+	const [updated] = await client
 		.update(schema.application)
 		.set(changes)
 		.where(eq(schema.application.id, row.id))
@@ -251,6 +306,77 @@ async function deleteApplicationAttachments(
 	if (keys.length === 0) return;
 	const storageService = getStorageService();
 	await Promise.allSettled(keys.map((key) => storageService.delete(key)));
+}
+
+async function deleteApplicationCoaching(userId: string, applicationIds: string[]) {
+	if (!applicationIds.length) return;
+	const threads = await db
+		.select({ id: schema.agentThread.id, runId: schema.agentThread.activeRunId })
+		.from(schema.agentThread)
+		.where(and(eq(schema.agentThread.userId, userId), inArray(schema.agentThread.applicationId, applicationIds)));
+	for (const thread of threads) {
+		if (thread.runId) await requestRunCancellation(thread.runId, "APPLICATION_DELETED");
+		await getStorageService().delete(`uploads/${userId}/agent/${thread.id}`);
+	}
+}
+
+/**
+ * A rescheduled round moves its briefings with it (24h, 2h or the morning before the new time); a removed round pauses
+ * them and says so in Today. Either way, work already queued for the old time is canceled.
+ */
+async function followInterviewSchedules(
+	tx: Parameters<Parameters<typeof db.transaction>[0]>[0],
+	userId: string,
+	applicationId: string,
+	interviewId: string,
+	at: Date | null,
+) {
+	const schedules = await tx
+		.select()
+		.from(schema.careerSchedule)
+		.where(
+			and(
+				eq(schema.careerSchedule.userId, userId),
+				eq(schema.careerSchedule.applicationId, applicationId),
+				eq(schema.careerSchedule.interviewId, interviewId),
+			),
+		)
+		.orderBy(schema.careerSchedule.id)
+		.for("update");
+	if (!schedules.length) return;
+	await tx
+		.update(schema.careerJob)
+		.set({ status: "canceled", lease: null, leaseUntil: null })
+		.where(
+			and(
+				eq(schema.careerJob.userId, userId),
+				inArray(
+					schema.careerJob.scheduleId,
+					schedules.map((row) => row.id),
+				),
+				inArray(schema.careerJob.status, ["queued", "running"]),
+			),
+		);
+	for (const schedule of schedules)
+		await tx
+			.update(schema.careerSchedule)
+			.set(
+				at
+					? {
+							nextRunAt: prepareRunAt(at, (schedule.lead ?? "24h") as "24h" | "2h" | "morning", schedule.timezone),
+							lastQueuedAt: null,
+						}
+					: { enabled: false },
+			)
+			.where(eq(schema.careerSchedule.id, schedule.id));
+	if (at || !schedules.some((schedule) => schedule.enabled)) return;
+	await tx.insert(schema.careerNotification).values({
+		userId,
+		applicationId,
+		key: `interview-removed:${generateId()}`,
+		notice: { type: "briefing-paused" },
+		url: `/dashboard/career?schedule=${encodeURIComponent(schedules[0]?.id ?? "")}`,
+	});
 }
 
 function documentFields(kind: ApplicationDocumentKind) {
@@ -351,24 +477,27 @@ export const applicationService = {
 		await assertOwnedResume(userId, fields.resumeId);
 		await assertOwnedCoverLetter(userId, fields.coverLetterId);
 
-		return withDocumentFiles(userId, { resumeFile, coverLetterFile }, async (uploadedFields) => {
-			const [row] = await db
-				.insert(schema.application)
-				.values({
-					id,
-					userId,
-					status: initialStatus,
-					...(initialStatus === "closed" && closedReason ? { closedReason } : {}),
-					activity,
-					appliedAt: appliedAtFromTimeline(activity, new Date()),
-					...fields,
-					...uploadedFields,
-				})
-				.returning();
+		return withDocumentFiles(userId, { resumeFile, coverLetterFile }, (uploadedFields) =>
+			db.transaction(async (tx) => {
+				await lockApplicationUser(tx, userId);
+				const [row] = await tx
+					.insert(schema.application)
+					.values({
+						id,
+						userId,
+						status: initialStatus,
+						...(initialStatus === "closed" && closedReason ? { closedReason } : {}),
+						activity,
+						appliedAt: appliedAtFromTimeline(activity, new Date()),
+						...fields,
+						...uploadedFields,
+					})
+					.returning();
 
-			if (row) await recordSentResume(row);
-			return id;
-		});
+				if (row) await recordSentResume(row, tx);
+				return id;
+			}),
+		);
 	},
 
 	importMany: async (input: {
@@ -447,24 +576,44 @@ export const applicationService = {
 				: undefined;
 
 		return withDocumentFiles(userId, { resumeFile, coverLetterFile }, async (uploadedFields) => {
-			const [updated] = await db
-				.update(schema.application)
-				.set({
-					...fields,
-					...uploadedFields,
-					...(status !== undefined ? { status } : {}),
-					...(appliedAtExpr ? { appliedAt: appliedAtExpr } : {}),
-					...stageFields(status, closedReason),
-					...(activityExpr ? { activity: activityExpr } : {}),
-				})
-				.where(and(eq(schema.application.id, id), eq(schema.application.userId, userId)))
-				.returning();
+			const result = await db.transaction(async (tx) => {
+				await lockApplicationUser(tx, userId);
+				const [current] = await tx
+					.select()
+					.from(schema.application)
+					.where(and(eq(schema.application.id, id), eq(schema.application.userId, userId)))
+					.for("update");
+				if (!current) throw new ORPCError("NOT_FOUND");
+				if (
+					(current.sentResumeVersionId && fields.resumeId !== undefined && fields.resumeId !== current.resumeId) ||
+					(current.sentCoverLetterVersionId &&
+						fields.coverLetterId !== undefined &&
+						fields.coverLetterId !== current.coverLetterId)
+				)
+					throw new ORPCError("BAD_REQUEST", {
+						message:
+							"Recorded submitted documents cannot be replaced. Prepare a copy to keep the submitted versions intact.",
+					});
+				const [updated] = await tx
+					.update(schema.application)
+					.set({
+						...fields,
+						...uploadedFields,
+						...(status !== undefined ? { status } : {}),
+						...(appliedAtExpr ? { appliedAt: appliedAtExpr } : {}),
+						...stageFields(status, closedReason),
+						...(activityExpr ? { activity: activityExpr } : {}),
+					})
+					.where(and(eq(schema.application.id, id), eq(schema.application.userId, userId)))
+					.returning();
 
-			if (!updated) throw new ORPCError("NOT_FOUND");
+				if (!updated) throw new ORPCError("NOT_FOUND");
+				return stripUserId(await recordSentResume(updated, tx));
+			});
 			if (fields.resumeFileUrl !== undefined || fields.coverLetterUrl !== undefined || resumeFile || coverLetterFile) {
 				await deleteApplicationAttachments(userId, [existing]).catch(() => {});
 			}
-			return stripUserId(await recordSentResume(updated));
+			return result;
 		});
 	},
 
@@ -563,6 +712,9 @@ export const applicationService = {
 				.returning();
 
 			if (!updated) throw new ORPCError("NOT_FOUND");
+			// Only a new time moves briefings; re-saving the same time would cancel a briefing that's running.
+			const moved = at !== undefined && interviewAt(at).getTime() !== new Date(target.at).getTime();
+			if (moved) await followInterviewSchedules(tx, userId, id, entryId, interviewAt(at));
 			return stripUserId(updated);
 		});
 	},
@@ -650,21 +802,26 @@ export const applicationService = {
 				.returning();
 
 			if (!updated) throw new ORPCError("NOT_FOUND");
+			if (entry.type === "interview") await followInterviewSchedules(tx, input.userId, input.id, entry.id, null);
 			return stripUserId(updated);
 		});
 	},
 
 	delete: async (input: { id: string; userId: string }) => {
 		const existing = await requireOwned(input.id, input.userId);
-		const result = await db
-			.delete(schema.application)
-			.where(and(eq(schema.application.id, input.id), eq(schema.application.userId, input.userId)))
-			.returning({ id: schema.application.id });
+		await deleteApplicationCoaching(input.userId, [input.id]);
+		const result = await db.transaction(async (tx) => {
+			await lockApplicationUser(tx, input.userId);
+			return tx
+				.delete(schema.application)
+				.where(and(eq(schema.application.id, input.id), eq(schema.application.userId, input.userId)))
+				.returning({ id: schema.application.id });
+		});
 		if (result.length === 0) throw new ORPCError("NOT_FOUND");
 		await deleteApplicationAttachments(input.userId, [existing]);
 	},
 
-	bulkUpdate: async (input: {
+	bulkUpdate: (input: {
 		userId: string;
 		ids: string[];
 		status?: ApplicationStatus | undefined;
@@ -700,20 +857,23 @@ export const applicationService = {
 					else ${schema.application.appliedAt} end`
 				: undefined;
 
-		const rows = await db
-			.update(schema.application)
-			.set({
-				...(input.status !== undefined ? { status: input.status } : {}),
-				...(appliedAtExpr ? { appliedAt: appliedAtExpr } : {}),
-				...(activityExpr ? { activity: activityExpr } : {}),
-				...stageFields(input.status, input.closedReason),
-				...(tagsExpr ? { tags: tagsExpr } : {}),
-			})
-			.where(scope)
-			.returning();
+		return db.transaction(async (tx) => {
+			await lockApplicationUser(tx, input.userId);
+			const rows = await tx
+				.update(schema.application)
+				.set({
+					...(input.status !== undefined ? { status: input.status } : {}),
+					...(appliedAtExpr ? { appliedAt: appliedAtExpr } : {}),
+					...(activityExpr ? { activity: activityExpr } : {}),
+					...stageFields(input.status, input.closedReason),
+					...(tagsExpr ? { tags: tagsExpr } : {}),
+				})
+				.where(scope)
+				.returning();
 
-		for (const row of rows) await recordSentResume(row);
-		return { updated: rows.length };
+			for (const row of rows) await recordSentResume(row, tx);
+			return { updated: rows.length };
+		});
 	},
 
 	bulkDelete: async (input: { userId: string; ids: string[] }) => {
@@ -721,10 +881,17 @@ export const applicationService = {
 			.select()
 			.from(schema.application)
 			.where(and(inArray(schema.application.id, input.ids), eq(schema.application.userId, input.userId)));
-		const rows = await db
-			.delete(schema.application)
-			.where(and(inArray(schema.application.id, input.ids), eq(schema.application.userId, input.userId)))
-			.returning({ id: schema.application.id });
+		await deleteApplicationCoaching(
+			input.userId,
+			existing.map((item) => item.id),
+		);
+		const rows = await db.transaction(async (tx) => {
+			await lockApplicationUser(tx, input.userId);
+			return tx
+				.delete(schema.application)
+				.where(and(inArray(schema.application.id, input.ids), eq(schema.application.userId, input.userId)))
+				.returning({ id: schema.application.id });
+		});
 		await deleteApplicationAttachments(
 			input.userId,
 			existing.filter((application) => rows.some((row) => row.id === application.id)),

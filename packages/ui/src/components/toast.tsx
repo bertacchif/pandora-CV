@@ -98,17 +98,17 @@ function ToastClose({ className, children, ...props }: ToastPrimitive.Close.Prop
 			)}
 			{...props}
 		>
-			{children ?? <Icon name="close" size={18} />}
+			{children ?? <Icon name="x" size={18} />}
 		</ToastPrimitive.Close>
 	);
 }
 
 function ToastIcon({ type }: { type: string | undefined }) {
 	if (type === "loading") return <Spinner decorative />;
-	if (type === "success") return <Icon name="check_circle" />;
+	if (type === "success") return <Icon name="check-circle" />;
 	if (type === "info") return <Icon name="info" />;
 	if (type === "warning") return <Icon name="warning" />;
-	if (type === "error") return <Icon name="error" />;
+	if (type === "error") return <Icon name="warning-circle" />;
 	return null;
 }
 

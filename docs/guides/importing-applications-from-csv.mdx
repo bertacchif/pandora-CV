@@ -9,8 +9,8 @@ If you've been tracking your job search in a spreadsheet, you can bring it into 
 
 <Steps>
   <Step title="Open Import from CSV">
-    In **Applications**, select the import/export button (the two arrows next to **Add application**), then **Import
-    from CSV…**. If you have no applications yet, select **Import from CSV** on the empty page.
+    In **Applications**, select the import/export button (the two arrows next to **Save job**), then **Import from
+    CSV…**. If you have no applications yet, select **Import from CSV** on the empty page.
   </Step>
   <Step title="Add your rows">
     Select **Upload .csv** to choose a file, or paste rows into **CSV data**. The first row must be the column headings.
@@ -21,7 +21,9 @@ If you've been tracking your job search in a spreadsheet, you can bring it into 
     headings automatically. Change any match with its menu, or choose **Leave out** to skip a column.
   </Step>
   <Step title="Review the summary">
-    The summary says how many applications are ready to import, and how many rows or contacts will be skipped.
+    The summary says how many applications are ready to import, and how many rows or contacts will be skipped. Invalid
+    stage, stage-date or posting-source values are listed by row; correct them or choose Leave out for that column
+    before importing.
   </Step>
   <Step title="Import">Select **Import *n* applications**. They're added to your Applications right away.</Step>
 </Steps>
@@ -40,26 +42,33 @@ If you've been tracking your job search in a spreadsheet, you can bring it into 
   />
 </Frame>
 
+<Frame caption="Invalid stages and dates are named by row. Correct the values or deliberately leave out the columns before importing.">
+  <img
+    src="/images/guides/career/import-validation.png"
+    alt="Import from CSV with Row 2 Stage appllied and Stage date 2026-02-30 marked invalid, and Import disabled"
+  />
+</Frame>
+
 ## Prepare your spreadsheet
 
 Each row becomes one application. Only **Company** and **Role** are required; rows missing either are skipped. Select **Download them** in the summary to get the skipped rows as a CSV file, fix them, and import them again.
 
 These are the fields you can match columns to, with the headings that match automatically (capitals and extra spaces don't matter):
 
-| Field                                                                                       | Headings matched automatically                                         | Notes                                                                                                                                                                             |
-| ------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Company**                                                                                 | Company, Employer, Organization                                        | Required.                                                                                                                                                                         |
-| **Role**                                                                                    | Role, Title, Position, Job Title                                       | Required.                                                                                                                                                                         |
-| **Stage**                                                                                   | Stage, Status                                                          | One of `saved`, `applied`, `screening`, `interview`, `offer` or `closed`. `rejected` is read as `closed`. Other values are ignored, and rows without a stage import as **Saved**. |
-| **Stage date**                                                                              | Applied Date, Stage Date, Stage Entered At                             | The date the application entered its stage, as `YYYY-MM-DD`. Other formats are ignored and today's date is used.                                                                  |
-| **Location**                                                                                | Location                                                               |                                                                                                                                                                                   |
-| **Salary**                                                                                  | Salary, Salary Range, Compensation                                     |                                                                                                                                                                                   |
-| **Source**                                                                                  | Source                                                                 | Shows in the Insights sources chart.                                                                                                                                              |
-| **Link**                                                                                    | URL, Link, Job URL, Job Posting                                        | The job posting's address.                                                                                                                                                        |
-| **Notes**                                                                                   | Notes, Note                                                            |                                                                                                                                                                                   |
-| **Tags**                                                                                    | Tags                                                                   | Separate tags with commas, semicolons or vertical bars, such as `remote;unity`.                                                                                                   |
-| **Contact name**, **Contact role**, **Contact label**, **Contact email**, **Contact phone** | Contact Name, Contact Role, Contact Type, Contact Email, Contact Phone | One contact per row.                                                                                                                                                              |
-| **Archived (closes it)**                                                                    | Archived                                                               | For files exported from older versions: `true` imports the application as closed.                                                                                                 |
+| Field                                                                                       | Headings matched automatically                                         | Notes                                                                                                                                                                                                               |
+| ------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Company**                                                                                 | Company, Employer, Organization                                        | Required.                                                                                                                                                                                                           |
+| **Role**                                                                                    | Role, Title, Position, Job Title                                       | Required.                                                                                                                                                                                                           |
+| **Stage**                                                                                   | Stage, Status                                                          | One of `saved`, `applied`, `screening`, `interview`, `offer` or `closed`. `rejected` is read as `closed`. Other nonempty values block import until corrected or left out. Rows without a stage import as **Saved**. |
+| **Stage date**                                                                              | Applied Date, Stage Date, Stage Entered At                             | The date the application entered its stage, as `YYYY-MM-DD`. Invalid nonempty dates block import. With no stage date, today's date is used.                                                                         |
+| **Location**                                                                                | Location                                                               |                                                                                                                                                                                                                     |
+| **Salary**                                                                                  | Salary, Salary Range, Compensation                                     |                                                                                                                                                                                                                     |
+| **Source**                                                                                  | Source                                                                 | Shows in the Insights sources chart.                                                                                                                                                                                |
+| **Link**                                                                                    | URL, Link, Job URL, Job Posting                                        | The job posting's address.                                                                                                                                                                                          |
+| **Notes**                                                                                   | Notes, Note                                                            |                                                                                                                                                                                                                     |
+| **Tags**                                                                                    | Tags                                                                   | Separate tags with commas, semicolons or vertical bars, such as `remote;unity`.                                                                                                                                     |
+| **Contact name**, **Contact role**, **Contact label**, **Contact email**, **Contact phone** | Contact Name, Contact Role, Contact Type, Contact Email, Contact Phone | One contact per row.                                                                                                                                                                                                |
+| **Archived (closes it)**                                                                    | Archived                                                               | For files exported from older versions: `true` imports the application as closed.                                                                                                                                   |
 
 A contact needs a name, and its email must be a valid address. If not, the summary counts it as skipped and the application imports without it.
 
@@ -118,7 +127,8 @@ You can import an exported file again; most columns match automatically. To down
     table above.
   </Accordion>
   <Accordion title="A stage or date didn't import">
-    Use one of the stage values listed above, and write dates as `YYYY-MM-DD`, for example `2026-09-02`.
+    Use one of the stage values listed above, and write valid dates as `YYYY-MM-DD`, for example `2026-09-02`. The error
+    names the row to correct. You can choose **Leave out** for a column when you intentionally want its default instead.
   </Accordion>
   <Accordion title="Tags didn't split correctly">
     Separate tags with commas, semicolons or vertical bars. If you use commas, put the whole cell in double quotes, such

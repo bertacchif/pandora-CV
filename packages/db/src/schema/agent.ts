@@ -1,6 +1,8 @@
 import type { ResumeData } from "@reactive-resume/schema/resume/data";
+import { sql } from "drizzle-orm";
 import * as pg from "drizzle-orm/pg-core";
 import { generateId } from "@reactive-resume/utils/string";
+import { application } from "./applications";
 import { user } from "./auth";
 import { coverLetter } from "./cover-letter";
 import { resume } from "./resume";
@@ -39,6 +41,8 @@ export const aiProvider = pg.pgTable(
 		lastTestedAt: pg.timestamp("last_tested_at", { withTimezone: true }),
 		lastUsedAt: pg.timestamp("last_used_at", { withTimezone: true }),
 		enabled: pg.boolean("enabled").notNull().default(false),
+		/** The connection every automatic choice uses while it's on and tested; one per user. */
+		isDefault: pg.boolean("is_default").notNull().default(false),
 		createdAt: pg.timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
 		updatedAt: pg
 			.timestamp("updated_at", { withTimezone: true })
@@ -50,6 +54,10 @@ export const aiProvider = pg.pgTable(
 		pg.index().on(t.userId, t.enabled),
 		pg.index().on(t.userId, t.lastUsedAt.desc()),
 		pg.index().on(t.userId, t.createdAt.asc()),
+		pg
+			.uniqueIndex()
+			.on(t.userId)
+			.where(sql`${t.isDefault}`),
 	],
 );
 
@@ -70,6 +78,8 @@ export const agentThread = pg.pgTable(
 		workingResumeId: pg.text("working_resume_id").references(() => resume.id, { onDelete: "set null" }),
 		// A conversation is about one document: the resume above, or this letter.
 		coverLetterId: pg.text("cover_letter_id").references(() => coverLetter.id, { onDelete: "set null" }),
+		scope: pg.text("scope").notNull().default("document"),
+		applicationId: pg.text("application_id").references(() => application.id, { onDelete: "cascade" }),
 		title: pg.text("title").notNull(),
 		// Outcomes for past conversations: "3 of 4 edits accepted".
 		editsProposed: pg.integer("edits_proposed").notNull().default(0),

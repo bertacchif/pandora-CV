@@ -317,7 +317,7 @@ function PipelineFlow({ insights }: { insights: ReturnType<typeof computeInsight
 					<Trans>Where your applications went</Trans>
 				</h3>
 				<Button size="sm" variant="secondary" onClick={() => void exportPng()}>
-					<Icon name="download" size={16} />
+					<Icon name="download-simple" size={16} />
 					<Trans>Export PNG</Trans>
 				</Button>
 			</div>

@@ -34,7 +34,7 @@ export function FileAttachmentField({ value, onChange, attachLabel, disabled }: 
 			{value ? (
 				<div className="flex items-center gap-3 rounded-lg border border-line p-2.5">
 					<span className="flex size-8 items-center justify-center rounded-md bg-accent/10 text-accent-text">
-						<Icon name="picture_as_pdf" size={16} />
+						<Icon name="file-pdf" size={16} />
 					</span>
 					{value instanceof File ? (
 						<span className="min-w-0 flex-1 truncate text-sm">{value.name}</span>
@@ -55,7 +55,7 @@ export function FileAttachmentField({ value, onChange, attachLabel, disabled }: 
 						className="text-ink-3 hover:text-danger-text disabled:opacity-40"
 						onClick={() => onChange(null)}
 					>
-						<Icon name="close" size={16} />
+						<Icon name="x" size={16} />
 					</button>
 				</div>
 			) : (
@@ -65,7 +65,7 @@ export function FileAttachmentField({ value, onChange, attachLabel, disabled }: 
 					onClick={() => inputRef.current?.click()}
 					className="flex w-full items-center gap-2 rounded-lg border border-dashed border-line p-2.5 text-sm text-ink-3 transition-[background-color,opacity] hover:bg-sunken/50 disabled:opacity-60"
 				>
-					<Icon name="upload" size={16} />
+					<Icon name="upload-simple" size={16} />
 					{attachLabel}
 				</button>
 			)}

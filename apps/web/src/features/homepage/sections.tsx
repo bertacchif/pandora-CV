@@ -195,7 +195,7 @@ export function Languages() {
 					aria-label={paused ? t`Play the list of languages` : t`Pause the list of languages`}
 					className="grid size-6 place-items-center rounded-full text-ink-3 transition-colors hover:bg-hover hover:text-ink motion-reduce:hidden"
 				>
-					<Icon name={paused ? "play_arrow" : "pause"} size={16} filled />
+					<Icon name={paused ? "play" : "pause"} size={16} filled />
 				</button>
 			</div>
 			<p className="mt-3 max-w-[30em] font-display text-[clamp(17px,1.4vw,21px)] leading-normal text-pretty text-ink-2">
@@ -238,7 +238,7 @@ export function Support() {
 	] as const;
 	const pills: { href: string; icon: IconName; label: string }[] = [
 		{ href: crowdinUrl, icon: "translate", label: t`Translate the app` },
-		{ href: `${githubUrl}/issues`, icon: "bug_report", label: t`Report a bug` },
+		{ href: `${githubUrl}/issues`, icon: "bug", label: t`Report a bug` },
 		{ href: "https://docs.rxresu.me/contributing/development", icon: "code", label: t`Contribute code` },
 	];
 
@@ -321,7 +321,7 @@ export function Support() {
 									)}
 								>
 									GitHub Sponsors
-									<Icon name="arrow_outward" size={19} />
+									<Icon name="arrow-up-right" size={19} />
 								</a>
 								<a
 									href="https://opencollective.com/reactive-resume/donate"
@@ -331,7 +331,7 @@ export function Support() {
 									)}
 								>
 									Open Collective
-									<Icon name="arrow_outward" size={19} />
+									<Icon name="arrow-up-right" size={19} />
 								</a>
 							</div>
 							<div aria-hidden="true" className="receipt-barcode mx-auto mt-[18px] mb-1.5 h-11 w-[78%]" />

@@ -38,7 +38,13 @@ export const postingSourceSchema = z.object({
 
 export type PostingSource = z.infer<typeof postingSourceSchema>;
 
-export const applicationClosedReasonSchema = z.enum(["not-selected", "withdrew", "accepted-other", "no-response"]);
+export const applicationClosedReasonSchema = z.enum([
+	"accepted",
+	"not-selected",
+	"withdrew",
+	"accepted-other",
+	"no-response",
+]);
 
 export type ApplicationClosedReason = z.infer<typeof applicationClosedReasonSchema>;
 
@@ -84,6 +90,50 @@ export const INTERVIEW_KINDS = [
 	{ value: "other", label: "Other", color: "oklch(0.62 0 0)" },
 ] as const satisfies ReadonlyArray<{ value: InterviewKind; label: string; color: string }>;
 
+export const interviewParticipantSchema = z.object({
+	name: z.string().trim().min(1).max(200),
+	role: z.string().trim().max(200).default(""),
+	profileUrl: z
+		.url({ protocol: /^https$/ })
+		.max(2048)
+		.refine((value) => {
+			try {
+				const url = new URL(value);
+				const host = url.hostname.toLowerCase().replace(/\.$/, "");
+				// Public hostnames only; the web reader also validates DNS and redirects before fetching.
+				return (
+					!url.username &&
+					!url.password &&
+					host.includes(".") &&
+					!/^[\d.]+$/.test(host) &&
+					!host.includes(":") &&
+					!/(?:^|\.)(?:localhost|local|internal|lan)$/.test(host) &&
+					!host.endsWith(".home.arpa")
+				);
+			} catch {
+				return false;
+			}
+		}, "Use a public HTTPS profile URL.")
+		.optional(),
+});
+
+export const interviewAudienceSchema = z.enum(["recruiter", "hiring-manager", "practitioner", "panel", "other"]);
+
+export const interviewTimezoneSchema = z
+	.string()
+	.trim()
+	.min(1)
+	.max(100)
+	.refine((value) => {
+		if (/^[+-]/.test(value)) return false;
+		try {
+			new Intl.DateTimeFormat("en", { timeZone: value });
+			return true;
+		} catch {
+			return false;
+		}
+	}, "Choose a valid IANA timezone.");
+
 // Interview details editable by the user. `at` on the timeline entry is the scheduled start
 // (full timestamp, unlike stage/note entries which are day-granular).
 export const interviewDetailsSchema = z.object({
@@ -96,6 +146,9 @@ export const interviewDetailsSchema = z.object({
 		.default(60),
 	location: z.string().trim().max(500).default(""),
 	notes: z.string().trim().max(5000).default(""),
+	participants: z.array(interviewParticipantSchema).max(20).default([]),
+	audience: interviewAudienceSchema.default("other"),
+	timezone: interviewTimezoneSchema.default("UTC"),
 });
 
 export type InterviewDetails = z.infer<typeof interviewDetailsSchema>;

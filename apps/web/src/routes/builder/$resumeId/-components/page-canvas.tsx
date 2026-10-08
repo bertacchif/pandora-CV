@@ -167,13 +167,13 @@ function ResumePageCaption(props: ResumePageCaptionProps) {
 		return (
 			<figcaption className="mb-2.5 flex flex-wrap items-center justify-center gap-2.5 text-center text-xs font-medium text-ink-3">
 				{viewing ? (
-					<CanvasStatusPill icon="history">
+					<CanvasStatusPill icon="clock-counter-clockwise">
 						<Trans>
 							Viewing {formatVersionTime(viewing.createdAt, i18n.locale)} · {getVersionTitle(viewing)} · read-only
 						</Trans>
 					</CanvasStatusPill>
 				) : previewTemplate ? (
-					<CanvasStatusPill icon="visibility">
+					<CanvasStatusPill icon="eye">
 						<Trans>Previewing {templates[previewTemplate].name} · click to apply</Trans>
 					</CanvasStatusPill>
 				) : (
@@ -225,7 +225,7 @@ function OverflowChip({ authored, lines }: OverflowChipProps) {
 
 	return (
 		<span className="flex min-h-8 items-center gap-2 rounded-lg bg-warn-soft py-1 ps-3 pe-1.5 text-[13px] text-warn-text">
-			<Icon name="vertical_split" size={18} />
+			<Icon name="square-split-horizontal" size={18} />
 			{lines ? (
 				<Plural
 					value={lines}

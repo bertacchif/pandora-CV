@@ -34,6 +34,7 @@ import { discardLetterDraft, startLetterDraft, useLetterEditorStore } from "@/fe
 import { useLetterMode } from "@/features/letters/use-letter-mode";
 import { ACCENTS, FONT_PAIRINGS, matchFontPairing, rgbaToHex } from "@/features/resume/editor/design/presets";
 import { RichTextEditor } from "@/features/resume/editor/write/rich-text-editor";
+import { AiProviderLoadState } from "@/features/settings/integrations/ai-provider-load-state";
 import { useHasUsableAiProvider } from "@/features/settings/integrations/hooks/use-has-usable-ai-provider";
 import { getOrpcErrorMessage } from "@/libs/error-message";
 import { ENTER_CLASS } from "@/libs/motion";
@@ -134,7 +135,7 @@ function ForSection({ letter, application, applications, disabled }: ForSectionP
 			<DropdownMenuContent align="end" className="max-h-80 w-72 overflow-y-auto">
 				{choices.map((item) => (
 					<DropdownMenuItem key={item.id} onClick={() => choose(item)}>
-						<Icon name="work" />
+						<Icon name="briefcase" />
 						<span className="grid min-w-0">
 							<span className="truncate">{item.role}</span>
 							<span className="truncate text-xs text-ink-3">{item.company}</span>
@@ -150,7 +151,7 @@ function ForSection({ letter, application, applications, disabled }: ForSectionP
 					<>
 						<DropdownMenuSeparator />
 						<DropdownMenuItem onClick={() => choose(null)}>
-							<Icon name="link_off" />
+							<Icon name="link-simple-horizontal-break" />
 							<Trans>No application</Trans>
 						</DropdownMenuItem>
 					</>
@@ -192,9 +193,9 @@ function ForSection({ letter, application, applications, disabled }: ForSectionP
 				<>
 					{menu(
 						<Button variant="secondary" className="w-full justify-start gap-2">
-							<Icon name="work" />
+							<Icon name="briefcase" />
 							<Trans>Link an application</Trans>
-							<Icon name="expand_more" className="ms-auto text-ink-3" />
+							<Icon name="caret-down" className="ms-auto text-ink-3" />
 						</Button>,
 					)}
 					<p className="text-xs text-ink-3">
@@ -414,7 +415,8 @@ function BodySection({ letter, application, disabled }: LetterSectionProps) {
 type EmptyBodyProps = { letter: CoverLetter; application: Application | null; disabled: boolean; onWrite: () => void };
 
 function EmptyBody({ letter, application, disabled, onWrite }: EmptyBodyProps) {
-	const { hasUsableProvider } = useHasUsableAiProvider();
+	const providerState = useHasUsableAiProvider();
+	const { hasUsableProvider } = providerState;
 	const hasResume = Boolean(letter.sourceResumeId);
 	const company = application?.company;
 	const canDraft = hasResume || Boolean(application);
@@ -440,7 +442,7 @@ function EmptyBody({ letter, application, disabled, onWrite }: EmptyBodyProps) {
 						className="bg-accent-soft text-accent-text hover:bg-accent-soft hover:brightness-95"
 						onClick={() => void startLetterDraft("draft")}
 					>
-						<Icon name="auto_awesome" size={16} />
+						<Icon name="sparkle" size={16} />
 						{application ? <Trans>Draft from the posting</Trans> : <Trans>Draft from your resume</Trans>}
 					</Button>
 				)}
@@ -448,7 +450,8 @@ function EmptyBody({ letter, application, disabled, onWrite }: EmptyBodyProps) {
 					<Trans>Write it myself</Trans>
 				</Button>
 			</div>
-			{canDraft && !hasUsableProvider && (
+			{canDraft && <AiProviderLoadState state={providerState} />}
+			{canDraft && !providerState.isUnavailable && !hasUsableProvider && (
 				<p className="text-xs text-ink-3">
 					<Trans>Drafting needs an AI provider.</Trans>{" "}
 					<Link to="/dashboard/settings/ai" className={buttonVariants({ variant: "link", size: "sm" })}>
@@ -482,7 +485,7 @@ function DraftBox({ draft, letter, application, onKeep }: DraftBoxProps) {
 		return (
 			<div role="alert" className="grid gap-2.5 rounded-xl bg-danger-soft p-3 text-[13px] text-danger-text">
 				<span className="flex gap-2">
-					<Icon name="error" size={18} className="shrink-0" />
+					<Icon name="warning-circle" size={18} className="shrink-0" />
 					{gateway && draft.provider ? (
 						<Trans>Drafting stopped: {draft.provider} didn't respond. Nothing on the page changed.</Trans>
 					) : (
@@ -538,7 +541,7 @@ function DraftBox({ draft, letter, application, onKeep }: DraftBoxProps) {
 					className={cn(ENTER_CLASS, "flex flex-wrap items-center gap-1 rounded-xl bg-ink p-1 ps-3 text-bg shadow-e3")}
 				>
 					<span className="me-auto flex items-center gap-1.5 py-1 text-[13px] font-medium">
-						<Icon name="auto_awesome" size={16} />
+						<Icon name="sparkle" size={16} />
 						{sources}
 					</span>
 					<button

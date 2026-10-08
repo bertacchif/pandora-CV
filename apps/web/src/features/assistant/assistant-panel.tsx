@@ -22,10 +22,12 @@ import { IconButton } from "@reactive-resume/ui/components/icon-button";
 import { Spinner } from "@reactive-resume/ui/components/spinner";
 import { toast } from "@reactive-resume/ui/components/toast";
 import { cn } from "@reactive-resume/utils/style";
+import { useConversationConnection } from "./chat";
 import { Composer, Conversation } from "./conversation";
 import { ProviderSetup } from "./provider-setup";
 import { useEditorStore } from "@/features/resume/editor/store";
 import { formatVersionTime } from "@/features/resume/share/format";
+import { AiProviderLoadState } from "@/features/settings/integrations/ai-provider-load-state";
 import { useHasUsableAiProvider } from "@/features/settings/integrations/hooks/use-has-usable-ai-provider";
 import { useConfirm } from "@/hooks/use-confirm";
 import { getOrpcErrorMessage } from "@/libs/error-message";
@@ -73,9 +75,9 @@ export function AssistantPanel({ document, onClose }: AssistantPanelProps) {
 	const summary = threads.data?.find((item) => item.id === threadId);
 
 	const usable = providers.usableProviders;
-	const provider =
-		usable.find((item) => item.id === (threadId ? summary?.aiProviderId : providerId)) ??
-		(threadId ? undefined : usable[0]);
+	// A conversation runs on its own connection; one switched off or removed moves to the default.
+	const provider = usable.find((item) => item.id === (threadId ? summary?.aiProviderId : providerId)) ?? usable[0];
+	useConversationConnection(threadId ? summary : undefined, provider);
 	const providerLabel = provider?.label ?? summary?.providerLabel ?? t`your provider`;
 
 	const ensureThread = async (): Promise<string> => {
@@ -140,13 +142,12 @@ export function AssistantPanel({ document, onClose }: AssistantPanelProps) {
 		}
 	};
 
-	const notSetUp =
-		(threads.error instanceof ORPCError && threads.error.code === "PRECONDITION_FAILED") || Boolean(providers.error);
+	const notSetUp = threads.error instanceof ORPCError && threads.error.code === "PRECONDITION_FAILED";
 
 	return (
 		<section aria-label={t`Assistant`} className="flex h-full min-h-0 flex-col bg-surface">
 			<header className="flex h-[52px] shrink-0 items-center gap-1 border-b border-line ps-4 pe-2">
-				<Icon name="auto_awesome" size={20} className="text-accent-text" />
+				<Icon name="sparkle" size={20} className="text-accent-text" />
 				<h2 className="me-auto text-[15px] font-semibold">
 					<Trans>Assistant</Trans>
 				</h2>
@@ -163,7 +164,7 @@ export function AssistantPanel({ document, onClose }: AssistantPanelProps) {
 				)}
 
 				<IconButton
-					icon="edit_square"
+					icon="note-pencil"
 					label={t`New conversation`}
 					className="text-ink-2"
 					onClick={() => {
@@ -177,19 +178,13 @@ export function AssistantPanel({ document, onClose }: AssistantPanelProps) {
 					}}
 				/>
 				<IconButton
-					icon="history"
+					icon="clock-counter-clockwise"
 					label={t`Past conversations`}
 					aria-pressed={view === "history"}
 					className={cn("text-ink-2", view === "history" && "bg-accent-soft text-accent-text")}
 					onClick={() => setView(view === "history" ? "thread" : "history")}
 				/>
-				<IconButton
-					icon="close"
-					label={t`Close the assistant`}
-					shortcut="⌘J"
-					className="text-ink-2"
-					onClick={onClose}
-				/>
+				<IconButton icon="x" label={t`Close the assistant`} shortcut="⌘J" className="text-ink-2" onClick={onClose} />
 			</header>
 
 			{notSetUp ? (
@@ -199,6 +194,16 @@ export function AssistantPanel({ document, onClose }: AssistantPanelProps) {
 						works without it.
 					</Trans>
 				</Notice>
+			) : providers.error ? (
+				<AiProviderLoadState
+					state={{
+						...providers,
+						retry: () => {
+							providers.retry();
+							void threads.refetch();
+						},
+					}}
+				/>
 			) : providers.isLoading || threads.isPending ? (
 				<div className="grid flex-1 place-items-center">
 					<Spinner />
@@ -308,7 +313,7 @@ type ModelMenuProps = {
 	onChoose: (id: string) => void;
 };
 
-function ModelMenu({ open, onOpenChange, providers, current, label, onChoose }: ModelMenuProps) {
+export function ModelMenu({ open, onOpenChange, providers, current, label, onChoose }: ModelMenuProps) {
 	const navigate = useNavigate();
 
 	return (
@@ -323,7 +328,7 @@ function ModelMenu({ open, onOpenChange, providers, current, label, onChoose }: 
 				}
 			>
 				<span className="truncate">{current?.model ?? label}</span>
-				<Icon name="expand_more" size={16} />
+				<Icon name="caret-down" size={16} />
 			</DropdownMenuTrigger>
 			<DropdownMenuContent align="end" className="w-64">
 				{providers.map((item) => (
@@ -354,7 +359,7 @@ function suggestionsFor(document: AssistantDocument, prepare: boolean): Suggesti
 	const tailor: Suggestion[] = document.posting
 		? [
 				{
-					icon: "work",
+					icon: "briefcase",
 					label: t`Tailor to the ${document.posting.company} posting`,
 					hint: t`Uses the linked application`,
 				},
@@ -364,10 +369,10 @@ function suggestionsFor(document: AssistantDocument, prepare: boolean): Suggesti
 	// Prepare for next step: the application's fit, a follow-up and the interview (what the copilot did).
 	if (prepare && document.posting)
 		return [
-			{ icon: "work", label: t`How well do I fit this role?`, hint: t`Compares your resume with the posting` },
-			{ icon: "mail", label: t`Draft a follow-up email`, hint: t`Short and polite, for the recruiter` },
+			{ icon: "briefcase", label: t`How well do I fit this role?`, hint: t`Compares your resume with the posting` },
+			{ icon: "envelope-simple", label: t`Draft a follow-up email`, hint: t`Short and polite, for the recruiter` },
 			{
-				icon: "chat",
+				icon: "chat-text",
 				label: t`Prepare me for the interview`,
 				hint: t`Likely questions, from the posting and your resume`,
 			},
@@ -377,16 +382,20 @@ function suggestionsFor(document: AssistantDocument, prepare: boolean): Suggesti
 	if (document.kind === "letter")
 		return [
 			...tailor,
-			{ icon: "bolt", label: t`Make the opening stronger`, hint: t`Leads with why you fit` },
-			{ icon: "compress", label: t`Make it shorter`, hint: t`Keeps the most specific parts` },
-			{ icon: "short_text", label: t`Make it more specific`, hint: t`Uses facts from your resume` },
+			{ icon: "lightning", label: t`Make the opening stronger`, hint: t`Leads with why you fit` },
+			{ icon: "arrows-in-line-vertical", label: t`Make it shorter`, hint: t`Keeps the most specific parts` },
+			{ icon: "text-align-left", label: t`Make it more specific`, hint: t`Uses facts from your resume` },
 		];
 
 	return [
 		...tailor,
-		{ icon: "content_cut", label: t`Find weak bullets`, hint: t`Checks every bullet for action and result` },
-		{ icon: "vertical_align_center", label: t`Tighten to one page`, hint: t`Suggests cuts, never deletes on its own` },
-		{ icon: "short_text", label: t`Draft a summary`, hint: t`From your experience entries` },
+		{ icon: "scissors", label: t`Find weak bullets`, hint: t`Checks every bullet for action and result` },
+		{
+			icon: "arrows-in-line-vertical",
+			label: t`Tighten to one page`,
+			hint: t`Suggests cuts, never deletes on its own`,
+		},
+		{ icon: "text-align-left", label: t`Draft a summary`, hint: t`From your experience entries` },
 	];
 }
 
@@ -576,7 +585,7 @@ function ConversationRow({ thread, current, detail, index, onOpen, onDelete }: C
 				<span className="truncate text-xs text-ink-3">{detail}</span>
 			</button>
 			<IconButton
-				icon="close"
+				icon="x"
 				label={t`Delete ${thread.title}`}
 				size="icon-sm"
 				className="me-1 text-ink-3 opacity-0 transition-[opacity,background-color,border-color,color,filter,scale] group-hover/row:opacity-100 focus-visible:opacity-100"

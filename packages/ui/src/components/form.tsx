@@ -188,7 +188,7 @@ function FormMessage({ className, errors, ...props }: FormMessageProps) {
 			)}
 			{...props}
 		>
-			{hasError && <Icon name="error" size={16} className="shrink-0" />}
+			{hasError && <Icon name="warning-circle" size={16} className="shrink-0" />}
 			<span>{body}</span>
 		</p>
 	);

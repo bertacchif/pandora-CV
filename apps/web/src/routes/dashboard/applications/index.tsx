@@ -80,7 +80,7 @@ function RouteComponent() {
 	// Views animate in only after a switch, never on the page's first render.
 	const [viewSwitched, setViewSwitched] = useState(false);
 
-	const { data: applications, isPending } = useQuery(applicationsListQueryOptions());
+	const { data: applications, isPending, isError, isFetching, refetch } = useQuery(applicationsListQueryOptions());
 	const setSearch = (patch: Partial<Search>) =>
 		void navigate({ resetScroll: false, search: (prev: Search) => ({ ...prev, ...patch }) });
 
@@ -107,8 +107,8 @@ function RouteComponent() {
 	const selected = applications?.find((application) => application.id === selectedId) ?? null;
 	// The board needs room to drag: phones get the list instead.
 	const shown: View = phone && (view === "board" || view === "calendar") ? "list" : view;
-	const empty = !isPending && (applications?.length ?? 0) === 0;
-	const noMatches = !empty && text && filtered.length === 0;
+	const empty = !!applications && applications.length === 0;
+	const noMatches = !!applications && !empty && text && filtered.length === 0;
 
 	return (
 		<div className="mx-auto grid w-full max-w-[1180px] content-start gap-5 px-8 py-8 max-sm:px-4 max-sm:py-5">
@@ -121,19 +121,19 @@ function RouteComponent() {
 						<DropdownMenuTrigger
 							render={<Button size="icon" variant="secondary" aria-label={t`Import or export CSV`} />}
 						>
-							<Icon name="import_export" />
+							<Icon name="arrows-down-up" />
 						</DropdownMenuTrigger>
 						<DropdownMenuContent align="end">
 							<DropdownMenuItem onClick={() => setImporting(true)}>
 								<Trans>Import from CSV…</Trans>
 							</DropdownMenuItem>
-							<DropdownMenuItem disabled={empty} onClick={() => setExporting(true)}>
+							<DropdownMenuItem disabled={empty || !applications} onClick={() => setExporting(true)}>
 								<Trans>Export to CSV…</Trans>
 							</DropdownMenuItem>
 						</DropdownMenuContent>
 					</DropdownMenu>
 					<Button onClick={() => setAdding(true)}>
-						<Icon name="add" />
+						<Icon name="plus" />
 						<Trans>Save job</Trans>
 					</Button>
 				</div>
@@ -141,7 +141,21 @@ function RouteComponent() {
 
 			{applications && <FollowUpNudge applications={applications} onOpen={setSelectedId} />}
 
-			{empty ? (
+			{isError && (
+				<div
+					role="alert"
+					className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-line p-4"
+				>
+					<p className="text-sm text-danger-text">
+						<Trans>Couldn't load applications. Try again.</Trans>
+					</p>
+					<Button variant="secondary" disabled={isFetching} onClick={() => void refetch()}>
+						<Trans>Retry</Trans>
+					</Button>
+				</div>
+			)}
+
+			{isError && !applications ? null : empty ? (
 				<EmptyState onAdd={() => setAdding(true)} onImport={() => setImporting(true)} />
 			) : (
 				<>
@@ -155,22 +169,22 @@ function RouteComponent() {
 						>
 							<TabsList aria-label={t`View`}>
 								<TabsTrigger value="list">
-									<Icon name="view_agenda" size={18} />
+									<Icon name="rows" size={18} />
 									<Trans>List</Trans>
 								</TabsTrigger>
 								{!phone && (
 									<TabsTrigger value="board">
-										<Icon name="view_kanban" size={18} />
+										<Icon name="kanban" size={18} />
 										<Trans>Board</Trans>
 									</TabsTrigger>
 								)}
 								<TabsTrigger value="insights">
-									<Icon name="insights" size={18} />
+									<Icon name="chart-line-up" size={18} />
 									<Trans>Insights</Trans>
 								</TabsTrigger>
 								{!phone && (
 									<TabsTrigger value="calendar">
-										<Icon name="calendar_month" size={18} />
+										<Icon name="calendar-dots" size={18} />
 										<Trans>Calendar</Trans>
 									</TabsTrigger>
 								)}
@@ -179,7 +193,7 @@ function RouteComponent() {
 
 						<div className="relative max-w-72 min-w-40 flex-1">
 							<Icon
-								name="search"
+								name="magnifying-glass"
 								size={18}
 								className="pointer-events-none absolute start-2.5 top-1/2 -translate-y-1/2 text-ink-3"
 							/>
@@ -200,7 +214,7 @@ function RouteComponent() {
 								onClick={() => setSearch({ closed: !closed })}
 								className={cn(closed && "bg-sunken")}
 							>
-								<Icon name={closed ? "check_box" : "check_box_outline_blank"} size={18} />
+								<Icon name={closed ? "check-square" : "square"} size={18} />
 								<Trans>Show closed</Trans>
 							</Button>
 						)}
@@ -331,7 +345,7 @@ function FollowUpNudge({ applications, onOpen }: { applications: Application[]; 
 				"flex flex-wrap items-center gap-2 rounded-xl bg-warn-soft px-3 py-2 text-sm text-warn-text",
 			)}
 		>
-			<Icon name="schedule" size={20} />
+			<Icon name="clock" size={20} />
 			<span className="min-w-0 flex-1">
 				<Trans>
 					{company}: no reply for {days} days. A short follow-up is usually fine now.
@@ -341,7 +355,7 @@ function FollowUpNudge({ applications, onOpen }: { applications: Application[]; 
 				<Trans>Open</Trans>
 			</Button>
 			<Button size="icon-sm" variant="ghost" aria-label={t`Dismiss`} onClick={dismiss} className="text-warn-text">
-				<Icon name="close" size={18} />
+				<Icon name="x" size={18} />
 			</Button>
 		</div>
 	);
@@ -351,7 +365,7 @@ function EmptyState({ onAdd, onImport }: { onAdd: () => void; onImport: () => vo
 	return (
 		<div className="grid justify-items-center gap-3 py-20 text-center transition-[opacity,translate] duration-emphasized ease-enter starting:translate-y-2 starting:opacity-0">
 			<span className="grid size-12 place-items-center rounded-xl bg-sunken text-ink-2">
-				<Icon name="work" size={26} />
+				<Icon name="briefcase" size={26} />
 			</span>
 			<h2 className="text-lg font-semibold">
 				<Trans>Track your first job</Trans>
@@ -361,7 +375,7 @@ function EmptyState({ onAdd, onImport }: { onAdd: () => void; onImport: () => vo
 			</p>
 			<div className="flex gap-2">
 				<Button onClick={onAdd}>
-					<Icon name="add" />
+					<Icon name="plus" />
 					<Trans>Save job</Trans>
 				</Button>
 				<Button variant="secondary" onClick={onImport}>

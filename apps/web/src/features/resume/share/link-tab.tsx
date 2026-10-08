@@ -97,7 +97,7 @@ export function LinkTab() {
 							rel="noopener"
 							className={buttonVariants({ variant: "ghost", size: "sm", className: "gap-1.5" })}
 						>
-							<Icon name="open_in_new" size={18} />
+							<Icon name="arrow-square-out" size={18} />
 							<Trans>Open public page</Trans>
 						</a>
 						<QrCodeButton url={url} />
@@ -220,7 +220,7 @@ function AddressField({ url, username }: AddressFieldProps) {
 					/>
 					{isPublic && slug && (
 						<Icon
-							name={invalid ? "error" : "check_circle"}
+							name={invalid ? "warning-circle" : "check-circle"}
 							size={18}
 							className={cn("me-2.5", invalid ? "text-danger-text" : "text-accent-text")}
 						/>
@@ -266,7 +266,7 @@ function AddressField({ url, username }: AddressFieldProps) {
 					className="w-fit gap-1.5 pointer-fine:hidden"
 					onClick={() => void navigator.share({ title: resume.name, url }).catch(() => undefined)}
 				>
-					<Icon name="ios_share" size={18} />
+					<Icon name="export" size={18} />
 					<Trans>Share via…</Trans>
 				</Button>
 			)}
@@ -336,7 +336,7 @@ function QrCodeButton({ url }: { url: string }) {
 			<PopoverTrigger
 				render={
 					<Button variant="ghost" size="sm" className="gap-1.5">
-						<Icon name="qr_code_2" size={18} />
+						<Icon name="qr-code" size={18} />
 						<Trans>QR code</Trans>
 					</Button>
 				}

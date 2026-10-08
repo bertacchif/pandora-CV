@@ -222,10 +222,10 @@ type MobileBodyProps = {
 };
 
 const MOBILE_TABS: { view: MobileView; icon: IconName }[] = [
-	{ view: "write", icon: "edit" },
-	{ view: "page", icon: "description" },
+	{ view: "write", icon: "pencil-simple" },
+	{ view: "page", icon: "file-text" },
 	{ view: "design", icon: "palette" },
-	{ view: "check", icon: "fact_check" },
+	{ view: "check", icon: "list-checks" },
 ];
 
 function MobileBody({ mode, onModeChange }: MobileBodyProps) {
@@ -318,7 +318,7 @@ function SelectionBar({ onEdit }: { onEdit: () => void }) {
 					revealSelectionInPanel(selection);
 				}}
 			>
-				<Icon name="edit" size={20} />
+				<Icon name="pencil-simple" size={20} />
 				<Trans>Edit entry</Trans>
 			</button>
 		</div>

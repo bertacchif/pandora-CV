@@ -14,6 +14,7 @@ import { cn } from "@reactive-resume/utils/style";
 import { ImprovePanel, lineAtCaret } from "./improve";
 import { hasUnsupportedTableMarkup, richTextExtensions } from "@/components/input/rich-text-extensions";
 import { openAssistantFrom } from "@/features/assistant/open";
+import { AiProviderLoadState } from "@/features/settings/integrations/ai-provider-load-state";
 import { useHasUsableAiProvider } from "@/features/settings/integrations/hooks/use-has-usable-ai-provider";
 import { usePrompt } from "@/hooks/use-confirm";
 
@@ -33,19 +34,19 @@ function useToolbarActions(): ToolbarAction[] {
 
 	return [
 		{
-			icon: "format_bold",
+			icon: "text-b",
 			label: t`Bold`,
 			isActive: (editor) => editor.isActive("bold"),
 			run: (editor) => editor.chain().focus().toggleBold().run(),
 		},
 		{
-			icon: "format_italic",
+			icon: "text-italic",
 			label: t`Italic`,
 			isActive: (editor) => editor.isActive("italic"),
 			run: (editor) => editor.chain().focus().toggleItalic().run(),
 		},
 		{
-			icon: "link",
+			icon: "link-simple-horizontal",
 			label: t`Link`,
 			isActive: (editor) => editor.isActive("link"),
 			run: async (editor) => {
@@ -61,19 +62,19 @@ function useToolbarActions(): ToolbarAction[] {
 			},
 		},
 		{
-			icon: "format_list_bulleted",
+			icon: "list-bullets",
 			label: t`Bulleted list`,
 			isActive: (editor) => editor.isActive("bulletList"),
 			run: (editor) => editor.chain().focus().toggleBulletList().run(),
 		},
 		{
-			icon: "format_list_numbered",
+			icon: "list-numbers",
 			label: t`Numbered list`,
 			isActive: (editor) => editor.isActive("orderedList"),
 			run: (editor) => editor.chain().focus().toggleOrderedList().run(),
 		},
 		{
-			icon: "format_clear",
+			icon: "text-t-slash",
 			label: t`Clear formatting`,
 			run: (editor) => editor.chain().focus().clearNodes().unsetAllMarks().unsetTextAlign().run(),
 		},
@@ -166,7 +167,7 @@ export function RichTextEditor({
 	const editing = focused || improving !== null;
 
 	const startImprove = () => {
-		if (!editor) return;
+		if (!editor || ai.isUnavailable) return;
 		// Without a provider, the assistant's inline setup connects one.
 		if (!ai.hasUsableProvider) return void openAssistantFrom({ assistant: "new" });
 		setImproving(lineAtCaret(editor));
@@ -198,7 +199,7 @@ export function RichTextEditor({
 			<button
 				type="button"
 				aria-expanded={improving !== null}
-				disabled={!state?.canImprove && improving === null}
+				disabled={ai.isUnavailable || (!state?.canImprove && improving === null)}
 				title={state?.canImprove ? undefined : t`Put the caret in a line to improve it`}
 				onMouseDown={(event) => event.preventDefault()}
 				onClick={() => (improving ? setImproving(null) : startImprove())}
@@ -207,7 +208,7 @@ export function RichTextEditor({
 					mobile ? "h-11" : "h-8",
 				)}
 			>
-				<Icon name="auto_awesome" size={16} />
+				<Icon name="sparkle" size={16} />
 				<Trans>Improve</Trans>
 			</button>
 		</>
@@ -265,6 +266,7 @@ export function RichTextEditor({
 			)}
 
 			<EditorContent editor={editor} />
+			{editing && <AiProviderLoadState state={ai} />}
 
 			{/* Under the text, so focusing the field never moves the line you clicked. */}
 			{editing && !readOnlyTable && !mobile && (

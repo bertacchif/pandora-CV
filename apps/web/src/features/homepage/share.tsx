@@ -44,7 +44,7 @@ const stars = (() => {
 	}));
 })();
 
-const visibilityIcons: IconName[] = ["public", "lock", "visibility_off"];
+const visibilityIcons: IconName[] = ["globe-hemisphere-west", "lock", "eye-slash"];
 
 /**
  * 05 Share, the night scene. The page flies off to the top corner on a green trail, the resume's address types out,
@@ -68,9 +68,9 @@ export function Share() {
 	};
 
 	const formats = [
-		{ icon: "picture_as_pdf", label: "PDF" },
-		{ icon: "description", label: t`Word` },
-		{ icon: "data_object", label: "JSON" },
+		{ icon: "file-pdf", label: "PDF" },
+		{ icon: "file-text", label: t`Word` },
+		{ icon: "brackets-curly", label: "JSON" },
 	] as const;
 
 	return (
@@ -145,7 +145,7 @@ export function Share() {
 					>
 						<span className="sr-only">{t`Your resume, live at`} </span>
 						<Icon
-							name={visibilityIcons[visibility] ?? "public"}
+							name={visibilityIcons[visibility] ?? "globe-hemisphere-west"}
 							className="me-[.2em] text-(--night-accent) opacity-[clamp(0,var(--tu)*20,1)]"
 							style={{ fontSize: ".6em" }}
 						/>
@@ -181,7 +181,7 @@ export function Share() {
 										value={index}
 										className="h-[34px] flex-none rounded-full px-3.5 font-ui text-(--night-ink-2) duration-300 hover:text-(--night-ink) data-checked:bg-(--night-ink) data-checked:text-(--night-on-ink) data-checked:shadow-none"
 									>
-										<Icon name={visibilityIcons[index] ?? "public"} size={17} />
+										<Icon name={visibilityIcons[index] ?? "globe-hemisphere-west"} size={17} />
 										{label}
 									</SegmentedControlItem>
 								</label>
@@ -195,7 +195,7 @@ export function Share() {
 								copied ? "bg-(--night-accent)" : "bg-(--night-ink)",
 							)}
 						>
-							<Icon name={copied ? "check" : "link"} size={18} />
+							<Icon name={copied ? "check" : "link-simple-horizontal"} size={18} />
 							{copied ? t`Copied` : t`Copy link`}
 						</button>
 					</div>

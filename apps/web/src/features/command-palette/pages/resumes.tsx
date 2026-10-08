@@ -40,12 +40,12 @@ export function ResumesCommandGroup() {
 		<>
 			<BaseCommandGroup heading={<Trans>Search for…</Trans>}>
 				<CommandItem keywords={[t`Resumes`]} value="search.resumes" onSelect={() => pushPage("resumes")}>
-					<Icon name="description" size={16} />
+					<Icon name="file-text" size={16} />
 					<Trans>Resumes</Trans>
 				</CommandItem>
 
 				<CommandItem keywords={[t`Applications`]} value="search.applications" onSelect={() => pushPage("applications")}>
-					<Icon name="work" size={16} />
+					<Icon name="briefcase" size={16} />
 					<Trans>Applications</Trans>
 				</CommandItem>
 
@@ -54,7 +54,7 @@ export function ResumesCommandGroup() {
 					value="search.threads"
 					onSelect={() => pushPage("threads")}
 				>
-					<Icon name="chat" size={16} />
+					<Icon name="chat-text" size={16} />
 					<Trans>Assistant conversations</Trans>
 				</CommandItem>
 			</BaseCommandGroup>
@@ -89,7 +89,7 @@ function ResumesPage({ page }: SearchPageProps) {
 	return (
 		<BaseCommandGroup page={page} heading={<Trans>Resumes</Trans>}>
 			<CommandItem value="resumes.create" onSelect={onCreate}>
-				<Icon name="add" size={16} />
+				<Icon name="plus" size={16} />
 				<Trans>Create a new resume</Trans>
 			</CommandItem>
 
@@ -105,7 +105,7 @@ function ResumesPage({ page }: SearchPageProps) {
 						keywords={[resume.name, resume.slug]}
 						onSelect={() => onNavigate(`/builder/${resume.id}`)}
 					>
-						<Icon name="description" size={16} />
+						<Icon name="file-text" size={16} />
 						{resume.name}
 
 						<CommandShortcut className="opacity-0 group-data-[selected=true]/command-item:opacity-100">
@@ -145,7 +145,7 @@ function ApplicationsPage({ page }: SearchPageProps) {
 	return (
 		<BaseCommandGroup page={page} heading={<Trans>Applications</Trans>}>
 			<CommandItem value="applications.create" onSelect={onCreateApplication}>
-				<Icon name="add" size={16} />
+				<Icon name="plus" size={16} />
 				<Trans>New Application</Trans>
 			</CommandItem>
 
@@ -161,7 +161,7 @@ function ApplicationsPage({ page }: SearchPageProps) {
 						keywords={[application.company, application.role]}
 						onSelect={() => onOpenApplication(application)}
 					>
-						<Icon name="work" size={16} />
+						<Icon name="briefcase" size={16} />
 						<span className="min-w-0 truncate">{application.company}</span>
 						<span className="truncate text-xs text-ink-3">{application.role}</span>
 					</CommandItem>
@@ -176,9 +176,9 @@ function ThreadsPage({ page }: SearchPageProps) {
 	const reset = useCommandPaletteStore((state) => state.reset);
 	const search = useCommandPaletteStore((state) => state.search);
 	const { data: threads, isLoading } = useQuery(orpc.agent.threads.list.queryOptions());
-	const filteredThreads = (threads ?? []).filter((thread) =>
-		matchesSearch(search, [thread.title, thread.resumeName, thread.coverLetterName]),
-	);
+	const filteredThreads = (threads ?? [])
+		.filter((thread) => thread.scope === "document")
+		.filter((thread) => matchesSearch(search, [thread.title, thread.resumeName, thread.coverLetterName]));
 
 	// A conversation opens its document with the assistant showing it.
 	const onOpenThread = async (thread: Thread) => {
@@ -214,7 +214,7 @@ function ThreadsPage({ page }: SearchPageProps) {
 							keywords={[thread.title, documentName]}
 							onSelect={() => onOpenThread(thread)}
 						>
-							<Icon name="chat" size={16} />
+							<Icon name="chat-text" size={16} />
 							<span className="min-w-0 truncate">{thread.title}</span>
 							<span className="truncate text-xs text-ink-3">{documentName}</span>
 						</CommandItem>

@@ -117,7 +117,7 @@ function ChipItem({ id, chip, index, isEditing, onEdit, onRemove }: ChipItemProp
 							onEdit(index);
 						}}
 					>
-						<Icon name="edit" size={14} />
+						<Icon name="pencil-simple" size={14} />
 					</button>
 					<button
 						type="button"
@@ -133,7 +133,7 @@ function ChipItem({ id, chip, index, isEditing, onEdit, onRemove }: ChipItemProp
 							onRemove(index);
 						}}
 					>
-						<Icon name="close" size={14} />
+						<Icon name="x" size={14} />
 					</button>
 				</div>
 			</Badge>

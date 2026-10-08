@@ -17,7 +17,7 @@ export function ThemeToggleButton(props: React.ComponentProps<typeof Button>) {
 
 	return (
 		<Button size="icon" variant="ghost" onClick={onToggleTheme} aria-label={ariaLabel} {...props}>
-			<Icon name={resolvedTheme === "dark" ? "dark_mode" : "light_mode"} />
+			<Icon name={resolvedTheme === "dark" ? "moon" : "sun"} />
 		</Button>
 	);
 }

@@ -23,7 +23,7 @@ import { UserDropdownMenu } from "@/features/user/dropdown-menu";
 import { orpc } from "@/libs/orpc/client";
 
 type NavItem = {
-	to: "/dashboard" | "/dashboard/applications" | "/dashboard/trash" | "/dashboard/settings";
+	to: "/dashboard" | "/dashboard/applications" | "/dashboard/career" | "/dashboard/trash" | "/dashboard/settings";
 	icon: IconName;
 	label: string;
 	count?: number;
@@ -32,24 +32,28 @@ type NavItem = {
 function useNavItems() {
 	const { data: counts } = useQuery(orpc.documents.counts.queryOptions());
 	const { data: applications } = useQuery(applicationsListQueryOptions());
+	const { data: notifications } = useQuery(orpc.career.notifications.queryOptions({ input: {} }));
 
 	const items: NavItem[] = [
 		{
 			to: "/dashboard",
-			icon: "description",
+			icon: "file-text",
 			label: t`Documents`,
 			...(counts ? { count: counts.resume + counts.letter } : {}),
 		},
 		{
 			to: "/dashboard/applications",
-			icon: "work",
+			icon: "briefcase",
 			label: t`Applications`,
 			...(applications ? { count: applications.filter((application) => application.status !== "closed").length } : {}),
 		},
 	];
-	const settings: NavItem = { to: "/dashboard/settings", icon: "settings", label: t`Settings` };
+	const unread = notifications?.filter((notification) => !notification.readAt).length ?? 0;
+	// Career counts what's waiting for the user (unread notifications), so nothing shows at zero.
+	items.push({ to: "/dashboard/career", icon: "compass", label: t`Career`, ...(unread ? { count: unread } : {}) });
+	const settings: NavItem = { to: "/dashboard/settings", icon: "gear-six", label: t`Settings` };
 	const trash: NavItem | null = counts?.trash
-		? { to: "/dashboard/trash", icon: "delete", label: t`Trash`, count: counts.trash }
+		? { to: "/dashboard/trash", icon: "trash", label: t`Trash`, count: counts.trash }
 		: null;
 
 	return { items, settings, trash };
@@ -63,13 +67,17 @@ function useIsCurrent() {
 
 /**
  * The app shell for Documents, Trash, Applications and Settings: a 240px sidebar at ≥1024, an icon rail at
- * 640–1023 and a bottom tab bar below 640. N opens New anywhere outside a field.
+ * 640–1023 and a bottom tab bar below 640. An application's workspace is full screen on phones, with its own back
+ * link and action bar, so it has no tab bar. N opens New anywhere outside a field.
  */
 type AppShellProps = { children: ReactNode };
 
 export function AppShell({ children }: AppShellProps) {
 	const breakpoint = useBreakpoint();
 	const openDialog = useDialogStore((state) => state.openDialog);
+	const matchRoute = useMatchRoute();
+	const tabs =
+		breakpoint === "mobile" && !matchRoute({ to: "/dashboard/applications/$applicationId/{-$tab}", fuzzy: true });
 
 	useHotkey("N", () => {
 		if (isEditableElementFocused() || useDialogStore.getState().open) return;
@@ -81,7 +89,9 @@ export function AppShell({ children }: AppShellProps) {
 			className={cn(
 				"grid min-h-svh bg-bg",
 				breakpoint === "mobile"
-					? "grid-rows-[minmax(0,1fr)_auto]"
+					? tabs
+						? "grid-rows-[minmax(0,1fr)_auto]"
+						: ""
 					: breakpoint === "tablet"
 						? "grid-cols-[64px_minmax(0,1fr)]"
 						: "grid-cols-[240px_minmax(0,1fr)]",
@@ -97,7 +107,7 @@ export function AppShell({ children }: AppShellProps) {
 			<main id="main-content" className="min-w-0">
 				{children}
 			</main>
-			{breakpoint === "mobile" && <MobileTabs />}
+			{tabs && <MobileTabs />}
 		</div>
 	);
 }
@@ -109,7 +119,10 @@ function Sidebar() {
 	const openDialog = useDialogStore((state) => state.openDialog);
 
 	return (
-		<aside className="sticky top-0 flex h-svh flex-col gap-3 border-e border-line bg-surface p-3 [view-transition-name:app-nav]">
+		<aside
+			aria-label={t`App navigation`}
+			className="sticky top-0 flex h-svh flex-col gap-3 border-e border-line bg-surface p-3 [view-transition-name:app-nav]"
+		>
 			<Link to="/" className="flex h-9 items-center gap-2.5 px-1.5">
 				<BrandIcon variant="icon" alt="" className="size-6 shrink-0" />
 				<span className="text-sm font-semibold">Reactive Resume</span>
@@ -122,7 +135,7 @@ function Sidebar() {
 				onClick={() => openPalette(true)}
 				className="flex h-[34px] items-center gap-2 rounded-lg border border-line bg-bg px-2.5 text-sm text-ink-3 transition-colors duration-quick hover:text-ink-2"
 			>
-				<Icon name="search" size={18} />
+				<Icon name="magnifying-glass" size={18} />
 				<span className="flex-1 text-start">
 					<Trans>Search or run…</Trans>
 				</span>
@@ -147,7 +160,7 @@ function Sidebar() {
 					onClick={() => openDialog("document.new", undefined)}
 				>
 					<span className="flex items-center gap-1.5">
-						<Icon name="add" />
+						<Icon name="plus" />
 						<Trans>New</Trans>
 					</span>
 					<Kbd className="bg-on-accent/15 text-on-accent">N</Kbd>
@@ -201,11 +214,14 @@ function Rail() {
 	const openDialog = useDialogStore((state) => state.openDialog);
 
 	return (
-		<aside className="sticky top-0 flex h-svh flex-col items-center gap-2 border-e border-line bg-surface py-3 [view-transition-name:app-nav]">
+		<aside
+			aria-label={t`App navigation`}
+			className="sticky top-0 flex h-svh flex-col items-center gap-2 border-e border-line bg-surface py-3 [view-transition-name:app-nav]"
+		>
 			<Link to="/" aria-label="Reactive Resume" className="mb-1 grid size-8 place-items-center rounded-md">
 				<BrandIcon variant="icon" alt="" className="size-6" />
 			</Link>
-			<RailTip label={t`Search`} icon="search">
+			<RailTip label={t`Search`} icon="magnifying-glass">
 				<button
 					type="button"
 					aria-label={t`Search or run…`}
@@ -238,7 +254,7 @@ function Rail() {
 						/>
 					</RailTip>
 				)}
-				<RailTip label={t`New`} icon="add">
+				<RailTip label={t`New`} icon="plus">
 					<Button size="icon" aria-label={t`New`} onClick={() => openDialog("document.new", undefined)} />
 				</RailTip>
 				<UserDropdownMenu>
@@ -278,7 +294,7 @@ function RailTip({
 	);
 }
 
-/** Phones: Documents · Applications · New · Settings, with New as an accent pill in the middle. */
+/** Phones: Documents · Applications · New · Career · Settings, with New as an accent pill in the middle. */
 function MobileTabs() {
 	const isCurrent = useIsCurrent();
 	const openDialog = useDialogStore((state) => state.openDialog);
@@ -294,7 +310,7 @@ function MobileTabs() {
 	return (
 		<nav
 			aria-label={t`App`}
-			className="sticky bottom-0 z-30 grid grid-cols-4 border-t border-line bg-surface pb-[env(safe-area-inset-bottom)] [view-transition-name:app-nav]"
+			className="sticky bottom-0 z-30 grid grid-cols-5 border-t border-line bg-surface pb-[env(safe-area-inset-bottom)] [view-transition-name:app-nav]"
 		>
 			<Link
 				to="/dashboard"
@@ -302,7 +318,7 @@ function MobileTabs() {
 				viewTransition={false}
 				className="relative flex min-h-[52px] flex-col items-center justify-center gap-0.5 transition-[scale] duration-quick ease-enter active:scale-[0.97]"
 			>
-				{tab("description", t`Documents`, isCurrent("/dashboard"))}
+				{tab("file-text", t`Documents`, isCurrent("/dashboard"))}
 			</Link>
 			<Link
 				to="/dashboard/applications"
@@ -310,7 +326,7 @@ function MobileTabs() {
 				viewTransition={false}
 				className="relative flex min-h-[52px] flex-col items-center justify-center gap-0.5 transition-[scale] duration-quick ease-enter active:scale-[0.97]"
 			>
-				{tab("work", t`Applications`, isCurrent("/dashboard/applications"))}
+				{tab("briefcase", t`Applications`, isCurrent("/dashboard/applications"))}
 			</Link>
 			<button
 				type="button"
@@ -318,19 +334,27 @@ function MobileTabs() {
 				className="flex min-h-[52px] flex-col items-center justify-center gap-0.5 transition-[scale] duration-quick ease-enter active:scale-[0.97]"
 			>
 				<span className="grid h-[26px] w-[34px] place-items-center rounded-full bg-accent text-on-accent">
-					<Icon name="add" size={20} />
+					<Icon name="plus" size={20} />
 				</span>
 				<span className="text-[11px] text-ink-2">
 					<Trans>New</Trans>
 				</span>
 			</button>
 			<Link
+				to="/dashboard/career"
+				aria-current={isCurrent("/dashboard/career") ? "page" : undefined}
+				viewTransition={false}
+				className="relative flex min-h-[52px] flex-col items-center justify-center gap-0.5 transition-[scale] duration-quick ease-enter active:scale-[0.97]"
+			>
+				{tab("compass", t`Career`, isCurrent("/dashboard/career"))}
+			</Link>
+			<Link
 				to="/dashboard/settings"
 				aria-current={isCurrent("/dashboard/settings") ? "page" : undefined}
 				viewTransition={false}
 				className="relative flex min-h-[52px] flex-col items-center justify-center gap-0.5 transition-[scale] duration-quick ease-enter active:scale-[0.97]"
 			>
-				{tab("settings", t`Settings`, isCurrent("/dashboard/settings"))}
+				{tab("gear-six", t`Settings`, isCurrent("/dashboard/settings"))}
 			</Link>
 		</nav>
 	);

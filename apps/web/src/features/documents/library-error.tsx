@@ -11,7 +11,7 @@ type LibraryErrorProps = {
 export function LibraryError({ retrying, onRetry }: LibraryErrorProps) {
 	return (
 		<Alert variant="error">
-			<Icon name="error" />
+			<Icon name="warning-circle" />
 			<AlertTitle>
 				<Trans>Couldn't load documents</Trans>
 			</AlertTitle>

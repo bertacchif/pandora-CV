@@ -114,7 +114,7 @@ export function TypeGroup({ onCustomFonts }: TypeGroupProps) {
 						<span className="truncate text-xs text-ink-3">
 							{pairing ? <Trans>Any font, in Advanced</Trans> : familiesLabel(heading.fontFamily, body.fontFamily)}
 						</span>
-						<Icon name="arrow_downward" size={18} className="ms-auto text-ink-3" />
+						<Icon name="arrow-down" size={18} className="ms-auto text-ink-3" />
 					</button>
 				)}
 			</div>
@@ -233,7 +233,7 @@ export function ColorGroup() {
 			{tooLight && (
 				<div className="grid gap-2 rounded-lg bg-warn-soft p-3 text-[13px] leading-[19px] text-warn-text" role="status">
 					<span className="flex gap-2">
-						<Icon name="contrast" size={20} />
+						<Icon name="circle-half" size={20} />
 						<Trans>Too light for headings on white. It may be hard to read and print faintly.</Trans>
 					</span>
 					<Button

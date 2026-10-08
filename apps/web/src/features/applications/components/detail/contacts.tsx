@@ -95,7 +95,7 @@ function ContactList({ contacts, disabled, onChange }: ContactsProps) {
 						aria-label={t`Remove ${contact.name}`}
 						onClick={() => onChange(contacts.filter((_, i) => i !== index))}
 					>
-						<Icon name="close" size={16} />
+						<Icon name="x" size={16} />
 					</Button>
 				</div>
 			))}
@@ -141,7 +141,7 @@ function ContactList({ contacts, disabled, onChange }: ContactsProps) {
 				</form>
 			) : (
 				<Button size="sm" variant="ghost" className="w-fit" disabled={disabled} onClick={() => setAdding(true)}>
-					<Icon name="add" size={16} />
+					<Icon name="plus" size={16} />
 					<Trans>Add contact</Trans>
 				</Button>
 			)}

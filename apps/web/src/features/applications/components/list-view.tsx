@@ -62,8 +62,14 @@ export function ApplicationList({ applications, showClosed, selectedId, onOpen }
 
 	// Selections only cover what's on screen.
 	const checkedIds = applications
-		.filter((application) => checked.has(application.id))
+		.filter(
+			(application) =>
+				checked.has(application.id) &&
+				(application.status !== "closed" || showClosed) &&
+				!collapsed.has(application.status),
+		)
 		.map((application) => application.id);
+	if (checkedIds.length !== checked.size) setChecked(new Set(checkedIds));
 
 	const groups = useMemo(() => {
 		const sign = sort.direction === "asc" ? 1 : -1;
@@ -112,7 +118,7 @@ export function ApplicationList({ applications, showClosed, selectedId, onOpen }
 				className="inline-flex h-9 items-center gap-1 rounded-md transition-colors hover:text-ink"
 			>
 				{label}
-				{sort.key === key && <Icon name={sort.direction === "asc" ? "arrow_upward" : "arrow_downward"} size={14} />}
+				{sort.key === key && <Icon name={sort.direction === "asc" ? "arrow-up" : "arrow-down"} size={14} />}
 			</button>
 		</th>
 	);
@@ -156,7 +162,7 @@ export function ApplicationList({ applications, showClosed, selectedId, onOpen }
 										className="flex h-9 items-center gap-2 rounded-md px-1.5 text-sm font-semibold transition-colors hover:bg-hover"
 									>
 										<Icon
-											name="chevron_right"
+											name="caret-right"
 											size={18}
 											className={cn("text-ink-3 transition-transform duration-standard", open && "rotate-90")}
 										/>
@@ -248,7 +254,7 @@ function ApplicationRow({ application, phone, selected, checked, onCheck, onOpen
 					<div className="flex items-center gap-3">
 						{initial}
 						{openButton}
-						<Icon name="chevron_right" size={20} className="ms-auto shrink-0 text-ink-3" />
+						<Icon name="caret-right" size={20} className="ms-auto shrink-0 text-ink-3" />
 					</div>
 				</td>
 			</tr>
@@ -294,8 +300,8 @@ function ApplicationRow({ application, phone, selected, checked, onCheck, onOpen
 			<td className="px-2">
 				{application.resumeId || application.coverLetterId ? (
 					<span className="flex items-center gap-1 text-ink-2">
-						{application.resumeId && <Icon name="description" size={18} aria-label={t`Resume`} />}
-						{application.coverLetterId && <Icon name="mail" size={18} aria-label={t`Cover letter`} />}
+						{application.resumeId && <Icon name="file-text" size={18} aria-label={t`Resume`} />}
+						{application.coverLetterId && <Icon name="envelope-simple" size={18} aria-label={t`Cover letter`} />}
 					</span>
 				) : (
 					<span className={cn("text-xs", sent ? "text-warn-text" : "text-ink-3")}>
@@ -345,7 +351,7 @@ function BulkBar({ ids, onDone }: BulkBarProps) {
 
 			<DropdownMenu>
 				<DropdownMenuTrigger render={<Button size="sm" variant="secondary" />}>
-					<Icon name="arrow_forward" size={16} />
+					<Icon name="arrow-right" size={16} />
 					<Trans>Move to…</Trans>
 				</DropdownMenuTrigger>
 				<DropdownMenuContent align="start">
@@ -360,7 +366,7 @@ function BulkBar({ ids, onDone }: BulkBarProps) {
 
 			<Popover>
 				<PopoverTrigger render={<Button size="sm" variant="secondary" />}>
-					<Icon name="sell" size={16} />
+					<Icon name="tag" size={16} />
 					<Trans>Add tag</Trans>
 				</PopoverTrigger>
 				<PopoverContent align="start" className="w-60 p-2">

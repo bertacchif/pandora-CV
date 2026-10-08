@@ -81,6 +81,7 @@ function seedProvider(overrides: Record<string, unknown> = {}) {
 			model: "gpt-4.1",
 			baseUrl: "https://api.openai.test/v1",
 			enabled: false,
+			isDefault: false,
 			testStatus: "untested",
 			testError: null,
 			lastTestedAt: null,

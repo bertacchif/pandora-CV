@@ -192,7 +192,7 @@ export function ResumeThumbnail({ resume }: ResumeThumbnailProps) {
 				/>
 			) : hasFailed ? (
 				<div className="absolute inset-0 flex items-center justify-center text-ink-3">
-					<Icon name="description" size={24} />
+					<Icon name="file-text" size={24} />
 				</div>
 			) : (
 				// Loading: a sunken placeholder at the page's real size, so nothing jumps.

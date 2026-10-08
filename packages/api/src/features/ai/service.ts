@@ -28,7 +28,7 @@ import {
 import { buildAiExtractionTemplate } from "@reactive-resume/ai/resume/extraction-template";
 import { sanitizeAndParseResumeJson } from "@reactive-resume/ai/resume/sanitize";
 import { AI_PROVIDER_DEFAULT_BASE_URLS, AI_PROVIDER_DISPLAY_NAMES, aiProviderSchema } from "@reactive-resume/ai/types";
-import { supportsProviderNativeWebSearch } from "./capabilities";
+import { isDirectOpenAIProvider } from "./capabilities";
 import { resolveAiBaseUrl } from "./url-policy";
 
 const aiExtractionTemplate = buildAiExtractionTemplate();
@@ -122,8 +122,9 @@ export function getModel(input: GetModelInput) {
 }
 
 export function getAgentModel(input: GetModelInput) {
-	if (input.provider !== "openai" || !supportsProviderNativeWebSearch(input)) return getModel(input);
+	if (!isDirectOpenAIProvider(input)) return getModel(input);
 
+	// Direct OpenAI assistants use Responses for reasoning with function tools.
 	return createOpenAI({ apiKey: input.apiKey, baseURL: resolveAiBaseUrl(input) }).responses(input.model);
 }
 

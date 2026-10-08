@@ -19,14 +19,7 @@ type CopyLinkButtonProps = {
 };
 
 /** Copies `url` and shows "Copied" for two seconds. */
-export function CopyLinkButton({
-	url,
-	label,
-	icon = "content_copy",
-	disabled,
-	className,
-	onCopied,
-}: CopyLinkButtonProps) {
+export function CopyLinkButton({ url, label, icon = "copy", disabled, className, onCopied }: CopyLinkButtonProps) {
 	const [copied, setCopied] = useState(false);
 	const [, copyToClipboard] = useCopyToClipboard();
 	const timer = useRef<number>(undefined);

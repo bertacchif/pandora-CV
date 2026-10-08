@@ -72,7 +72,7 @@ export function URLInput<TValue extends Website>({ value, onChange, hideLabelBut
 										message: "Add a label to the URL",
 									})}
 								>
-									<Icon name="sell" size={16} />
+									<Icon name="tag" size={16} />
 								</InputGroupButton>
 							}
 						/>

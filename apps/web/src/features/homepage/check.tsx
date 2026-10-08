@@ -164,7 +164,7 @@ export function Check() {
 									<Icon
 										filled
 										size={18}
-										name={item.done ? "check_circle" : item.warning ? "error" : "radio_button_unchecked"}
+										name={item.done ? "check-circle" : item.warning ? "warning-circle" : "circle"}
 										className={cn(
 											"transition-colors duration-300",
 											item.done ? "text-accent" : item.warning ? "text-[oklch(0.72_0.14_80)]" : "text-line-2",
@@ -186,7 +186,7 @@ export function Check() {
 								className="flex items-center gap-1.5 self-start font-ui text-[15px] font-semibold text-accent-text transition-colors hover:text-accent-hover"
 							>
 								{t`Check any PDF, no account needed`}
-								<Icon name="arrow_forward" size={19} />
+								<Icon name="arrow-right" size={19} />
 							</Link>
 						}
 					>

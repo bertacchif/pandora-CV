@@ -45,7 +45,7 @@ const applicationSchema = createSelectSchema(schema.application, {
 	status: applicationStatusSchema.describe("The current pipeline stage. `closed` ends it, with a reason."),
 	closedReason: applicationClosedReasonSchema
 		.nullable()
-		.describe("Why a closed application ended: not-selected, withdrew, accepted-other or no-response."),
+		.describe("Why a closed application ended: accepted, not-selected, withdrew, accepted-other or no-response."),
 	resumeId: z.string().nullable().describe("The linked Reactive Resume, if any."),
 	coverLetterId: z.string().nullable().describe("The linked saved cover letter, if any."),
 	sentResumeVersionId: z
@@ -219,6 +219,9 @@ export const applicationDto = {
 			durationMinutes: interviewDetailsSchema.shape.durationMinutes.unwrap().optional(),
 			location: interviewDetailsSchema.shape.location.unwrap().optional(),
 			notes: interviewDetailsSchema.shape.notes.unwrap().optional(),
+			participants: interviewDetailsSchema.shape.participants.unwrap().optional(),
+			audience: interviewDetailsSchema.shape.audience.unwrap().optional(),
+			timezone: interviewDetailsSchema.shape.timezone.unwrap().optional(),
 		}),
 		output: applicationSchema.omit({ userId: true }),
 	},

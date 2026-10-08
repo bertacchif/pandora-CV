@@ -207,7 +207,7 @@ function Idle({ error, posting, onPosting, onFile }: IdleProps) {
 					if (file) onFile(file);
 				}}
 			>
-				<Icon name="upload_file" size={36} className="text-accent-text" />
+				<Icon name="file-arrow-up" size={36} className="text-accent-text" />
 				<button
 					type="button"
 					className="text-base font-semibold underline-offset-2 hover:underline"
@@ -435,11 +435,11 @@ function Result({ result, file, onFix, onReset }: ResultProps) {
 										<Icon
 											name={
 												row.key === "content"
-													? "edit"
+													? "pencil-simple"
 													: row.tone === "accent"
-														? "work"
+														? "briefcase"
 														: row.tone === "danger"
-															? "error"
+															? "warning-circle"
 															: "warning"
 											}
 											size={20}
@@ -452,7 +452,7 @@ function Result({ result, file, onFix, onReset }: ResultProps) {
 										{row.title}
 										<span className="text-xs text-ink-3">{row.count}</span>
 										<Icon
-											name="expand_more"
+											name="caret-down"
 											size={20}
 											className={cn(
 												"ms-auto text-ink-3 transition-transform duration-standard ease-enter",

@@ -91,7 +91,7 @@ export function DocumentMenuTrigger({ name, isLocked, ...props }: DocumentMenuTr
 			<span className="flex max-w-full min-w-0 items-center gap-1.5">
 				<span className="truncate text-sm leading-[18px] font-semibold text-ink">{name}</span>
 				{isLocked && <Icon name="lock" size={16} className="text-ink-3" />}
-				<Icon name="expand_more" size={16} className="text-ink-3" />
+				<Icon name="caret-down" size={16} className="text-ink-3" />
 			</span>
 		</button>
 	);
@@ -112,7 +112,7 @@ export function BackLink() {
 					/>
 				}
 			>
-				<Icon name="arrow_back" />
+				<Icon name="arrow-left" />
 			</TooltipTrigger>
 			<TooltipContent side="bottom">{label}</TooltipContent>
 		</Tooltip>
@@ -130,7 +130,7 @@ export function DrawerControls({ pinnable }: { pinnable: boolean }) {
 		<>
 			{!pinned && (
 				<IconButton
-					icon={open ? "left_panel_close" : "left_panel_open"}
+					icon={open ? "sidebar-simple" : "sidebar-simple"}
 					label={open ? t`Hide panel` : t`Show panel`}
 					aria-expanded={open}
 					className="text-ink-2"
@@ -139,7 +139,7 @@ export function DrawerControls({ pinnable }: { pinnable: boolean }) {
 			)}
 			{pinnable && (open || pinned) && (
 				<IconButton
-					icon="vertical_split"
+					icon="square-split-horizontal"
 					label={t`Keep the panel beside the page`}
 					aria-pressed={pinned}
 					className={cn("text-ink-2", pinned && "bg-accent-soft text-accent-text")}
@@ -179,7 +179,7 @@ export function ZoomBar({ fitScale, pageCount }: ZoomBarProps) {
 				className={buttonClassName}
 				onClick={() => setZoom(current - ZOOM_STEP)}
 			>
-				<Icon name="remove" />
+				<Icon name="minus" />
 			</button>
 			<button
 				type="button"
@@ -196,7 +196,7 @@ export function ZoomBar({ fitScale, pageCount }: ZoomBarProps) {
 				className={buttonClassName}
 				onClick={() => setZoom(current + ZOOM_STEP)}
 			>
-				<Icon name="add" />
+				<Icon name="plus" />
 			</button>
 			<span className="px-2 font-mono text-xs whitespace-nowrap text-ink-3">
 				<Plural value={pageCount} one="# page" other="# pages" />

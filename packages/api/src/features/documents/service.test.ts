@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-const dbMock = vi.hoisted(() => ({ select: vi.fn(), update: vi.fn() }));
+const dbMock = vi.hoisted(() => ({ select: vi.fn(), update: vi.fn(), transaction: vi.fn() }));
 const resumeServiceMock = vi.hoisted(() => ({
 	getById: vi.fn(),
 	create: vi.fn(),
@@ -20,7 +20,7 @@ const rows = (result: unknown[]) => ({ from: () => ({ where: () => Promise.resol
 
 const updates = () => {
 	const set = vi.fn((_changes: Record<string, unknown>) => ({
-		where: () => Promise.resolve(),
+		where: () => ({ returning: async () => [{ id: "copy" }] }),
 	}));
 	dbMock.update.mockReturnValue({ set });
 	return set;
@@ -33,6 +33,12 @@ beforeEach(() => {
 		...Object.values(applicationServiceMock),
 	])
 		mock.mockReset();
+	dbMock.transaction.mockImplementation(async (callback: (tx: unknown) => Promise<unknown>) =>
+		callback({
+			select: () => ({ from: () => ({ where: () => ({ for: async () => [{ id: "u1" }] }) }) }),
+			update: dbMock.update,
+		}),
+	);
 });
 
 describe("Trash", () => {

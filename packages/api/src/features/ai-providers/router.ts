@@ -119,6 +119,26 @@ export const aiProvidersRouter = {
 		})
 		.handler(({ context, input }) => aiProvidersService.delete({ id: input.id, userId: context.user.id })),
 
+	setDefault: protectedProcedure
+		.route({
+			method: "POST",
+			path: "/ai-providers/{id}/default",
+			tags: ["AI Providers"],
+			operationId: "setDefaultAiProvider",
+			summary: "Make an AI provider the default",
+			description:
+				"Makes a tested, enabled provider the one used whenever no provider is chosen. The previous default stops being one.",
+		})
+		.input(z.object({ id: z.string() }))
+		.output(aiProviderResponseSchema)
+		.errors({
+			BAD_REQUEST: { message: "Test and switch on this connection before making it the default.", status: 400 },
+			FORBIDDEN: { message: "AI is managed by the server.", status: 403 },
+			NOT_FOUND: { message: "AI provider was not found.", status: 404 },
+			PRECONDITION_FAILED: { message: "AI agent workspace is not configured.", status: 412 },
+		})
+		.handler(({ context, input }) => aiProvidersService.setDefault({ id: input.id, userId: context.user.id })),
+
 	test: protectedProcedure
 		.route({
 			method: "POST",

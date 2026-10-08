@@ -5,19 +5,19 @@ packages:
 catalogMode: prefer
 catalog:
   "@better-auth/api-key": "1.7.7"
-  "@better-auth/infra": ^0.4.14
+  "@better-auth/infra": ^0.4.15
   "@better-auth/oauth-provider": "1.7.7"
   "@better-auth/passkey": "1.7.7"
-  "@cloudflare/workers-types": ^5.20261004.1
-  "@orpc/client": "^1.15.4"
-  "@orpc/server": "^1.15.4"
+  "@cloudflare/workers-types": ^5.20261008.1
+  "@orpc/client": ^1.15.5
+  "@orpc/server": ^1.15.5
   "@types/node": ^26.6.4
   "@types/pg": "^8.23.1"
   "@types/react": "^19.3.0"
   "@types/react-dom": "^19.3.0"
   "@typescript/native-preview": "7.0.0-dev.20260707.2"
   "@uiw/color-convert": "^2.10.3"
-  "ai": ^7.0.127
+  "ai": ^7.0.133
   "bcryptjs": "^3.0.3"
   "better-auth": "1.7.7"
   "drizzle-orm": "1.0.0-rc.4"
@@ -28,10 +28,11 @@ catalog:
   "jsonrepair": "^3.15.0"
   "pg": "^8.23.1"
   "react": "^19.3.0"
+  react-spinners: ^0.17.1
   "ts-pattern": "^5.9.0"
   "typescript": "^7.0.2"
   "vitest": "^5.0.3"
-  wrangler: ^4.147.0
+  wrangler: ^4.148.0
   "zod": "^4.6.5"
 allowBuilds:
   esbuild: true

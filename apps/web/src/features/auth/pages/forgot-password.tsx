@@ -72,7 +72,7 @@ export function ForgotPasswordPage() {
 							render={
 								<Link to="/auth/login">
 									<Trans comment="Call-to-action link from forgot-password page to login page">Sign in now</Trans>{" "}
-									<Icon name="arrow_forward" size={16} />
+									<Icon name="arrow-right" size={16} />
 								</Link>
 							}
 						/>

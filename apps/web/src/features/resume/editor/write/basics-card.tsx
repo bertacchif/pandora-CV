@@ -72,7 +72,7 @@ export function BasicsCard({ locked }: { locked: boolean }) {
 					</span>
 				</span>
 				<Icon
-					name="expand_more"
+					name="caret-down"
 					className={cn("text-ink-2 transition-transform duration-standard ease-enter", open && "rotate-180")}
 				/>
 			</button>
@@ -130,7 +130,7 @@ function PhotoRow({ locked }: { locked: boolean }) {
 				<img src={picture.url} alt="" className="size-10 shrink-0 rounded-md object-cover" />
 			) : (
 				<span className="grid size-10 shrink-0 place-items-center rounded-md bg-sunken text-ink-3">
-					<Icon name="add_a_photo" />
+					<Icon name="camera-plus" />
 				</span>
 			)}
 			<p className="min-w-0 flex-1 text-xs leading-4 text-ink-2">
@@ -197,7 +197,7 @@ function CustomFields({ fields, locked }: CustomFieldsProps) {
 							render={
 								<IconButton
 									disabled={locked}
-									icon={field.link ? "link" : "link_off"}
+									icon={field.link ? "link-simple-horizontal" : "link-simple-horizontal-break"}
 									label={field.link ? t`Edit link` : t`Add a link`}
 									className={field.link ? "text-accent-text" : "text-ink-3"}
 								/>
@@ -220,14 +220,14 @@ function CustomFields({ fields, locked }: CustomFieldsProps) {
 						</PopoverContent>
 					</Popover>
 					<IconButton
-						icon="arrow_upward"
+						icon="arrow-up"
 						label={t`Move field up`}
 						size="icon-sm"
 						disabled={locked || index === 0}
 						onClick={() => edit(`${field.id}.move`, (list) => list.splice(index - 1, 0, ...list.splice(index, 1)))}
 					/>
 					<IconButton
-						icon="close"
+						icon="x"
 						label={t`Remove field`}
 						disabled={locked}
 						size="icon-sm"
@@ -241,7 +241,7 @@ function CustomFields({ fields, locked }: CustomFieldsProps) {
 				className="flex h-9 w-fit items-center gap-1.5 rounded-lg px-2 text-sm text-accent-text hover:bg-hover disabled:pointer-events-none disabled:opacity-50"
 				onClick={() => edit("add", (list) => list.push({ id: generateId(), icon: "acorn", text: "", link: "" }))}
 			>
-				<Icon name="add" size={18} />
+				<Icon name="plus" size={18} />
 				<Trans>Add field</Trans>
 			</button>
 		</div>

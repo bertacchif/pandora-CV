@@ -205,7 +205,7 @@ function Heading({ template, children, tick }: HeadingProps) {
 		>
 			{children}
 			<Icon
-				name="check_circle"
+				name="check-circle"
 				filled
 				className="text-[oklch(0.5_0.12_150)] opacity-[clamp(0,calc((var(--chk,0)-var(--tick))*12),1)]"
 				style={{ fontSize: "2.5cqw", "--tick": tick } as CSSProperties}

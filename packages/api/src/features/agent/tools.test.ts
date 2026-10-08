@@ -1,5 +1,5 @@
 import type { ReadPageOutput } from "@reactive-resume/ai/tools/agent-tool-contracts";
-import { describe, expect, it, vi } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import { buildAgentInstructions, buildAgentTools, MAX_AGENT_WEB_CALLS } from "./tools";
 
 const page: ReadPageOutput = {
@@ -11,18 +11,21 @@ const page: ReadPageOutput = {
 	truncated: false,
 	completeness: "unknown",
 };
+type ToolConfig = Parameters<typeof buildAgentTools>[0];
+
 function build(externalSearch = false, signal = new AbortController().signal) {
 	const handlers = {
 		readDocument: vi.fn(async () => ({ text: "Resume" })),
 		readAttachment: vi.fn(async () => ({})),
 		proposeEdits: vi.fn(async () => ({})),
-		searchWeb: vi.fn(async () => [{ url: "https://example.com/job", title: "Job" }]),
-		readPage: vi.fn(async () => page),
+		searchWeb: vi.fn<ToolConfig["handlers"]["searchWeb"]>(async () => [
+			{ url: "https://example.com/job", title: "Job" },
+		]),
+		readPage: vi.fn<ToolConfig["handlers"]["readPage"]>(async () => page),
 	};
 	return {
 		handlers,
 		tools: buildAgentTools({
-			provider: { provider: "openai", model: "gpt-5-mini", apiKey: "test" },
 			document: "resume",
 			externalSearch,
 			signal,
@@ -30,6 +33,10 @@ function build(externalSearch = false, signal = new AbortController().signal) {
 		}),
 	};
 }
+
+afterEach(() => {
+	vi.restoreAllMocks();
+});
 const options = { toolCallId: "call", messages: [] };
 function execute(tools: ReturnType<typeof buildAgentTools>, name: string, input: unknown) {
 	const run = tools[name]?.execute;
@@ -39,10 +46,11 @@ function execute(tools: ReturnType<typeof buildAgentTools>, name: string, input:
 
 describe("assistant web tools", () => {
 	it("respects an explicit connection while keeping reading available without search credentials", async () => {
-		const native = build();
-		expect(native.tools.web_search).toBeDefined();
-		expect(native.tools.search_web).toBeUndefined();
-		expect(await execute(native.tools, "read_page", { url: page.requestedUrl })).toEqual(page);
+		const fallback = build();
+		expect(fallback.tools.web_search).toBeUndefined();
+		expect(fallback.tools.google_search).toBeUndefined();
+		expect(fallback.tools.search_web).toBeUndefined();
+		expect(await execute(fallback.tools, "read_page", { url: page.requestedUrl })).toEqual(page);
 		const external = build(true);
 		expect(external.tools.web_search).toBeUndefined();
 		expect(await execute(external.tools, "search_web", { query: "Example company" })).toEqual([
@@ -51,15 +59,23 @@ describe("assistant web tools", () => {
 		expect(external.handlers.searchWeb).toHaveBeenCalledWith("Example company", expect.any(AbortSignal));
 	});
 
-	it("shares one allowance across reading and search and never starts an aborted request", async () => {
-		const controller = new AbortController();
-		const { tools, handlers } = build(true, controller.signal);
-		for (let i = 0; i < MAX_AGENT_WEB_CALLS - 1; i++) await execute(tools, "read_page", { url: page.requestedUrl });
+	it("shares one allowance across reading and search", async () => {
+		const calls = MAX_AGENT_WEB_CALLS;
+		const { tools, handlers } = build(true);
+		for (let i = 0; i < calls - 1; i++) await execute(tools, "read_page", { url: page.requestedUrl });
 		await execute(tools, "search_web", { query: "Company" });
 		await expect(async () => execute(tools, "read_page", { url: page.requestedUrl })).rejects.toThrow(
 			"Web access limit",
 		);
-		expect(handlers.readPage).toHaveBeenCalledTimes(MAX_AGENT_WEB_CALLS - 1);
+		await expect(async () => execute(tools, "search_web", { query: "Company follow-up" })).rejects.toThrow(
+			"Web access limit",
+		);
+		expect(handlers.readPage).toHaveBeenCalledTimes(calls - 1);
+		expect(handlers.searchWeb).toHaveBeenCalledTimes(1);
+	});
+
+	it("never starts an aborted request", async () => {
+		const controller = new AbortController();
 		const pending = build(true, controller.signal);
 		controller.abort(new DOMException("Stopped", "AbortError"));
 		await expect(async () => execute(pending.tools, "search_web", { query: "Company" })).rejects.toThrow("Stopped");
@@ -80,9 +96,9 @@ describe("assistant web tools", () => {
 			buildAgentInstructions({
 				document: null,
 				posting: null,
-				searchTool: "google_search",
+				searchTool: "search_web",
 				canReadPage: true,
 			}),
-		).toContain("Use `google_search`");
+		).toContain("Use `search_web`");
 	});
 });

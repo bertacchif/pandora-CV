@@ -18,7 +18,7 @@ function NativeSelect({ className, children, ...props }: React.ComponentProps<"s
 				{children}
 			</select>
 			<Icon
-				name="expand_more"
+				name="caret-down"
 				className="pointer-events-none absolute inset-e-2.5 top-1/2 -translate-y-1/2 text-ink-3"
 			/>
 		</div>

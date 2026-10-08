@@ -18,6 +18,7 @@ import { useEditorStore } from "../store";
 import { describeEntry } from "../write/model";
 import { getSectionName } from "./issues";
 import { mapWritingReview } from "./review";
+import { AiProviderLoadState } from "@/features/settings/integrations/ai-provider-load-state";
 import { AiProviderPicker } from "@/features/settings/integrations/components/ai-provider-picker";
 import { useHasUsableAiProvider } from "@/features/settings/integrations/hooks/use-has-usable-ai-provider";
 import { getOrpcErrorMessage } from "@/libs/error-message";
@@ -36,7 +37,8 @@ type WritingTabProps = { data: ResumeData; issues: readonly CheckIssue[] };
  * and paragraphs as proposals to accept or reject, and is never part of the score. Its errors stay in this tab.
  */
 export function WritingTab({ data, issues }: WritingTabProps) {
-	const { usableProviders, hasUsableProvider, isLoading } = useHasUsableAiProvider();
+	const providerState = useHasUsableAiProvider();
+	const { usableProviders, hasUsableProvider } = providerState;
 	const [providerOverride, setProviderOverride] = useState<string | null>(null);
 	const [choosing, setChoosing] = useState(false);
 	const review = useEditorStore((state) => state.writingReview);
@@ -80,7 +82,7 @@ export function WritingTab({ data, issues }: WritingTabProps) {
 		});
 	};
 
-	if (isLoading) return null;
+	if (providerState.isUnavailable) return <AiProviderLoadState state={providerState} />;
 
 	if (!hasUsableProvider) {
 		return (
@@ -124,7 +126,7 @@ export function WritingTab({ data, issues }: WritingTabProps) {
 					role="alert"
 					className="flex gap-2.5 rounded-xl bg-danger-soft p-3 text-[13px] leading-[19px] text-danger-text"
 				>
-					<Icon name="error" />
+					<Icon name="warning-circle" />
 					<span>
 						{getOrpcErrorMessage(error, {
 							byCode: {
@@ -190,7 +192,7 @@ export function WritingTab({ data, issues }: WritingTabProps) {
 					/>
 				)}
 				<Button size="sm" variant="secondary" className="w-fit" disabled={passages.length === 0} onClick={run}>
-					<Icon name="auto_awesome" size={16} />
+					<Icon name="sparkle" size={16} />
 					<Trans>Review writing</Trans>
 				</Button>
 				{passages.length === 0 && (

@@ -10,7 +10,7 @@ export function AssistantButton() {
 
 	return (
 		<IconButton
-			icon="auto_awesome"
+			icon="sparkle"
 			label={t`Assistant`}
 			shortcut="⌘J"
 			aria-pressed={open}

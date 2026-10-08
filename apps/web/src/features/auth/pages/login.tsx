@@ -155,7 +155,7 @@ export function LoginPage({ disableEmailAuth, disableSignups }: Props) {
 										<Trans comment="Call-to-action link from login page to account registration page">
 											Create one now
 										</Trans>{" "}
-										<Icon name="arrow_forward" size={16} />
+										<Icon name="arrow-right" size={16} />
 									</Link>
 								}
 							/>

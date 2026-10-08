@@ -5,6 +5,7 @@ import { isCustomOAuthProviderEnabled } from "@reactive-resume/auth/config";
 import { db } from "@reactive-resume/db/client";
 import * as schema from "@reactive-resume/db/schema";
 import { env } from "@reactive-resume/env/server";
+import { careerService } from "../career/service";
 import { coverLetterService } from "../cover-letters/service";
 import { getStorageService } from "../storage/service";
 
@@ -37,6 +38,7 @@ export const authService = {
 				username: schema.user.username,
 				displayUsername: schema.user.displayUsername,
 				image: schema.user.image,
+				timezone: schema.user.timezone,
 				emailVerified: schema.user.emailVerified,
 				createdAt: schema.user.createdAt,
 				updatedAt: schema.user.updatedAt,
@@ -72,6 +74,7 @@ export const authService = {
 				coverLetters.map(({ id }) => coverLetterService.getById({ id, userId: input.userId })),
 			),
 			applications: applications.map(({ userId: _userId, ...application }) => application),
+			career: await careerService.exportData(input.userId),
 		};
 	},
 

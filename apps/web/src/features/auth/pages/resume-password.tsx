@@ -117,7 +117,7 @@ export function ResumePasswordPage({ username, slug, redirectPath }: ResumePassw
 				</form.Field>
 
 				<Button type="submit" className="w-full" disabled={isPending}>
-					<Icon name="lock_open" size={16} />
+					<Icon name="lock-open" size={16} />
 					<Trans comment="Primary action button label to unlock a password-protected resume">Unlock</Trans>
 				</Button>
 			</form>

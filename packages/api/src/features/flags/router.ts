@@ -1,11 +1,13 @@
 import z from "zod";
 import { env } from "@reactive-resume/env/server";
 import { publicProcedure } from "../../context";
+import { isCareerSchedulingEnabled } from "../career/runner";
 
 export type FeatureFlags = {
 	disableSignups: boolean;
 	disableEmailAuth: boolean;
 	smtpEnabled: boolean;
+	careerSchedulingEnabled?: boolean;
 };
 
 // Mirrors isSmtpEnabled() in packages/email/src/transport.ts (kept local to avoid an api -> email dependency).
@@ -29,11 +31,15 @@ export const flagsRouter = {
 				disableSignups: z.boolean().describe("Whether new user signups are disabled on this instance."),
 				disableEmailAuth: z.boolean().describe("Whether email-based authentication is disabled on this instance."),
 				smtpEnabled: z.boolean().describe("Whether outbound email (SMTP) is configured on this instance."),
+				careerSchedulingEnabled: z
+					.boolean()
+					.describe("Whether scheduled career work is configured on this deployment."),
 			}),
 		)
-		.handler((): FeatureFlags => ({
+		.handler(() => ({
 			disableSignups: env.FLAG_DISABLE_SIGNUPS,
 			disableEmailAuth: env.FLAG_DISABLE_EMAIL_AUTH,
 			smtpEnabled: isSmtpEnabled(),
+			careerSchedulingEnabled: isCareerSchedulingEnabled(),
 		})),
 };

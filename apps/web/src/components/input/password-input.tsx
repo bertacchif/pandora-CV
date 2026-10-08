@@ -31,7 +31,7 @@ export function PasswordInput(props: PasswordInputProps) {
 							})
 				}
 			>
-				<Icon name={visible ? "visibility" : "visibility_off"} size={16} />
+				<Icon name={visible ? "eye" : "eye-slash"} size={16} />
 			</Button>
 		</div>
 	);

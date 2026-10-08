@@ -551,9 +551,9 @@ Modify `src/index.ts` to read in full:
  * @module dsh-plugin-reactive-resume
  */
 
+import type { Config } from "./config.ts";
 import type { Context } from "@deepseek-ai/cordis";
 import * as mcpClient from "@deepseek-ai/dsh-mcp-client";
-import type { Config } from "./config.ts";
 
 // Re-exports the interface AND the schema — `config.ts` exports both under the
 // name `Config`, and Cordis reads the schema export to validate config before

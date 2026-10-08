@@ -72,7 +72,7 @@ export function PublicResumePage({ resume, username, slug, flags, isRoot = false
 			loading={isExporting}
 			className={phone ? "h-12 flex-1 text-base" : undefined}
 		>
-			{!isExporting && <Icon name="download" size={phone ? 20 : 18} className={POP_CLASS} />}
+			{!isExporting && <Icon name="download-simple" size={phone ? 20 : 18} className={POP_CLASS} />}
 			<Trans>Download PDF</Trans>
 		</Button>
 	);
@@ -115,7 +115,7 @@ export function PublicResumePage({ resume, username, slug, flags, isRoot = false
 								aria-label={t`Share`}
 								onClick={() => void share()}
 							>
-								<Icon name="ios_share" size={22} />
+								<Icon name="export" size={22} />
 								{!downloads && <Trans>Share</Trans>}
 							</Button>
 						</div>
@@ -127,7 +127,7 @@ export function PublicResumePage({ resume, username, slug, flags, isRoot = false
 								<h1 className="truncate font-display text-xl leading-6 font-medium">{basics.name || resume.name}</h1>
 								{subtitle && <p className="truncate text-xs text-ink-3">{subtitle}</p>}
 							</div>
-							<CopyLinkButton url={window.location.href} label={t`Copy link`} icon="link" />
+							<CopyLinkButton url={window.location.href} label={t`Copy link`} icon="link-simple-horizontal" />
 							{downloads && download}
 						</header>
 						<main id="main-content" className="flex flex-1 justify-center px-6 pt-8 pb-5 print:block print:p-0">

@@ -74,7 +74,7 @@ export function Write() {
 
 				<div className="absolute start-[5vw] top-[calc(10vh+17vw+150px)] h-[120vh] w-[90vw] origin-top-left [transform:translateY(calc((1-var(--in))*14vh))_rotate(-1.2deg)_scale(calc(.94+var(--in)*.06))] rounded-[3px] bg-paper p-[6vw] font-ui text-[14px] leading-[1.55] text-[oklch(0.28_0.01_95)] shadow-paper [transition:transform_.5s_var(--ease)] min-[900px]:start-[42vw] min-[900px]:top-[14vh] min-[900px]:w-[60vw] min-[900px]:px-[5vw] min-[900px]:py-[4.5vw] min-[900px]:text-[clamp(14px,1.3vw,20px)] rtl:origin-top-right">
 					<div className="absolute end-[2vw] top-[1.6vw] flex h-7 items-center gap-1.5 rounded-full bg-[oklch(0.95_0.006_95)] ps-2 pe-[11px] text-[12px] font-medium text-[oklch(0.42_0.01_95)] opacity-(--cl)">
-						<Icon name="cloud_done" size={16} className="text-[oklch(0.42_0.1_150)]" />
+						<Icon name="cloud-check" size={16} className="text-[oklch(0.42_0.1_150)]" />
 						{t`Saved · version ${version}`}
 					</div>
 
@@ -124,7 +124,7 @@ export function Write() {
 							>
 								<div className="flex items-center gap-2">
 									<span className="flex size-[22px] items-center justify-center rounded-full bg-[oklch(0.94_0.035_150)] text-[oklch(0.42_0.1_150)]">
-										<Icon name="auto_awesome" size={15} />
+										<Icon name="sparkle" size={15} />
 									</span>
 									<b className="font-semibold">{t`Assistant`}</b>
 								</div>
@@ -160,7 +160,7 @@ export function Write() {
 									onClick={() => reopen(true)}
 									className="ms-auto flex h-7 items-center gap-[3px] rounded-sm px-2 text-[12.5px] font-medium text-[oklch(0.3_0.01_95)] transition-colors hover:bg-[oklch(0.9_0.04_150)] motion-reduce:hidden"
 								>
-									<Icon name="undo" size={16} />
+									<Icon name="arrow-u-up-left" size={16} />
 									{t`Undo`}
 								</button>
 							</div>

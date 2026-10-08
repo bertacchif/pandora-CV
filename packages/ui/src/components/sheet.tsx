@@ -82,7 +82,7 @@ function SheetContent({
 					aria-label={closeLabel}
 					render={<Button variant="ghost" className="absolute inset-e-3 top-3 text-ink-2" size="icon" />}
 				>
-					<Icon name="close" />
+					<Icon name="x" />
 				</SheetPrimitive.Close>
 			)}
 		</SheetPrimitive.Popup>

@@ -3,9 +3,17 @@ import { createSelectSchema } from "drizzle-zod";
 import z from "zod";
 import { auth } from "@reactive-resume/auth/config";
 import * as schema from "@reactive-resume/db/schema";
+import { careerProfileDataSchema, careerWorkspaceSchema } from "@reactive-resume/schema/career";
 import { coverLetterSchema } from "@reactive-resume/schema/cover-letter/data";
 import { protectedProcedure, publicProcedure } from "../../context";
 import { applicationDto } from "../../dto/application";
+import {
+	savedItemSchema,
+	careerFactSchema,
+	careerNotificationSchema,
+	careerScheduleSchema,
+	careerStorySchema,
+} from "../../dto/career";
 import { resumeDto } from "../../dto/resume";
 import { authService } from "./service";
 
@@ -67,7 +75,7 @@ export const authRouter = {
 			operationId: "exportAccountData",
 			summary: "Export user account data",
 			description:
-				"Returns a JSON-serializable export of the authenticated user's data, including their public profile fields, resumes, independent cover letters and job applications. Images remain URL references. Secrets such as password hashes, tokens, and API keys are never included. Requires authentication.",
+				"Returns a JSON-serializable export of the authenticated user's profile, documents, applications, career knowledge, preparation, schedules and coaching conversations. Images remain URL references; coaching attachments include storage references. Secrets such as password hashes, tokens, and API keys are never included. Requires authentication.",
 			successDescription: "The user's exported account data.",
 		})
 		.input(z.object({}).optional())
@@ -88,6 +96,26 @@ export const authRouter = {
 				resumes: z.array(resumeDto.getById.output.omit({ hasPassword: true, applicationId: true })),
 				coverLetters: z.array(coverLetterSchema),
 				applications: z.array(applicationDto.getById.output),
+				career: z.object({
+					profile: careerProfileDataSchema,
+					facts: z.array(careerFactSchema.omit({ usedBy: true, company: true })),
+					stories: z.array(careerStorySchema),
+					artifacts: z.array(savedItemSchema),
+					schedules: z.array(careerScheduleSchema),
+					notifications: z.array(careerNotificationSchema),
+					threads: z.array(createSelectSchema(schema.agentThread)),
+					messages: z.array(
+						createSelectSchema(schema.agentMessage, {
+							// Preserve historical SDK/tool message fields in their original export form.
+							uiMessage: z.record(z.string(), z.unknown()),
+						}),
+					),
+					attachments: z.array(createSelectSchema(schema.agentAttachment)),
+					opportunities: z.array(createSelectSchema(schema.careerOpportunity)),
+					jobs: z.array(createSelectSchema(schema.careerJob)),
+					transcripts: z.array(createSelectSchema(schema.careerTranscript)),
+					workspaces: z.array(createSelectSchema(schema.careerWorkspace, { data: careerWorkspaceSchema })),
+				}),
 			}),
 		)
 		.handler(({ context }) => authService.exportData({ userId: context.user.id })),

@@ -121,7 +121,7 @@ function ScoreSummary({ report }: { report: AtsReport }) {
 					)}
 				</span>
 				<span className="flex items-center gap-1 text-xs text-ink-3">
-					<Icon name="bolt" size={14} />
+					<Icon name="lightning" size={14} />
 					<Trans>Live · updates as you edit</Trans>
 				</span>
 			</div>
@@ -139,7 +139,7 @@ function IssuesTab({ check }: { check: CheckResult }) {
 		<div className="grid gap-2.5">
 			{issues.length === 0 ? (
 				<div className="flex gap-2.5 rounded-xl bg-accent-soft p-3 text-[13px] leading-[19px] text-accent-text">
-					<Icon name="check_circle" />
+					<Icon name="check-circle" />
 					<p>
 						<Trans>
 							<strong>Nothing to fix.</strong> Every check passes.
@@ -231,7 +231,11 @@ function IssueCard({ issue, selected, locked }: IssueCardProps) {
 						fix(issue);
 					}}
 				>
-					{issue.fix.kind === "apply" ? <Icon name={issue.fix.icon} size={16} /> : <Icon name="edit" size={16} />}
+					{issue.fix.kind === "apply" ? (
+						<Icon name={issue.fix.icon} size={16} />
+					) : (
+						<Icon name="pencil-simple" size={16} />
+					)}
 					{issue.fix.label}
 				</Button>
 				{issue.target && (
@@ -289,7 +293,7 @@ function CategoryRows({ report }: { report: AtsReport }) {
 								className="flex h-12 w-full items-center gap-2.5 px-3 text-start text-sm font-medium transition-colors duration-quick hover:bg-hover"
 							>
 								<Icon
-									name={failing > 0 ? "error" : "check_circle"}
+									name={failing > 0 ? "warning-circle" : "check-circle"}
 									className={failing > 0 ? "text-warn-text" : "text-accent-text"}
 								/>
 								{getCategoryName(category)}
@@ -303,7 +307,7 @@ function CategoryRows({ report }: { report: AtsReport }) {
 									)}
 								</span>
 								<Icon
-									name="expand_more"
+									name="caret-down"
 									className={cn(
 										"ms-auto text-ink-3 transition-transform duration-standard ease-enter",
 										open && "rotate-180",
@@ -371,7 +375,7 @@ function DeepCheck({ data }: { data: ResumeData }) {
 	return (
 		<>
 			<Button variant="ghost" size="sm" className="w-fit text-ink-2" disabled={running} onClick={() => void run()}>
-				{running ? <Spinner /> : <Icon name="picture_as_pdf" size={18} />}
+				{running ? <Spinner /> : <Icon name="file-pdf" size={18} />}
 				{running ? <Trans>Checking the exported PDF…</Trans> : <Trans>Also check the exported PDF</Trans>}
 			</Button>
 

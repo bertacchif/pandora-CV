@@ -110,7 +110,7 @@ describe("posting import", () => {
 			completeness: "unknown" as const,
 		};
 		vi.mocked(fetchJobPosting).mockResolvedValue({
-			page: { role: "Engineer", company: "Example", location: "Berlin", description: "Actual posting" },
+			page: { role: "Engineer", company: "Example", location: "Berlin", description: "Actual posting", closesAt: "" },
 			text: "Actual posting",
 			source,
 		});

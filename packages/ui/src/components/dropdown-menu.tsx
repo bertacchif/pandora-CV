@@ -116,7 +116,7 @@ function DropdownMenuSubTrigger({
 			{...props}
 		>
 			{children}
-			<Icon name="chevron_right" className="ms-auto" />
+			<Icon name="caret-right" className="ms-auto" />
 		</MenuPrimitive.SubmenuTrigger>
 	);
 }

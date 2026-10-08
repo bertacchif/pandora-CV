@@ -6,13 +6,18 @@ import { orpc } from "@/libs/orpc/client";
  * Replaces the predicate that was duplicated across the import dialog, agent setup, and AI settings.
  */
 export function useHasUsableAiProvider() {
-	const { data: providers, isLoading, error } = useQuery(orpc.aiProviders.list.queryOptions());
-	const usableProviders = (providers ?? []).filter((provider) => provider.enabled && provider.testStatus === "success");
+	const query = useQuery(orpc.aiProviders.list.queryOptions());
+	// An unsuccessful lookup cannot establish which connection is safe to use, even with stale cached data.
+	const usableProviders = query.isSuccess
+		? query.data.filter((provider) => provider.enabled && provider.testStatus === "success")
+		: [];
 
 	return {
-		error,
+		error: query.error,
 		hasUsableProvider: usableProviders.length > 0,
-		isLoading,
+		isLoading: query.isPending,
+		isUnavailable: query.isPending || query.isError,
+		retry: () => void query.refetch(),
 		usableProviders,
 	};
 }

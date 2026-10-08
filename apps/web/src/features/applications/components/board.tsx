@@ -161,11 +161,11 @@ function Column({ stage, applications, onOpen }: ColumnProps) {
 				isOver ? "border-accent bg-accent-soft" : "border-transparent",
 			)}
 		>
-			<h3 className="flex items-center gap-2 px-3 py-2.5 text-sm font-semibold">
+			<h2 className="flex items-center gap-2 px-3 py-2.5 text-sm font-semibold">
 				<span aria-hidden="true" className="size-2 rounded-full" style={{ background: getStageColor(stage) }} />
 				{getStageLabel(stage)}
 				<span className="font-mono text-xs font-normal text-ink-3">{applications.length}</span>
-			</h3>
+			</h2>
 			<div ref={setNodeRef} className="flex min-h-24 flex-1 flex-col gap-2 overflow-y-auto px-2 pb-2">
 				{shown.map((application) => (
 					<DraggableCard key={application.id} application={application} onOpen={() => onOpen(application)} />
@@ -184,11 +184,13 @@ function Column({ stage, applications, onOpen }: ColumnProps) {
 	);
 }
 
-function DraggableCard({ application, onOpen }: { application: Application; onOpen: () => void }) {
-	const { setNodeRef, attributes, listeners, isDragging } = useDraggable({ id: application.id });
+type DraggableCardProps = { application: Application; onOpen: () => void };
+
+function DraggableCard({ application, onOpen }: DraggableCardProps) {
+	const { setNodeRef, listeners, isDragging } = useDraggable({ id: application.id });
 
 	return (
-		<div ref={setNodeRef} {...attributes} {...listeners} className={cn(isDragging && "opacity-40")}>
+		<div ref={setNodeRef} {...listeners} className={cn(isDragging && "opacity-40")}>
 			<ApplicationCard application={application} onClick={onOpen} withMenu />
 		</div>
 	);

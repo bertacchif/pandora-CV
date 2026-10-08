@@ -11,6 +11,7 @@
 		"./rate-limit": "./src/rate-limit.ts",
 		"./string": "./src/string.ts",
 		"./style": "./src/style.ts",
+		"./timezone": "./src/timezone.ts",
 		"./url-security.node": "./src/url-security.node.ts"
 	},
 	"scripts": {

@@ -81,7 +81,7 @@ function PicturePreviewControls({
 				)}
 
 				<div className="absolute inset-0 z-0 flex size-full items-center justify-center">
-					{picture.url ? <Icon name="delete" size={24} /> : <Icon name="upload" size={24} />}
+					{picture.url ? <Icon name="trash" size={24} /> : <Icon name="upload-simple" size={24} />}
 				</div>
 			</button>
 
@@ -115,7 +115,7 @@ function PicturePreviewControls({
 									onAutoSave();
 								}}
 							>
-								{picture.hidden ? <Icon name="visibility_off" size={16} /> : <Icon name="visibility" size={16} />}
+								{picture.hidden ? <Icon name="eye-slash" size={16} /> : <Icon name="eye" size={16} />}
 							</Button>
 						</div>
 					</FormItem>
@@ -561,7 +561,7 @@ function PictureCropDialog({ cropState, aspect, onClose, onUpload }: PictureCrop
 						<span className="text-xs text-ink-3 tabular-nums">{zoom.toFixed(1)}×</span>
 					</div>
 					<div className="flex items-center gap-x-3">
-						<Icon name="zoom_out" size={16} className="shrink-0 text-ink-3" />
+						<Icon name="magnifying-glass-minus" size={16} className="shrink-0 text-ink-3" />
 						<Slider
 							min={1}
 							max={3}
@@ -573,7 +573,7 @@ function PictureCropDialog({ cropState, aspect, onClose, onUpload }: PictureCrop
 								setZoom(Array.isArray(value) ? value[0] : value);
 							}}
 						/>
-						<Icon name="zoom_in" size={16} className="shrink-0 text-ink-3" />
+						<Icon name="magnifying-glass-plus" size={16} className="shrink-0 text-ink-3" />
 					</div>
 				</div>
 

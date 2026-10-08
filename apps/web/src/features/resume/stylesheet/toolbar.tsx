@@ -52,19 +52,19 @@ export function StylesheetToolbar({
 	return (
 		<div className="flex flex-wrap items-center gap-1" role="toolbar" aria-label={t`Stylesheet editor`}>
 			<ToolbarButton label={t`Undo resume change`} disabled={disabled || !canUndo} onClick={onUndo}>
-				<Icon name="undo" size={16} />
+				<Icon name="arrow-u-up-left" size={16} />
 			</ToolbarButton>
 			<ToolbarButton label={t`Redo resume change`} disabled={disabled || !canRedo} onClick={onRedo}>
-				<Icon name="redo" size={16} />
+				<Icon name="arrow-u-up-right" size={16} />
 			</ToolbarButton>
 			<ToolbarButton label={t`Copy stylesheet`} onClick={() => void copySourceToClipboard(source)}>
-				<Icon name="content_copy" size={16} />
+				<Icon name="copy" size={16} />
 			</ToolbarButton>
 			<ToolbarButton label={t`Format stylesheet`} disabled={disabled} onClick={onFormat}>
-				<Icon name="auto_fix_high" size={16} />
+				<Icon name="magic-wand" size={16} />
 			</ToolbarButton>
 			<ToolbarButton label={focused ? t`Exit focus mode` : t`Open focus mode`} onClick={onFocusToggle}>
-				{focused ? <Icon name="close_fullscreen" size={16} /> : <Icon name="open_in_full" size={16} />}
+				{focused ? <Icon name="arrows-in-simple" size={16} /> : <Icon name="arrows-out-simple" size={16} />}
 			</ToolbarButton>
 		</div>
 	);

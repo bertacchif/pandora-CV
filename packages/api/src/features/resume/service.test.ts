@@ -372,7 +372,10 @@ describe("delete", () => {
 
 	it("throws RESUME_LOCKED when the row is locked", async () => {
 		runTransaction({
-			select: () => createSelectChain([{ isLocked: true }]),
+			select: vi
+				.fn()
+				.mockReturnValueOnce(createLockedSelectChain([{ id: "u1" }]).chain)
+				.mockReturnValueOnce(createSelectChain([{ isLocked: true }])),
 		});
 
 		await expect(resumeService.delete({ id: "r1", userId: "u1" })).rejects.toMatchObject({

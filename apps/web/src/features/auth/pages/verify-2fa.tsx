@@ -144,7 +144,7 @@ function TwoFactorVerificationPage({ backupCode = false }: TwoFactorVerification
 						nativeButton={false}
 						render={
 							<Link to={backupCode ? "/auth/verify-2fa" : "/auth/login"} search={{ callbackURL, reauthenticate }}>
-								<Icon name="arrow_back" size={16} />
+								<Icon name="arrow-left" size={16} />
 								{backupCode ? (
 									<Trans comment="Secondary navigation button on backup-code verification screen">Go Back</Trans>
 								) : (

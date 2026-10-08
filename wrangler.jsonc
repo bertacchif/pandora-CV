@@ -4,6 +4,7 @@
 	"main": "apps/server/dist-cloudflare/index.js",
 	"compatibility_date": "2026-10-02",
 	"compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+	"triggers": { "crons": ["* * * * *"] },
 	"no_bundle": true,
 	"find_additional_modules": true,
 	"rules": [

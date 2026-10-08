@@ -25,7 +25,7 @@ function CommandInput({ className, hint, ...props }: CommandInputProps) {
 			data-slot="command-input-wrapper"
 			className="flex h-[52px] shrink-0 items-center gap-3 border-b border-line px-4"
 		>
-			<Icon name="search" className="text-ink-3" />
+			<Icon name="magnifying-glass" className="text-ink-3" />
 			<CommandPrimitive.Input
 				data-slot="command-input"
 				className={cn(

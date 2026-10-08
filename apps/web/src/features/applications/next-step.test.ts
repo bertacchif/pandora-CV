@@ -24,6 +24,9 @@ const interview = (at: Date, id = "i1"): Application["activity"][number] => ({
 	durationMinutes: 60,
 	location: "",
 	notes: "",
+	participants: [],
+	audience: "other",
+	timezone: "UTC",
 });
 
 describe("getNextStep", () => {

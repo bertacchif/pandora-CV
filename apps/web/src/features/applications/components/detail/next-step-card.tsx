@@ -106,7 +106,7 @@ export function NextStepCard({ application, onScheduleInterview }: NextStepCardP
 				</div>
 				{(step.kind === "interview" || step.kind === "follow-up") && (
 					<Button size="sm" variant="ghost" className="ms-7 w-fit" onClick={addToCalendar}>
-						<Icon name="calendar_month" size={16} />
+						<Icon name="calendar-dots" size={16} />
 						<Trans>Add to calendar</Trans>
 					</Button>
 				)}

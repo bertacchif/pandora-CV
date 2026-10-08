@@ -178,7 +178,7 @@ export function DocumentCard({ document, onTags, onLink, introIndex }: DocumentI
 						<span className="truncate text-xs text-ink-3">{meta}</span>
 						{document.application && (
 							<span className="flex min-w-0 items-center gap-1 text-xs text-ink-2">
-								<Icon name="work" size={14} />
+								<Icon name="briefcase" size={14} />
 								<span className="truncate">{document.application.company}</span>
 							</span>
 						)}
@@ -187,7 +187,7 @@ export function DocumentCard({ document, onTags, onLink, introIndex }: DocumentI
 						<DropdownMenuTrigger
 							render={
 								<IconButton
-									icon="more_horiz"
+									icon="dots-three"
 									size="icon-sm"
 									label={t`Options for ${document.name}`}
 									className="text-ink-2"
@@ -233,7 +233,7 @@ export function DocumentRow({ document, onTags, onLink, introIndex }: DocumentIt
 			>
 				<td className="py-3 ps-3 pe-2">
 					<span className="flex min-w-0 items-center gap-2.5">
-						<Icon name={document.type === "resume" ? "description" : "mail"} className="shrink-0 text-ink-2" />
+						<Icon name={document.type === "resume" ? "file-text" : "envelope-simple"} className="shrink-0 text-ink-2" />
 						{renaming ? (
 							<RenameInput document={document} onDone={() => setRenaming(false)} />
 						) : (
@@ -268,7 +268,7 @@ export function DocumentRow({ document, onTags, onLink, introIndex }: DocumentIt
 						<DropdownMenuTrigger
 							render={
 								<IconButton
-									icon="more_horiz"
+									icon="dots-three"
 									size="icon-sm"
 									label={t`Options for ${document.name}`}
 									className="text-ink-2"

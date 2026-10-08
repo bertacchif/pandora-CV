@@ -5,7 +5,7 @@
 @import "@fontsource-variable/hanken-grotesk/wght-italic.css";
 @import "@fontsource-variable/newsreader/opsz.css";
 @import "@fontsource-variable/newsreader/opsz-italic.css";
-/* Phosphor stays for icons inside resumes (their names are stored in resume data). */
+/* Phosphor's web font draws the icons inside resumes (their names are stored in resume data). */
 @import "@phosphor-icons/web/regular/style.css";
 
 @plugin "@tailwindcss/typography";
@@ -14,15 +14,6 @@
 @source "../../../../apps/**/*.{ts,tsx}";
 
 @custom-variant dark (&:is(.dark *));
-
-/* App icons: a self-hosted Material Symbols Rounded subset built by `pnpm icons:build`. */
-@font-face {
-	font-family: "Material Symbols Rounded";
-	font-style: normal;
-	font-weight: 300;
-	font-display: block;
-	src: url("../icons/material-symbols-rounded.woff2") format("woff2");
-}
 
 /*
  * Desk & Paper tokens. oklch is the source of truth; the hex values are sRGB approximations.
@@ -269,45 +260,14 @@
 	}
 }
 
-@utility material-symbol {
-	font-family: "Material Symbols Rounded", sans-serif;
-	font-weight: 300;
-	font-style: normal;
-	line-height: 1;
-	letter-spacing: normal;
-	text-transform: none;
-	white-space: nowrap;
-	overflow-wrap: normal;
-	direction: ltr;
-	font-feature-settings: "liga";
-	-webkit-font-smoothing: antialiased;
-	user-select: none;
-	display: inline-block;
-	flex-shrink: 0;
-	width: 1em;
-	height: 1em;
-	overflow: hidden;
-
-	/* The glyph is the ligature of the name in data-icon. Drawing it from a pseudo-element keeps the name out
-	   of the text content, so copied labels, find-in-page and text queries see only the label. */
-	&::before {
-		content: attr(data-icon);
-	}
-}
-
 @media (prefers-reduced-motion: reduce) {
-	*,
-	*::before,
-	*::after {
+	/* Spinners are status, not decoration: freezing them makes a loading app look hung. */
+	:where(*:not([data-slot="spinner"] *)),
+	:where(*:not([data-slot="spinner"] *))::before,
+	:where(*:not([data-slot="spinner"] *))::after {
 		animation-duration: 0.01ms !important;
 		animation-iteration-count: 1 !important;
 		transition-duration: 0.01ms !important;
 		scroll-behavior: auto !important;
-	}
-
-	/* Spinners are status, not decoration: freezing them makes a loading app look hung. */
-	.animate-spin {
-		animation-duration: 1.5s !important;
-		animation-iteration-count: infinite !important;
 	}
 }

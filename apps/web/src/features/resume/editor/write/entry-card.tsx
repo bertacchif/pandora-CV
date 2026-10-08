@@ -126,7 +126,7 @@ export function EntryCard({ section, entryId, index, count, page, locked, onMove
 						{...attributes}
 						{...listeners}
 					>
-						<Icon name="drag_indicator" size={16} />
+						<Icon name="dots-six-vertical" size={16} />
 					</button>
 				)}
 				<button
@@ -160,7 +160,7 @@ export function EntryCard({ section, entryId, index, count, page, locked, onMove
 
 				{open && !locked && (
 					<IconButton
-						icon="delete"
+						icon="trash"
 						label={t`Delete entry`}
 						size="icon-sm"
 						className="text-ink-2 hover:bg-danger-soft hover:text-danger-text"
@@ -231,13 +231,11 @@ function PhoneEntryScreen({ section, title, locked, onBack, onDelete, children }
 					onClick={onBack}
 					className="flex h-11 items-center gap-0.5 rounded-lg px-2 text-[15px] font-medium text-accent-text"
 				>
-					<Icon name="chevron_left" size={24} />
+					<Icon name="caret-left" size={24} />
 					{sectionTitle}
 				</button>
 				<span className="min-w-0 flex-1" />
-				{!locked && (
-					<IconButton icon="delete" label={t`Delete entry`} className="text-danger-text" onClick={onDelete} />
-				)}
+				{!locked && <IconButton icon="trash" label={t`Delete entry`} className="text-danger-text" onClick={onDelete} />}
 			</div>
 			<fieldset
 				disabled={locked}
@@ -308,27 +306,27 @@ function EntryMenu({ section, entry }: EntryMenuProps) {
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger
-				render={<IconButton icon="more_horiz" label={t`Entry options`} size="icon-sm" className="text-ink-2" />}
+				render={<IconButton icon="dots-three" label={t`Entry options`} size="icon-sm" className="text-ink-2" />}
 			/>
 			<DropdownMenuContent align="end" className="w-56">
 				<DropdownMenuItem onClick={toggleHidden}>
-					<Icon name={entry.hidden ? "visibility" : "visibility_off"} />
+					<Icon name={entry.hidden ? "eye" : "eye-slash"} />
 					{entry.hidden ? <Trans>Show on page</Trans> : <Trans>Hide from page</Trans>}
 				</DropdownMenuItem>
 				<DropdownMenuItem onClick={duplicate}>
-					<Icon name="content_copy" />
+					<Icon name="copy" />
 					<Trans>Duplicate</Trans>
 				</DropdownMenuItem>
 				<DropdownMenuSub>
 					<DropdownMenuSubTrigger>
-						<Icon name="arrow_forward" />
+						<Icon name="arrow-right" />
 						<Trans>Move to…</Trans>
 					</DropdownMenuSubTrigger>
 					<DropdownMenuSubContent className="w-56">
 						{moveTargets.map(({ pageIndex, sections }) => (
 							<DropdownMenuSub key={pageIndex}>
 								<DropdownMenuSubTrigger>
-									<Icon name="description" />
+									<Icon name="file-text" />
 									<Trans>Page {pageIndex + 1}</Trans>
 								</DropdownMenuSubTrigger>
 								<DropdownMenuSubContent>
@@ -339,7 +337,7 @@ function EntryMenu({ section, entry }: EntryMenuProps) {
 									))}
 									{sections.length > 0 && <DropdownMenuSeparator />}
 									<DropdownMenuItem onClick={() => move({ type: "new-section", title: sourceTitle, pageIndex })}>
-										<Icon name="add" />
+										<Icon name="plus" />
 										<Trans>New section</Trans>
 									</DropdownMenuItem>
 								</DropdownMenuSubContent>
@@ -347,14 +345,14 @@ function EntryMenu({ section, entry }: EntryMenuProps) {
 						))}
 						<DropdownMenuSeparator />
 						<DropdownMenuItem onClick={() => move({ type: "new-page", title: sourceTitle })}>
-							<Icon name="note_add" />
+							<Icon name="file-plus" />
 							<Trans>New page</Trans>
 						</DropdownMenuItem>
 					</DropdownMenuSubContent>
 				</DropdownMenuSub>
 				<DropdownMenuSeparator />
 				<DropdownMenuItem variant="destructive" onClick={() => deleteEntry(section, entry.id)}>
-					<Icon name="delete" />
+					<Icon name="trash" />
 					<Trans>Delete</Trans>
 				</DropdownMenuItem>
 			</DropdownMenuContent>

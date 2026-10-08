@@ -157,7 +157,7 @@ export function Activity({ application, onOpenInterview }: ActivityProps) {
 										/>
 									}
 								>
-									<Icon name="more_horiz" size={16} />
+									<Icon name="dots-three" size={16} />
 								</DropdownMenuTrigger>
 								<DropdownMenuContent align="end">
 									{entry.type === "interview" ? (

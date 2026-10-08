@@ -2,6 +2,7 @@ import type { getModel } from "../ai/service";
 import type { WebAccessConnection } from "../web-access/contracts";
 import type { AssistantDocument } from "./document";
 import type { ProposeEditsInput, ProposeEditsOutput } from "@reactive-resume/ai/tools/agent-tool-contracts";
+import type { WorkspaceTab } from "@reactive-resume/schema/career";
 import type { FilePart, ImagePart, ModelMessage, TextPart, UIMessage, UIMessageChunk } from "ai";
 import { ORPCError } from "@orpc/client";
 import { streamToEventIterator } from "@orpc/server";
@@ -22,6 +23,8 @@ import { generateId } from "@reactive-resume/utils/string";
 import { aiProvidersService } from "../ai-providers/service";
 import { assertAgentEnvironment } from "../ai/credentials";
 import { getAgentModel } from "../ai/service";
+import { careerService, requireCareerApplication } from "../career/service";
+import { buildCareerTools, buildCareerInstructions } from "../career/tools";
 import { coverLetterService } from "../cover-letters/service";
 import { resumeService } from "../resume/service";
 import { getStorageService, inferContentType } from "../storage/service";
@@ -46,7 +49,7 @@ import {
 import { repairAgentToolCall } from "./repair";
 import { claimActiveAgentRun, clearActiveAgentRunIfCurrent, isStaleAgentRun, reapStaleAgentRun } from "./runs";
 import { agentStreamLifecycle } from "./streams";
-import { buildAgentInstructions, buildAgentTools, MAX_AGENT_WEB_CALLS } from "./tools";
+import { buildAgentInstructions, buildAgentTools } from "./tools";
 
 const MAX_AGENT_STEPS = 30;
 const MAX_AGENT_OUTPUT_TOKENS = 8_192;
@@ -84,6 +87,8 @@ type AgentMessageRecord = typeof schema.agentMessage.$inferSelect;
 type AgentAttachmentRecord = typeof schema.agentAttachment.$inferSelect;
 
 type StartThreadInput = {
+	scope?: "document" | "application" | "career" | undefined;
+	applicationId?: string | undefined;
 	userId: string;
 	/** The document the conversation is about: a resume or a letter. */
 	resumeId?: string | undefined;
@@ -93,6 +98,11 @@ type StartThreadInput = {
 
 /** What a message shares with the model: the open document and the posting it's for. Both on by default. */
 type MessageContext = {
+	application?: boolean | undefined;
+	memory?: boolean | undefined;
+	web?: boolean | undefined;
+	tab?: WorkspaceTab | undefined;
+	offerIds?: string[] | undefined;
 	document?: boolean | undefined;
 	posting?: boolean | undefined;
 	applicationId?: string | undefined;
@@ -130,6 +140,8 @@ function toThreadSummary(row: ThreadSummaryRow) {
 		id: row.id,
 		title: row.title,
 		status: row.status,
+		scope: (row.scope ?? "document") as "document" | "application" | "career",
+		applicationId: row.applicationId ?? null,
 		sourceResumeId: row.sourceResumeId,
 		workingResumeId: row.workingResumeId,
 		coverLetterId: row.coverLetterId,
@@ -651,10 +663,11 @@ function messageText(message: UIMessage) {
 	return textParts.join(" ").trim();
 }
 
-function buildThreadTitle(message: UIMessage, fallback: string) {
+/** The first message names the conversation: up to 57 characters, or 44 in the career coach's list. */
+function buildThreadTitle(message: UIMessage, fallback: string, max = 60) {
 	const text = messageText(message);
 	if (!text) return fallback;
-	return text.length > 60 ? `${text.slice(0, 57)}...` : text;
+	return text.length > max ? `${text.slice(0, max - 3)}...` : text;
 }
 
 function listThreadMessages(input: { threadId: string; userId: string }) {
@@ -724,6 +737,16 @@ async function proposeEdits(input: {
 }
 
 function createAgent(input: {
+	career?: {
+		context: Awaited<ReturnType<typeof careerService.context>>;
+		shareApplication: boolean;
+		shareMemory: boolean;
+		web: boolean;
+		tab: WorkspaceTab | undefined;
+		offers: Awaited<ReturnType<typeof careerService.savedItems>>;
+		sourceMessageId: string | undefined;
+		allowedSources: Set<string>;
+	};
 	userId: string;
 	threadId: string;
 	/** Null when the message leaves the document out. */
@@ -769,25 +792,39 @@ function createAgent(input: {
 		};
 
 	const { document } = input;
+	const allowedSources = input.career?.allowedSources ?? new Set<string>();
+	if (input.career?.shareApplication) {
+		const application = input.career.context.application;
+		if (application?.sourceUrl) allowedSources.add(application.sourceUrl);
+		const interview = input.career.context.interview;
+		if (interview?.type === "interview")
+			for (const participant of interview.participants ?? [])
+				if (participant.profileUrl) allowedSources.add(participant.profileUrl);
+	}
 	const tools = buildAgentTools({
-		provider: input.provider,
 		document: document?.kind ?? null,
-		externalSearch: input.connection !== null,
+		// The career coach searches only when the user switched Web research on for this message.
+		externalSearch: input.connection !== null && (!input.career || input.career.web),
 		signal: input.signal,
 		handlers: {
-			searchWeb: timedToolHandler("search_web", (query: string, signal: AbortSignal) =>
-				searchWeb(query, {
+			searchWeb: timedToolHandler("search_web", async (query: string, signal: AbortSignal) => {
+				const result = await searchWeb(query, {
 					connection: input.connection,
 					userId: input.userId,
 					signal,
-				}),
-			),
+				});
+				for (const resultSource of result) allowedSources.add(resultSource.url);
+				return result;
+			}),
 			readPage: timedToolHandler("read_page", async (url: string, signal: AbortSignal) => {
+				if (input.career && !allowedSources.has(url))
+					throw new Error("Read only retrieved URLs or public links supplied by the user.");
 				const { html: _html, ...page } = await readPage(url, {
 					connection: input.connection,
 					userId: input.userId,
 					signal,
 				});
+				allowedSources.add(page.resolvedUrl ?? page.requestedUrl);
 				return page;
 			}),
 			readDocument: timedToolHandler("read_document", async () => {
@@ -813,19 +850,15 @@ function createAgent(input: {
 		},
 	});
 
-	const instructionsText = buildAgentInstructions({
-		document: document ? { kind: document.kind, name: document.name } : null,
-		posting: input.posting,
-		searchTool:
-			"search_web" in tools
-				? "search_web"
-				: "web_search" in tools
-					? "web_search"
-					: "google_search" in tools
-						? "google_search"
-						: null,
-		canReadPage: "read_page" in tools,
-	});
+	if (input.career) Object.assign(tools, buildCareerTools({ userId: input.userId, ...input.career }));
+	const instructionsText = input.career
+		? buildCareerInstructions(input.career)
+		: buildAgentInstructions({
+				document: document ? { kind: document.kind, name: document.name } : null,
+				posting: input.posting,
+				searchTool: "search_web" in tools ? "search_web" : null,
+				canReadPage: "read_page" in tools,
+			});
 
 	return new ToolLoopAgent({
 		// Providers without native inputExamples support get them appended to the tool description.
@@ -848,9 +881,6 @@ function createAgent(input: {
 		stopWhen: isStepCount(MAX_AGENT_STEPS),
 		maxOutputTokens: MAX_AGENT_OUTPUT_TOKENS,
 		maxRetries: MAX_AGENT_MODEL_RETRIES,
-		...("web_search" in tools && input.provider.provider === "openai"
-			? { providerOptions: { openai: { maxToolCalls: MAX_AGENT_WEB_CALLS } } }
-			: {}),
 		timeout: { stepMs: AGENT_STEP_TIMEOUT_MS },
 		// Runs before every loop step, so an older document snapshot never outlives a newer read.
 		prepareStep: ({ messages }) => {
@@ -862,6 +892,8 @@ function createAgent(input: {
 }
 
 const threadSummarySelection = {
+	scope: schema.agentThread.scope,
+	applicationId: schema.agentThread.applicationId,
 	id: schema.agentThread.id,
 	userId: schema.agentThread.userId,
 	aiProviderId: schema.agentThread.aiProviderId,
@@ -931,14 +963,18 @@ export const agentService = {
 				: input.resumeId
 					? { kind: "resume", id: input.resumeId }
 					: null;
-			if (!document)
-				throw new ORPCError("BAD_REQUEST", {
-					message: "Choose a resume or a letter.",
-				});
+			const scope = input.scope ?? "document";
+			if (scope === "document" && !document)
+				throw new ORPCError("BAD_REQUEST", { message: "Choose a resume or a letter." });
+			if (scope !== "document") {
+				if (document || (scope === "application") !== Boolean(input.applicationId)) throw new ORPCError("BAD_REQUEST");
+				await requireCareerApplication(input);
+			}
 
 			// Confirms the caller owns the document (throws otherwise) and names it for the summary.
-			const described =
-				document.kind === "resume"
+			const described = !document
+				? null
+				: document.kind === "resume"
 					? await resumeService.getById({
 							id: document.id,
 							userId: input.userId,
@@ -964,9 +1000,13 @@ export const agentService = {
 				.values({
 					userId: input.userId,
 					aiProviderId: provider.id,
-					...(document.kind === "resume"
-						? { sourceResumeId: document.id, workingResumeId: document.id }
-						: { coverLetterId: document.id }),
+					scope,
+					applicationId: input.applicationId ?? null,
+					...(!document
+						? {}
+						: document.kind === "resume"
+							? { sourceResumeId: document.id, workingResumeId: document.id }
+							: { coverLetterId: document.id }),
 					title: "New conversation",
 				})
 				.returning();
@@ -974,7 +1014,11 @@ export const agentService = {
 
 			return toThreadSummary({
 				...thread,
-				...(document.kind === "resume" ? { resumeName: described.name } : { coverLetterName: described.name }),
+				...(!described || !document
+					? {}
+					: document.kind === "resume"
+						? { resumeName: described.name }
+						: { coverLetterName: described.name }),
 				providerLabel: provider.label,
 			});
 		},
@@ -1013,28 +1057,39 @@ export const agentService = {
 				messages: messages.map(toMessage),
 				attachments: attachments.map(toAttachment),
 				document,
-				isReadOnly: !document || !thread.aiProviderId || document.locked,
+				isReadOnly: !thread.aiProviderId || (thread.scope === "document" ? !document || document.locked : false),
 			};
 		},
 
 		/** Switches the model a conversation uses ("Switch model"). */
-		update: async (input: { id: string; userId: string; aiProviderId: string }) => {
+		update: async (input: {
+			id: string;
+			userId: string;
+			aiProviderId?: string | undefined;
+			title?: string | undefined;
+		}) => {
 			assertAgentEnvironment();
 
 			await getThread({ id: input.id, userId: input.userId });
-			const provider = await aiProvidersService.getRunnableById({
-				id: input.aiProviderId,
-				userId: input.userId,
-			});
+			// Renaming needs no working connection; switching models checks the new one.
+			const provider = input.aiProviderId
+				? await aiProvidersService.getRunnableById({ id: input.aiProviderId, userId: input.userId })
+				: null;
 
 			const [updated] = await db
 				.update(schema.agentThread)
-				.set({ aiProviderId: provider.id })
+				.set({ ...(provider ? { aiProviderId: provider.id } : {}), ...(input.title ? { title: input.title } : {}) })
 				.where(and(eq(schema.agentThread.id, input.id), eq(schema.agentThread.userId, input.userId)))
 				.returning();
 			if (!updated) throw new ORPCError("NOT_FOUND");
 
-			return toThreadSummary({ ...updated, providerLabel: provider.label });
+			const [current] = updated.aiProviderId
+				? await db
+						.select({ label: schema.aiProvider.label })
+						.from(schema.aiProvider)
+						.where(eq(schema.aiProvider.id, updated.aiProviderId))
+				: [];
+			return toThreadSummary({ ...updated, providerLabel: provider?.label ?? current?.label ?? null });
 		},
 
 		delete: async (input: { id: string; userId: string }) => {
@@ -1099,7 +1154,11 @@ export const agentService = {
 				});
 			}
 			const document = documentOf(thread);
-			if (!document || !thread.aiProviderId) {
+			const isCareer = thread.scope === "career" || thread.scope === "application";
+			if (isCareer) {
+				await requireCareerApplication({ userId: input.userId, applicationId: thread.applicationId });
+			}
+			if ((!document && !isCareer) || !thread.aiProviderId) {
 				throw new ORPCError("BAD_REQUEST", {
 					message: "This conversation is read-only.",
 				});
@@ -1109,8 +1168,10 @@ export const agentService = {
 					message: "Agent messages must be user messages or tool results.",
 				});
 			}
-			// Opt-out applies to the entire provider context, including document-derived prose and tool results.
-			const freshContext = input.context?.document === false || input.context?.posting === false;
+			// Leaving the document or posting out applies to the entire provider context, including document-derived prose
+			// and tool results. The career coach's chips only choose what this message adds: earlier messages in the chat
+			// still go, and its privacy line says so.
+			const freshContext = !isCareer && (input.context?.document === false || input.context?.posting === false);
 			if (freshContext && input.message.role !== "user") {
 				throw new ORPCError("BAD_REQUEST", {
 					message: "Send a new message after removing context. Previous tool approvals cannot be continued.",
@@ -1127,13 +1188,13 @@ export const agentService = {
 				});
 			}
 
-			const loaded = await loadDocument(input.userId, document);
-			if (loaded.locked)
+			const loaded = document ? await loadDocument(input.userId, document) : null;
+			if (loaded?.locked)
 				throw new ORPCError("BAD_REQUEST", {
 					message: "Unlock the document to change it.",
 				});
 			const posting =
-				input.context?.posting === false
+				input.context?.posting === false || !document || !loaded
 					? null
 					: await findPosting(input.userId, document.id, loaded, input.context?.applicationId);
 
@@ -1185,6 +1246,7 @@ export const agentService = {
 				activeRunCleanup.set(runId, await monitorRunCancellation(runId, controller));
 				controller.signal.throwIfAborted();
 				let attachmentsForModel: AgentAttachmentRecord[] = [];
+				let sourceMessageId: string | undefined;
 
 				if (input.message.role === "assistant") {
 					if (attachments.length > 0) {
@@ -1222,6 +1284,7 @@ export const agentService = {
 							sequence: await nextMessageSequence(input.threadId, db),
 						}));
 					if (!persistedUserMessage) throw new Error("AGENT_MESSAGE_CREATE_FAILED");
+					sourceMessageId = persistedUserMessage.id;
 					await linkAttachmentsToMessage({
 						attachments,
 						messageId: persistedUserMessage.id,
@@ -1237,7 +1300,7 @@ export const agentService = {
 					if ((messageCount?.total ?? 0) === 1) {
 						await db
 							.update(schema.agentThread)
-							.set({ title: buildThreadTitle(userMessage, thread.title) })
+							.set({ title: buildThreadTitle(userMessage, thread.title, isCareer ? 47 : 60) })
 							.where(and(eq(schema.agentThread.id, input.threadId), eq(schema.agentThread.userId, input.userId)));
 					}
 				}
@@ -1247,6 +1310,9 @@ export const agentService = {
 					userId: input.userId,
 				});
 
+				const careerContext = isCareer
+					? await careerService.context({ userId: input.userId, applicationId: thread.applicationId })
+					: null;
 				const messageRows = await repairLegacyAskUserQuestionAnswers(
 					await listThreadMessages({
 						threadId: input.threadId,
@@ -1255,7 +1321,14 @@ export const agentService = {
 					{ threadId: input.threadId, userId: input.userId },
 				);
 				const messages = messageRows.map(toMessage);
-				const replay = freshContext ? [withAttachmentUiParts(input.message, attachmentsForModel)] : messages;
+				const memoryCutoff = isCareer ? await careerService.memoryCutoff(input.userId) : null;
+				const replay = freshContext
+					? [withAttachmentUiParts(input.message, attachmentsForModel)]
+					: memoryCutoff
+						? // History from before a fact changed is left out, but never the message being answered (a retry
+							// keeps its first createdAt).
+							messageRows.filter((row) => row.createdAt > memoryCutoff || row.id === sourceMessageId).map(toMessage)
+						: messages;
 				const connection = await webAccessService.resolve(input.userId);
 				const modelMessages = await convertToModelMessages(
 					replay.map((message) => toModelInputMessage(message, runnableProvider, connection !== null)),
@@ -1274,10 +1347,34 @@ export const agentService = {
 					insertedDraft = true;
 				}
 
+				if (careerContext && careerContext.memoryVersion !== (await careerService.memoryVersion(input.userId)))
+					throw new ORPCError("CONFLICT", { message: "Career memory changed. Please retry with current information." });
 				const agent = createAgent({
 					userId: input.userId,
 					threadId: input.threadId,
-					document: input.context?.document === false ? null : { ...document, name: loaded.name },
+					document:
+						input.context?.document === false || !document || !loaded ? null : { ...document, name: loaded.name },
+					...(careerContext
+						? {
+								career: {
+									context: careerContext,
+									shareApplication: input.context?.application !== false,
+									shareMemory: input.context?.memory !== false,
+									web: input.context?.web === true,
+									tab: input.context?.tab,
+									offers: input.context?.offerIds?.length
+										? (await careerService.savedItems({ userId: input.userId, kind: "offer" })).filter((offer) =>
+												input.context?.offerIds?.includes(offer.id),
+											)
+										: [],
+									sourceMessageId,
+									allowedSources: new Set([
+										...messages.flatMap((message) => agentWebSources(message).map((source) => source.url)),
+										...(messageText(input.message).match(/https?:\/\/[^\s<>")]+/g) ?? []),
+									]),
+								},
+							}
+						: {}),
 					posting,
 					connection,
 					signal: controller.signal,
@@ -1332,7 +1429,9 @@ export const agentService = {
 							});
 							draftRowId = upserted.rowId;
 						} catch (error) {
-							console.error("[agent] Failed to persist step draft", error);
+							console.error("[agent] Failed to persist step draft", {
+								name: error instanceof Error ? error.name : "Error",
+							});
 						}
 					},
 				});

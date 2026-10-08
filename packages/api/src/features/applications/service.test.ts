@@ -15,6 +15,8 @@ const uploadFileMock = vi.hoisted(() => vi.fn());
 
 vi.mock("@reactive-resume/db/client", () => ({ db: dbMock }));
 vi.mock("@reactive-resume/db/schema", () => ({
+	user: { id: "owner_id" },
+	resume: { id: "resume_id", userId: "user_id", trashedAt: "trashed_at" },
 	application: {
 		id: "id",
 		userId: "user_id",
@@ -25,6 +27,19 @@ vi.mock("@reactive-resume/db/schema", () => ({
 		resumeFileUrl: "resume_file_url",
 		coverLetterUrl: "cover_letter_url",
 	},
+	agentThread: {
+		id: "thread_id",
+		userId: "user_id",
+		applicationId: "application_id",
+		activeRunId: "active_run_id",
+	},
+	careerSchedule: {
+		id: "schedule_id",
+		userId: "user_id",
+		applicationId: "application_id",
+		interviewId: "interview_id",
+		enabled: "enabled",
+	},
 }));
 vi.mock("drizzle-orm", () => ({
 	and: (...a: unknown[]) => a,
@@ -32,6 +47,7 @@ vi.mock("drizzle-orm", () => ({
 	desc: (x: unknown) => x,
 	eq: (...a: unknown[]) => a,
 	inArray: (...a: unknown[]) => a,
+	isNull: (x: unknown) => x,
 	sql: Object.assign((strings: TemplateStringsArray, ...values: unknown[]) => ({ strings, values }), {
 		join: (values: unknown[]) => values,
 	}),
@@ -40,6 +56,7 @@ vi.mock("../resume/service", () => ({
 	resumeService: { getById: resumeGetByIdMock },
 }));
 vi.mock("../resume/version-history", () => ({ writeVersion: writeVersionMock }));
+vi.mock("../cover-letters/versions", () => ({ writeLetterVersion: vi.fn() }));
 vi.mock("../cover-letters/service", () => ({ coverLetterService: { getById: vi.fn(), recordSent: vi.fn() } }));
 vi.mock("../storage/service", () => ({
 	getStorageService: () => ({ delete: storageDeleteMock }),
@@ -64,7 +81,11 @@ const existing = {
 // Awaitable directly, or after `.for("update")` for the reads that lock their row.
 const createSelectChain = (rows: unknown[]) => ({
 	from: () => ({
-		where: () => Object.assign(Promise.resolve(rows), { for: () => Promise.resolve(rows) }),
+		where: () =>
+			Object.assign(Promise.resolve(rows), {
+				for: () => Promise.resolve(rows),
+				orderBy: () => ({ for: () => Promise.resolve(rows) }),
+			}),
 	}),
 });
 
@@ -79,6 +100,9 @@ const setSelectResults = (...results: unknown[][]) => {
 beforeEach(() => {
 	dbMock.insert.mockReset();
 	dbMock.update.mockReset();
+	dbMock.update.mockReturnValue({
+		set: () => ({ where: () => ({ returning: () => Promise.resolve([]) }) }),
+	});
 	dbMock.delete.mockReset();
 	dbMock.transaction.mockReset();
 	dbMock.transaction.mockImplementation((callback) => callback(dbMock));
@@ -117,6 +141,7 @@ describe("applicationService.create", () => {
 });
 
 describe("applicationService.update", () => {
+	beforeEach(() => setSelectResults([existing], [{ id: "user-1" }], [existing]));
 	const captureSet = () => {
 		const set = vi.fn(() => ({ where: () => ({ returning: () => Promise.resolve([{ ...existing }]) }) }));
 		dbMock.update.mockReturnValue({ set });
@@ -144,7 +169,7 @@ describe("applicationService.update", () => {
 	});
 
 	it("keeps a reason when closing, and clears it and the archive flag on any other stage", async () => {
-		setSelectResults([existing], [existing]);
+		setSelectResults([existing], [{ id: "user-1" }], [existing], [existing], [{ id: "user-1" }], [existing]);
 		const set = captureSet();
 		await applicationService.update({ id: "app-1", userId: "user-1", status: "closed", closedReason: "withdrew" });
 		await applicationService.update({ id: "app-1", userId: "user-1", status: "applied" });
@@ -159,6 +184,7 @@ describe("applicationService.update", () => {
 });
 
 describe("applicationService sent resume", () => {
+	beforeEach(() => setSelectResults([existing], [{ id: "user-1" }], [existing]));
 	const sentRow = { ...existing, status: "applied" as const, resumeId: "resume-1", sentResumeVersionId: null };
 
 	it.each(["resume", "coverLetter"] as const)(
@@ -188,6 +214,7 @@ describe("applicationService sent resume", () => {
 		async (field) => {
 			const data = structuredClone((await import("@reactive-resume/schema/resume/default")).defaultResumeData);
 			resumeGetByIdMock.mockResolvedValue({ id: "resume-1", data });
+			setSelectResults([existing], [{ id: "user-1" }], [existing], [{ id: "resume-1", data }]);
 			const setSent = vi.fn(() => ({ where: () => ({ returning: () => Promise.resolve([{ ...sentRow }]) }) }));
 			dbMock.update.mockReturnValueOnce({
 				set: vi.fn(() => ({ where: () => ({ returning: () => Promise.resolve([sentRow]) }) })),
@@ -209,7 +236,7 @@ describe("applicationService sent resume", () => {
 	);
 
 	it("saves it once, and not before the application is sent", async () => {
-		setSelectResults([existing], [existing]);
+		setSelectResults([existing], [{ id: "user-1" }], [existing], [existing], [{ id: "user-1" }], [existing]);
 		const set = vi.fn(() => ({
 			where: () => ({ returning: () => Promise.resolve([{ ...sentRow, sentResumeVersionId: "v0" }]) }),
 		}));
@@ -366,9 +393,13 @@ describe("applicationService.attachDocument", () => {
 	});
 
 	it("does not delete the replaced upload when another application still references it", async () => {
+		const updated = { ...existing, resumeFileUrl: "/api/uploads/user-1/pictures/new.pdf" };
 		setSelectResults(
 			[{ ...existing }],
+			[{ id: "user-1" }],
+			[{ ...existing }],
 			[
+				updated,
 				{
 					id: "app-2",
 					resumeFileUrl: existing.resumeFileUrl,
@@ -376,7 +407,7 @@ describe("applicationService.attachDocument", () => {
 				},
 			],
 		);
-		const set = vi.fn(() => ({ where: () => ({ returning: () => Promise.resolve([{ ...existing }]) }) }));
+		const set = vi.fn(() => ({ where: () => ({ returning: () => Promise.resolve([updated]) }) }));
 		dbMock.update.mockReturnValue({ set });
 
 		await applicationService.attachDocument({
@@ -402,6 +433,8 @@ describe("applicationService.bulkDelete", () => {
 					coverLetterUrl: null,
 				},
 			],
+			[{ id: "coach-1", runId: null }],
+			[{ id: "user-1" }],
 			[],
 		);
 		dbMock.delete.mockReturnValue({
@@ -413,6 +446,7 @@ describe("applicationService.bulkDelete", () => {
 		expect(result).toEqual({ deleted: 2 });
 		expect(storageDeleteMock).toHaveBeenCalledWith("uploads/user-1/pictures/resume.pdf");
 		expect(storageDeleteMock).toHaveBeenCalledWith("uploads/user-1/pictures/cover.pdf");
+		expect(storageDeleteMock).toHaveBeenCalledWith("uploads/user-1/agent/coach-1");
 		expect(storageDeleteMock).not.toHaveBeenCalledWith("uploads/user-2/pictures/ignored.pdf");
 	});
 });
@@ -420,7 +454,7 @@ describe("applicationService.bulkDelete", () => {
 describe("applicationService interviews", () => {
 	const captureSet = (returning = [{ ...existing }]) => {
 		const set = vi.fn(() => ({ where: () => ({ returning: () => Promise.resolve(returning) }) }));
-		dbMock.update.mockReturnValue({ set });
+		dbMock.update.mockReturnValueOnce({ set });
 		return set;
 	};
 
@@ -465,7 +499,12 @@ describe("application attachment lifecycle", () => {
 	function storedApplication(shared = false, fail = false) {
 		let row: Record<string, unknown> = { ...existing };
 		dbMock.select.mockImplementation(() => ({
-			from: () => ({ where: () => Promise.resolve([row, ...(shared ? [{ ...existing, id: "app-2" }] : [])]) }),
+			from: () => ({
+				where: () =>
+					Object.assign(Promise.resolve([row, ...(shared ? [{ ...existing, id: "app-2" }] : [])]), {
+						for: () => Promise.resolve([row]),
+					}),
+			}),
 		}));
 		const save = (fields: Record<string, unknown>) => ({
 			returning: async () => {

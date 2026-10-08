@@ -542,14 +542,14 @@ function StylesheetEditorShell({ readOnly = false }: StylesheetEditorShellProps)
 			</p>
 
 			<p className="flex items-center gap-1.5 text-xs text-ink-3">
-				<Icon name="ink_highlighter" size={16} aria-hidden="true" className="shrink-0" />
+				<Icon name="highlighter" size={16} aria-hidden="true" className="shrink-0" />
 				<span>
 					<Trans>Click anything on the page to style it. The rule you're in is outlined on the page.</Trans>
 				</span>
 			</p>
 
 			<p className="flex items-center gap-1.5 text-xs text-ink-3">
-				<Icon name="menu_book" size={16} aria-hidden="true" className="shrink-0" />
+				<Icon name="book-open-text" size={16} aria-hidden="true" className="shrink-0" />
 				<span>
 					<Trans>Not sure what to write?</Trans>{" "}
 					<a

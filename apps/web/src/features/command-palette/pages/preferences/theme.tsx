@@ -18,17 +18,17 @@ export function ThemeCommandPage() {
 	return (
 		<BaseCommandGroup page="theme" heading={<Trans>Theme</Trans>}>
 			<CommandItem value="light" data-checked={currentTheme === "light"} onSelect={() => handleThemeChange("light")}>
-				<Icon name="light_mode" />
+				<Icon name="sun" />
 				<Trans>Light theme</Trans>
 			</CommandItem>
 
 			<CommandItem value="dark" data-checked={currentTheme === "dark"} onSelect={() => handleThemeChange("dark")}>
-				<Icon name="dark_mode" />
+				<Icon name="moon" />
 				<Trans>Dark theme</Trans>
 			</CommandItem>
 
 			<CommandItem value="system" data-checked={currentTheme === "system"} onSelect={() => handleThemeChange("system")}>
-				<Icon name="contrast" />
+				<Icon name="circle-half" />
 				<Trans>Match system theme</Trans>
 			</CommandItem>
 		</BaseCommandGroup>

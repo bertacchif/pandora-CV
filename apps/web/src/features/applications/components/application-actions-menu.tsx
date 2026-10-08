@@ -52,12 +52,12 @@ export function ApplicationActionsMenu({ application, className }: ApplicationAc
 						/>
 					}
 				>
-					<Icon name="more_horiz" size={18} />
+					<Icon name="dots-three" size={18} />
 				</DropdownMenuTrigger>
 				<DropdownMenuContent align="end" className="w-48" onClick={stop}>
 					<DropdownMenuSub>
 						<DropdownMenuSubTrigger>
-							<Icon name="arrow_forward" size={18} />
+							<Icon name="arrow-right" size={18} />
 							<Trans>Move to…</Trans>
 						</DropdownMenuSubTrigger>
 						<DropdownMenuSubContent>
@@ -95,7 +95,7 @@ export function ApplicationActionsMenu({ application, className }: ApplicationAc
 					<DropdownMenuSeparator />
 
 					<DropdownMenuItem variant="destructive" onClick={onDelete}>
-						<Icon name="delete" size={18} />
+						<Icon name="trash" size={18} />
 						<Trans>Delete…</Trans>
 					</DropdownMenuItem>
 				</DropdownMenuContent>

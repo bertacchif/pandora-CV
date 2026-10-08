@@ -40,28 +40,28 @@ export const getExportFormats = (): DownloadFormat[] => [
 		id: "pdf",
 		label: "PDF",
 		extension: ".pdf",
-		icon: "picture_as_pdf",
+		icon: "file-pdf",
 		description: t`Looks exactly like the page. Use it for applications and email.`,
 	},
 	{
 		id: "docx",
 		label: t`Word`,
 		extension: ".docx",
-		icon: "description",
+		icon: "file-text",
 		description: t`For portals or recruiters who ask for Word. Layout is simplified.`,
 	},
 	{
 		id: "md",
 		label: "Markdown",
 		extension: ".md",
-		icon: "notes",
+		icon: "text-align-left",
 		description: t`Plain text with headings. Paste into application forms and notes.`,
 	},
 	{
 		id: "json",
 		label: "JSON",
 		extension: ".json",
-		icon: "data_object",
+		icon: "brackets-curly",
 		description: t`Complete data backup. Imports back into Reactive Resume or JSON Resume tools.`,
 	},
 ];
@@ -166,7 +166,7 @@ export function DownloadActions({ state, label, onDownload, onDownloadPdf }: Dow
 					role="alert"
 					className="flex flex-wrap items-start gap-2.5 rounded-[10px] bg-danger-soft px-3 py-2.5 text-[13px] leading-[19px] text-danger-text"
 				>
-					<Icon name="error" size={20} />
+					<Icon name="warning-circle" size={20} />
 					<span className="min-w-0 flex-1">
 						<Trans>The {label} file couldn't be generated. Try again, or download PDF instead.</Trans>
 					</span>
@@ -191,12 +191,12 @@ export function DownloadActions({ state, label, onDownload, onDownloadPdf }: Dow
 					</>
 				) : state === "error" ? (
 					<>
-						<Icon name="refresh" />
+						<Icon name="arrow-clockwise" />
 						<Trans>Try again</Trans>
 					</>
 				) : (
 					<>
-						<Icon name="download" />
+						<Icon name="download-simple" />
 						<Trans>Download {label}</Trans>
 					</>
 				)}
@@ -204,7 +204,7 @@ export function DownloadActions({ state, label, onDownload, onDownloadPdf }: Dow
 
 			{state === "done" && (
 				<p className={cn(ENTER_CLASS, "flex items-start gap-2 text-[13px] leading-[19px] text-ink-2")}>
-					<Icon name="volunteer_activism" size={18} className="shrink-0 text-ink-3" />
+					<Icon name="hand-heart" size={18} className="shrink-0 text-ink-3" />
 					<span>
 						<Trans>Good luck out there. Reactive Resume stays free because people chip in.</Trans>{" "}
 						<a
@@ -311,7 +311,7 @@ export function DownloadTab({ onReview }: DownloadTabProps) {
 
 			{issues > 0 && (
 				<div className="flex gap-2.5 rounded-[10px] bg-warn-soft px-3 py-2.5 text-[13px] leading-[19px] text-warn-text">
-					<Icon name="fact_check" size={20} />
+					<Icon name="list-checks" size={20} />
 					<span>
 						<Plural
 							value={issues}

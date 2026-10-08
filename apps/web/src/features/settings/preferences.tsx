@@ -3,22 +3,31 @@ import type { IconName } from "@reactive-resume/ui/components/icon";
 import { t } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 import { Trans } from "@lingui/react/macro";
-import { useId } from "react";
+import { useQueryClient } from "@tanstack/react-query";
+import { useRouteContext, useRouter } from "@tanstack/react-router";
+import { useId, useState } from "react";
+import { Button } from "@reactive-resume/ui/components/button";
 import { Icon } from "@reactive-resume/ui/components/icon";
+import { toast } from "@reactive-resume/ui/components/toast";
 import { cn } from "@reactive-resume/utils/style";
 import { SettingsSection } from "./section";
+import { Combobox } from "@/components/ui/combobox";
 import { LocaleCombobox } from "@/features/locale/combobox";
 import { useTheme } from "@/features/theme/provider";
+import { authClient } from "@/libs/auth/client";
+import { getReadableErrorMessage } from "@/libs/error-message";
+import { sessionQueryKey } from "@/libs/root-context";
 import { themeMap } from "@/libs/theme";
 
 const THEMES: Array<{ value: Theme; icon: IconName }> = [
-	{ value: "light", icon: "light_mode" },
-	{ value: "dark", icon: "dark_mode" },
-	{ value: "system", icon: "contrast" },
+	{ value: "light", icon: "sun" },
+	{ value: "dark", icon: "moon" },
+	{ value: "system", icon: "circle-half" },
 ];
 
 export function PreferencesSettings() {
 	const languageId = useId();
+	const timezoneId = useId();
 
 	return (
 		<>
@@ -48,6 +57,62 @@ export function PreferencesSettings() {
 					</a>
 				</p>
 			</SettingsSection>
+
+			<SettingsSection title={<Trans>Timezone</Trans>}>
+				<TimezoneSetting id={timezoneId} />
+			</SettingsSection>
+		</>
+	);
+}
+
+const timeZones = Intl.supportedValuesOf("timeZone").map((zone) => ({ value: zone, label: zone }));
+
+/** The account's timezone, which interview times, reminders and schedules use. Saved as soon as it's chosen. */
+function TimezoneSetting({ id }: { id: string }) {
+	const router = useRouter();
+	const queryClient = useQueryClient();
+	const { session } = useRouteContext({ strict: false });
+	const saved = session?.user.timezone ?? "UTC";
+	const [value, setValue] = useState(saved);
+	const device = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+	const save = async (timezone: string) => {
+		const previous = value;
+		setValue(timezone);
+		const { error } = await authClient.updateUser({ timezone });
+		if (error) {
+			setValue(previous);
+			toast.add({ type: "error", description: getReadableErrorMessage(error, t`Couldn't save the timezone.`) });
+			return;
+		}
+		await queryClient.invalidateQueries({ queryKey: sessionQueryKey });
+		await router.invalidate();
+	};
+
+	return (
+		<>
+			<div className="grid max-w-80 gap-1.5">
+				<label htmlFor={id} className="sr-only">
+					<Trans>Timezone</Trans>
+				</label>
+				<Combobox
+					id={id}
+					showClear={false}
+					options={timeZones}
+					value={value}
+					placeholder={t`Search timezones`}
+					emptyMessage={t`No timezone matches.`}
+					onValueChange={(zone) => zone && zone !== value && void save(zone)}
+				/>
+			</div>
+			<p className="flex flex-wrap items-center gap-x-1 text-xs text-ink-3">
+				<Trans>Interview times, reminders and schedules in Career use it.</Trans>
+				{device && device !== value && (
+					<Button variant="link" className="h-auto p-0 text-xs text-ink-2 underline" onClick={() => void save(device)}>
+						<Trans>Use this device's timezone ({device})</Trans>
+					</Button>
+				)}
+			</p>
 		</>
 	);
 }

@@ -31,6 +31,24 @@ function chunk(response: ServerResponse, delta: Record<string, unknown>, finish:
 
 const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
+/** The Fit check a workspace asks for: one requirement with no evidence yet, so the spec can add some. */
+const FIT = {
+	headline: "A relevant role, with one question to resolve",
+	summary: "Each requirement from the posting, checked against your Knowledge.",
+	requirements: [
+		{
+			text: "Enterprise onboarding",
+			origin: "posting",
+			status: "missing",
+			evidence: "Your Knowledge doesn't say this yet.",
+			factIds: [],
+		},
+	],
+	checks: [],
+	ask: null,
+	factIds: [],
+};
+
 async function streamText(response: ServerResponse, words: string[], delayMs = 0) {
 	chunk(response, { role: "assistant", content: "" });
 	for (const word of words) {
@@ -126,7 +144,7 @@ function reply(request: ChatRequest, response: ServerResponse) {
 	]);
 }
 
-function handle(request: IncomingMessage, response: ServerResponse) {
+function handle(request: IncomingMessage, response: ServerResponse, requests: ChatRequest[]) {
 	let body = "";
 	request.on("data", (data) => {
 		body += data;
@@ -137,8 +155,12 @@ function handle(request: IncomingMessage, response: ServerResponse) {
 			return;
 		}
 		const parsed = JSON.parse(body || "{}") as ChatRequest;
-		// The connection test asks for a single character, without streaming.
+		requests.push(parsed);
+		// The connection test asks for a single character, without streaming; a workspace tab asks for its JSON.
 		if (!parsed.stream) {
+			const asksForFit = parsed.messages.some((message) =>
+				text(message.content).includes("Check the posting's requirements"),
+			);
 			response.writeHead(200, { "content-type": "application/json" });
 			response.end(
 				JSON.stringify({
@@ -146,7 +168,13 @@ function handle(request: IncomingMessage, response: ServerResponse) {
 					object: "chat.completion",
 					created: 0,
 					model: "stub",
-					choices: [{ index: 0, message: { role: "assistant", content: "1" }, finish_reason: "stop" }],
+					choices: [
+						{
+							index: 0,
+							message: { role: "assistant", content: asksForFit ? JSON.stringify(FIT) : "1" },
+							finish_reason: "stop",
+						},
+					],
 					usage: { prompt_tokens: 1, completion_tokens: 1, total_tokens: 2 },
 				}),
 			);
@@ -157,11 +185,14 @@ function handle(request: IncomingMessage, response: ServerResponse) {
 }
 
 export async function startAiStub(port = 0) {
-	const server = createServer(handle);
+	// Retain synthetic requests in memory so browser tests can inspect the actual provider boundary.
+	const requests: ChatRequest[] = [];
+	const server = createServer((request, response) => handle(request, response, requests));
 	await new Promise<void>((resolve) => server.listen(port, "127.0.0.1", resolve));
 	const { port: bound } = server.address() as AddressInfo;
 	return {
 		baseURL: `http://127.0.0.1:${bound}/v1`,
+		requests,
 		close: () => new Promise<void>((resolve) => server.close(() => resolve())),
 	};
 }

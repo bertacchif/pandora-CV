@@ -27,20 +27,20 @@ import { useCurrentBuilderResumeSelector, useResumeStore } from "@/features/resu
 import { getSectionTitle } from "@/libs/resume/section";
 
 const SECTION_ICONS: Record<CustomSectionType, IconName> = {
-	summary: "short_text",
-	experience: "work",
-	education: "school",
-	projects: "hub",
-	skills: "bolt",
+	summary: "text-align-left",
+	experience: "briefcase",
+	education: "graduation-cap",
+	projects: "graph",
+	skills: "lightning",
 	languages: "translate",
-	interests: "bookmark",
-	awards: "check_circle",
-	certifications: "fact_check",
-	publications: "description",
-	volunteer: "account_circle",
-	references: "call",
-	profiles: "link",
-	"cover-letter": "mail",
+	interests: "bookmark-simple",
+	awards: "check-circle",
+	certifications: "list-checks",
+	publications: "file-text",
+	volunteer: "user-circle",
+	references: "phone",
+	profiles: "link-simple-horizontal",
+	"cover-letter": "envelope-simple",
 };
 
 /** Adds a built-in section (or the summary), opens it and focuses its first field. */
@@ -99,7 +99,7 @@ export function AddSectionMenu() {
 						type="button"
 						className="mt-2 flex h-10 w-full items-center justify-center gap-1.5 rounded-lg border border-dashed border-line-2 text-sm text-ink-2 transition-colors duration-quick hover:border-accent hover:text-accent-text"
 					>
-						<Icon name="add" size={18} />
+						<Icon name="plus" size={18} />
 						<Trans>Add section</Trans>
 					</button>
 				}
@@ -119,7 +119,7 @@ export function AddSectionMenu() {
 				{unused.length > 0 ? (
 					<DropdownMenuSub>
 						<DropdownMenuSubTrigger>
-							<Icon name="add" />
+							<Icon name="plus" />
 							<Trans>Custom section</Trans>
 						</DropdownMenuSubTrigger>
 						<DropdownMenuSubContent className="w-56">
@@ -162,7 +162,7 @@ export function StartSuggestions({ onImport }: { onImport: () => void }) {
 						onClick={() => addSection(type)}
 						className="flex h-8 items-center gap-1 rounded-full border border-line-2 bg-raised px-3 text-sm hover:border-accent hover:text-accent-text"
 					>
-						<Icon name="add" size={16} />
+						<Icon name="plus" size={16} />
 						{getSectionTitle(type)}
 					</button>
 				))}

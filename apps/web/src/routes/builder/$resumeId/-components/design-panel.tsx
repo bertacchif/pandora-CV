@@ -234,7 +234,7 @@ function AdvancedGroup({ open, onOpenChange }: AdvancedGroupProps) {
 			<CollapsibleTrigger className="group/advanced flex w-full cursor-pointer items-center justify-between text-start text-[15px] font-semibold">
 				<Trans>Advanced</Trans>
 				<Icon
-					name="expand_more"
+					name="caret-down"
 					className="text-ink-2 transition-transform duration-standard ease-enter group-data-panel-open/advanced:rotate-180"
 				/>
 			</CollapsibleTrigger>
@@ -280,7 +280,7 @@ function AdvancedGroup({ open, onOpenChange }: AdvancedGroupProps) {
 					))}
 
 					<Button variant="secondary" className="w-fit" onClick={reset}>
-						<Icon name="restart_alt" size={18} />
+						<Icon name="arrow-counter-clockwise" size={18} />
 						<Trans>Reset design defaults</Trans>
 					</Button>
 				</div>

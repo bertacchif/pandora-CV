@@ -61,7 +61,7 @@ export function LetterBar({ layout, pinnable }: LetterBarProps) {
 			) : (
 				<TabsList aria-label={t`Editor mode`} className="h-9" data-mode-switch="">
 					<TabsTrigger value="write" className="px-4">
-						<Icon name="edit" size={18} />
+						<Icon name="pencil-simple" size={18} />
 						<Trans>Write</Trans>
 					</TabsTrigger>
 					<TabsTrigger value="design" className="px-4">
@@ -73,7 +73,12 @@ export function LetterBar({ layout, pinnable }: LetterBarProps) {
 
 			<div className="flex items-center justify-end gap-1">
 				{layout === "desktop" && (
-					<IconButton icon="history" label={t`History`} className="text-ink-2" onClick={() => setShareTab("history")} />
+					<IconButton
+						icon="clock-counter-clockwise"
+						label={t`History`}
+						className="text-ink-2"
+						onClick={() => setShareTab("history")}
+					/>
 				)}
 				{/* Every layout opens the assistant from the ✦: a column, a drawer, or full screen on phones. */}
 				<span className={layout === "desktop" ? "me-1.5" : undefined}>
@@ -81,11 +86,11 @@ export function LetterBar({ layout, pinnable }: LetterBarProps) {
 				</span>
 				{layout === "desktop" && wide ? (
 					<Button variant="secondary" className="gap-1.5" onClick={() => setShareTab("download")}>
-						<Icon name="ios_share" />
+						<Icon name="export" />
 						<Trans>Share</Trans>
 					</Button>
 				) : (
-					<IconButton icon="ios_share" label={t`Share`} onClick={() => setShareTab("download")} />
+					<IconButton icon="export" label={t`Share`} onClick={() => setShareTab("download")} />
 				)}
 				<DownloadButtons compact={layout === "mobile"} iconOnly={layout === "tablet"} />
 			</div>
@@ -126,7 +131,7 @@ function DownloadButtons({ compact, iconOnly }: { compact: boolean; iconOnly: bo
 	if (compact) {
 		return (
 			<IconButton
-				icon="download"
+				icon="download-simple"
 				label={t`Download PDF`}
 				shortcut="⌘P"
 				disabled={download.busy}
@@ -145,7 +150,7 @@ function DownloadButtons({ compact, iconOnly }: { compact: boolean; iconOnly: bo
 				className="gap-1.5"
 				onClick={() => void download.run()}
 			>
-				{!download.busy && <Icon name="download" />}
+				{!download.busy && <Icon name="download-simple" />}
 				{iconOnly ? null : download.busy ? <Trans>Preparing…</Trans> : <Trans>Download PDF</Trans>}
 			</Button>
 			<Button
@@ -155,7 +160,7 @@ function DownloadButtons({ compact, iconOnly }: { compact: boolean; iconOnly: bo
 				className="w-8 border-s border-s-[oklch(1_0_0/0.25)]"
 				onClick={() => setShareTab("download")}
 			>
-				<Icon name="expand_more" />
+				<Icon name="caret-down" />
 			</Button>
 		</ButtonGroup>
 	);
@@ -236,20 +241,20 @@ function LetterMenu() {
 				<DropdownMenuTrigger render={<DocumentMenuTrigger name={name} isLocked={isLocked} />} />
 				<DropdownMenuContent align="start" className="w-60">
 					<DropdownMenuItem disabled={isLocked} onClick={() => void rename()}>
-						<Icon name="edit" />
+						<Icon name="pencil-simple" />
 						<Trans>Rename…</Trans>
 					</DropdownMenuItem>
 					<DropdownMenuItem onClick={() => void duplicate()}>
-						<Icon name="content_copy" />
+						<Icon name="copy" />
 						<Trans>Duplicate</Trans>
 					</DropdownMenuItem>
 					<DropdownMenuItem onClick={() => void setLocked(!isLocked)}>
-						<Icon name={isLocked ? "lock_open" : "lock"} />
+						<Icon name={isLocked ? "lock-open" : "lock"} />
 						{isLocked ? <Trans>Unlock editing</Trans> : <Trans>Lock editing</Trans>}
 					</DropdownMenuItem>
 					<DropdownMenuSeparator />
 					<DropdownMenuItem variant="destructive" disabled={isLocked} onClick={() => void trash()}>
-						<Icon name="delete" />
+						<Icon name="trash" />
 						<Trans>Move to Trash</Trans>
 					</DropdownMenuItem>
 				</DropdownMenuContent>
@@ -276,19 +281,19 @@ function LetterSaveStatus() {
 		<span role="status" aria-live="polite" className="flex min-w-0 items-center gap-1.5 text-xs leading-4 text-ink-3">
 			{status === "saving" && (
 				<>
-					<Spinner decorative className="size-3 border-[1.5px]" />
+					<Spinner decorative className="size-3" />
 					<Trans>Saving…</Trans>
 				</>
 			)}
 			{status === "saved" && (
 				<>
-					<Icon name="cloud_done" size={16} />
+					<Icon name="cloud-check" size={16} />
 					<Trans>Saved</Trans>
 				</>
 			)}
 			{status === "error" && (
 				<span className={cn(ENTER_CLASS, "flex min-w-0 items-center gap-1.5 text-danger-text")}>
-					<Icon name="sync_problem" size={16} />
+					<Icon name="cloud-warning" size={16} />
 					<Trans>Not saved</Trans>
 					<span aria-hidden="true">·</span>
 					<button
@@ -303,7 +308,7 @@ function LetterSaveStatus() {
 			)}
 			{status === "conflict" && (
 				<span className={cn(ENTER_CLASS, "flex min-w-0 items-center gap-1.5 text-warn-text")}>
-					<Icon name="sync_problem" size={16} />
+					<Icon name="cloud-warning" size={16} />
 					<span className="truncate">
 						<Trans>Changed elsewhere</Trans>
 					</span>

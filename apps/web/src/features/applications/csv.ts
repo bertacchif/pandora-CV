@@ -198,17 +198,27 @@ export type CsvMapResult = {
 	/** The source rows left out (no company or role), to download and fix. */
 	skippedRows: string[][];
 	contactsSkipped: number;
+	invalidValues: { row: number; field: "status" | "stageEnteredAt" | "postingSource"; value: string }[];
 	headers: string[];
 	recognized: string[];
 };
 
 // Maps parsed CSV rows to application inputs using the header row. Rows missing company or role
-// are skipped (and counted). Status is coerced to a valid stage or dropped. A contact that fails
+// are skipped (and counted). Invalid stages, dates and metadata require correction before import. A contact that fails
 // validation (bad email, or contact columns with no name) is dropped on its own — the application
 // still imports, since losing the whole row would silently discard company/role/salary/tags too.
 export function mapCsvToApplications(table: string[][], mapping?: readonly (CsvField | null)[]): CsvMapResult {
 	const [headerRow, ...dataRows] = table;
-	if (!headerRow) return { rows: [], skipped: 0, skippedRows: [], contactsSkipped: 0, headers: [], recognized: [] };
+	if (!headerRow)
+		return {
+			rows: [],
+			skipped: 0,
+			skippedRows: [],
+			contactsSkipped: 0,
+			invalidValues: [],
+			headers: [],
+			recognized: [],
+		};
 
 	const headers = headerRow.map((h) => h.trim());
 	// The confirmed match, else the automatic one.
@@ -222,9 +232,11 @@ export function mapCsvToApplications(table: string[][], mapping?: readonly (CsvF
 	const rows: ParsedApplication[] = [];
 	const skippedRows: string[][] = [];
 	let contactsSkipped = 0;
+	const invalidValues: CsvMapResult["invalidValues"] = [];
 
-	for (const raw of dataRows) {
+	for (const [index, raw] of dataRows.entries()) {
 		const record: Partial<CsvApplication> = {};
+		const invalid: CsvMapResult["invalidValues"] = [];
 		fieldFor.forEach((field, i) => {
 			if (!field) return;
 			const rawValue = raw[i] ?? "";
@@ -236,15 +248,18 @@ export function mapCsvToApplications(table: string[][], mapping?: readonly (CsvF
 				const stage = value.toLowerCase();
 				const parsed = applicationStatusSchema.safeParse(stage === "rejected" ? "closed" : stage);
 				if (parsed.success) record.status = parsed.data;
+				else invalid.push({ row: index + 2, field, value });
 			} else if (field === "stageEnteredAt") {
 				const date = dateOnly(value);
 				if (date !== undefined) record.stageEnteredAt = date;
+				else invalid.push({ row: index + 2, field, value });
 			} else if (field === "postingSource") {
 				try {
 					const source = postingSourceSchema.safeParse(JSON.parse(value));
 					if (source.success) record.postingSource = source.data;
+					else invalid.push({ row: index + 2, field, value });
 				} catch {
-					/* Other fields still import when metadata is malformed. */
+					invalid.push({ row: index + 2, field, value });
 				}
 			} else if (field === "jobDescription") record.jobDescription = value.slice(0, 20_000);
 			else record[field] = value as never;
@@ -252,6 +267,10 @@ export function mapCsvToApplications(table: string[][], mapping?: readonly (CsvF
 
 		if (!record.company || !record.role) {
 			skippedRows.push(raw);
+			continue;
+		}
+		if (invalid.length > 0) {
+			invalidValues.push(...invalid);
 			continue;
 		}
 
@@ -272,7 +291,7 @@ export function mapCsvToApplications(table: string[][], mapping?: readonly (CsvF
 		rows.push(application as ParsedApplication);
 	}
 
-	return { rows, skipped: skippedRows.length, skippedRows, contactsSkipped, headers, recognized };
+	return { rows, skipped: skippedRows.length, skippedRows, contactsSkipped, invalidValues, headers, recognized };
 }
 
 export type ApplicationExportOptions = {

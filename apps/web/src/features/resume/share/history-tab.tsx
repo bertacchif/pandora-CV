@@ -162,7 +162,7 @@ export function HistoryTimeline({ source }: { source: HistorySource }) {
 			{selected && (
 				<div role="status" className="grid gap-2.5 rounded-[10px] bg-ink p-3 text-[13px] text-bg">
 					<span className="flex items-center gap-2 font-medium">
-						<Icon name="history" size={18} />
+						<Icon name="clock-counter-clockwise" size={18} />
 						<Trans>
 							Viewing {when(selected)} · {getVersionTitle(selected)} · read-only
 						</Trans>
@@ -259,7 +259,7 @@ function TimelineItem({ title, detail, selected, last, onSelect, current, named,
 				>
 					<span className="flex max-w-full items-center gap-2">
 						<span className="truncate text-[13px] font-semibold">{title}</span>
-						{named && <Icon name="bookmark" size={14} className="text-accent-text" />}
+						{named && <Icon name="bookmark-simple" size={14} className="text-accent-text" />}
 					</span>
 					<span className="text-xs text-ink-3">{detail}</span>
 				</button>
@@ -304,7 +304,7 @@ function NamedVersionMenu({ version, source }: { version: HistoryVersion; source
 			<DropdownMenuTrigger
 				render={
 					<IconButton
-						icon="more_horiz"
+						icon="dots-three"
 						label={t`Options for ${title}`}
 						size="icon-sm"
 						className="text-ink-2 opacity-0 group-hover/version:opacity-100 focus-visible:opacity-100 data-popup-open:opacity-100"
@@ -313,11 +313,11 @@ function NamedVersionMenu({ version, source }: { version: HistoryVersion; source
 			/>
 			<DropdownMenuContent align="end" className="w-44">
 				<DropdownMenuItem onClick={() => void rename()}>
-					<Icon name="edit" />
+					<Icon name="pencil-simple" />
 					<Trans>Rename…</Trans>
 				</DropdownMenuItem>
 				<DropdownMenuItem variant="destructive" onClick={() => void remove()}>
-					<Icon name="delete" />
+					<Icon name="trash" />
 					<Trans>Delete</Trans>
 				</DropdownMenuItem>
 			</DropdownMenuContent>

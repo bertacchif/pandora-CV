@@ -1,5 +1,6 @@
 import { eventIterator } from "@orpc/server";
 import z from "zod";
+import { workspaceTabSchema } from "@reactive-resume/schema/career";
 import { protectedProcedure } from "../../context";
 import { uiMessageSchema } from "../../dto/agent";
 import { aiRequestRateLimit } from "../../middleware/rate-limit";
@@ -25,6 +26,23 @@ export const messagesRouter = {
 					.object({
 						document: z.boolean().optional().describe("Share the open document (on by default)."),
 						posting: z.boolean().optional().describe("Share the job posting it's for (on by default)."),
+						application: z
+							.boolean()
+							.optional()
+							.describe("Career coach: share the application (or summaries of all of them) and the documents sent."),
+						memory: z.boolean().optional().describe("Career coach: share switched-on facts, stories and preferences."),
+						web: z
+							.boolean()
+							.optional()
+							.describe(
+								"Career coach: let the coach search public pages through the web search service (off by default).",
+							),
+						tab: workspaceTabSchema.optional().describe("Career coach: the workspace tab the user is on, as a hint."),
+						offerIds: z
+							.array(z.string().min(1))
+							.max(2)
+							.optional()
+							.describe("Career coach: saved offers to compare (Plan what to ask)."),
 						applicationId: z.string().trim().min(1).max(255).optional(),
 					})
 					.optional(),

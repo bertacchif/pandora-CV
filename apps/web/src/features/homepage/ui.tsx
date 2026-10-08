@@ -25,7 +25,7 @@ export function CtaLink({ size, className }: CtaLinkProps) {
 			)}
 		>
 			<Trans>Build your resume</Trans>
-			{size !== "header" && <Icon name="arrow_forward" size={20} />}
+			{size !== "header" && <Icon name="arrow-right" size={20} />}
 		</Link>
 	);
 }

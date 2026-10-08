@@ -29,7 +29,7 @@ function AccordionTrigger({ className, children, ...props }: AccordionPrimitive.
 			>
 				{children}
 				<Icon
-					name="expand_more"
+					name="caret-down"
 					data-slot="accordion-trigger-icon"
 					className="pointer-events-none transition-transform duration-standard ease-enter group-aria-expanded/accordion-trigger:rotate-180"
 				/>

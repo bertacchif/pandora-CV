@@ -62,3 +62,28 @@ export const AI_PROVIDER_DISPLAY_NAMES: Record<AIProvider, string> = {
 	ollama: "Ollama",
 	"openai-compatible": "The provider",
 };
+
+/**
+ * Speech models each provider offers through the AI SDK, default first: `transcription` turns a recorded answer into
+ * text, `speech` reads a question aloud. A provider without a list (or with an empty one) has none, and voice practice
+ * uses the browser's own speech instead. xAI's speech model takes no id; its one entry only names it.
+ */
+export const AI_VOICE_MODELS: Partial<
+	Record<AIProvider, { transcription: readonly string[]; speech: readonly string[] }>
+> = {
+	openai: {
+		transcription: ["gpt-4o-mini-transcribe", "gpt-4o-transcribe", "whisper-1"],
+		speech: ["gpt-4o-mini-tts", "tts-1"],
+	},
+	gemini: {
+		transcription: ["gemini-3.5-transcribe"],
+		speech: ["gemini-3.8-flash-tts", "gemini-3.8-flash-lite-tts", "gemini-2.5-flash-preview-tts"],
+	},
+	mistral: { transcription: ["voxtral-mini-latest"], speech: ["voxtral-mini-tts-latest"] },
+	xai: { transcription: ["grok-voice-transcribe-2.0"], speech: ["grok-tts"] },
+	groq: { transcription: ["whisper-large-v3-turbo", "whisper-large-v3"], speech: [] },
+	"vercel-ai-gateway": {
+		transcription: ["openai/gpt-4o-mini-transcribe", "google/gemini-3.5-transcribe", "openai/whisper-1"],
+		speech: ["openai/tts-1", "google/gemini-3.8-flash-tts"],
+	},
+};

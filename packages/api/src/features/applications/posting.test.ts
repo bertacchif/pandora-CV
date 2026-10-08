@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from "vitest";
 import { readPage, searchWeb } from "../web-access/service";
-import { fetchJobPosting, htmlToText, readJobPosting, searchJobPostings } from "./posting";
+import { fetchJobPosting, htmlToText, readJobPosting, readOpenPosting, searchJobPostings } from "./posting";
 
 vi.mock("../web-access/service", () => ({
 	readPage: vi.fn(),
@@ -19,6 +19,13 @@ describe("htmlToText", () => {
 });
 
 describe("readJobPosting", () => {
+	it("does not select an arbitrary role from a multi-job page", () => {
+		const html = `<script type="application/ld+json">${JSON.stringify([
+			{ "@type": "JobPosting", title: "Designer" },
+			{ "@type": "JobPosting", title: "Engineer" },
+		])}</script>`;
+		expect(readJobPosting(html)).toBeNull();
+	});
 	it("reads a JobPosting from the page's JSON-LD, including inside a graph", () => {
 		const html = `<script type="application/ld+json">${JSON.stringify({
 			"@graph": [
@@ -40,11 +47,67 @@ describe("readJobPosting", () => {
 			company: "Lumen Health",
 			location: "Berlin, DE",
 			description: "Design calm tools.\nFigma",
+			closesAt: "",
 		});
 	});
 });
 
+describe("readOpenPosting", () => {
+	const posting = (fields: object = {}) => ({ "@type": "JobPosting", title: "Designer", ...fields });
+	// null: not a role. A string: a role, with the company its address names when the page has no JobPosting data.
+	it.each([
+		["one posting", "https://lumen.example/careers/designer", [posting()], ""],
+		["a list of postings", "https://lumen.example/careers", [posting(), posting({ title: "Engineer" })], null],
+		["a closed posting", "https://lumen.example/careers/designer", [posting({ validThrough: "2020-01-01" })], null],
+		["a careers page", "https://lumen.example/careers", [], null],
+		["a Lever posting", "https://jobs.lever.co/lumen/0c5b9e8a-3f7e-4a43-9d36-0d4c1b1e2f3a", [], "lumen"],
+		[
+			"a LinkedIn posting",
+			"https://www.linkedin.com/jobs/view/senior-designer-at-simple-club-4264843261",
+			[],
+			"simple club",
+		],
+	])("%s: %j", async (_name, url, postings, expected) => {
+		vi.mocked(readPage).mockResolvedValue({
+			requestedUrl: url,
+			content: "Page text",
+			html: postings.map((item) => `<script type="application/ld+json">${JSON.stringify(item)}</script>`).join(""),
+			format: "text",
+			retrievedAt: "2026-09-30T12:00:00.000Z",
+			method: "builtin",
+			truncated: false,
+			completeness: "unknown",
+		});
+		expect((await readOpenPosting(url, { connection: null, userId: "user" }))?.company ?? null).toBe(expected);
+	});
+});
+
 describe("posting retrieval", () => {
+	it("rejects a board search page instead of sending its many roles for extraction", async () => {
+		vi.mocked(readPage).mockResolvedValue({
+			requestedUrl: "https://www.linkedin.com/jobs/search/",
+			content: "Many jobs",
+			format: "text",
+			retrievedAt: "2026-10-08T12:00:00Z",
+			method: "builtin",
+			truncated: false,
+			completeness: "unknown",
+		});
+		await expect(
+			fetchJobPosting("https://www.linkedin.com/jobs/search/", { userId: "user", connection: null }),
+		).rejects.toMatchObject({ reason: "not-a-page" });
+	});
+	it("omits aggregate search results while preserving individual postings", async () => {
+		vi.mocked(searchWeb).mockResolvedValue([
+			{ url: "https://www.linkedin.com/jobs/search/?keywords=designer", title: "Designer jobs" },
+			{ url: "https://jobs.lever.co/acme", title: "Acme roles" },
+			{ url: "https://board.example/designer", title: "100 Designer Jobs in Berlin" },
+			{ url: "https://www.linkedin.com/jobs/view/123456", title: "Designer at Acme" },
+		]);
+		expect(await searchJobPostings("designer", { userId: "user", connection: null })).toEqual([
+			{ url: "https://www.linkedin.com/jobs/view/123456", title: "Designer at Acme", description: "" },
+		]);
+	});
 	it.each(["broken JSON", { "@graph": { unrelated: true } }, { "@graph": "not an array" }, null])(
 		"preserves retrieved text when page metadata is malformed: %j",
 		async (metadata) => {

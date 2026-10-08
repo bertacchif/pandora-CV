@@ -215,7 +215,7 @@ function Roles({ entry, write, page }: FieldSetProps) {
 						</span>
 						<div className="flex">
 							<IconButton
-								icon="arrow_upward"
+								icon="arrow-up"
 								label={t`Move role up`}
 								size="icon-sm"
 								disabled={index === 0}
@@ -224,7 +224,7 @@ function Roles({ entry, write, page }: FieldSetProps) {
 								}
 							/>
 							<IconButton
-								icon="arrow_downward"
+								icon="arrow-down"
 								label={t`Move role down`}
 								size="icon-sm"
 								disabled={index === roles.length - 1}
@@ -233,7 +233,7 @@ function Roles({ entry, write, page }: FieldSetProps) {
 								}
 							/>
 							<IconButton
-								icon="delete"
+								icon="trash"
 								label={t`Remove role`}
 								size="icon-sm"
 								onClick={() => writeRoles(`remove-${role.id}`, (list) => list.splice(index, 1))}

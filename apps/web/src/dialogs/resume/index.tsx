@@ -85,7 +85,7 @@ export function UpdateResumeDialog({ data }: DialogProps<"resume.update">) {
 		<DialogContent>
 			<DialogHeader>
 				<DialogTitle className="flex items-center gap-x-2">
-					<Icon name="edit" size={16} />
+					<Icon name="pencil-simple" size={16} />
 					<Trans>Update Resume</Trans>
 				</DialogTitle>
 				<DialogDescription>
@@ -149,7 +149,7 @@ export function DuplicateResumeDialog({ data }: DialogProps<"resume.duplicate">)
 		<DialogContent>
 			<DialogHeader>
 				<DialogTitle className="flex items-center gap-x-2">
-					<Icon name="edit" size={16} />
+					<Icon name="pencil-simple" size={16} />
 					<Trans>Duplicate Resume</Trans>
 				</DialogTitle>
 				<DialogDescription>
@@ -207,7 +207,7 @@ const ResumeForm = withForm({
 								/>
 
 								<Button size="icon" variant="secondary" title={t`Generate a random name`} onClick={onGenerateName}>
-									<Icon name="auto_fix_high" size={16} />
+									<Icon name="magic-wand" size={16} />
 								</Button>
 							</div>
 							<FormMessage errors={field.state.meta.errors} />

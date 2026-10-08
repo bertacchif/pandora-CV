@@ -14,6 +14,7 @@ import { applyResumePatches, ResumePatchError } from "@reactive-resume/resume/pa
 import { defaultResumeData } from "@reactive-resume/schema/resume/default";
 import { generateId } from "@reactive-resume/utils/string";
 import { adoptEmbeddedLetters } from "../cover-letters/embedded";
+import { lockDocumentOwner } from "../documents/ownership";
 import { getStorageService } from "../storage/service";
 import { grantResumeAccess, hasResumeAccess } from "./access";
 import { assertCanView, isOwner, redactResumeForViewer, shouldCountForStatistics } from "./access-policy";
@@ -819,6 +820,7 @@ export const resumeService = {
 
 	delete: async (input: { id: string; userId: string }) => {
 		await db.transaction(async (tx) => {
+			await lockDocumentOwner(tx, input.userId);
 			const [resume] = await tx
 				.select({ isLocked: schema.resume.isLocked })
 				.from(schema.resume)

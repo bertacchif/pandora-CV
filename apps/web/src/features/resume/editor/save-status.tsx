@@ -16,19 +16,19 @@ export function SaveStatus() {
 		<span role="status" aria-live="polite" className="flex min-w-0 items-center gap-1.5 text-xs leading-4 text-ink-3">
 			{status === "saving" && (
 				<>
-					<Spinner decorative className="size-3 border-[1.5px]" />
+					<Spinner decorative className="size-3" />
 					<Trans>Saving…</Trans>
 				</>
 			)}
 			{(status === "saved" || status === "idle") && (
 				<>
-					<Icon name="cloud_done" size={16} />
+					<Icon name="cloud-check" size={16} />
 					<Trans>Saved</Trans>
 				</>
 			)}
 			{status === "offline" && (
 				<span className={cn(ENTER_CLASS, "flex min-w-0 items-center gap-1.5 text-warn-text")}>
-					<Icon name="cloud_off" size={16} />
+					<Icon name="cloud-slash" size={16} />
 					<span className="truncate">
 						<Trans>Offline · saved on this device</Trans>
 					</span>
@@ -36,7 +36,7 @@ export function SaveStatus() {
 			)}
 			{status === "error" && (
 				<span className={cn(ENTER_CLASS, "flex min-w-0 items-center gap-1.5 text-danger-text")}>
-					<Icon name="sync_problem" size={16} />
+					<Icon name="cloud-warning" size={16} />
 					<Trans>Not saved</Trans>
 					<span aria-hidden="true">·</span>
 					<button
@@ -60,7 +60,7 @@ export function OfflineBanner({ className }: { className?: string }) {
 
 	return (
 		<Alert variant="warn" role="status" className={cn(ENTER_CLASS, className)}>
-			<Icon name="wifi_off" size={20} />
+			<Icon name="wifi-slash" size={20} />
 			<AlertDescription>
 				<Trans>You can keep editing. Changes sync when you're back online. Download and Share need a connection.</Trans>
 			</AlertDescription>

@@ -127,7 +127,7 @@ export function ImportApplicationsSheet({ open, onOpenChange }: ImportSheetProps
 				<div className="-mt-1 flex flex-1 flex-col gap-4 overflow-y-auto px-4 pt-1 pb-4">
 					<div className="flex items-center gap-2">
 						<Button size="sm" variant="secondary" onClick={() => fileRef.current?.click()}>
-							<Icon name="upload_file" size={16} />
+							<Icon name="file-arrow-up" size={16} />
 							<Trans>Upload .csv</Trans>
 						</Button>
 						<Button size="sm" variant="ghost" onClick={() => setText(SAMPLE)}>
@@ -179,7 +179,7 @@ export function ImportApplicationsSheet({ open, onOpenChange }: ImportSheetProps
 										className="grid grid-cols-[minmax(0,1fr)_16px_minmax(0,1fr)] items-center gap-2 text-sm"
 									>
 										<span className="truncate font-mono text-xs">{header || t`(no header)`}</span>
-										<Icon name="arrow_forward" size={16} className="text-ink-3" />
+										<Icon name="arrow-right" size={16} className="text-ink-3" />
 										<NativeSelect
 											aria-label={t`Column ${header} goes to`}
 											value={mapping[index] ?? ""}
@@ -202,8 +202,24 @@ export function ImportApplicationsSheet({ open, onOpenChange }: ImportSheetProps
 							</ul>
 
 							<div className="grid gap-1 rounded-lg border border-line p-3 text-sm">
+								{result.invalidValues.length > 0 && (
+									<div role="alert" className="grid gap-1 text-warn-text">
+										<p>
+											<Trans>Fix these values in the CSV, or leave their columns out, before importing.</Trans>
+										</p>
+										<ul className="list-disc ps-4">
+											{result.invalidValues.map(({ row, field, value }) => (
+												<li key={`${row}:${field}`}>
+													<Trans>
+														Row {row}, {fieldLabel(field)}: “{value}” is invalid.
+													</Trans>
+												</li>
+											))}
+										</ul>
+									</div>
+								)}
 								<p className="flex items-center gap-1.5 font-medium">
-									<Icon name="check_circle" size={18} className="text-accent-text" />
+									<Icon name="check-circle" size={18} className="text-accent-text" />
 									<Plural
 										value={importable.length}
 										one="# application ready to import"
@@ -253,8 +269,10 @@ export function ImportApplicationsSheet({ open, onOpenChange }: ImportSheetProps
 						<Trans>Cancel</Trans>
 					</Button>
 					<Button
-						disabled={importable.length === 0 || importMutation.isPending}
-						onClick={() => importMutation.mutate({ items: importable })}
+						disabled={importable.length === 0 || (result?.invalidValues.length ?? 0) > 0 || importMutation.isPending}
+						onClick={() => {
+							if (!result?.invalidValues.length) importMutation.mutate({ items: importable });
+						}}
 					>
 						<Plural value={importable.length} one="Import # application" other="Import # applications" />
 					</Button>

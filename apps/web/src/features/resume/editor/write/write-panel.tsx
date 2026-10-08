@@ -89,7 +89,7 @@ function ImportedNote() {
 
 	return (
 		<Alert variant="success" className="items-start">
-			<Icon name="check_circle" size={20} />
+			<Icon name="check-circle" size={20} />
 			<AlertDescription className="flex items-start justify-between gap-3">
 				<span role="status">
 					<Trans>Imported from {imported}.</Trans> <Plural value={sections} one="# section" other="# sections" />,{" "}
@@ -106,7 +106,7 @@ function ImportedNote() {
 					onClick={dismiss}
 					className="-m-1.5 flex size-8 shrink-0 items-center justify-center rounded-md hover:bg-hover"
 				>
-					<Icon name="close" size={18} />
+					<Icon name="x" size={18} />
 				</button>
 			</AlertDescription>
 		</Alert>
