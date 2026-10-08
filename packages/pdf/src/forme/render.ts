@@ -105,22 +105,34 @@ function unplacedBlocks(layout: RenderWithLayoutResult["layout"]): string[] {
 const isFixed = (element: ElementInfo): boolean =>
 	element.sourceLocation?.file === FIXED_SOURCE || element.children.some(isFixed);
 
-/** List items whose marker sits on an earlier page than their first line (see `LIST_ROLE`). */
-function listMarkersLeftBehind(layout: RenderWithLayoutResult["layout"]): number[] {
+/** List items needing a page break to keep their marker and full row height (see `LIST_ROLE`). */
+function listItemsNeedingBreak(layout: RenderWithLayoutResult["layout"]): number[] {
 	const markerPage = new Map<number, number>();
 	const contentPage = new Map<number, number>();
+	const itemPage = new Map<number, number>();
 	layout.pages.forEach((page, pageIndex) => {
 		const visit = (element: ElementInfo) => {
 			const source = element.sourceLocation;
 			const pages =
-				source?.column === LIST_ROLE.marker ? markerPage : source?.column === LIST_ROLE.content ? contentPage : null;
+				source?.column === LIST_ROLE.marker
+					? markerPage
+					: source?.column === LIST_ROLE.content
+						? contentPage
+						: source?.column === LIST_ROLE.item
+							? itemPage
+							: null;
 			// Forme leaves some fragments of a splitting box at y ±Number.MAX_VALUE; they aren't on this page.
 			if (source && pages && !pages.has(source.line) && !offPage(element.y)) pages.set(source.line, pageIndex);
 			element.children.forEach(visit);
 		};
 		page.elements.forEach(visit);
 	});
-	return [...markerPage].flatMap(([line, page]) => ((contentPage.get(line) ?? page) > page ? [line - 1] : []));
+	return [...markerPage].flatMap(([line, page]) => {
+		const content = contentPage.get(line) ?? page;
+		// Forme can move both companions to a new page but drop their row, reserving only the marker's line height.
+		const detached = page > 0 && content === page && itemPage.get(line) !== page;
+		return content > page || detached ? [line - 1] : [];
+	});
 }
 
 /**
@@ -224,14 +236,14 @@ export async function renderResumeElement(
 		return { result, warnings: converted.warnings };
 	};
 
-	// A marker left on the page its first line leaves: that item starts the next page instead. Breaks move what
-	// follows, so a few passes settle it; an item that already starts a page is never broken again.
+	// Explicit breaks keep markers with their first line and restore rows lost when an item moves to a new page.
+	// Breaks move what follows, so a few passes settle it; each item is repaired at most once.
 	const layOut = async (keepNestedRowsWhole: boolean) => {
 		for (let pass = 0; ; pass++) {
 			const laidOut = await layOutOnce(keepNestedRowsWhole);
-			const leftBehind = listMarkersLeftBehind(laidOut.result.layout).filter((item) => !breakBeforeListItems.has(item));
-			if (leftBehind.length === 0 || pass === 3) return laidOut;
-			for (const item of leftBehind) breakBeforeListItems.add(item);
+			const needsBreak = listItemsNeedingBreak(laidOut.result.layout).filter((item) => !breakBeforeListItems.has(item));
+			if (needsBreak.length === 0 || pass === 3) return laidOut;
+			for (const item of needsBreak) breakBeforeListItems.add(item);
 		}
 	};
 
