@@ -69,7 +69,7 @@ export const useLanding = create<LandingState>()(() => ({
 const clamp01 = (value: number) => Math.min(1, Math.max(0, value));
 
 /** Where Prepare moves on to its next tab: Fit, Prepare, Practise, the interview itself and Debrief. */
-export const PREPARE_STEPS = [0.19, 0.36, 0.53, 0.7, 0.84];
+const PREPARE_STEPS = [0.19, 0.36, 0.53, 0.7, 0.84];
 
 const smoothstep = (value: number) => value * value * (3 - 2 * value);
 
@@ -77,7 +77,7 @@ const smoothstep = (value: number) => value * value * (3 - 2 * value);
  * How dark Share's sky is, from 0 to 1: night falls over the scene's first fifth and lifts into dawn over its last
  * stretch, both eased, so neither end snaps. The engine writes it as --nt on Share and on the page, for the header.
  */
-export function shareNight(progress: number) {
+function shareNight(progress: number) {
 	return smoothstep(clamp01((progress - 0.02) / 0.22)) * (1 - smoothstep(clamp01((progress - 0.72) / 0.28)));
 }
 
@@ -86,7 +86,7 @@ export function shareNight(progress: number) {
  * there, then moves on to 19:00 for the debrief once the pause is over.
  */
 export const INTERVIEW_AT = 17 * 60 + 30;
-export function prepareMinutes(progress: number) {
+function prepareMinutes(progress: number) {
 	return 9 * 60 + 510 * clamp01((progress - 0.16) / 0.54) + 90 * clamp01((progress - 0.84) / 0.1);
 }
 
