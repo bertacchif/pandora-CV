@@ -163,6 +163,11 @@ msgstr "{0, plural, one {# selectat} other {# selectat}}"
 msgid "{0, plural, one {# story} other {# stories}}"
 msgstr "{0, plural, one {# poveste} few {# povești} other {# de povești}}"
 
+#. placeholder {0}: snippet.variants.length
+#: src/features/resume/editor/write/compose/compose-button.tsx
+msgid "{0, plural, one {# Variant} other {# Variants}}"
+msgstr ""
+
 #. placeholder {0}: remembered.ids.length
 #: src/features/career/coach-thread.tsx
 msgid "{0, plural, one {Added # fact to Knowledge.} other {Added # facts to Knowledge.}}"
@@ -2147,6 +2152,10 @@ msgstr "Cel mai bun pentru candidaturi"
 msgid "Blocker"
 msgstr "Blocaj"
 
+#: src/features/resume/editor/write/compose/compose-button.tsx
+msgid "Blocks"
+msgstr ""
+
 #: src/routes/dashboard/applications/index.tsx
 msgid "Board"
 msgstr "Tablă"
@@ -2293,6 +2302,7 @@ msgstr "Poate software-ul să vă citească CV-ul?"
 #: src/features/documents/new-document-dialog.tsx
 #: src/features/resume/builder/password-dialog.tsx
 #: src/features/resume/editor/check/job-match.tsx
+#: src/features/resume/editor/write/compose/compose-button.tsx
 #: src/features/resume/editor/write/picture-settings.tsx
 #: src/features/settings/ai/api-keys.tsx
 #: src/features/settings/ai/web-access.tsx
@@ -2588,6 +2598,10 @@ msgstr "Ștergeți secțiunea"
 msgid "Clear selection"
 msgstr "Ștergeți selecția"
 
+#: src/features/resume/editor/write/compose/compose-button.tsx
+msgid "Click a Snippet in the Source to add it here."
+msgstr ""
+
 #: src/features/resume/stylesheet/editor.tsx
 msgid "Click anything on the page to style it. The rule you're in is outlined on the page."
 msgstr "Faceți clic pe orice pe pagină pentru a-l modela. Regula în care vă aflați este subliniată pe pagină."
@@ -2603,6 +2617,7 @@ msgstr "ID client"
 #: src/features/career/workspace/coach-sheet.tsx
 #: src/features/career/workspace/prepare.tsx
 #: src/features/resume/editor/check/page-layer.tsx
+#: src/features/resume/editor/write/compose/compose-button.tsx
 #: src/routes/builder/$resumeId/-components/share-sheet.tsx
 #: src/routes/builder/letter/-components/share-sheet.tsx
 msgid "Close"
@@ -2720,6 +2735,10 @@ msgstr "Compară CV-ul tău cu anunțul de locuri de muncă"
 #: src/features/resume/share/download-tab.tsx
 msgid "Complete data backup. Imports back into Reactive Resume or JSON Resume tools."
 msgstr "Backup complet de date. Importă înapoi în instrumentele Reactive Resume sau JSON Resume."
+
+#: src/features/resume/editor/write/compose/compose-button.tsx
+msgid "Compose"
+msgstr ""
 
 #: src/features/ats-checker/messages.ts
 msgid "Compress or remove large images to keep uploads quick."
@@ -3940,6 +3959,7 @@ msgid "Disabling two-factor authentication..."
 msgstr "Se dezactivează autentificarea cu doi factori..."
 
 #: src/features/career/schedule-sheet.tsx
+#: src/features/resume/editor/write/compose/compose-button.tsx
 #: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Discard"
 msgstr "Renunță"
@@ -3947,6 +3967,10 @@ msgstr "Renunță"
 #: src/features/career/schedule-sheet.tsx
 msgid "Discard changes?"
 msgstr "Renunțați la modificări?"
+
+#: src/features/resume/editor/write/compose/compose-button.tsx
+msgid "Discard your changes?"
+msgstr ""
 
 #: src/features/settings/account/security.tsx
 msgid "Disconnect"
@@ -5869,6 +5893,10 @@ msgstr "Să păstreze accesul când nu folosești aplicația."
 #: src/features/settings/account/data.tsx
 msgid "Keep account"
 msgstr "Ține cont"
+
+#: src/features/resume/editor/write/compose/compose-button.tsx
+msgid "Keep composing"
+msgstr ""
 
 #: src/features/career/schedule-sheet.tsx
 msgid "Keep editing"
@@ -8941,6 +8969,11 @@ msgstr "Eliminați {chip}"
 msgid "Remove {value}"
 msgstr "Eliminați {value}"
 
+#. placeholder {0}: index + 1
+#: src/features/resume/editor/write/compose/compose-button.tsx
+msgid "Remove Block {0}"
+msgstr ""
+
 #: src/features/settings/ai/web-access.tsx
 msgid "Remove connection"
 msgstr "Eliminați conexiunea"
@@ -9015,6 +9048,11 @@ msgstr "Recomandați {0}"
 #: src/features/resume/editor/write/section-row.tsx
 msgid "Reorder {title}"
 msgstr "Recomandați {title}"
+
+#. placeholder {0}: index + 1
+#: src/features/resume/editor/write/compose/compose-button.tsx
+msgid "Reorder Block {0}"
+msgstr ""
 
 #. placeholder {0}: jd.stuffedTerms.join(", ")
 #: src/features/ats-checker/report/jd-coverage.tsx
@@ -9422,6 +9460,7 @@ msgstr "S-a adăugat un exemplu de CV. Ștergeți-l oricând."
 #: src/features/applications/components/detail/activity.tsx
 #: src/features/applications/components/detail/next-step-card.tsx
 #: src/features/documents/document-actions.tsx
+#: src/features/resume/editor/write/compose/compose-button.tsx
 #: src/features/resume/share/history-tab.tsx
 #: src/features/settings/account/security.tsx
 msgid "Save"
@@ -10276,6 +10315,18 @@ msgstr "Slovenă"
 msgid "Small numbers, but worth noticing."
 msgstr "Cifre mici, dar demne de remarcat."
 
+#: src/features/resume/editor/write/compose/compose-button.tsx
+msgid "Snippet {position} must be an HTML string, or an object with a single \"variants\" list."
+msgstr ""
+
+#: src/features/resume/editor/write/compose/compose-button.tsx
+msgid "Snippet {position}: \"variants\" needs at least one Variant."
+msgstr ""
+
+#: src/features/resume/editor/write/compose/compose-button.tsx
+msgid "Snippet {position}: every Variant must be an HTML string."
+msgstr ""
+
 #: src/features/homepage/remember.tsx
 msgid "So I talked to 14 customers, found the three places people dropped off, and we prototyped a shorter setup."
 msgstr "Așa că am vorbit cu 14 clienți, am găsit cele trei puncte în care oamenii renunțau și am prototipat o configurare mai scurtă."
@@ -10368,6 +10419,7 @@ msgstr "Sortează după dată"
 #: src/features/applications/components/application-form-sheet.tsx
 #: src/features/applications/components/import-applications-sheet.tsx
 #: src/features/career/knowledge/facts.tsx
+#: src/features/resume/editor/write/compose/compose-button.tsx
 #: src/routes/dashboard/settings/route.tsx
 msgid "Source"
 msgstr "Sursă"
@@ -11046,6 +11098,10 @@ msgstr "Asistentul nu este configurat pe acest server. Cine îl rulează trebuie
 msgid "The assistant uses your own key. Nothing is sent anywhere until you connect one."
 msgstr "Asistentul folosește propria ta cheie. Nimic nu este trimis nicăieri până când nu conectați unul."
 
+#: src/features/resume/editor/write/compose/compose-button.tsx
+msgid "The Blocks you arranged won't be saved."
+msgstr ""
+
 #: src/features/settings/ai/web-access.tsx
 msgid "The built-in reader remains active."
 msgstr "Cititorul încorporat rămâne activ."
@@ -11267,6 +11323,19 @@ msgstr "Cota de servicii este epuizată."
 #: src/features/settings/ai/web-access.tsx
 msgid "The service rejected the credentials."
 msgstr "Serviciul a respins acreditările."
+
+#: src/features/resume/editor/write/compose/compose-button.tsx
+msgid "The Source is empty."
+msgstr ""
+
+#. placeholder {0}: error.message
+#: src/features/resume/editor/write/compose/compose-button.tsx
+msgid "The Source isn't valid YAML: {0}"
+msgstr ""
+
+#: src/features/resume/editor/write/compose/compose-button.tsx
+msgid "The Source must be a list of Snippets."
+msgstr ""
 
 #: src/features/settings/ai/providers.tsx
 msgid "The test didn't run."

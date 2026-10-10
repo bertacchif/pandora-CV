@@ -163,6 +163,11 @@ msgstr "{0, plural, one {# தேர்ந்தெடுக்கப்பட�
 msgid "{0, plural, one {# story} other {# stories}}"
 msgstr "{0, plural, one {# கதை} other {# கதைகள்}}"
 
+#. placeholder {0}: snippet.variants.length
+#: src/features/resume/editor/write/compose/compose-button.tsx
+msgid "{0, plural, one {# Variant} other {# Variants}}"
+msgstr ""
+
 #. placeholder {0}: remembered.ids.length
 #: src/features/career/coach-thread.tsx
 msgid "{0, plural, one {Added # fact to Knowledge.} other {Added # facts to Knowledge.}}"
@@ -2147,6 +2152,10 @@ msgstr "விண்ணப்பிக்க சிறந்தது"
 msgid "Blocker"
 msgstr "தடை"
 
+#: src/features/resume/editor/write/compose/compose-button.tsx
+msgid "Blocks"
+msgstr ""
+
 #: src/routes/dashboard/applications/index.tsx
 msgid "Board"
 msgstr "போர்டு"
@@ -2293,6 +2302,7 @@ msgstr "மென்பொருள் உங்கள் விண்ணப்�
 #: src/features/documents/new-document-dialog.tsx
 #: src/features/resume/builder/password-dialog.tsx
 #: src/features/resume/editor/check/job-match.tsx
+#: src/features/resume/editor/write/compose/compose-button.tsx
 #: src/features/resume/editor/write/picture-settings.tsx
 #: src/features/settings/ai/api-keys.tsx
 #: src/features/settings/ai/web-access.tsx
@@ -2588,6 +2598,10 @@ msgstr "பகுதியை அழி"
 msgid "Clear selection"
 msgstr "தெளிவான தேர்வு"
 
+#: src/features/resume/editor/write/compose/compose-button.tsx
+msgid "Click a Snippet in the Source to add it here."
+msgstr ""
+
 #: src/features/resume/stylesheet/editor.tsx
 msgid "Click anything on the page to style it. The rule you're in is outlined on the page."
 msgstr "ஸ்டைல் ​​செய்ய பக்கத்தில் உள்ள எதையும் கிளிக் செய்யவும். நீங்கள் இருக்கும் விதி பக்கத்தில் கோடிட்டுக் காட்டப்பட்டுள்ளது."
@@ -2603,6 +2617,7 @@ msgstr "வாடிக்கையாளர் ஐடி"
 #: src/features/career/workspace/coach-sheet.tsx
 #: src/features/career/workspace/prepare.tsx
 #: src/features/resume/editor/check/page-layer.tsx
+#: src/features/resume/editor/write/compose/compose-button.tsx
 #: src/routes/builder/$resumeId/-components/share-sheet.tsx
 #: src/routes/builder/letter/-components/share-sheet.tsx
 msgid "Close"
@@ -2720,6 +2735,10 @@ msgstr "உங்கள் விண்ணப்பத்தை வேலை இ
 #: src/features/resume/share/download-tab.tsx
 msgid "Complete data backup. Imports back into Reactive Resume or JSON Resume tools."
 msgstr "முழுமையான தரவு காப்புப்பிரதி. Reactive Resume அல்லது JSON Resume கருவிகளில் மீண்டும் இறக்குமதி செய்கிறது."
+
+#: src/features/resume/editor/write/compose/compose-button.tsx
+msgid "Compose"
+msgstr ""
 
 #: src/features/ats-checker/messages.ts
 msgid "Compress or remove large images to keep uploads quick."
@@ -3940,6 +3959,7 @@ msgid "Disabling two-factor authentication..."
 msgstr "இரண்டு நிலை அங்கீகாரத்தை முடக்கிக் கொண்டிருக்கிறது..."
 
 #: src/features/career/schedule-sheet.tsx
+#: src/features/resume/editor/write/compose/compose-button.tsx
 #: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Discard"
 msgstr "நிராகரி"
@@ -3947,6 +3967,10 @@ msgstr "நிராகரி"
 #: src/features/career/schedule-sheet.tsx
 msgid "Discard changes?"
 msgstr "மாற்றங்களை நிராகரிக்கவா?"
+
+#: src/features/resume/editor/write/compose/compose-button.tsx
+msgid "Discard your changes?"
+msgstr ""
 
 #: src/features/settings/account/security.tsx
 msgid "Disconnect"
@@ -5869,6 +5893,10 @@ msgstr "நீங்கள் பயன்பாட்டைப் பயன்�
 #: src/features/settings/account/data.tsx
 msgid "Keep account"
 msgstr "கணக்கு வைத்துக் கொள்ளுங்கள்"
+
+#: src/features/resume/editor/write/compose/compose-button.tsx
+msgid "Keep composing"
+msgstr ""
 
 #: src/features/career/schedule-sheet.tsx
 msgid "Keep editing"
@@ -8941,6 +8969,11 @@ msgstr "நீக்கவும் {chip}"
 msgid "Remove {value}"
 msgstr "{value} ஐ அகற்று"
 
+#. placeholder {0}: index + 1
+#: src/features/resume/editor/write/compose/compose-button.tsx
+msgid "Remove Block {0}"
+msgstr ""
+
 #: src/features/settings/ai/web-access.tsx
 msgid "Remove connection"
 msgstr "இணைப்பை அகற்று"
@@ -9015,6 +9048,11 @@ msgstr "{0} மறுவரிசைப்படுத்தவும்"
 #: src/features/resume/editor/write/section-row.tsx
 msgid "Reorder {title}"
 msgstr "{title} மறுவரிசைப்படுத்தவும்"
+
+#. placeholder {0}: index + 1
+#: src/features/resume/editor/write/compose/compose-button.tsx
+msgid "Reorder Block {0}"
+msgstr ""
 
 #. placeholder {0}: jd.stuffedTerms.join(", ")
 #: src/features/ats-checker/report/jd-coverage.tsx
@@ -9422,6 +9460,7 @@ msgstr "மாதிரி ரெஸ்யூம் சேர்க்கப்�
 #: src/features/applications/components/detail/activity.tsx
 #: src/features/applications/components/detail/next-step-card.tsx
 #: src/features/documents/document-actions.tsx
+#: src/features/resume/editor/write/compose/compose-button.tsx
 #: src/features/resume/share/history-tab.tsx
 #: src/features/settings/account/security.tsx
 msgid "Save"
@@ -10276,6 +10315,18 @@ msgstr "ஸ்லோவேனியன்"
 msgid "Small numbers, but worth noticing."
 msgstr "சிறிய எண்கள், ஆனால் கவனிக்க வேண்டியவை."
 
+#: src/features/resume/editor/write/compose/compose-button.tsx
+msgid "Snippet {position} must be an HTML string, or an object with a single \"variants\" list."
+msgstr ""
+
+#: src/features/resume/editor/write/compose/compose-button.tsx
+msgid "Snippet {position}: \"variants\" needs at least one Variant."
+msgstr ""
+
+#: src/features/resume/editor/write/compose/compose-button.tsx
+msgid "Snippet {position}: every Variant must be an HTML string."
+msgstr ""
+
 #: src/features/homepage/remember.tsx
 msgid "So I talked to 14 customers, found the three places people dropped off, and we prototyped a shorter setup."
 msgstr "அதனால் 14 வாடிக்கையாளர்களிடம் பேசினேன், மக்கள் விலகிய மூன்று இடங்களைக் கண்டறிந்தேன், நாங்கள் சுருக்கமான அமைவுக்கு முன்மாதிரி உருவாக்கினோம்."
@@ -10368,6 +10419,7 @@ msgstr "தேதியின்படி வரிசைப்படுத்�
 #: src/features/applications/components/application-form-sheet.tsx
 #: src/features/applications/components/import-applications-sheet.tsx
 #: src/features/career/knowledge/facts.tsx
+#: src/features/resume/editor/write/compose/compose-button.tsx
 #: src/routes/dashboard/settings/route.tsx
 msgid "Source"
 msgstr "ஆதாரம்"
@@ -11046,6 +11098,10 @@ msgstr "இந்தச் சேவையகத்தில் உதவிய�
 msgid "The assistant uses your own key. Nothing is sent anywhere until you connect one."
 msgstr "உதவியாளர் உங்கள் சொந்த விசையைப் பயன்படுத்துகிறார். நீங்கள் ஒன்றை இணைக்கும் வரை எதுவும் எங்கும் அனுப்பப்படாது."
 
+#: src/features/resume/editor/write/compose/compose-button.tsx
+msgid "The Blocks you arranged won't be saved."
+msgstr ""
+
 #: src/features/settings/ai/web-access.tsx
 msgid "The built-in reader remains active."
 msgstr "உள்ளமைக்கப்பட்ட ரீடர் செயலில் உள்ளது."
@@ -11267,6 +11323,19 @@ msgstr "சேவை ஒதுக்கீடு தீர்ந்துவி�
 #: src/features/settings/ai/web-access.tsx
 msgid "The service rejected the credentials."
 msgstr "சேவை நற்சான்றிதழ்களை நிராகரித்தது."
+
+#: src/features/resume/editor/write/compose/compose-button.tsx
+msgid "The Source is empty."
+msgstr ""
+
+#. placeholder {0}: error.message
+#: src/features/resume/editor/write/compose/compose-button.tsx
+msgid "The Source isn't valid YAML: {0}"
+msgstr ""
+
+#: src/features/resume/editor/write/compose/compose-button.tsx
+msgid "The Source must be a list of Snippets."
+msgstr ""
 
 #: src/features/settings/ai/providers.tsx
 msgid "The test didn't run."

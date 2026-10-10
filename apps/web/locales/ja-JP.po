@@ -163,6 +163,11 @@ msgstr "{0, plural, one {# が選択されました} other {# が選択されま
 msgid "{0, plural, one {# story} other {# stories}}"
 msgstr "{0, plural, other {#件のストーリー}}"
 
+#. placeholder {0}: snippet.variants.length
+#: src/features/resume/editor/write/compose/compose-button.tsx
+msgid "{0, plural, one {# Variant} other {# Variants}}"
+msgstr ""
+
 #. placeholder {0}: remembered.ids.length
 #: src/features/career/coach-thread.tsx
 msgid "{0, plural, one {Added # fact to Knowledge.} other {Added # facts to Knowledge.}}"
@@ -2147,6 +2152,10 @@ msgstr "応募に最適"
 msgid "Blocker"
 msgstr "ブロッカー"
 
+#: src/features/resume/editor/write/compose/compose-button.tsx
+msgid "Blocks"
+msgstr ""
+
 #: src/routes/dashboard/applications/index.tsx
 msgid "Board"
 msgstr "ボード"
@@ -2293,6 +2302,7 @@ msgstr "ソフトウェアはあなたの履歴書を読み取ることができ
 #: src/features/documents/new-document-dialog.tsx
 #: src/features/resume/builder/password-dialog.tsx
 #: src/features/resume/editor/check/job-match.tsx
+#: src/features/resume/editor/write/compose/compose-button.tsx
 #: src/features/resume/editor/write/picture-settings.tsx
 #: src/features/settings/ai/api-keys.tsx
 #: src/features/settings/ai/web-access.tsx
@@ -2588,6 +2598,10 @@ msgstr "クリアセクション"
 msgid "Clear selection"
 msgstr "選択をクリア"
 
+#: src/features/resume/editor/write/compose/compose-button.tsx
+msgid "Click a Snippet in the Source to add it here."
+msgstr ""
+
 #: src/features/resume/stylesheet/editor.tsx
 msgid "Click anything on the page to style it. The rule you're in is outlined on the page."
 msgstr "ページ上の何かをクリックしてスタイルを設定します。適用されているルールの概要がページに記載されています。"
@@ -2603,6 +2617,7 @@ msgstr "クライアント ID"
 #: src/features/career/workspace/coach-sheet.tsx
 #: src/features/career/workspace/prepare.tsx
 #: src/features/resume/editor/check/page-layer.tsx
+#: src/features/resume/editor/write/compose/compose-button.tsx
 #: src/routes/builder/$resumeId/-components/share-sheet.tsx
 #: src/routes/builder/letter/-components/share-sheet.tsx
 msgid "Close"
@@ -2720,6 +2735,10 @@ msgstr "あなたの履歴書と求人情報を比較します"
 #: src/features/resume/share/download-tab.tsx
 msgid "Complete data backup. Imports back into Reactive Resume or JSON Resume tools."
 msgstr "データのバックアップを完了します。 Reactive Resume または JSON Resume ツールにインポートし直します。"
+
+#: src/features/resume/editor/write/compose/compose-button.tsx
+msgid "Compose"
+msgstr ""
 
 #: src/features/ats-checker/messages.ts
 msgid "Compress or remove large images to keep uploads quick."
@@ -3940,6 +3959,7 @@ msgid "Disabling two-factor authentication..."
 msgstr "二要素認証を無効にしています..."
 
 #: src/features/career/schedule-sheet.tsx
+#: src/features/resume/editor/write/compose/compose-button.tsx
 #: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Discard"
 msgstr "破棄"
@@ -3947,6 +3967,10 @@ msgstr "破棄"
 #: src/features/career/schedule-sheet.tsx
 msgid "Discard changes?"
 msgstr "変更を破棄しますか？"
+
+#: src/features/resume/editor/write/compose/compose-button.tsx
+msgid "Discard your changes?"
+msgstr ""
 
 #: src/features/settings/account/security.tsx
 msgid "Disconnect"
@@ -5869,6 +5893,10 @@ msgstr "アプリケーションを使用していないときもアクセスを
 #: src/features/settings/account/data.tsx
 msgid "Keep account"
 msgstr "アカウントを維持する"
+
+#: src/features/resume/editor/write/compose/compose-button.tsx
+msgid "Keep composing"
+msgstr ""
 
 #: src/features/career/schedule-sheet.tsx
 msgid "Keep editing"
@@ -8941,6 +8969,11 @@ msgstr "{chip} を削除する"
 msgid "Remove {value}"
 msgstr "{value}を削除"
 
+#. placeholder {0}: index + 1
+#: src/features/resume/editor/write/compose/compose-button.tsx
+msgid "Remove Block {0}"
+msgstr ""
+
 #: src/features/settings/ai/web-access.tsx
 msgid "Remove connection"
 msgstr "接続を削除する"
@@ -9015,6 +9048,11 @@ msgstr "{0} を再注文"
 #: src/features/resume/editor/write/section-row.tsx
 msgid "Reorder {title}"
 msgstr "{title} を再注文"
+
+#. placeholder {0}: index + 1
+#: src/features/resume/editor/write/compose/compose-button.tsx
+msgid "Reorder Block {0}"
+msgstr ""
 
 #. placeholder {0}: jd.stuffedTerms.join(", ")
 #: src/features/ats-checker/report/jd-coverage.tsx
@@ -9422,6 +9460,7 @@ msgstr "履歴書のサンプルを追加しました。いつでも削除して
 #: src/features/applications/components/detail/activity.tsx
 #: src/features/applications/components/detail/next-step-card.tsx
 #: src/features/documents/document-actions.tsx
+#: src/features/resume/editor/write/compose/compose-button.tsx
 #: src/features/resume/share/history-tab.tsx
 #: src/features/settings/account/security.tsx
 msgid "Save"
@@ -10276,6 +10315,18 @@ msgstr "スロベニア語"
 msgid "Small numbers, but worth noticing."
 msgstr "数字は小さいですが、注目に値します。"
 
+#: src/features/resume/editor/write/compose/compose-button.tsx
+msgid "Snippet {position} must be an HTML string, or an object with a single \"variants\" list."
+msgstr ""
+
+#: src/features/resume/editor/write/compose/compose-button.tsx
+msgid "Snippet {position}: \"variants\" needs at least one Variant."
+msgstr ""
+
+#: src/features/resume/editor/write/compose/compose-button.tsx
+msgid "Snippet {position}: every Variant must be an HTML string."
+msgstr ""
+
 #: src/features/homepage/remember.tsx
 msgid "So I talked to 14 customers, found the three places people dropped off, and we prototyped a shorter setup."
 msgstr "そこで14人の顧客と話し、離脱が起きている3つの箇所を見つけ、短いセットアップを試作しました。"
@@ -10368,6 +10419,7 @@ msgstr "日付で並べ替え"
 #: src/features/applications/components/application-form-sheet.tsx
 #: src/features/applications/components/import-applications-sheet.tsx
 #: src/features/career/knowledge/facts.tsx
+#: src/features/resume/editor/write/compose/compose-button.tsx
 #: src/routes/dashboard/settings/route.tsx
 msgid "Source"
 msgstr "ソース"
@@ -11046,6 +11098,10 @@ msgstr "このサーバーにはアシスタントが設定されていません
 msgid "The assistant uses your own key. Nothing is sent anywhere until you connect one."
 msgstr "アシスタントは独自のキーを使用します。接続するまでは何も送信されません。"
 
+#: src/features/resume/editor/write/compose/compose-button.tsx
+msgid "The Blocks you arranged won't be saved."
+msgstr ""
+
 #: src/features/settings/ai/web-access.tsx
 msgid "The built-in reader remains active."
 msgstr "内蔵リーダーはアクティブなままです。"
@@ -11267,6 +11323,19 @@ msgstr "サービス割り当てが枯渇しています。"
 #: src/features/settings/ai/web-access.tsx
 msgid "The service rejected the credentials."
 msgstr "サービスは資格情報を拒否しました。"
+
+#: src/features/resume/editor/write/compose/compose-button.tsx
+msgid "The Source is empty."
+msgstr ""
+
+#. placeholder {0}: error.message
+#: src/features/resume/editor/write/compose/compose-button.tsx
+msgid "The Source isn't valid YAML: {0}"
+msgstr ""
+
+#: src/features/resume/editor/write/compose/compose-button.tsx
+msgid "The Source must be a list of Snippets."
+msgstr ""
 
 #: src/features/settings/ai/providers.tsx
 msgid "The test didn't run."

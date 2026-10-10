@@ -1,3 +1,4 @@
+import type { ComposeButtonProps } from "./compose/compose-button";
 import type { EntryWriter } from "./fields";
 import type { Entry } from "./model";
 import type { CustomSectionType, RoleItem, Website } from "@reactive-resume/schema/resume/data";
@@ -12,6 +13,8 @@ import { IconButton } from "@reactive-resume/ui/components/icon-button";
 import { PopoverTrigger } from "@reactive-resume/ui/components/popover";
 import { Slider } from "@reactive-resume/ui/components/slider";
 import { generateId } from "@reactive-resume/utils/string";
+import { cn } from "@reactive-resume/utils/style";
+import { ComposeButton } from "./compose/compose-button";
 import { DatesField } from "./dates-field";
 import { MoreOptions, TextField, WebsiteField } from "./fields";
 import { RichTextEditor } from "./rich-text-editor";
@@ -90,24 +93,44 @@ function Link({ entry, write }: FieldSetProps) {
 	);
 }
 
+type DescriptionLabelProps = {
+	label: ReactNode;
+	/** Shows a Compose button that builds the description from the Source. */
+	compose?: ComposeButtonProps | undefined;
+};
+
+/** The label row above a description, with the Compose button when the field opts in. */
+function DescriptionLabel({ label, compose }: DescriptionLabelProps) {
+	return (
+		<div className={cn("flex items-center justify-between gap-2", compose && "min-h-7")}>
+			<span className="text-[13px] leading-4 font-medium">{label}</span>
+			{compose && <ComposeButton {...compose} />}
+		</div>
+	);
+}
+
 function Description({
 	entry,
 	write,
 	field = "description",
 	label,
-}: FieldSetProps & { field?: string; label?: string }) {
+	compose = false,
+}: FieldSetProps & { field?: string; label?: string; compose?: boolean }) {
+	const value = str(valuesOf(entry)[field]);
+	const name = label ?? t`Description`;
+	// Saving a composition is its own undo step, apart from typing in the field.
+	const save = (html: string, key: string) =>
+		write(key, (target) => {
+			target[field] = html;
+		});
+
 	return (
 		<div className="col-span-full grid gap-1.5">
-			<span className="text-[13px] leading-4 font-medium">{label ?? t`Description`}</span>
-			<RichTextEditor
-				label={label ?? t`Description`}
-				value={str(valuesOf(entry)[field])}
-				onChange={(html) =>
-					write(field, (target) => {
-						target[field] = html;
-					})
-				}
+			<DescriptionLabel
+				label={name}
+				compose={compose ? { label: name, value, onSave: (html) => save(html, `${field}:compose`) } : undefined}
 			/>
+			<RichTextEditor label={name} value={value} onChange={(html) => save(html, field)} />
 		</div>
 	);
 }
@@ -198,12 +221,19 @@ function IconAndColor({ entry, write }: FieldSetProps) {
 	);
 }
 
-function Roles({ entry, write, page }: FieldSetProps) {
+function Roles({ entry, write, page, compose = false }: FieldSetProps & { compose?: boolean }) {
 	const roles = valuesOf(entry).roles ?? [];
 
 	const writeRoles = (key: string, mutate: (roles: RoleItem[]) => void) =>
 		write(`roles:${key}`, (target) => {
 			mutate(target.roles as RoleItem[]);
+		});
+
+	// Finds the role by id, so a save lands on the right role even if roles moved while composing.
+	const writeDescription = (roleId: string, html: string, key: "description" | "compose") =>
+		writeRoles(`${roleId}:${key}`, (list) => {
+			const target = list.find((role) => role.id === roleId);
+			if (target) target.description = html;
 		});
 
 	return (
@@ -265,18 +295,22 @@ function Roles({ entry, write, page }: FieldSetProps) {
 						}
 					/>
 					<div className="col-span-full grid gap-1.5">
-						<span className="text-[13px] leading-4 font-medium">
-							<Trans>Description</Trans>
-						</span>
+						<DescriptionLabel
+							label={<Trans>Description</Trans>}
+							compose={
+								compose
+									? {
+											label: t`Description of role ${index + 1}`,
+											value: role.description,
+											onSave: (html) => writeDescription(role.id, html, "compose"),
+										}
+									: undefined
+							}
+						/>
 						<RichTextEditor
 							label={t`Description of role ${index + 1}`}
 							value={role.description}
-							onChange={(html) =>
-								writeRoles(`${role.id}:description`, (list) => {
-									const target = list[index];
-									if (target) target.description = html;
-								})
-							}
+							onChange={(html) => writeDescription(role.id, html, "description")}
 						/>
 					</div>
 				</div>
@@ -319,8 +353,8 @@ export function EntryFields({
 					<Text {...props} field="location" label={<Trans>Location</Trans>} wide />
 					<Dates {...props} />
 					<Link {...props} />
-					<Description {...props} />
-					<Roles {...props} />
+					<Description {...props} compose />
+					<Roles {...props} compose />
 				</>
 			);
 		case "education":
@@ -342,7 +376,7 @@ export function EntryFields({
 					<Text {...props} field="name" label={<Trans>Name</Trans>} wide autoFocus={autoFocus} />
 					<Dates {...props} />
 					<Link {...props} />
-					<Description {...props} />
+					<Description {...props} compose />
 				</>
 			);
 		case "skills":
@@ -414,7 +448,7 @@ export function EntryFields({
 					<Text {...props} field="location" label={<Trans>Location</Trans>} />
 					<Dates {...props} />
 					<Link {...props} />
-					<Description {...props} />
+					<Description {...props} compose />
 				</>
 			);
 		case "references":

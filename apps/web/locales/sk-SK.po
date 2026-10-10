@@ -163,6 +163,11 @@ msgstr "{0, plural, one {Zvolené #} other {Zvolené #}}"
 msgid "{0, plural, one {# story} other {# stories}}"
 msgstr "{0, plural, one {# príbeh} few {# príbehy} many {# príbehu} other {# príbehov}}"
 
+#. placeholder {0}: snippet.variants.length
+#: src/features/resume/editor/write/compose/compose-button.tsx
+msgid "{0, plural, one {# Variant} other {# Variants}}"
+msgstr ""
+
 #. placeholder {0}: remembered.ids.length
 #: src/features/career/coach-thread.tsx
 msgid "{0, plural, one {Added # fact to Knowledge.} other {Added # facts to Knowledge.}}"
@@ -2147,6 +2152,10 @@ msgstr "Najlepšie na žiadosti o prácu"
 msgid "Blocker"
 msgstr "Blokujúci problém"
 
+#: src/features/resume/editor/write/compose/compose-button.tsx
+msgid "Blocks"
+msgstr ""
+
 #: src/routes/dashboard/applications/index.tsx
 msgid "Board"
 msgstr "Nástenka"
@@ -2293,6 +2302,7 @@ msgstr "Dokáže softvér prečítať váš životopis?"
 #: src/features/documents/new-document-dialog.tsx
 #: src/features/resume/builder/password-dialog.tsx
 #: src/features/resume/editor/check/job-match.tsx
+#: src/features/resume/editor/write/compose/compose-button.tsx
 #: src/features/resume/editor/write/picture-settings.tsx
 #: src/features/settings/ai/api-keys.tsx
 #: src/features/settings/ai/web-access.tsx
@@ -2588,6 +2598,10 @@ msgstr "Vymazať sekciu"
 msgid "Clear selection"
 msgstr "Vymazať výber"
 
+#: src/features/resume/editor/write/compose/compose-button.tsx
+msgid "Click a Snippet in the Source to add it here."
+msgstr ""
+
 #: src/features/resume/stylesheet/editor.tsx
 msgid "Click anything on the page to style it. The rule you're in is outlined on the page."
 msgstr "Kliknutím na čokoľvek na stránke upravíte štýl. Pravidlo, v ktorom sa nachádzate, je uvedené na stránke."
@@ -2603,6 +2617,7 @@ msgstr "ID klienta"
 #: src/features/career/workspace/coach-sheet.tsx
 #: src/features/career/workspace/prepare.tsx
 #: src/features/resume/editor/check/page-layer.tsx
+#: src/features/resume/editor/write/compose/compose-button.tsx
 #: src/routes/builder/$resumeId/-components/share-sheet.tsx
 #: src/routes/builder/letter/-components/share-sheet.tsx
 msgid "Close"
@@ -2720,6 +2735,10 @@ msgstr "Porovná váš životopis s pracovnou ponukou"
 #: src/features/resume/share/download-tab.tsx
 msgid "Complete data backup. Imports back into Reactive Resume or JSON Resume tools."
 msgstr "Kompletná záloha dát. Importuje späť do nástrojov Reactive Resume alebo JSON Resume."
+
+#: src/features/resume/editor/write/compose/compose-button.tsx
+msgid "Compose"
+msgstr ""
 
 #: src/features/ats-checker/messages.ts
 msgid "Compress or remove large images to keep uploads quick."
@@ -3940,6 +3959,7 @@ msgid "Disabling two-factor authentication..."
 msgstr "Vypínam dvojfaktorové overenie..."
 
 #: src/features/career/schedule-sheet.tsx
+#: src/features/resume/editor/write/compose/compose-button.tsx
 #: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Discard"
 msgstr "Zahodiť"
@@ -3947,6 +3967,10 @@ msgstr "Zahodiť"
 #: src/features/career/schedule-sheet.tsx
 msgid "Discard changes?"
 msgstr "Zahodiť zmeny?"
+
+#: src/features/resume/editor/write/compose/compose-button.tsx
+msgid "Discard your changes?"
+msgstr ""
 
 #: src/features/settings/account/security.tsx
 msgid "Disconnect"
@@ -5869,6 +5893,10 @@ msgstr "Ponechajte si prístup, keď aplikáciu nepoužívate."
 #: src/features/settings/account/data.tsx
 msgid "Keep account"
 msgstr "Ponechať účet"
+
+#: src/features/resume/editor/write/compose/compose-button.tsx
+msgid "Keep composing"
+msgstr ""
 
 #: src/features/career/schedule-sheet.tsx
 msgid "Keep editing"
@@ -8941,6 +8969,11 @@ msgstr "Odstránenie stránky {chip}"
 msgid "Remove {value}"
 msgstr "Odstráňte {value}"
 
+#. placeholder {0}: index + 1
+#: src/features/resume/editor/write/compose/compose-button.tsx
+msgid "Remove Block {0}"
+msgstr ""
+
 #: src/features/settings/ai/web-access.tsx
 msgid "Remove connection"
 msgstr "Odstráňte pripojenie"
@@ -9015,6 +9048,11 @@ msgstr "Preobjednať {0}"
 #: src/features/resume/editor/write/section-row.tsx
 msgid "Reorder {title}"
 msgstr "Preobjednať {title}"
+
+#. placeholder {0}: index + 1
+#: src/features/resume/editor/write/compose/compose-button.tsx
+msgid "Reorder Block {0}"
+msgstr ""
 
 #. placeholder {0}: jd.stuffedTerms.join(", ")
 #: src/features/ats-checker/report/jd-coverage.tsx
@@ -9422,6 +9460,7 @@ msgstr "Bol pridaný vzorový životopis. Zmazať ho môžete kedykoľvek."
 #: src/features/applications/components/detail/activity.tsx
 #: src/features/applications/components/detail/next-step-card.tsx
 #: src/features/documents/document-actions.tsx
+#: src/features/resume/editor/write/compose/compose-button.tsx
 #: src/features/resume/share/history-tab.tsx
 #: src/features/settings/account/security.tsx
 msgid "Save"
@@ -10276,6 +10315,18 @@ msgstr "Slovinčina"
 msgid "Small numbers, but worth noticing."
 msgstr "Malé čísla, ale stojí za povšimnutie."
 
+#: src/features/resume/editor/write/compose/compose-button.tsx
+msgid "Snippet {position} must be an HTML string, or an object with a single \"variants\" list."
+msgstr ""
+
+#: src/features/resume/editor/write/compose/compose-button.tsx
+msgid "Snippet {position}: \"variants\" needs at least one Variant."
+msgstr ""
+
+#: src/features/resume/editor/write/compose/compose-button.tsx
+msgid "Snippet {position}: every Variant must be an HTML string."
+msgstr ""
+
 #: src/features/homepage/remember.tsx
 msgid "So I talked to 14 customers, found the three places people dropped off, and we prototyped a shorter setup."
 msgstr "Tak som sa porozprával so 14 zákazníkmi, našiel tri miesta, kde ľudia odchádzali, a spolu sme navrhli prototyp kratšieho nastavenia."
@@ -10368,6 +10419,7 @@ msgstr "Zoradiť podľa dátumu"
 #: src/features/applications/components/application-form-sheet.tsx
 #: src/features/applications/components/import-applications-sheet.tsx
 #: src/features/career/knowledge/facts.tsx
+#: src/features/resume/editor/write/compose/compose-button.tsx
 #: src/routes/dashboard/settings/route.tsx
 msgid "Source"
 msgstr "Zdroj"
@@ -11046,6 +11098,10 @@ msgstr "Asistent nie je nastavený na tomto serveri. Kto to prevádzkuje, potreb
 msgid "The assistant uses your own key. Nothing is sent anywhere until you connect one."
 msgstr "Asistent používa váš vlastný kľúč. Nič sa nikam neposiela, kým jeden nepripojíte."
 
+#: src/features/resume/editor/write/compose/compose-button.tsx
+msgid "The Blocks you arranged won't be saved."
+msgstr ""
+
 #: src/features/settings/ai/web-access.tsx
 msgid "The built-in reader remains active."
 msgstr "Zabudovaná čítačka zostáva aktívna."
@@ -11267,6 +11323,19 @@ msgstr "Kvóta služby je vyčerpaná."
 #: src/features/settings/ai/web-access.tsx
 msgid "The service rejected the credentials."
 msgstr "Služba odmietla poverenia."
+
+#: src/features/resume/editor/write/compose/compose-button.tsx
+msgid "The Source is empty."
+msgstr ""
+
+#. placeholder {0}: error.message
+#: src/features/resume/editor/write/compose/compose-button.tsx
+msgid "The Source isn't valid YAML: {0}"
+msgstr ""
+
+#: src/features/resume/editor/write/compose/compose-button.tsx
+msgid "The Source must be a list of Snippets."
+msgstr ""
 
 #: src/features/settings/ai/providers.tsx
 msgid "The test didn't run."

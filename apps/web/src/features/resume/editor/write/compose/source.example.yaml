@@ -1,0 +1,19 @@
+# Example Source: fictional content only. Put your own Source in source.local.yaml next to this file;
+# it is gitignored and loads instead of this one.
+#
+# Each Snippet is one HTML block string: a heading (<h1>–<h6>), a paragraph (<p>) or a bullet (<li>).
+# Text with no block tag becomes a paragraph. A Snippet with several wordings lists them under `variants:`.
+
+- "<h3>Northwind Robotics — Platform Engineer</h3>"
+- "<p>Built the fleet telemetry platform for a team of <strong>12</strong> engineers.</p>"
+- "<li>Cut sensor upload latency by <strong>40%</strong> with batched, compressed frames.</li>"
+- "<li>Designed the <em>over-the-air</em> update service used by 3,000 test robots.</li>"
+- variants:
+    - "<li>Created the field-tech mobile app in Android <strong>Java</strong>.</li>"
+    - "<li>Created the field-tech mobile app in Android <strong>Kotlin</strong>.</li>"
+    - "<li>Created the field-tech mobile app for Android.</li>"
+- "<h4>Leadership</h4>"
+- variants:
+    - "<li>Mentored four junior engineers through their first on-call rotation.</li>"
+    - '<li>Ran the weekly architecture review and kept its <a href="https://example.com/adr">decision log</a>.</li>'
+- "Quick note without a tag: becomes a paragraph."

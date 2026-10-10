@@ -163,6 +163,11 @@ msgstr "{0, plural, one {# selezionato} other {# selezionato}}"
 msgid "{0, plural, one {# story} other {# stories}}"
 msgstr "{0, plural, one {# storia} other {# storie}}"
 
+#. placeholder {0}: snippet.variants.length
+#: src/features/resume/editor/write/compose/compose-button.tsx
+msgid "{0, plural, one {# Variant} other {# Variants}}"
+msgstr ""
+
 #. placeholder {0}: remembered.ids.length
 #: src/features/career/coach-thread.tsx
 msgid "{0, plural, one {Added # fact to Knowledge.} other {Added # facts to Knowledge.}}"
@@ -2147,6 +2152,10 @@ msgstr "Ideale per candidarsi"
 msgid "Blocker"
 msgstr "Bloccante"
 
+#: src/features/resume/editor/write/compose/compose-button.tsx
+msgid "Blocks"
+msgstr ""
+
 #: src/routes/dashboard/applications/index.tsx
 msgid "Board"
 msgstr "Bacheca"
@@ -2293,6 +2302,7 @@ msgstr "Il software può leggere il tuo curriculum?"
 #: src/features/documents/new-document-dialog.tsx
 #: src/features/resume/builder/password-dialog.tsx
 #: src/features/resume/editor/check/job-match.tsx
+#: src/features/resume/editor/write/compose/compose-button.tsx
 #: src/features/resume/editor/write/picture-settings.tsx
 #: src/features/settings/ai/api-keys.tsx
 #: src/features/settings/ai/web-access.tsx
@@ -2588,6 +2598,10 @@ msgstr "Cancella sezione"
 msgid "Clear selection"
 msgstr "Cancella selezione"
 
+#: src/features/resume/editor/write/compose/compose-button.tsx
+msgid "Click a Snippet in the Source to add it here."
+msgstr ""
+
 #: src/features/resume/stylesheet/editor.tsx
 msgid "Click anything on the page to style it. The rule you're in is outlined on the page."
 msgstr "Fai clic su qualsiasi punto della pagina per dargli uno stile. La regola in cui ti trovi è delineata nella pagina."
@@ -2603,6 +2617,7 @@ msgstr "ID client"
 #: src/features/career/workspace/coach-sheet.tsx
 #: src/features/career/workspace/prepare.tsx
 #: src/features/resume/editor/check/page-layer.tsx
+#: src/features/resume/editor/write/compose/compose-button.tsx
 #: src/routes/builder/$resumeId/-components/share-sheet.tsx
 #: src/routes/builder/letter/-components/share-sheet.tsx
 msgid "Close"
@@ -2720,6 +2735,10 @@ msgstr "Confronta il tuo curriculum con l'offerta di lavoro"
 #: src/features/resume/share/download-tab.tsx
 msgid "Complete data backup. Imports back into Reactive Resume or JSON Resume tools."
 msgstr "Backup completo dei dati. Importa nuovamente negli strumenti Reactive Resume o JSON Resume."
+
+#: src/features/resume/editor/write/compose/compose-button.tsx
+msgid "Compose"
+msgstr ""
 
 #: src/features/ats-checker/messages.ts
 msgid "Compress or remove large images to keep uploads quick."
@@ -3940,6 +3959,7 @@ msgid "Disabling two-factor authentication..."
 msgstr "Disattivazione dell'autenticazione a due fattori..."
 
 #: src/features/career/schedule-sheet.tsx
+#: src/features/resume/editor/write/compose/compose-button.tsx
 #: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Discard"
 msgstr "Scarta"
@@ -3947,6 +3967,10 @@ msgstr "Scarta"
 #: src/features/career/schedule-sheet.tsx
 msgid "Discard changes?"
 msgstr "Scartare le modifiche?"
+
+#: src/features/resume/editor/write/compose/compose-button.tsx
+msgid "Discard your changes?"
+msgstr ""
 
 #: src/features/settings/account/security.tsx
 msgid "Disconnect"
@@ -5869,6 +5893,10 @@ msgstr "Mantenere l'accesso quando non stai usando l'applicazione."
 #: src/features/settings/account/data.tsx
 msgid "Keep account"
 msgstr "Tieni il conto"
+
+#: src/features/resume/editor/write/compose/compose-button.tsx
+msgid "Keep composing"
+msgstr ""
 
 #: src/features/career/schedule-sheet.tsx
 msgid "Keep editing"
@@ -8941,6 +8969,11 @@ msgstr "Rimuovere {chip}"
 msgid "Remove {value}"
 msgstr "Rimuovere {value}"
 
+#. placeholder {0}: index + 1
+#: src/features/resume/editor/write/compose/compose-button.tsx
+msgid "Remove Block {0}"
+msgstr ""
+
 #: src/features/settings/ai/web-access.tsx
 msgid "Remove connection"
 msgstr "Rimuovere la connessione"
@@ -9015,6 +9048,11 @@ msgstr "Riordina {0}"
 #: src/features/resume/editor/write/section-row.tsx
 msgid "Reorder {title}"
 msgstr "Riordina {title}"
+
+#. placeholder {0}: index + 1
+#: src/features/resume/editor/write/compose/compose-button.tsx
+msgid "Reorder Block {0}"
+msgstr ""
 
 #. placeholder {0}: jd.stuffedTerms.join(", ")
 #: src/features/ats-checker/report/jd-coverage.tsx
@@ -9422,6 +9460,7 @@ msgstr "Aggiunto curriculum di esempio. Eliminalo in qualsiasi momento."
 #: src/features/applications/components/detail/activity.tsx
 #: src/features/applications/components/detail/next-step-card.tsx
 #: src/features/documents/document-actions.tsx
+#: src/features/resume/editor/write/compose/compose-button.tsx
 #: src/features/resume/share/history-tab.tsx
 #: src/features/settings/account/security.tsx
 msgid "Save"
@@ -10276,6 +10315,18 @@ msgstr "Sloveno"
 msgid "Small numbers, but worth noticing."
 msgstr "Numeri piccoli, ma degni di nota."
 
+#: src/features/resume/editor/write/compose/compose-button.tsx
+msgid "Snippet {position} must be an HTML string, or an object with a single \"variants\" list."
+msgstr ""
+
+#: src/features/resume/editor/write/compose/compose-button.tsx
+msgid "Snippet {position}: \"variants\" needs at least one Variant."
+msgstr ""
+
+#: src/features/resume/editor/write/compose/compose-button.tsx
+msgid "Snippet {position}: every Variant must be an HTML string."
+msgstr ""
+
 #: src/features/homepage/remember.tsx
 msgid "So I talked to 14 customers, found the three places people dropped off, and we prototyped a shorter setup."
 msgstr "Così ho parlato con 14 clienti, ho trovato i tre punti in cui le persone abbandonavano e abbiamo prototipato una configurazione più breve."
@@ -10368,6 +10419,7 @@ msgstr "Ordina per data"
 #: src/features/applications/components/application-form-sheet.tsx
 #: src/features/applications/components/import-applications-sheet.tsx
 #: src/features/career/knowledge/facts.tsx
+#: src/features/resume/editor/write/compose/compose-button.tsx
 #: src/routes/dashboard/settings/route.tsx
 msgid "Source"
 msgstr "Fonte"
@@ -11046,6 +11098,10 @@ msgstr "L'assistente non è configurato su questo server. Chiunque lo esegua dev
 msgid "The assistant uses your own key. Nothing is sent anywhere until you connect one."
 msgstr "L'assistente utilizza la tua chiave. Niente viene inviato da nessuna parte finché non ne colleghi uno."
 
+#: src/features/resume/editor/write/compose/compose-button.tsx
+msgid "The Blocks you arranged won't be saved."
+msgstr ""
+
 #: src/features/settings/ai/web-access.tsx
 msgid "The built-in reader remains active."
 msgstr "Il lettore integrato rimane attivo."
@@ -11267,6 +11323,19 @@ msgstr "La quota del servizio è esaurita."
 #: src/features/settings/ai/web-access.tsx
 msgid "The service rejected the credentials."
 msgstr "Il servizio ha rifiutato le credenziali."
+
+#: src/features/resume/editor/write/compose/compose-button.tsx
+msgid "The Source is empty."
+msgstr ""
+
+#. placeholder {0}: error.message
+#: src/features/resume/editor/write/compose/compose-button.tsx
+msgid "The Source isn't valid YAML: {0}"
+msgstr ""
+
+#: src/features/resume/editor/write/compose/compose-button.tsx
+msgid "The Source must be a list of Snippets."
+msgstr ""
 
 #: src/features/settings/ai/providers.tsx
 msgid "The test didn't run."

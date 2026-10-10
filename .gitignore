@@ -69,3 +69,6 @@ temp
 
 # Git Hooks
 .vite-hooks
+
+# Compose: the author's real Source (personal CV content, never committed)
+source.local.yaml

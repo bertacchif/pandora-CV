@@ -251,6 +251,9 @@ catalogs:
     wrangler:
       specifier: ^4.148.0
       version: 4.148.0
+    yaml:
+      specifier: ^2.9.1
+      version: 2.9.1
     zod:
       specifier: ^4.6.5
       version: 4.6.5
@@ -778,6 +781,9 @@ importers:
       motion:
         specifier: ^14.0.0
         version: 14.0.0(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
+      node-html-parser:
+        specifier: ^9.0.4
+        version: 9.0.4
       pdfjs-dist:
         specifier: 6.4.299
         version: 6.4.299
@@ -811,6 +817,9 @@ importers:
       usehooks-ts:
         specifier: ^3.1.1
         version: 3.1.1(react@19.3.0)
+      yaml:
+        specifier: 'catalog:'
+        version: 2.9.1
       zod:
         specifier: 'catalog:'
         version: 4.6.5
